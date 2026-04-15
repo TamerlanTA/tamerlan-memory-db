@@ -1,0 +1,245 @@
+{
+  "main": {
+    "id": "67655e7863c0d5c5",
+    "type": "split",
+    "children": [
+      {
+        "id": "086578ff18bfb808",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "46c2c85c80748a8c",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "Новая вкладка"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "1480099ddbbd3f7b",
+    "type": "split",
+    "children": [
+      {
+        "id": "1665e9d0a8bcfb83",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a7e3df8f6bd81cee",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Файловый менеджер"
+            }
+          },
+          {
+            "id": "716bb07290c6a3eb",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Поиск"
+            }
+          },
+          {
+            "id": "774e420573945909",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Закладки"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 304.5
+  },
+  "right": {
+    "id": "b9794a6278a01a92",
+    "type": "split",
+    "children": [
+      {
+        "id": "dc1d8896483defd0",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6bf4aade4de740ef",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "projects/AI-Powered Woven Label Generator/griffes_vivienne_full_project_memory_2026-04-14.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Обратные ссылки для griffes_vivienne_full_project_memory_2026-04-14"
+            }
+          },
+          {
+            "id": "f90535f135b0af92",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "projects/AI-Powered Woven Label Generator/griffes_vivienne_full_project_memory_2026-04-14.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Исходящие ссылки из griffes_vivienne_full_project_memory_2026-04-14"
+            }
+          },
+          {
+            "id": "f08539afca66742b",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Теги"
+            }
+          },
+          {
+            "id": "ce2379044eddbaa6",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "Все свойства"
+            }
+          },
+          {
+            "id": "2b45166d5bf41007",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "projects/AI-Powered Woven Label Generator/griffes_vivienne_full_project_memory_2026-04-14.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Структура griffes_vivienne_full_project_memory_2026-04-14"
+            }
+          },
+          {
+            "id": "1b9e2da69c06b22b",
+            "type": "leaf",
+            "state": {
+              "type": "agent-chat-view",
+              "state": {},
+              "icon": "brain-cog",
+              "title": "Chat with agent"
+            }
+          },
+          {
+            "id": "4bbea2973636dfa8",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
+          }
+        ],
+        "currentTab": 5
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Меню быстрого перехода": false,
+      "graph:Граф": false,
+      "canvas:Создать новый холст": false,
+      "daily-notes:Сегодняшняя заметка": false,
+      "templates:Вставить шаблон": false,
+      "command-palette:Открыть палитру команд": false,
+      "bases:Создать новую базу": false,
+      "ai-agent:Chat with Agent": false,
+      "obsidian-git:Open Git source control": false
+    }
+  },
+  "active": "a7e3df8f6bd81cee",
+  "lastOpenFiles": [
+    "projects/Tamer Memory DB/prompts.md",
+    "projects/Tamer Memory DB/next-steps.md",
+    "projects/Tamer Memory DB/risks.md",
+    "projects/Tamer Memory DB/decisions.md",
+    "projects/Tamer Memory DB/current-state.md",
+    "projects/Tamer Memory DB/overview.md",
+    "projects/Tamer Memory DB/sessions",
+    "projects/Tamer Memory DB",
+    "projects/LLM_brain/sessions/2026-04-15-cloned-repo.md",
+    "projects/LLM_brain/prompts.md",
+    "projects/LLM_brain/risks.md",
+    "projects/AI-Powered Woven Label Generator/current-state.md",
+    "projects/LLM_brain/overview.md",
+    "projects/LLM_brain/next-steps.md",
+    "projects/LLM_brain/decisions.md",
+    "projects/LLM_brain/current-state.md",
+    "projects/LLM_brain/sessions",
+    "projects/LLM_brain",
+    "Без названия.canvas",
+    "projects/AI-Powered Woven Label Generator/overview.md",
+    "ОС LLM.md",
+    "projects/AI-Powered Woven Label Generator/sessions/2026-04-15-preorder-confirmation-email-delivery.md",
+    "projects/AI-Powered Woven Label Generator/decisions.md",
+    "sessions/session-2026-04-15-griffes-vivienne-conversion-polish.md",
+    "projects/AI-Powered Woven Label Generator/sessions/2026-04-15-header-refinement-and-eod-sync.md",
+    "Chats/chat-2026-04-14T18-32-50-179Z.md",
+    "agent-memory.md",
+    "inbox.md",
+    "projects/AI-Powered Woven Label Generator/risks.md",
+    "projects/AI-Powered Woven Label Generator/prompts.md",
+    "projects/AI-Powered Woven Label Generator/next-steps.md",
+    "projects/AI-Powered Woven Label Generator/sessions",
+    "Без названия",
+    "prompts",
+    "decisions",
+    "patterns",
+    "knowledge"
+  ]
+}
