@@ -30,6 +30,11 @@
 
 ## Next steps for memory improvement
 - Create `knowledge/n8n-audit-patterns.md` after next n8n work session
-- Create `patterns/batch-prompt-template.md` to formalize the batch prompt structure
-- Create `prompts/handoff-summary-template.md` for agent handoffs
-- Fix `~/.codex/AGENTS.md` vault path
+- ~~Create `patterns/batch-prompt-template.md`~~ — **DONE**
+- ~~Create `prompts/handoff-summary-template.md`~~ — **DONE**
+- ~~Fix `~/.codex/AGENTS.md` vault path~~ — **RESOLVED** (path was already correct)
+
+## Update (second pass — same session)
+- Verified `~/.codex/AGENTS.md` — vault path was already correct; resolved stale risk in Griffes Vivienne `risks.md`
+- Created `patterns/batch-prompt-template.md` — full batch prompt structure with example and principles
+- Created `prompts/handoff-summary-template.md` — agent handoff format with example and new-session prompt

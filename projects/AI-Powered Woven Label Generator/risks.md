@@ -35,6 +35,5 @@ Last updated: 2026-04-15
 
 ## Process risk
 
-- Root `~/.codex/AGENTS.md` points to `/Users/tamerlan/Documents/TamerMemoryDB`, but the actual working vault is nested at `/Users/tamerlan/Documents/TamerMemoryDB/Tamerlan Memory DB`
-- That path mismatch can cause future agents to miss project memory unless they inspect the real vault location
+- ~~`~/.codex/AGENTS.md` vault path mismatch~~ — **RESOLVED** (2026-04-15): path already points to the correct nested path `/Users/tamerlan/Documents/TamerMemoryDB/Tamerlan Memory DB`
 - The Railway database URL with password was exposed in chat during migration application; safest follow-up is to rotate the credential
