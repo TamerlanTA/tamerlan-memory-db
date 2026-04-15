@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "knowledge/vault/tamer-memory-db-vault.md",
+                "file": "agent-memory.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "tamer-memory-db-vault"
+              "title": "agent-memory"
             }
           }
         ]
@@ -208,12 +208,15 @@
   },
   "active": "46c2c85c80748a8c",
   "lastOpenFiles": [
-    "knowledge/codex-local-plugins.md",
+    "knowledge/firecrawl.md",
+    "projects/AI-Powered Woven Label Generator/overview.md",
+    "projects/AI-Powered Woven Label Generator/sessions/2026-04-15-header-refinement-and-eod-sync.md",
     "decisions/tamer-memory-db-vault-repo-decisions.md",
+    "knowledge/codex-local-plugins.md",
+    "knowledge/vault/tamer-memory-db-vault.md",
     "templates/session-template.md",
     "templates/project-template.md",
     "sessions/2026-04-15-vault-structure-audit-and-reclassification.md",
-    "knowledge/vault/tamer-memory-db-vault.md",
     "sessions/2026-04-15-private-github-repo-created.md",
     "sessions/2026-04-15-vault-repo-prep.md",
     "projects/AI-Powered Woven Label Generator/sessions/2026-04-15-conversion-polish.md",
@@ -234,11 +237,8 @@
     "projects/Tamer Memory DB/next-steps.md",
     "projects/Tamer Memory DB/risks.md",
     "projects/Tamer Memory DB/decisions.md",
-    "projects/Tamer Memory DB/current-state.md",
-    "projects/Tamer Memory DB/overview.md",
     "projects/Tamer Memory DB/sessions",
     "projects/Tamer Memory DB",
-    "projects/LLM_brain/sessions/2026-04-15-cloned-repo.md",
     "projects/LLM_brain/sessions",
     "projects/LLM_brain",
     "Без названия.canvas",
