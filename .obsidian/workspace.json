@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "patterns/git/verify-git-base-before-implementation.md",
+                "file": "projects/David/risks.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "verify-git-base-before-implementation"
+              "title": "risks"
             }
           },
           {
@@ -41,16 +41,16 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "my-tasks.md",
+                "file": "agent-memory.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "my-tasks"
+              "title": "agent-memory"
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -235,20 +235,21 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "3424c21852863999",
+  "active": "667a04593afde647",
   "lastOpenFiles": [
-    "projects/David/risks.md",
-    "projects/David/prompts.md",
-    "projects/David/overview.md",
+    "my-tasks.md",
     "projects/David/next-steps.md",
+    "projects/David/risks.md",
     "projects/David/decisions.md",
+    "projects/David/overview.md",
     "projects/David/current-state.md",
+    "projects/AI-Powered Woven Label Generator/current-state.md",
+    "patterns/git/verify-git-base-before-implementation.md",
+    "projects/David/prompts.md",
     "projects/David/sessions/2026-04-15-initial-project-analysis.md",
     "projects/David/sessions",
-    "my-tasks.md",
     "projects/David",
     "Obsidian - память агента.md",
-    "patterns/git/verify-git-base-before-implementation.md",
     "routing-rules.md",
     "inbox.md",
     "patterns/batch-prompt-template.md",
@@ -264,7 +265,6 @@
     "projects/AI-Powered Woven Label Generator/overview.md",
     "projects/AI-Powered Woven Label Generator/sessions/2026-04-15-header-refinement-and-eod-sync.md",
     "decisions/tamer-memory-db-vault-repo-decisions.md",
-    "knowledge/vault/tamer-memory-db-vault.md",
     "patterns/auth",
     "patterns/git",
     "knowledge/vault",
