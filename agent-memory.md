@@ -6,6 +6,7 @@
 - [[ОС LLM]]
 - [[Obsidian - память агента]]
 - [[projects/AI-Powered Woven Label Generator/overview|AI-Powered Woven Label Generator]]
+- [[projects/David/overview|Make-David — WhatsApp automation (Колумбия)]]
 - [[knowledge/firecrawl|Firecrawl — веб-скрапинг для LLM]]
 
 ---
