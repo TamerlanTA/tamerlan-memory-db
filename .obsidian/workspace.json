@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "projects/David/next-steps.md",
+                "file": "projects/AI-Powered Woven Label Generator/risks.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "next-steps"
+              "title": "risks"
             }
           },
           {
@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "agent-memory.md",
+                "file": "projects/David/next-steps.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "agent-memory"
+              "title": "next-steps"
             }
           }
         ],
@@ -237,11 +237,15 @@
   },
   "active": "667a04593afde647",
   "lastOpenFiles": [
-    "my-tasks.md",
-    "projects/David/next-steps.md",
     "projects/David/risks.md",
-    "projects/David/decisions.md",
     "projects/David/overview.md",
+    "agent-memory.md",
+    "projects/AI-Powered Woven Label Generator/risks.md",
+    "projects/David/next-steps.md",
+    "projects/David/sessions/2026-04-15-new-task-sellerchat-scraper-integration.md",
+    "current-focus.md",
+    "my-tasks.md",
+    "projects/David/decisions.md",
     "projects/David/current-state.md",
     "projects/AI-Powered Woven Label Generator/current-state.md",
     "patterns/git/verify-git-base-before-implementation.md",
@@ -253,18 +257,14 @@
     "routing-rules.md",
     "inbox.md",
     "patterns/batch-prompt-template.md",
-    "agent-memory.md",
     "prompts/handoff-summary-template.md",
     "patterns/auth/use-useauth-logout.md",
     "knowledge/codex-local-plugins.md",
-    "current-focus.md",
     "templates/session-template.md",
     "templates/project-template.md",
     "sessions/2026-04-15-memory-vault-curation.md",
     "knowledge/firecrawl.md",
     "projects/AI-Powered Woven Label Generator/overview.md",
-    "projects/AI-Powered Woven Label Generator/sessions/2026-04-15-header-refinement-and-eod-sync.md",
-    "decisions/tamer-memory-db-vault-repo-decisions.md",
     "patterns/auth",
     "patterns/git",
     "knowledge/vault",
