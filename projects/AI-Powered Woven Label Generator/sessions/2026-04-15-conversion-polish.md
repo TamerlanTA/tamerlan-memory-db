@@ -1,13 +1,13 @@
 # Session 2026-04-15 — Griffes Vivienne Conversion Polish
 
 ## Related
-- [[projects/AI-Powered Woven Label Generator/overview|overview]]
-- [[projects/AI-Powered Woven Label Generator/current-state|current-state]]
-- [[projects/AI-Powered Woven Label Generator/decisions|decisions]]
-- [[projects/AI-Powered Woven Label Generator/risks|risks]]
-- [[projects/AI-Powered Woven Label Generator/next-steps|next-steps]]
-- [[projects/AI-Powered Woven Label Generator/feedback_git_base_check|git base check feedback]]
-- [[projects/AI-Powered Woven Label Generator/feedback_logout_pattern|logout feedback]]
+- [[overview]]
+- [[current-state]]
+- [[decisions]]
+- [[risks]]
+- [[next-steps]]
+- [[patterns/git/verify-git-base-before-implementation|git base check feedback]]
+- [[patterns/auth/use-useauth-logout|logout feedback]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-15-header-refinement-and-eod-sync|Header refinement and EOD sync]]
 
 ## Project

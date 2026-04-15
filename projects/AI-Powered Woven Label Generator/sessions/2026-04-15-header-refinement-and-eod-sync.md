@@ -6,7 +6,7 @@
 - [[projects/AI-Powered Woven Label Generator/decisions|decisions]]
 - [[projects/AI-Powered Woven Label Generator/risks|risks]]
 - [[projects/AI-Powered Woven Label Generator/next-steps|next-steps]]
-- [[sessions/session-2026-04-15-griffes-vivienne-conversion-polish|Conversion polish session]]
+- [[sessions/2026-04-15-conversion-polish|Conversion polish session]]
 
 ## Project
 AI-Powered Woven Label Generator (Griffes Vivienne)

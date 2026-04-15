@@ -1,11 +1,9 @@
 # Session Note
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
-- [[decisions]]
+- [[knowledge/vault/tamer-memory-db-vault|Tamer Memory DB Vault]]
+- [[decisions/tamer-memory-db-vault-repo-decisions|Vault repo decisions]]
+- [[sessions/2026-04-15-vault-repo-prep|Vault repo prep]]
 
 ## Done
 - Verified GitHub CLI authentication for `TamerlanTA`.

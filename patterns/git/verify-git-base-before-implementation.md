@@ -5,10 +5,10 @@ type: feedback
 ---
 
 ## Related
-- [[overview]]
-- [[decisions]]
-- [[risks]]
-- [[sessions/session-2026-04-15-griffes-vivienne-conversion-polish|Conversion polish session]]
+- [[projects/AI-Powered Woven Label Generator/overview|AI-Powered Woven Label Generator]]
+- [[projects/AI-Powered Woven Label Generator/decisions|project decisions]]
+- [[projects/AI-Powered Woven Label Generator/risks|project risks]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-15-conversion-polish|Conversion polish session]]
 
 Before starting any implementation on this project, verify that the working branch is based on the correct latest commit — not just `origin/main`.
 

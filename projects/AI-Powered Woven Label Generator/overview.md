@@ -12,10 +12,10 @@ It merges the key product, UX, architecture, AI generation, commerce, and deploy
 - [[risks]]
 - [[next-steps]]
 - [[prompts]]
-- [[feedback_git_base_check]]
-- [[feedback_logout_pattern]]
+- [[patterns/git/verify-git-base-before-implementation|Verify git base before implementation]]
+- [[patterns/auth/use-useauth-logout|Use useAuth.logout()]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-15-header-refinement-and-eod-sync|Header refinement and EOD sync]]
-- [[sessions/session-2026-04-15-griffes-vivienne-conversion-polish|Conversion polish session]]
+- [[sessions/2026-04-15-conversion-polish|Conversion polish session]]
 ## 1) Project identity
 
 ### Project name

@@ -5,11 +5,11 @@ type: feedback
 ---
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[decisions]]
-- [[risks]]
-- [[sessions/session-2026-04-15-griffes-vivienne-conversion-polish|Conversion polish session]]
+- [[projects/AI-Powered Woven Label Generator/overview|AI-Powered Woven Label Generator]]
+- [[projects/AI-Powered Woven Label Generator/current-state|project current state]]
+- [[projects/AI-Powered Woven Label Generator/decisions|project decisions]]
+- [[projects/AI-Powered Woven Label Generator/risks|project risks]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-15-conversion-polish|Conversion polish session]]
 
 Always use `useAuth().logout()` for logout actions. Never call `trpc.auth.logout.useMutation()` directly from a component.
 

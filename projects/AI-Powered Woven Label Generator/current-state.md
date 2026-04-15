@@ -9,7 +9,7 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-15-header-refinement-and-eod-sync|Header refinement and EOD sync]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-15-preorder-confirmation-email-delivery|Pre-order confirmation email delivery]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-15-handoff-sync-preorder-email|Handoff sync after preorder email delivery]]
-- [[sessions/session-2026-04-15-griffes-vivienne-conversion-polish|Conversion polish session]]
+- [[sessions/2026-04-15-conversion-polish|Conversion polish session]]
 
 Last updated: 2026-04-15
 
