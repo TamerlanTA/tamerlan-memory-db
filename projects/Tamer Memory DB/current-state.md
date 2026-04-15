@@ -7,6 +7,6 @@
 - [[next-steps]]
 
 ## Status
-- Project memory initialized.
-- User requested publishing the vault directory as a new private GitHub repository.
-
+- The vault is tracked by a dedicated git repository inside the folder.
+- Private GitHub repository created: `https://github.com/TamerlanTA/tamerlan-memory-db`.
+- Local branch `main` is prepared for publication to `origin`.

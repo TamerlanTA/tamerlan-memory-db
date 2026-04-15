@@ -8,5 +8,4 @@
 
 ## Active
 - The vault currently sits inside a larger git repository rooted at `/Users/tamerlan`; publishing must avoid including unrelated home-directory files.
-- Private repo creation and push require valid GitHub authentication and network access.
-
+- `.obsidian/workspace.json` is user-environment-specific and may change frequently across sessions.
