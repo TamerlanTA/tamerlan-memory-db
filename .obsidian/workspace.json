@@ -208,6 +208,7 @@
   },
   "active": "46c2c85c80748a8c",
   "lastOpenFiles": [
+    "knowledge/codex-local-plugins.md",
     "decisions/tamer-memory-db-vault-repo-decisions.md",
     "templates/session-template.md",
     "templates/project-template.md",
@@ -238,7 +239,6 @@
     "projects/Tamer Memory DB/sessions",
     "projects/Tamer Memory DB",
     "projects/LLM_brain/sessions/2026-04-15-cloned-repo.md",
-    "projects/LLM_brain/prompts.md",
     "projects/LLM_brain/sessions",
     "projects/LLM_brain",
     "Без названия.canvas",
