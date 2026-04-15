@@ -208,6 +208,7 @@
   },
   "active": "46c2c85c80748a8c",
   "lastOpenFiles": [
+    "sessions/2026-04-15-memory-vault-curation.md",
     "knowledge/firecrawl.md",
     "projects/AI-Powered Woven Label Generator/overview.md",
     "projects/AI-Powered Woven Label Generator/sessions/2026-04-15-header-refinement-and-eod-sync.md",
@@ -236,7 +237,6 @@
     "projects/Tamer Memory DB/prompts.md",
     "projects/Tamer Memory DB/next-steps.md",
     "projects/Tamer Memory DB/risks.md",
-    "projects/Tamer Memory DB/decisions.md",
     "projects/Tamer Memory DB/sessions",
     "projects/Tamer Memory DB",
     "projects/LLM_brain/sessions",
