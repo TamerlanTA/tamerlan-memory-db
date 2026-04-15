@@ -7,5 +7,5 @@
 - [[decisions]]
 
 ## Immediate
-- Push `main` to `origin`.
 - Continue normal vault maintenance and periodic memory syncs.
+- Use the new private GitHub repo as the canonical remote backup for the vault.
