@@ -231,8 +231,9 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "667a04593afde647",
+  "active": "a7e3df8f6bd81cee",
   "lastOpenFiles": [
+    "projects/David",
     "my-tasks.md",
     "Obsidian - память агента.md",
     "patterns/git/verify-git-base-before-implementation.md",
@@ -261,14 +262,12 @@
     "knowledge/vault",
     "ОС LLM.md",
     "projects/AI-Powered Woven Label Generator/sessions/2026-04-15-handoff-sync-preorder-email.md",
-    "projects/AI-Powered Woven Label Generator/feedback_git_base_check.md",
     "projects/Tamer Memory DB/sessions",
     "projects/Tamer Memory DB",
     "projects/LLM_brain/sessions",
     "projects/LLM_brain",
     "Без названия.canvas",
     "projects/AI-Powered Woven Label Generator/sessions",
-    "Без названия",
     "prompts"
   ]
 }
