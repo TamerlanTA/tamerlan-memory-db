@@ -8,6 +8,7 @@
 - [[prompts]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-15-header-refinement-and-eod-sync|Header refinement and EOD sync]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-15-preorder-confirmation-email-delivery|Pre-order confirmation email delivery]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-15-handoff-sync-preorder-email|Handoff sync after preorder email delivery]]
 - [[sessions/session-2026-04-15-griffes-vivienne-conversion-polish|Conversion polish session]]
 
 Last updated: 2026-04-15
@@ -17,8 +18,10 @@ Last updated: 2026-04-15
 - Set `RESEND_API_KEY` in production
 - Set `RESEND_FROM_EMAIL` to a verified Griffes Vivienne sender
 - Optionally set `RESEND_REPLY_TO_EMAIL`
-- Apply DB migration `0012_preorder_confirmation_email.sql`
+- Redeploy the app after Resend env setup
 - Run one live or staging preorder submission and confirm the transactional email is received
+- Confirm `preorder_submissions.confirmationEmailStatus = sent` on a successful live test
+- Rotate the Railway DB credential because the full `DATABASE_URL` was exposed in chat
 - Run browser-based visual QA for:
   - desktop Home
   - desktop Prepare

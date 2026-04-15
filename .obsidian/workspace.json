@@ -11,10 +11,14 @@
             "id": "46c2c85c80748a8c",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "ОС LLM.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "Новая вкладка"
+              "title": "ОС LLM"
             }
           }
         ]
@@ -202,8 +206,14 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "a7e3df8f6bd81cee",
+  "active": "46c2c85c80748a8c",
   "lastOpenFiles": [
+    "projects/AI-Powered Woven Label Generator/sessions/2026-04-15-handoff-sync-preorder-email.md",
+    "agent-memory.md",
+    "current-focus.md",
+    "ОС LLM.md",
+    "projects/AI-Powered Woven Label Generator/feedback_git_base_check.md",
+    "projects/LLM_brain/overview.md",
     "projects/Tamer Memory DB/sessions/2026-04-15-private-github-repo-created.md",
     "projects/Tamer Memory DB/sessions/2026-04-15-vault-repo-prep.md",
     "projects/Tamer Memory DB/prompts.md",
@@ -218,7 +228,6 @@
     "projects/LLM_brain/prompts.md",
     "projects/LLM_brain/risks.md",
     "projects/AI-Powered Woven Label Generator/current-state.md",
-    "projects/LLM_brain/overview.md",
     "projects/LLM_brain/next-steps.md",
     "projects/LLM_brain/decisions.md",
     "projects/LLM_brain/current-state.md",
@@ -226,15 +235,10 @@
     "projects/LLM_brain",
     "Без названия.canvas",
     "projects/AI-Powered Woven Label Generator/overview.md",
-    "ОС LLM.md",
     "projects/AI-Powered Woven Label Generator/sessions/2026-04-15-preorder-confirmation-email-delivery.md",
     "projects/AI-Powered Woven Label Generator/decisions.md",
     "sessions/session-2026-04-15-griffes-vivienne-conversion-polish.md",
     "projects/AI-Powered Woven Label Generator/sessions/2026-04-15-header-refinement-and-eod-sync.md",
-    "Chats/chat-2026-04-14T18-32-50-179Z.md",
-    "agent-memory.md",
-    "inbox.md",
-    "projects/AI-Powered Woven Label Generator/risks.md",
     "projects/AI-Powered Woven Label Generator/sessions",
     "Без названия",
     "prompts",
