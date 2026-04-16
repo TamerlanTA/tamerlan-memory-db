@@ -12,6 +12,7 @@
 - [[sessions/2026-04-15-conversion-polish|Conversion polish session]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-16-milestone5-email-finishing-batch|Milestone 5 email finishing batch]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-16-order-preview-submit-state-mapping-fix|Order Preview submit state mapping fix]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-16-preview-image-url-hotfix|Preview image URL hotfix]]
 
 Last updated: 2026-04-16
 
@@ -39,6 +40,7 @@ Last updated: 2026-04-16
   - semi-manual V1.5 email copy with unit-pricing row only, manual confirmation note, reply instruction, and mailto CTA
   - fixed `Reply-To` to `devis@griffesvivienne.com`
 - Fixed `/order-preview` contradictory submit UI by making header / confirmation / failure / email-warning rendering state-aware instead of always success-like
+- Fixed preorder submit payload construction so inline / oversized `previewImageUrl` values are omitted instead of failing backend validation
 
 ## Current UX state
 
@@ -59,3 +61,4 @@ Last updated: 2026-04-16
 - Focused preorder email tests: PASS
 - Focused Milestone 5 email finishing tests: PASS
 - Focused Order Preview submit-state tests: PASS
+- Focused preorder payload hotfix tests: PASS
