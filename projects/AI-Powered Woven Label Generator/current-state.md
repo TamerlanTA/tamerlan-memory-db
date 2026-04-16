@@ -10,8 +10,9 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-15-preorder-confirmation-email-delivery|Pre-order confirmation email delivery]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-15-handoff-sync-preorder-email|Handoff sync after preorder email delivery]]
 - [[sessions/2026-04-15-conversion-polish|Conversion polish session]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-16-milestone5-email-finishing-batch|Milestone 5 email finishing batch]]
 
-Last updated: 2026-04-15
+Last updated: 2026-04-16
 
 - Active branch: `milestone4-auth-completion`
 - Latest pushed commit: `0a658ea` — `Add reliable preorder confirmation emails`
@@ -31,6 +32,11 @@ Last updated: 2026-04-15
 - Added persisted delivery tracking on `preorder_submissions` for contact email, status, sent timestamp, provider message ID, and last error
 - Added setup documentation in `docs/preorder-confirmation-email.md`
 - Applied migration `0012_preorder_confirmation_email.sql` manually against Railway MySQL with `drizzle-kit migrate`
+- Finished the Milestone 5 preorder email batch:
+  - EN / FR email rendering based on current user language
+  - generated label thumbnail included from the existing result asset URL
+  - semi-manual V1.5 email copy with unit-pricing row only, manual confirmation note, reply instruction, and mailto CTA
+  - fixed `Reply-To` to `devis@griffesvivienne.com`
 
 ## Current UX state
 
@@ -49,3 +55,4 @@ Last updated: 2026-04-15
 - `pnpm build`: PASS
 - `pnpm check`: PASS
 - Focused preorder email tests: PASS
+- Focused Milestone 5 email finishing tests: PASS

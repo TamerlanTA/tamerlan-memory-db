@@ -11,14 +11,17 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-15-preorder-confirmation-email-delivery|Pre-order confirmation email delivery]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-15-handoff-sync-preorder-email|Handoff sync after preorder email delivery]]
 - [[sessions/2026-04-15-conversion-polish|Conversion polish session]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-16-milestone5-email-finishing-batch|Milestone 5 email finishing batch]]
 
-Last updated: 2026-04-15
+Last updated: 2026-04-16
 
 ## Open technical risks
 
 - Pre-order confirmation emails will not send in production until `RESEND_API_KEY` and `RESEND_FROM_EMAIL` are configured
 - A verified Resend sending domain is required for reliable branded delivery
 - Railway DB migration is applied, but live delivery is still unverified until Resend env vars are configured and a real preorder is tested
+- The current preorder flow still has no canonical numeric unit-pricing source; the finishing batch uses semi-manual unit-pricing wording in the email
+- Thumbnail rendering depends on email client image-loading behavior, so some recipients may not see the preview until remote images are enabled
 
 ## Build/runtime warnings
 

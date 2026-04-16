@@ -10,8 +10,9 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-15-header-refinement-and-eod-sync|Header refinement and EOD sync]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-15-preorder-confirmation-email-delivery|Pre-order confirmation email delivery]]
 - [[sessions/2026-04-15-conversion-polish|Conversion polish session]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-16-milestone5-email-finishing-batch|Milestone 5 email finishing batch]]
 
-Last updated: 2026-04-15
+Last updated: 2026-04-16
 
 ## Header system
 
@@ -36,3 +37,8 @@ Last updated: 2026-04-15
 - Confirmation email sending happens only after a validated preorder submission is stored successfully
 - Submission persistence remains authoritative even if email delivery fails
 - Delivery state is persisted directly on `preorder_submissions` instead of building a separate messaging subsystem
+- The finishing-batch email follows the user language already present in the current flow (`en` / `fr`)
+- The quote confirmation CTA stays semi-manual for Milestone 5 and uses a `mailto:` action to `devis@griffesvivienne.com`
+- `Reply-To` is fixed to `devis@griffesvivienne.com` for the client-facing preorder / quote flow
+- The generated label thumbnail is reused from the existing result asset URL instead of introducing a separate attachment or asset-persistence subsystem
+- Because the preorder path still has no canonical numeric pricing engine, the unit-pricing row uses semi-manual quote wording rather than inventing new pricing logic inside Milestone 5
