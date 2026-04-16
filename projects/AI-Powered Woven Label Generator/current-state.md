@@ -41,6 +41,7 @@ Last updated: 2026-04-16
   - fixed `Reply-To` to `devis@griffesvivienne.com`
 - Fixed `/order-preview` contradictory submit UI by making header / confirmation / failure / email-warning rendering state-aware instead of always success-like
 - Fixed preorder submit payload construction so inline / oversized `previewImageUrl` values are omitted instead of failing backend validation
+- Fixed the missing email thumbnail path by propagating the hosted generation-result asset URL through Result -> order intent draft -> preorder submit, with a backend fallback to the validated draft when the submit payload omits the preview URL
 
 ## Current UX state
 

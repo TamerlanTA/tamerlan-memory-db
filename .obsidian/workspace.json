@@ -237,6 +237,7 @@
   },
   "active": "667a04593afde647",
   "lastOpenFiles": [
+    "projects/AI-Powered Woven Label Generator/sessions/2026-04-16-email-thumbnail-hosted-url-fix.md",
     "projects/AI-Powered Woven Label Generator/sessions/2026-04-16-preview-image-url-hotfix.md",
     "projects/AI-Powered Woven Label Generator/sessions/2026-04-16-order-preview-submit-state-mapping-fix.md",
     "projects/AI-Powered Woven Label Generator/sessions/2026-04-16-milestone5-email-finishing-batch.md",
@@ -264,7 +265,6 @@
     "patterns/auth/use-useauth-logout.md",
     "knowledge/codex-local-plugins.md",
     "templates/session-template.md",
-    "templates/project-template.md",
     "patterns/auth",
     "patterns/git",
     "knowledge/vault",
