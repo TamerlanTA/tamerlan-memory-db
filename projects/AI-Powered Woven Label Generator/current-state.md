@@ -50,6 +50,10 @@ Last updated: 2026-04-17
 - Accepted a small bonus scope for Benjamin after Milestone 5 focused on back-office / sales-ops visibility
 - This bonus scope is explicitly a structured mini-block, not a new milestone and not a broad admin redesign
 - Active source of truth for the mini-block is now the fixed four-batch execution order recorded in project memory
+- Implemented Batch 1 locally: sales-first preorder / PO visibility inside the existing admin page
+- Added a new preorder-focused admin tab with PO lookup, contact email, product code, material, size, quantity, mode, confirmation email status, sent timestamp, and preview image visibility
+- Extended the preorder admin backend read shape and search behavior for `PO-000014`, raw numeric ids, contact email, and product code
+- Added focused pure tests for preorder reference/search logic and preorder payload extraction
 
 ## Active mini-block
 
@@ -68,7 +72,7 @@ Last updated: 2026-04-17
 
 ### Current active batch
 
-- `Batch 1 — Preorders / PO visibility`
+- `Batch 2 — Generations visibility`
 
 ### Explicitly out of scope for this mini-block
 

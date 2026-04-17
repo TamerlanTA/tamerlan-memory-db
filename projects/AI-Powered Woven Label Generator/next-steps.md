@@ -16,25 +16,12 @@ Last updated: 2026-04-17
 
 ## Immediate
 
-- Execute `Batch 1 — Preorders / PO visibility`
-- Add a `Preorders` or `Sales / Ops` tab inside the current admin page
-- Build a simple sales-first preorder / PO table with:
-  - PO reference
-  - submitted date
-  - contact email
-  - product code
-  - material
-  - size
-  - quantity
-  - order type / mode if available
-  - confirmation email status
-  - preview image URL / thumbnail if available
-- Add search / filter support for:
-  - `PO-000014`
-  - raw numeric id such as `14`
-  - contact email
-  - product code if practical
-- Keep Batch 2, Batch 3, and Batch 4 pending until Batch 1 is completed
+- Execute `Batch 2 — Generations visibility`
+- Make admin generation visibility more useful for non-technical users
+- Include thumbnail / mockup visibility where possible
+- Include clearer user/email/guest context
+- Include clearer product context such as product code, material, size, and color if available
+- Keep Batch 3 and Batch 4 pending until Batch 2 is completed
 
 ## Planned batch order
 
@@ -54,11 +41,6 @@ Last updated: 2026-04-17
 
 ## Deferred until later batches
 
-- `Batch 2 — Generations visibility`
-  - make admin generation visibility more useful for non-technical users
-  - include thumbnail/mockup visibility where possible
-  - include clearer user/email/guest context
-  - include clearer product context such as product code, material, size, and color if available
 - `Batch 3 — Preorder ↔ generation ↔ asset linkage`
   - store exact linkage to `generationId`, `sourceAssetId`, and `resultAssetId`
   - make exact logo/result retrieval reliable for a PO
