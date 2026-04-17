@@ -16,6 +16,18 @@ Last updated: 2026-04-17
 
 ## Immediate
 
+- Build the smallest sales-first back-office pass instead of expanding the whole admin system
+- Add a preorder / PO-focused admin view with:
+  - visible PO reference
+  - PO search
+  - contact email
+  - product code / material / size / quantity / mode
+  - confirmation email delivery status
+- Add lightweight admin asset retrieval for:
+  - original uploaded logo
+  - generated mockup
+  - vector/production artifact when it exists
+- Add a compact way to inspect the linked generation from a preorder row
 - Commit and push the hosted email-thumbnail fix batch
 - Set `RESEND_API_KEY` in production
 - Set `RESEND_FROM_EMAIL` to a verified Griffes Vivienne sender
