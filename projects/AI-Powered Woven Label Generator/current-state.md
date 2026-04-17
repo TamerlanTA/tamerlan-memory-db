@@ -17,6 +17,7 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-17-handoff-sync-email-thumbnail|Handoff sync after email thumbnail hosted URL fix]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-17-batch2-generations-visibility|Batch 2 generations visibility]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-17-batch3-preorder-generation-asset-linkage|Batch 3 preorder-generation-asset linkage]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-17-batch4-ops-asset-retrieval|Batch 4 ops asset retrieval]]
 
 Last updated: 2026-04-17
 
@@ -66,12 +67,18 @@ Last updated: 2026-04-17
 - Extended `preorder_submissions` schema and persistence to store exact generation/asset linkage for new preorders
 - Exposed linkage through the admin preorder read-model and surfaced compact linkage context in the existing preorders table
 - Added focused tests for draft linkage preservation, submit-path persistence, and admin preorder visibility of linkage fields
+- Implemented Batch 4 locally: ops asset retrieval inside the existing preorder admin view
+- Added a compact preorder asset action area in `/admin/stats` with retrieval actions for original logo, generated preview, and vector asset when available
+- Added durable admin asset resolution using fresh `storageKey`-based signed URLs, with exact-generation fallback URLs only when needed for inline/local cases
+- Exposed original logo type (`SVG` / `Raster` / `Unknown`) and vector availability status in the preorder read-model
+- Reused exact Batch 3 linkage for retrieval and exposed vector readiness based on original SVG passthrough or `vector_logo` production artifacts when present
+- Added focused tests for asset availability mapping and durable asset URL resolution helpers
 
 ## Active mini-block
 
 ### Bonus scope — Back-office / sales-ops improvement
 
-- Status: accepted and queued for implementation
+- Status: complete locally through all four agreed batches
 - Scope type: post-Milestone-5 bonus block
 - Execution rule: follow the agreed batches strictly in order and do not collapse them
 
@@ -84,7 +91,7 @@ Last updated: 2026-04-17
 
 ### Current active batch
 
-- `Batch 4 — Asset retrieval for ops`
+- Mini-block complete
 
 ### Explicitly out of scope for this mini-block
 

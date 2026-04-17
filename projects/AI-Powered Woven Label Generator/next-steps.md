@@ -16,10 +16,9 @@ Last updated: 2026-04-17
 
 ## Immediate
 
-- Execute `Batch 4 — Asset retrieval for ops`
-- Expose original logo retrieval and generated preview retrieval for ops/sales/factory usage
-- Indicate SVG/vector availability when known
-- Reuse the exact linkage now stored on preorder rows instead of adding new persistence
+- Apply DB migration `0013_preorder_generation_linkage.sql` in staging/production before relying on Batch 3/4 linkage fields in the real environment
+- Validate the completed back-office mini-block against a real preorder row in an environment with R2 + DB migrations applied
+- Keep the mini back-office / sales-ops scope closed unless new client asks extend it
 
 ## Planned batch order
 
@@ -39,12 +38,6 @@ Last updated: 2026-04-17
 
 ## Deferred until later batches
 
-- `Batch 4 — Asset retrieval for ops`
-  - expose original logo retrieval
-  - expose generated preview retrieval
-  - indicate SVG/vector availability when known
-  - expose vectorized asset when it already exists
-- Apply DB migration `0013_preorder_generation_linkage.sql` in the real environment before relying on Batch 3 linkage fields outside local/test memory mode
 - Commit and push the hosted email-thumbnail fix batch
 - Set `RESEND_API_KEY` in production
 - Set `RESEND_FROM_EMAIL` to a verified Griffes Vivienne sender
@@ -71,6 +64,7 @@ Last updated: 2026-04-17
 - Decide whether analytics env vars should be configured or removed from local build expectations
 - Evaluate whether bundle splitting is needed after header work is signed off
 - If needed later, add an ops resend path for failed confirmation emails without changing the user-facing funnel
+- If the client later wants richer ops tooling, the next natural extension would be lightweight backfill/support for older unlinked preorder rows rather than a broad admin redesign
 - If the client later wants real numeric unit pricing inside the email, define a canonical pricing source before extending the current semi-manual quote template
 
 ## Process / memory
