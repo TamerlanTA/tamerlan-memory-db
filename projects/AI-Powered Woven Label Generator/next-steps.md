@@ -16,18 +16,57 @@ Last updated: 2026-04-17
 
 ## Immediate
 
-- Build the smallest sales-first back-office pass instead of expanding the whole admin system
-- Add a preorder / PO-focused admin view with:
-  - visible PO reference
-  - PO search
+- Execute `Batch 1 — Preorders / PO visibility`
+- Add a `Preorders` or `Sales / Ops` tab inside the current admin page
+- Build a simple sales-first preorder / PO table with:
+  - PO reference
+  - submitted date
   - contact email
-  - product code / material / size / quantity / mode
-  - confirmation email delivery status
-- Add lightweight admin asset retrieval for:
-  - original uploaded logo
-  - generated mockup
-  - vector/production artifact when it exists
-- Add a compact way to inspect the linked generation from a preorder row
+  - product code
+  - material
+  - size
+  - quantity
+  - order type / mode if available
+  - confirmation email status
+  - preview image URL / thumbnail if available
+- Add search / filter support for:
+  - `PO-000014`
+  - raw numeric id such as `14`
+  - contact email
+  - product code if practical
+- Keep Batch 2, Batch 3, and Batch 4 pending until Batch 1 is completed
+
+## Planned batch order
+
+1. `Batch 1 — Preorders / PO visibility`
+2. `Batch 2 — Generations visibility`
+3. `Batch 3 — Preorder ↔ generation ↔ asset linkage`
+4. `Batch 4 — Asset retrieval for ops`
+
+## Explicitly out of scope for this mini-block
+
+- full ERP / SAGE integration
+- inbound email parsing or thread-state tracking
+- full CRM
+- true vectorization pipeline
+- broad admin redesign
+- full production workflow management
+
+## Deferred until later batches
+
+- `Batch 2 — Generations visibility`
+  - make admin generation visibility more useful for non-technical users
+  - include thumbnail/mockup visibility where possible
+  - include clearer user/email/guest context
+  - include clearer product context such as product code, material, size, and color if available
+- `Batch 3 — Preorder ↔ generation ↔ asset linkage`
+  - store exact linkage to `generationId`, `sourceAssetId`, and `resultAssetId`
+  - make exact logo/result retrieval reliable for a PO
+- `Batch 4 — Asset retrieval for ops`
+  - expose original logo retrieval
+  - expose generated preview retrieval
+  - indicate SVG/vector availability when known
+  - expose vectorized asset when it already exists
 - Commit and push the hosted email-thumbnail fix batch
 - Set `RESEND_API_KEY` in production
 - Set `RESEND_FROM_EMAIL` to a verified Griffes Vivienne sender

@@ -47,6 +47,37 @@ Last updated: 2026-04-17
 - Completed a grounded code audit for the new post-Milestone-5 back-office / ops visibility mini-block
 - Confirmed the current `/admin/stats` page is a support-oriented dashboard, while preorder / PO visibility foundation exists mostly in backend/storage and is not yet surfaced in the admin UI
 - Confirmed original logo assets, generation-result assets, and production-prep/vectorization foundation already exist, including SVG passthrough handling for original vector uploads
+- Accepted a small bonus scope for Benjamin after Milestone 5 focused on back-office / sales-ops visibility
+- This bonus scope is explicitly a structured mini-block, not a new milestone and not a broad admin redesign
+- Active source of truth for the mini-block is now the fixed four-batch execution order recorded in project memory
+
+## Active mini-block
+
+### Bonus scope — Back-office / sales-ops improvement
+
+- Status: accepted and queued for implementation
+- Scope type: post-Milestone-5 bonus block
+- Execution rule: follow the agreed batches strictly in order and do not collapse them
+
+### Fixed execution order
+
+1. `Batch 1 — Preorders / PO visibility`
+2. `Batch 2 — Generations visibility`
+3. `Batch 3 — Preorder ↔ generation ↔ asset linkage`
+4. `Batch 4 — Asset retrieval for ops`
+
+### Current active batch
+
+- `Batch 1 — Preorders / PO visibility`
+
+### Explicitly out of scope for this mini-block
+
+- full ERP / SAGE integration
+- inbound email parsing or thread-state tracking
+- full CRM
+- true vectorization pipeline
+- broad admin redesign
+- full production workflow management
 
 ## Current UX state
 

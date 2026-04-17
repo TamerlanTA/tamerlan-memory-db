@@ -42,3 +42,22 @@ Last updated: 2026-04-16
 - `Reply-To` is fixed to `devis@griffesvivienne.com` for the client-facing preorder / quote flow
 - The generated label thumbnail is reused from the existing result asset URL instead of introducing a separate attachment or asset-persistence subsystem
 - Because the preorder path still has no canonical numeric pricing engine, the unit-pricing row uses semi-manual quote wording rather than inventing new pricing logic inside Milestone 5
+
+## Bonus back-office mini-block
+
+- The accepted post-Milestone-5 back-office work is a small bonus scope for Benjamin, not a new milestone
+- The work must be executed in strict batch order and must not collapse multiple batches into one implementation pass
+- The fixed order is:
+  1. `Batch 1 — Preorders / PO visibility`
+  2. `Batch 2 — Generations visibility`
+  3. `Batch 3 — Preorder ↔ generation ↔ asset linkage`
+  4. `Batch 4 — Asset retrieval for ops`
+- The implementation should stay inside the existing admin / back-office surface unless a later batch clearly requires a minimal extension
+- Visible commercial value takes priority over deeper technical expansion
+- The following are explicitly out of scope for this mini-block:
+  - full ERP / SAGE integration
+  - inbound email parsing or thread-state tracking
+  - full CRM
+  - true vectorization pipeline
+  - broad admin redesign
+  - full production workflow management
