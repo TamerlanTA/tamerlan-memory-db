@@ -16,12 +16,10 @@ Last updated: 2026-04-17
 
 ## Immediate
 
-- Execute `Batch 2 — Generations visibility`
-- Make admin generation visibility more useful for non-technical users
-- Include thumbnail / mockup visibility where possible
-- Include clearer user/email/guest context
-- Include clearer product context such as product code, material, size, and color if available
-- Keep Batch 3 and Batch 4 pending until Batch 2 is completed
+- Execute `Batch 3 — Preorder ↔ generation ↔ asset linkage`
+- Store exact linkage from preorder rows to `generationId`, `sourceAssetId`, and `resultAssetId`
+- Make retrieval of the exact logo/result for a PO reliable without overbuilding a broader workflow
+- Keep Batch 4 pending until Batch 3 is completed
 
 ## Planned batch order
 

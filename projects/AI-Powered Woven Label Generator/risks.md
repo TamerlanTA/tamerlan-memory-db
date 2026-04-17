@@ -37,6 +37,9 @@ Last updated: 2026-04-17
 - Mobile should be sanity-checked on Home to ensure no regression after desktop restoration
 - If email delivery fails, the preorder is still stored successfully; ops should monitor logs or DB status until a resend/recovery workflow exists
 - The hosted-thumbnail fix batch is still local until it is committed and pushed
+- The new admin generations preview relies on stored generation result URLs, which may expire over time because the current model persists signed asset URLs rather than refreshing them from storage on demand
+- Preorders still are not linked to exact `generationId` / asset ids yet, so PO-to-generation retrieval remains approximate until Batch 3 lands
+
 
 ## Process risk
 

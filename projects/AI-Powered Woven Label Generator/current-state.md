@@ -15,6 +15,7 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-16-preview-image-url-hotfix|Preview image URL hotfix]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-16-email-thumbnail-hosted-url-fix|Email thumbnail hosted URL fix]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-17-handoff-sync-email-thumbnail|Handoff sync after email thumbnail hosted URL fix]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-17-batch2-generations-visibility|Batch 2 generations visibility]]
 
 Last updated: 2026-04-17
 
@@ -54,6 +55,11 @@ Last updated: 2026-04-17
 - Added a new preorder-focused admin tab with PO lookup, contact email, product code, material, size, quantity, mode, confirmation email status, sent timestamp, and preview image visibility
 - Extended the preorder admin backend read shape and search behavior for `PO-000014`, raw numeric ids, contact email, and product code
 - Added focused pure tests for preorder reference/search logic and preorder payload extraction
+- Implemented Batch 2 locally: improved generations visibility inside the existing `/admin/stats` page without redesigning the broader admin surface
+- Extended the admin generations read-model with parsed display fields from `configSnapshotJson`, including product code, material, size, color, and generated mockup preview URL
+- Improved generation search coverage safely by including owner name and snapshot-backed product context in the existing admin query
+- Replaced the metadata-heavy generations table with a more visual sales/ops-friendly table showing preview, customer context, product context, status, and created date
+- Added focused pure tests for generation admin snapshot parsing and fallback behavior
 
 ## Active mini-block
 
@@ -72,7 +78,7 @@ Last updated: 2026-04-17
 
 ### Current active batch
 
-- `Batch 2 — Generations visibility`
+- `Batch 3 — Preorder ↔ generation ↔ asset linkage`
 
 ### Explicitly out of scope for this mini-block
 
