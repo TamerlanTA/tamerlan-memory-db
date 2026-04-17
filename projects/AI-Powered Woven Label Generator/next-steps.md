@@ -16,10 +16,10 @@ Last updated: 2026-04-17
 
 ## Immediate
 
-- Execute `Batch 3 — Preorder ↔ generation ↔ asset linkage`
-- Store exact linkage from preorder rows to `generationId`, `sourceAssetId`, and `resultAssetId`
-- Make retrieval of the exact logo/result for a PO reliable without overbuilding a broader workflow
-- Keep Batch 4 pending until Batch 3 is completed
+- Execute `Batch 4 — Asset retrieval for ops`
+- Expose original logo retrieval and generated preview retrieval for ops/sales/factory usage
+- Indicate SVG/vector availability when known
+- Reuse the exact linkage now stored on preorder rows instead of adding new persistence
 
 ## Planned batch order
 
@@ -39,14 +39,12 @@ Last updated: 2026-04-17
 
 ## Deferred until later batches
 
-- `Batch 3 — Preorder ↔ generation ↔ asset linkage`
-  - store exact linkage to `generationId`, `sourceAssetId`, and `resultAssetId`
-  - make exact logo/result retrieval reliable for a PO
 - `Batch 4 — Asset retrieval for ops`
   - expose original logo retrieval
   - expose generated preview retrieval
   - indicate SVG/vector availability when known
   - expose vectorized asset when it already exists
+- Apply DB migration `0013_preorder_generation_linkage.sql` in the real environment before relying on Batch 3 linkage fields outside local/test memory mode
 - Commit and push the hosted email-thumbnail fix batch
 - Set `RESEND_API_KEY` in production
 - Set `RESEND_FROM_EMAIL` to a verified Griffes Vivienne sender

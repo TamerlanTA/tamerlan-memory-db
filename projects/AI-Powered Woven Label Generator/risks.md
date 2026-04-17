@@ -38,7 +38,8 @@ Last updated: 2026-04-17
 - If email delivery fails, the preorder is still stored successfully; ops should monitor logs or DB status until a resend/recovery workflow exists
 - The hosted-thumbnail fix batch is still local until it is committed and pushed
 - The new admin generations preview relies on stored generation result URLs, which may expire over time because the current model persists signed asset URLs rather than refreshing them from storage on demand
-- Preorders still are not linked to exact `generationId` / asset ids yet, so PO-to-generation retrieval remains approximate until Batch 3 lands
+- Batch 3 code introduces schema migration `0013_preorder_generation_linkage.sql`; production/staging must apply it before the new linkage columns are available in the real DB
+- Exact linkage is now stored for new preorders going forward, but older preorder rows created before Batch 3 remain unlinked unless backfilled manually
 
 
 ## Process risk

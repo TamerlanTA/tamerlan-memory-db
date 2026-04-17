@@ -16,6 +16,7 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-16-email-thumbnail-hosted-url-fix|Email thumbnail hosted URL fix]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-17-handoff-sync-email-thumbnail|Handoff sync after email thumbnail hosted URL fix]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-17-batch2-generations-visibility|Batch 2 generations visibility]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-17-batch3-preorder-generation-asset-linkage|Batch 3 preorder-generation-asset linkage]]
 
 Last updated: 2026-04-17
 
@@ -60,6 +61,11 @@ Last updated: 2026-04-17
 - Improved generation search coverage safely by including owner name and snapshot-backed product context in the existing admin query
 - Replaced the metadata-heavy generations table with a more visual sales/ops-friendly table showing preview, customer context, product context, status, and created date
 - Added focused pure tests for generation admin snapshot parsing and fallback behavior
+- Implemented Batch 3 locally: persisted exact preorder linkage to `generationId`, `sourceAssetId`, and `resultAssetId`
+- Extended the order-intent draft contract so linkage travels through the existing Result → order intent → preorder submit path instead of introducing a new side channel
+- Extended `preorder_submissions` schema and persistence to store exact generation/asset linkage for new preorders
+- Exposed linkage through the admin preorder read-model and surfaced compact linkage context in the existing preorders table
+- Added focused tests for draft linkage preservation, submit-path persistence, and admin preorder visibility of linkage fields
 
 ## Active mini-block
 
@@ -78,7 +84,7 @@ Last updated: 2026-04-17
 
 ### Current active batch
 
-- `Batch 3 — Preorder ↔ generation ↔ asset linkage`
+- `Batch 4 — Asset retrieval for ops`
 
 ### Explicitly out of scope for this mini-block
 
