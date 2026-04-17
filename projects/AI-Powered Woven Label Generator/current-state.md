@@ -13,12 +13,14 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-16-milestone5-email-finishing-batch|Milestone 5 email finishing batch]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-16-order-preview-submit-state-mapping-fix|Order Preview submit state mapping fix]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-16-preview-image-url-hotfix|Preview image URL hotfix]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-16-email-thumbnail-hosted-url-fix|Email thumbnail hosted URL fix]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-17-handoff-sync-email-thumbnail|Handoff sync after email thumbnail hosted URL fix]]
 
-Last updated: 2026-04-16
+Last updated: 2026-04-17
 
 - Active branch: `milestone4-auth-completion`
-- Latest pushed commit: `0a658ea` — `Add reliable preorder confirmation emails`
-- Repo status for product code: synced to `origin/milestone4-auth-completion`
+- Latest pushed commit on branch before current local batch: `46c2474` — `Strip inline preview image URLs from preorder submit`
+- Repo status for product code: local uncommitted batch present for the hosted email-thumbnail fix
 - Remaining untracked local noise: `.claude/` only, intentionally excluded from commits
 
 ## What changed today
@@ -63,3 +65,4 @@ Last updated: 2026-04-16
 - Focused Milestone 5 email finishing tests: PASS
 - Focused Order Preview submit-state tests: PASS
 - Focused preorder payload hotfix tests: PASS
+- Focused hosted-thumbnail propagation + email fallback tests: PASS

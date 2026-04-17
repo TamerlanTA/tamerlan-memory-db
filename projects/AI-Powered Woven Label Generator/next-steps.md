@@ -12,10 +12,11 @@
 - [[sessions/2026-04-15-conversion-polish|Conversion polish session]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-16-milestone5-email-finishing-batch|Milestone 5 email finishing batch]]
 
-Last updated: 2026-04-16
+Last updated: 2026-04-17
 
 ## Immediate
 
+- Commit and push the hosted email-thumbnail fix batch
 - Set `RESEND_API_KEY` in production
 - Set `RESEND_FROM_EMAIL` to a verified Griffes Vivienne sender
 - Optionally set `RESEND_REPLY_TO_EMAIL`
@@ -24,7 +25,7 @@ Last updated: 2026-04-16
 - Confirm `preorder_submissions.confirmationEmailStatus = sent` on a successful live test
 - Run one live preorder in EN and one in FR to confirm:
   - localized subject/body
-  - thumbnail rendering
+  - thumbnail rendering from a hosted `https://...` image URL
   - CTA opens a reply draft to `devis@griffesvivienne.com`
   - inbox uses `Reply-To: devis@griffesvivienne.com`
 - Rotate the Railway DB credential because the full `DATABASE_URL` was exposed in chat
