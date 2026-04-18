@@ -11,8 +11,9 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-15-preorder-confirmation-email-delivery|Pre-order confirmation email delivery]]
 - [[sessions/2026-04-15-conversion-polish|Conversion polish session]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-16-milestone5-email-finishing-batch|Milestone 5 email finishing batch]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-18-post-m5-order-flow-polish|Post-M5 order-flow polish]]
 
-Last updated: 2026-04-16
+Last updated: 2026-04-18
 
 ## Header system
 
@@ -35,10 +36,12 @@ Last updated: 2026-04-16
 - Resend is the transactional provider for quote / pre-order confirmations
 - The integration uses a minimal direct HTTP call instead of adding a broader email abstraction layer
 - Confirmation email sending happens only after a validated preorder submission is stored successfully
+- The order CTA flow now sends the quote immediately by auto-submitting on the confirmation route; the recap page is no longer a required blocker
 - Submission persistence remains authoritative even if email delivery fails
 - Delivery state is persisted directly on `preorder_submissions` instead of building a separate messaging subsystem
 - The finishing-batch email follows the user language already present in the current flow (`en` / `fr`)
-- The quote confirmation CTA stays semi-manual for Milestone 5 and uses a `mailto:` action to `devis@griffesvivienne.com`
+- The old `mailto:` confirmation CTA was removed because it broke thread context by opening a blank compose instead of replying in-thread
+- “Confirm pre-order” now survives only as a non-blocking hot-intent instruction: the user should reply directly to the original quote email when ready to proceed
 - `Reply-To` is fixed to `devis@griffesvivienne.com` for the client-facing preorder / quote flow
 - The generated label thumbnail is reused from the existing result asset URL instead of introducing a separate attachment or asset-persistence subsystem
 - Because the preorder path still has no canonical numeric pricing engine, the unit-pricing row uses semi-manual quote wording rather than inventing new pricing logic inside Milestone 5

@@ -12,8 +12,9 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-15-handoff-sync-preorder-email|Handoff sync after preorder email delivery]]
 - [[sessions/2026-04-15-conversion-polish|Conversion polish session]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-16-milestone5-email-finishing-batch|Milestone 5 email finishing batch]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-18-post-m5-order-flow-polish|Post-M5 order-flow polish]]
 
-Last updated: 2026-04-17
+Last updated: 2026-04-18
 
 ## Open technical risks
 
@@ -23,6 +24,7 @@ Last updated: 2026-04-17
 - The current preorder flow still has no canonical numeric unit-pricing source; the finishing batch uses semi-manual unit-pricing wording in the email
 - Thumbnail rendering depends on email client image-loading behavior, so some recipients may not see the preview until remote images are enabled
 - The hosted thumbnail path is fixed locally, but still requires one live preorder + inbox verification to confirm the signed/public asset URL is fetchable by real email clients
+- The new reply-in-thread instruction is correct conceptually, but still needs one real inbox/client verification after removing the `mailto` CTA
 
 ## Build/runtime warnings
 
@@ -35,6 +37,7 @@ Last updated: 2026-04-17
 - Header work is build-verified but still needs browser-based visual QA on target breakpoints
 - Desktop should be checked specifically on Home, Prepare, Result, and My Account
 - Mobile should be sanity-checked on Home to ensure no regression after desktop restoration
+- The new auto-submit confirmation route needs browser QA to confirm the user sees a clean sending -> received transition without confusing intermediate states
 - If email delivery fails, the preorder is still stored successfully; ops should monitor logs or DB status until a resend/recovery workflow exists
 - The hosted-thumbnail fix batch is still local until it is committed and pushed
 - The new admin generations preview relies on stored generation result URLs, which may expire over time because the current model persists signed asset URLs rather than refreshing them from storage on demand

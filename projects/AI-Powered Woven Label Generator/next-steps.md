@@ -11,11 +11,14 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-15-handoff-sync-preorder-email|Handoff sync after preorder email delivery]]
 - [[sessions/2026-04-15-conversion-polish|Conversion polish session]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-16-milestone5-email-finishing-batch|Milestone 5 email finishing batch]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-18-post-m5-order-flow-polish|Post-M5 order-flow polish]]
 
-Last updated: 2026-04-17
+Last updated: 2026-04-18
 
 ## Immediate
 
+- Run browser QA for the new Result -> auto-submit confirmation flow in EN and FR
+- Run one live preorder to confirm the quote email arrives immediately after the order CTA and that replying preserves the original thread
 - Apply DB migration `0013_preorder_generation_linkage.sql` in staging/production before relying on Batch 3/4 linkage fields in the real environment
 - Validate the completed back-office mini-block against a real preorder row in an environment with R2 + DB migrations applied
 - Keep the mini back-office / sales-ops scope closed unless new client asks extend it
@@ -48,7 +51,7 @@ Last updated: 2026-04-17
 - Run one live preorder in EN and one in FR to confirm:
   - localized subject/body
   - thumbnail rendering from a hosted `https://...` image URL
-  - CTA opens a reply draft to `devis@griffesvivienne.com`
+  - the email instructs the user to reply directly in-thread instead of opening a blank compose
   - inbox uses `Reply-To: devis@griffesvivienne.com`
 - Rotate the Railway DB credential because the full `DATABASE_URL` was exposed in chat
 - Run browser-based visual QA for:

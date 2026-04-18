@@ -18,8 +18,9 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-17-batch2-generations-visibility|Batch 2 generations visibility]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-17-batch3-preorder-generation-asset-linkage|Batch 3 preorder-generation-asset linkage]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-17-batch4-ops-asset-retrieval|Batch 4 ops asset retrieval]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-18-post-m5-order-flow-polish|Post-M5 order-flow polish]]
 
-Last updated: 2026-04-17
+Last updated: 2026-04-18
 
 - Active branch: `milestone4-auth-completion`
 - Latest pushed commit on branch before current local batch: `46c2474` — `Strip inline preview image URLs from preorder submit`
@@ -73,6 +74,11 @@ Last updated: 2026-04-17
 - Exposed original logo type (`SVG` / `Raster` / `Unknown`) and vector availability status in the preorder read-model
 - Reused exact Batch 3 linkage for retrieval and exposed vector readiness based on original SVG passthrough or `vector_logo` production artifacts when present
 - Added focused tests for asset availability mapping and durable asset URL resolution helpers
+- Implemented a post-M5 / V1.5 polish batch for the ordering flow
+- Removed the extra recap-step friction by turning `/order-preview` into an auto-submit sending/confirmation route
+- Kept preorder creation, PO generation, confirmation email delivery, and admin/back-office visibility intact during the flow refactor
+- Removed the misleading `mailto` CTA from the quote email and replaced it with reply-in-thread guidance so sales context stays attached to the original email
+- Tightened the Result screen so backend order-intent creation is now required before leaving the result page
 
 ## Active mini-block
 
@@ -123,3 +129,4 @@ Last updated: 2026-04-17
 - Focused Order Preview submit-state tests: PASS
 - Focused preorder payload hotfix tests: PASS
 - Focused hosted-thumbnail propagation + email fallback tests: PASS
+- Focused post-M5 order-flow polish tests: PASS
