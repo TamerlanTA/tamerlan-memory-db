@@ -19,6 +19,7 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-17-batch3-preorder-generation-asset-linkage|Batch 3 preorder-generation-asset linkage]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-17-batch4-ops-asset-retrieval|Batch 4 ops asset retrieval]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-18-post-m5-order-flow-polish|Post-M5 order-flow polish]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-18-batch-b-color-consistency-fix|Batch B color consistency fix]]
 
 Last updated: 2026-04-18
 
@@ -79,6 +80,7 @@ Last updated: 2026-04-18
 - Kept preorder creation, PO generation, confirmation email delivery, and admin/back-office visibility intact during the flow refactor
 - Removed the misleading `mailto` CTA from the quote email and replaced it with reply-in-thread guidance so sales context stays attached to the original email
 - Tightened the Result screen so backend order-intent creation is now required before leaving the result page
+- Implemented Batch B color consistency fix: pre-tints the logo to the selected color before sending to the generation API; loading screen hero and config thumbnail now use the tinted silhouette; `originalLogoDataUrl` preserved as source of record; `namedColorToHex` and `buildTintedLogoDataUrl` exported for reuse
 
 ## Active mini-block
 

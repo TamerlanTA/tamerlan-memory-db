@@ -17,6 +17,7 @@ Last updated: 2026-04-18
 
 ## Immediate
 
+- **Batch B QA**: upload a multicolor logo (e.g. red/blue design), select BLACK logo color → confirm loading screen hero, config thumbnail, and generated result all show black threads. Repeat with GOLD to verify end-to-end color path.
 - Run browser QA for the new Result -> auto-submit confirmation flow in EN and FR
 - Run one live preorder to confirm the quote email arrives immediately after the order CTA and that replying preserves the original thread
 - Apply DB migration `0013_preorder_generation_linkage.sql` in staging/production before relying on Batch 3/4 linkage fields in the real environment

@@ -18,6 +18,9 @@ Last updated: 2026-04-18
 
 ## Open technical risks
 
+- Batch B color fix is local and untested in production — needs one live generation QA with a multicolor logo before closing
+- Pre-tinting uses browser canvas; if the canvas API fails (rare), fallback is the original colored logo, so generation still works but color may be wrong — monitor
+
 - Pre-order confirmation emails will not send in production until `RESEND_API_KEY` and `RESEND_FROM_EMAIL` are configured
 - A verified Resend sending domain is required for reliable branded delivery
 - Railway DB migration is applied, but live delivery is still unverified until Resend env vars are configured and a real preorder is tested
