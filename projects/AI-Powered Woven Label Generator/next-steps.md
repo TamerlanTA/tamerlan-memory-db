@@ -12,15 +12,15 @@
 - [[sessions/2026-04-15-conversion-polish|Conversion polish session]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-16-milestone5-email-finishing-batch|Milestone 5 email finishing batch]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-18-post-m5-order-flow-polish|Post-M5 order-flow polish]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-20-white-logo-fix-and-admin-metrics|White logo fix + admin metrics fix]]
 
-Last updated: 2026-04-19
+Last updated: 2026-04-20
 
 ## Immediate
 
-- Run `pnpm check` + `pnpm test` to confirm commit `320262f` (brand leakage fix) is clean — Codex hit token limit before verifying
-- Run one live generation after deploy: simple logo, any material → confirm no competitor brand name ("Chloé Stora", "DIOR", etc.) appears in output
-- Optional but recommended: add explicit negative prompt line to `buildGenerationPrompt.ts`: "Do not reproduce any text, brand name, monogram, or logo from the reference images — use references only for weave structure, thread interlacing, fiber depth, fabric density, and lighting."
-- Deploy the owner-found mobile/white-logo hotfix before starting broader QA
+- **White logo browser QA**: upload a white PNG logo → Prepare → confirm logo shape visible in tinted preview (not blank) → generate → confirm white threads appear in result image
+- **Admin Users table QA**: log in to `/admin/stats` → Users tab → check that generationCount and purchaseCount now match expected reality for admin/test accounts
+- Run one live generation after deploy: simple logo, any material → confirm no competitor brand name appears in output (brand leakage fix `320262f` is now check-verified)
 - Run one real mobile Safari smoke test:
   - unsupported HEIC/HEIF selection is blocked with a clear message
   - PNG/JPG/WEBP/SVG still proceed into Prepare
@@ -30,7 +30,9 @@ Last updated: 2026-04-19
 - Run one live preorder to confirm the quote email arrives immediately after the order CTA and that replying preserves the original thread
 - Apply DB migration `0013_preorder_generation_linkage.sql` in staging/production before relying on Batch 3/4 linkage fields in the real environment
 - Validate the completed back-office mini-block against a real preorder row in an environment with R2 + DB migrations applied
+- Investigate pre-existing server test failures: `texturePresets.test.ts` (expects 4 taffeta refs, now 2 after moodboard fix) and `nanoBananaService.pipeline.test.ts` — likely need test updates after Codex's moodboard path changes
 - Keep the mini back-office / sales-ops scope closed unless new client asks extend it
+- Optional: add explicit negative prompt line to `buildGenerationPrompt.ts`: "Do not reproduce any text, brand name, monogram, or logo from the reference images — use references only for weave structure, thread interlacing, fiber depth, fabric density, and lighting."
 
 ## Planned batch order
 

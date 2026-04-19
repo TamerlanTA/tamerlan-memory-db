@@ -22,11 +22,11 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-18-batch-b-color-consistency-fix|Batch B color consistency fix]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-19-codex-moodboard-brand-leakage-fix|Codex: moodboard brand leakage fix]]
 
-Last updated: 2026-04-20
+Last updated: 2026-04-20 (EOD)
 
 - Active branch: `milestone4-auth-completion`
-- Latest pushed commit on branch before current local batch: `46c2474` — `Strip inline preview image URLs from preorder submit`
-- Repo status for product code: local uncommitted batch present for the hosted email-thumbnail fix
+- Latest pushed commit: `609dc3c` — `Fix admin Users table: generationCount includes claimed guest sessions, purchaseCount reads payments table`
+- Repo status: all local changes committed and pushed; no pending local batch
 - Remaining untracked local noise: `.claude/` only, intentionally excluded from commits
 
 ## What changed today
@@ -87,6 +87,8 @@ Last updated: 2026-04-20
   - fixed mobile upload/generation mismatch by blocking unsupported HEIC/HEIF-style mobile formats at upload and preventing unsupported Result-page tint fallbacks from reaching `label.generate`
   - improved white / near-white logo visibility in loading/mockup preview surfaces only, while preserving selected white generation semantics
 - Added focused logo asset helper tests and verified the mobile owner flow with Chrome mobile emulation using local dummy env
+- Fixed white source logo producing blank tinted output in `buildTintedLogoDataUrl`: the luminance formula `(1 - luminance)` incorrectly made white pixels fully transparent; added average-luminance pre-scan and inverted formula `(luminance - 0.1)/0.6` for light-source logos (avg luminance > 0.7); dark logos unchanged; generation behavior unaffected
+- Fixed admin Users table generationCount to include generations from all guest sessions the user ever claimed (not just those with `ownerUserId` already set); fixed purchaseCount to read `payments WHERE status = 'succeeded'` instead of `creditLedgerEntries WHERE entryType = 'purchase_grant'` (latter misses payments that bypass the Stripe webhook)
 
 ## Active mini-block
 
@@ -131,10 +133,12 @@ Last updated: 2026-04-20
 ## Verification state
 
 - `pnpm build`: PASS
-- `pnpm check`: PASS
+- `pnpm check`: PASS (all recent commits)
+- Client tests (65): PASS
 - Focused preorder email tests: PASS
 - Focused Milestone 5 email finishing tests: PASS
 - Focused Order Preview submit-state tests: PASS
 - Focused preorder payload hotfix tests: PASS
 - Focused hosted-thumbnail propagation + email fallback tests: PASS
 - Focused post-M5 order-flow polish tests: PASS
+- Pre-existing server test failures (texturePresets, nanoBananaService.pipeline): still failing, unrelated to recent work — need separate investigation

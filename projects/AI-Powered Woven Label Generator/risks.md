@@ -14,16 +14,18 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-16-milestone5-email-finishing-batch|Milestone 5 email finishing batch]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-18-post-m5-order-flow-polish|Post-M5 order-flow polish]]
 
-Last updated: 2026-04-19
+Last updated: 2026-04-20
 
 ## Open technical risks
 
-- **Brand leakage fix** (commit `320262f`) is pushed but `pnpm check` + `pnpm test` pass/fail not confirmed — run before next deploy
+- **Brand leakage fix** (commit `320262f`) — `pnpm check` and client tests confirmed PASS; pre-existing server failures are unrelated
 - Brand leakage fix removed contaminated reference images but did NOT add an explicit negative prompt line in `buildGenerationPrompt.ts` forbidding text/brand copying from references — consider adding as belt-and-suspenders
 - No automated test guards that `*_ideal_*` paths cannot re-enter active moodboard sets — if someone adds a new ideal ref with brand text, leakage could recur silently
 - Batch B color fix pushed but live generation QA (multicolor logo → confirm black threads) still pending
 - Pre-tinting uses browser canvas; if the canvas API fails (rare), fallback is the original colored logo, so generation still works but color may be wrong — monitor
 - Owner mobile error hotfix is locally verified with Chrome mobile emulation; still needs one real mobile Safari smoke test after deploy, especially with iPhone photo-library formats
+- White logo preview fix (`51db341`) is type-checked and unit-tested but not visually verified on a real device — browser QA still pending (upload white PNG, check Prepare preview and loading screen)
+- Admin Users table metrics fix (`609dc3c`) requires live DB access to verify — no integration tests exist for SQL aggregation queries; confirm in production after deploy
 
 - Pre-order confirmation emails will not send in production until `RESEND_API_KEY` and `RESEND_FROM_EMAIL` are configured
 - A verified Resend sending domain is required for reliable branded delivery
