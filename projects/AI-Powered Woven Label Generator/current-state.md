@@ -20,8 +20,9 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-17-batch4-ops-asset-retrieval|Batch 4 ops asset retrieval]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-18-post-m5-order-flow-polish|Post-M5 order-flow polish]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-18-batch-b-color-consistency-fix|Batch B color consistency fix]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-19-codex-moodboard-brand-leakage-fix|Codex: moodboard brand leakage fix]]
 
-Last updated: 2026-04-18
+Last updated: 2026-04-20
 
 - Active branch: `milestone4-auth-completion`
 - Latest pushed commit on branch before current local batch: `46c2474` — `Strip inline preview image URLs from preorder submit`
@@ -81,6 +82,11 @@ Last updated: 2026-04-18
 - Removed the misleading `mailto` CTA from the quote email and replaced it with reply-in-thread guidance so sales context stays attached to the original email
 - Tightened the Result screen so backend order-intent creation is now required before leaving the result page
 - Implemented Batch B color consistency fix: pre-tints the logo to the selected color before sending to the generation API; loading screen hero and config thumbnail now use the tinted silhouette; `originalLogoDataUrl` preserved as source of record; `namedColorToHex` and `buildTintedLogoDataUrl` exported for reuse
+- Fixed critical brand-leakage bug (Codex, commit `320262f`): all `*_ideal_*` moodboard reference images contained readable competitor brand names (Chloé Stora, DIOR, SAINT LAURENT); replaced with 6 new `*_material_safe_*` images that are text-free material crops; removed brand names from prompt guidance text; changed motif instructions from "replicate ideal reference" to "follow supplied logo artwork only"; added `client/src/domain/logoAssets.ts` with upload/generation format guards and `isNearWhiteHexColor` helper; loading screens now use contrast-aware logo surface for white logo colors
+- Implemented owner-found post-M5/V1.5 hotfixes before broader QA:
+  - fixed mobile upload/generation mismatch by blocking unsupported HEIC/HEIF-style mobile formats at upload and preventing unsupported Result-page tint fallbacks from reaching `label.generate`
+  - improved white / near-white logo visibility in loading/mockup preview surfaces only, while preserving selected white generation semantics
+- Added focused logo asset helper tests and verified the mobile owner flow with Chrome mobile emulation using local dummy env
 
 ## Active mini-block
 

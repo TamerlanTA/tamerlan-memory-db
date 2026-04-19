@@ -13,10 +13,18 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-16-milestone5-email-finishing-batch|Milestone 5 email finishing batch]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-18-post-m5-order-flow-polish|Post-M5 order-flow polish]]
 
-Last updated: 2026-04-18
+Last updated: 2026-04-19
 
 ## Immediate
 
+- Run `pnpm check` + `pnpm test` to confirm commit `320262f` (brand leakage fix) is clean — Codex hit token limit before verifying
+- Run one live generation after deploy: simple logo, any material → confirm no competitor brand name ("Chloé Stora", "DIOR", etc.) appears in output
+- Optional but recommended: add explicit negative prompt line to `buildGenerationPrompt.ts`: "Do not reproduce any text, brand name, monogram, or logo from the reference images — use references only for weave structure, thread interlacing, fiber depth, fabric density, and lighting."
+- Deploy the owner-found mobile/white-logo hotfix before starting broader QA
+- Run one real mobile Safari smoke test:
+  - unsupported HEIC/HEIF selection is blocked with a clear message
+  - PNG/JPG/WEBP/SVG still proceed into Prepare
+  - selecting White keeps loading hero/config thumbnails visible
 - **Batch B QA**: upload a multicolor logo (e.g. red/blue design), select BLACK logo color → confirm loading screen hero, config thumbnail, and generated result all show black threads. Repeat with GOLD to verify end-to-end color path.
 - Run browser QA for the new Result -> auto-submit confirmation flow in EN and FR
 - Run one live preorder to confirm the quote email arrives immediately after the order CTA and that replying preserves the original thread

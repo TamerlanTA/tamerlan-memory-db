@@ -14,12 +14,16 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-16-milestone5-email-finishing-batch|Milestone 5 email finishing batch]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-18-post-m5-order-flow-polish|Post-M5 order-flow polish]]
 
-Last updated: 2026-04-18
+Last updated: 2026-04-19
 
 ## Open technical risks
 
-- Batch B color fix is local and untested in production — needs one live generation QA with a multicolor logo before closing
+- **Brand leakage fix** (commit `320262f`) is pushed but `pnpm check` + `pnpm test` pass/fail not confirmed — run before next deploy
+- Brand leakage fix removed contaminated reference images but did NOT add an explicit negative prompt line in `buildGenerationPrompt.ts` forbidding text/brand copying from references — consider adding as belt-and-suspenders
+- No automated test guards that `*_ideal_*` paths cannot re-enter active moodboard sets — if someone adds a new ideal ref with brand text, leakage could recur silently
+- Batch B color fix pushed but live generation QA (multicolor logo → confirm black threads) still pending
 - Pre-tinting uses browser canvas; if the canvas API fails (rare), fallback is the original colored logo, so generation still works but color may be wrong — monitor
+- Owner mobile error hotfix is locally verified with Chrome mobile emulation; still needs one real mobile Safari smoke test after deploy, especially with iPhone photo-library formats
 
 - Pre-order confirmation emails will not send in production until `RESEND_API_KEY` and `RESEND_FROM_EMAIL` are configured
 - A verified Resend sending domain is required for reliable branded delivery
