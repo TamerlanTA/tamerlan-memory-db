@@ -14,15 +14,14 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-18-post-m5-order-flow-polish|Post-M5 order-flow polish]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-20-white-logo-fix-and-admin-metrics|White logo fix + admin metrics fix]]
 
-Last updated: 2026-04-20
+Last updated: 2026-04-21
 
 ## Immediate
 
-- Verify HD and HD Cotton generation after the local rollback of `320262f` generation/moodboard changes; confirm quality returns to the pre-moodboard-fix baseline
-- Treat reference-brand leakage as open again; do not reapply the crop-only safe-reference strategy without a material-specific plan and manual HD / HD Cotton QA
+- **Back-forward double-gen QA**: Start generation on Result → press Back mid-generation → press Forward → confirm only one `label.generate` network call fires and result appears normally (verifies `e6b7739`)
 - **White logo browser QA**: upload a white PNG logo → Prepare → confirm logo shape visible in tinted preview (not blank) → generate → confirm white threads appear in result image
 - **Admin Users table QA**: log in to `/admin/stats` → Users tab → check that generationCount and purchaseCount now match expected reality for admin/test accounts
-- Run one live generation after deploy and watch for competitor brand leakage; the generation/moodboard part of `320262f` has been reverted for quality reasons
+- Run one live generation after deploy and watch for competitor brand leakage
 - Run one real mobile Safari smoke test:
   - unsupported HEIC/HEIF selection is blocked with a clear message
   - PNG/JPG/WEBP/SVG still proceed into Prepare
@@ -32,7 +31,7 @@ Last updated: 2026-04-20
 - Run one live preorder to confirm the quote email arrives immediately after the order CTA and that replying preserves the original thread
 - Apply DB migration `0013_preorder_generation_linkage.sql` in staging/production before relying on Batch 3/4 linkage fields in the real environment
 - Validate the completed back-office mini-block against a real preorder row in an environment with R2 + DB migrations applied
-- Recheck server tests after the rollback; `texturePresets.test.ts` may no longer fail for the 2-ref taffeta expectation because the active taffeta refs are back to the pre-`320262f` set
+- Investigate pre-existing server test failures: `texturePresets.test.ts` and `nanoBananaService.pipeline.test.ts`
 - Keep the mini back-office / sales-ops scope closed unless new client asks extend it
 - Optional: add explicit negative prompt line to `buildGenerationPrompt.ts`: "Do not reproduce any text, brand name, monogram, or logo from the reference images — use references only for weave structure, thread interlacing, fiber depth, fabric density, and lighting."
 

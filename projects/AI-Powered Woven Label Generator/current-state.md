@@ -21,12 +21,14 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-18-post-m5-order-flow-polish|Post-M5 order-flow polish]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-18-batch-b-color-consistency-fix|Batch B color consistency fix]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-19-codex-moodboard-brand-leakage-fix|Codex: moodboard brand leakage fix]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-20-white-logo-fix-and-admin-metrics|White logo fix + admin metrics fix]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-21-qa-sweep-security-and-double-gen-fix|QA sweep: security fix + double-generation fix]]
 
-Last updated: 2026-04-20 (EOD)
+Last updated: 2026-04-21
 
 - Active branch: `milestone4-auth-completion`
-- Latest pushed commit: `609dc3c` — `Fix admin Users table: generationCount includes claimed guest sessions, purchaseCount reads payments table`
-- Repo status: local pending rollback of the generation/moodboard part of `320262f` only; client/mobile/white-logo/admin fixes preserved
+- Latest pushed commit: `e6b7739` — `Block double-generation on back-forward during in-flight generation`
+- Repo status: all local changes committed and pushed; no pending local batch
 - Remaining untracked local noise: `.claude/` only, intentionally excluded from commits
 
 ## What changed today
@@ -135,11 +137,17 @@ Last updated: 2026-04-20 (EOD)
 
 - `pnpm build`: PASS
 - `pnpm check`: PASS (all recent commits)
-- Client tests (65): PASS
+- Client tests (66): PASS (+1 regression test for double-generation fix)
 - Focused preorder email tests: PASS
 - Focused Milestone 5 email finishing tests: PASS
 - Focused Order Preview submit-state tests: PASS
 - Focused preorder payload hotfix tests: PASS
 - Focused hosted-thumbnail propagation + email fallback tests: PASS
 - Focused post-M5 order-flow polish tests: PASS
+- `generatorFlow.test.ts`: 9/9 PASS (added regression test for `isGenerating` gate)
 - Pre-existing server test failures (texturePresets, nanoBananaService.pipeline): still failing, unrelated to recent work — need separate investigation
+
+## Security fixes applied this session
+
+- `previewImageUrl` in `submitPreOrderInputSchema` now validated with `.url().max(4096)` + http/https refine — closes injection path into preorder email thumbnail
+- `state.isGenerating` now included in `GeneratorFlowSnapshot` and gates `canStartGeneration` — closes back-forward double-generation credit leak
