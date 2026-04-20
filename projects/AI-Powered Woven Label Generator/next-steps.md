@@ -18,9 +18,11 @@ Last updated: 2026-04-20
 
 ## Immediate
 
+- Verify HD and HD Cotton generation after the local rollback of `320262f` generation/moodboard changes; confirm quality returns to the pre-moodboard-fix baseline
+- Treat reference-brand leakage as open again; do not reapply the crop-only safe-reference strategy without a material-specific plan and manual HD / HD Cotton QA
 - **White logo browser QA**: upload a white PNG logo → Prepare → confirm logo shape visible in tinted preview (not blank) → generate → confirm white threads appear in result image
 - **Admin Users table QA**: log in to `/admin/stats` → Users tab → check that generationCount and purchaseCount now match expected reality for admin/test accounts
-- Run one live generation after deploy: simple logo, any material → confirm no competitor brand name appears in output (brand leakage fix `320262f` is now check-verified)
+- Run one live generation after deploy and watch for competitor brand leakage; the generation/moodboard part of `320262f` has been reverted for quality reasons
 - Run one real mobile Safari smoke test:
   - unsupported HEIC/HEIF selection is blocked with a clear message
   - PNG/JPG/WEBP/SVG still proceed into Prepare
@@ -30,7 +32,7 @@ Last updated: 2026-04-20
 - Run one live preorder to confirm the quote email arrives immediately after the order CTA and that replying preserves the original thread
 - Apply DB migration `0013_preorder_generation_linkage.sql` in staging/production before relying on Batch 3/4 linkage fields in the real environment
 - Validate the completed back-office mini-block against a real preorder row in an environment with R2 + DB migrations applied
-- Investigate pre-existing server test failures: `texturePresets.test.ts` (expects 4 taffeta refs, now 2 after moodboard fix) and `nanoBananaService.pipeline.test.ts` — likely need test updates after Codex's moodboard path changes
+- Recheck server tests after the rollback; `texturePresets.test.ts` may no longer fail for the 2-ref taffeta expectation because the active taffeta refs are back to the pre-`320262f` set
 - Keep the mini back-office / sales-ops scope closed unless new client asks extend it
 - Optional: add explicit negative prompt line to `buildGenerationPrompt.ts`: "Do not reproduce any text, brand name, monogram, or logo from the reference images — use references only for weave structure, thread interlacing, fiber depth, fabric density, and lighting."
 
