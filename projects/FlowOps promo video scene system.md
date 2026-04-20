@@ -14,6 +14,7 @@
 - 2026-04-20: User showed that v2 still only produced Scene 1 plus labels for scenes 2-6. Diagnosis: scene labels were created before frame creation, then runtime stopped after Scene 1. Updated plugin v3 so all six 1080x1920 scene frames are prepared first before any scene is decorated.
 - 2026-04-20: Runtime error `failed at scene 1 content: not a function` was caused by `chip()` creating a pill as a Rectangle and then trying to append text into it. Fixed by changing `capsule()` to create a Frame with fills/strokes/cornerRadius, so chip labels can be editable child text layers.
 - 2026-04-20: User provided FlowOps landing screenshot and noted overlapping elements. Updated plugin v4 to use brand-aligned dark navy/cyan/violet palette, dark glass panels, soft cyan-violet cards, and revised Scene 4 spacing so panel text, progress bars, and metric chips no longer collide.
+- 2026-04-20: Added CapCut animation guide at `/Users/tamerlan/Desktop/flowopsVideopreviw/docs/flowops-capcut-animation-guide.md` with export-layer setup, 30s timing, per-scene animation plan, transitions, and quality checklist.
 
 ## Key decisions
 - Treat this as a small project note, not a full project folder, unless the promo design evolves into a longer multi-session workstream.
@@ -29,3 +30,4 @@
 - Check that all six 1080x1920 scenes were created and that major text/cards/connectors are editable layers.
 - If needed, refine composition based on screenshots from the generated Figma file.
 - Rerun the local plugin after v2 update to replace old generated pages with the improved vertical scene stack.
+- Use the CapCut animation guide to export Figma layers and animate the 30-second promo.
