@@ -96,6 +96,7 @@ Last updated: 2026-04-21
 - Reverted only the generation/moodboard portion of `320262f` after owner found HD / HD Cotton quality regression; `server/moodboards.ts` is back to the `8fe695c` version and the six `*_material_safe_*` moodboard assets are removed locally
 - Fixed the client-reported non-JSON generation crash path (`Unexpected token 'R', "Request En..." is not valid JSON`): `Result.tsx` no longer always sends both tinted generation PNG and original upload data URL when the request body would exceed the safe budget; tinted logo canvas output is capped to 1280px; `/api/trpc` transport now normalizes unexpected non-JSON responses into JSON tRPC errors; `label.generate` schema rejects oversized logo payloads before generation work starts
 - Added the minimum legal/informational trust foundation for V1.5 stabilization: bilingual `/terms`, `/privacy`, `/legal`, and `/faq` pages; Home upload acceptance text now links to Terms and Privacy; a compact legal footer exposes the legal page set; Legal Notices intentionally isolates missing official company/legal fields as placeholders
+- Fixed the code-side unbranded Clerk login experience for V1.5 stabilization: `/sign-in` now uses the existing Griffes Vivienne header/footer shell; `ClerkProvider` receives Griffes Vivienne appearance, logo, support email, and FR/EN localized auth copy; a focused `clerkBranding` unit test guards against `"My Application"` copy in app-provided Clerk localization
 
 ## Active mini-block
 
@@ -151,6 +152,7 @@ Last updated: 2026-04-21
 - `generatorFlow.test.ts`: 9/9 PASS (added regression test for `isGenerating` gate)
 - Focused non-JSON generation stability tests: PASS (`client/src/lib/trpcTransport.test.ts`, `client/src/domain/logoAssets.test.ts`, `server/generation.test.ts`)
 - Focused legal content tests: PASS (`client/src/domain/legalContent.test.ts`)
+- Focused Clerk branding tests: PASS (`client/src/lib/clerkBranding.test.ts`)
 - Pre-existing server test failures (texturePresets, nanoBananaService.pipeline): still failing, unrelated to recent work — need separate investigation
 
 ## Security fixes applied this session

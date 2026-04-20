@@ -51,6 +51,7 @@ Last updated: 2026-04-21
 
 ## Product / UX risks
 
+- Embedded `/sign-in` is now code-branded, but Clerk hosted/account-portal surfaces can still show Clerk Dashboard application identity if the dashboard app name/logo remain generic
 - Header work is build-verified but still needs browser-based visual QA on target breakpoints
 - Desktop should be checked specifically on Home, Prepare, Result, and My Account
 - Mobile should be sanity-checked on Home to ensure no regression after desktop restoration
