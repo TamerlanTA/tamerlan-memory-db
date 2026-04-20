@@ -9,16 +9,18 @@
 - Wrote the complete Figma-ready build specification in `/Users/tamerlan/Desktop/flowopsVideopreviw/docs/flowops-figma-scene-system.md`.
 - 2026-04-20: User provided visual reference `/Users/tamerlan/Downloads/Claude Code Clearly Explained.mp4`. Extracted reference frames locally and revised the spec toward a soft warm/mint premium AI explainer style: central mint objects, deep shadows, sparse kinetic type, dust/depth, dark UI fragments only where useful.
 - Tried Figma MCP canvas write again after reference review; still blocked by Starter-plan MCP tool-call limit.
+- 2026-04-20: Built local Figma plugin workaround at `/Users/tamerlan/Desktop/flowopsVideopreviw/figma-plugin/flowops-scene-system/`. Fixed Figma runtime syntax issue by replacing `??` with older-compatible conditional logic. User confirmed the fix was applied/run.
 
 ## Key decisions
 - Treat this as a small project note, not a full project folder, unless the promo design evolves into a longer multi-session workstream.
 - Creative direction: premium AI explainer short, hybrid motion-design scenes, not generic website sections or app-only screens. Reference-informed style is warm/mint explainer with deep shadows and sparse central objects, adapted to FlowOps systems/automation positioning.
 - System should use editable Figma layers, reusable components, consistent 1080x1920 scene frames, and CapCut-friendly layer grouping.
+- If Figma MCP quota blocks canvas writes, use the local plugin route instead of waiting on MCP: import `figma-plugin/flowops-scene-system/manifest.json` in Figma Desktop and run `FlowOps Scene System Builder`.
 
 ## Blockers
 - Figma Starter-plan MCP tool-call limit prevented direct creation of scene frames/components in Figma on both attempts.
 
 ## Next steps
-- Once Figma MCP calls are available again, create the editable canvas system from the build spec.
-- Recommended Figma pages: `00 Design System + Components`, `01 Scenes - 1080x1920`, `02 Storyboard + Motion Notes`.
-- Build six scenes with the z-layer structure and motion notes defined in the local spec.
+- Visually QA the generated Figma pages: `00 Design System + Components`, `01 Scenes - 1080x1920`, `02 Storyboard + Motion Notes`.
+- Check that all six 1080x1920 scenes were created and that major text/cards/connectors are editable layers.
+- If needed, refine composition based on screenshots from the generated Figma file.
