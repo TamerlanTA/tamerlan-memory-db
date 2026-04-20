@@ -16,6 +16,7 @@
 - 2026-04-20: User provided FlowOps landing screenshot and noted overlapping elements. Updated plugin v4 to use brand-aligned dark navy/cyan/violet palette, dark glass panels, soft cyan-violet cards, and revised Scene 4 spacing so panel text, progress bars, and metric chips no longer collide.
 - 2026-04-20: Added CapCut animation guide at `/Users/tamerlan/Desktop/flowopsVideopreviw/docs/flowops-capcut-animation-guide.md` with export-layer setup, 30s timing, per-scene animation plan, transitions, and quality checklist.
 - 2026-04-20: User asked to do the animation fully. Created local Python/PIL renderer at `/Users/tamerlan/Desktop/flowopsVideopreviw/scripts/render_flowops_promo.py` and rendered silent 30s MP4 `/Users/tamerlan/Desktop/flowopsVideopreviw/exports/flowops_promo_1080x1920.mp4` plus contact sheet and SRT timing file.
+- 2026-04-20: User clarified they do not need rendered video yet; they need separate blocks to assemble/animate manually. Created block export script `/Users/tamerlan/Desktop/flowopsVideopreviw/scripts/export_flowops_blocks.py` and exported full-canvas transparent PNG layer pack to `/Users/tamerlan/Desktop/flowopsVideopreviw/exports/capcut_blocks/` with per-scene folders, previews, contact sheet, and README.
 
 ## Key decisions
 - Treat this as a small project note, not a full project folder, unless the promo design evolves into a longer multi-session workstream.
@@ -32,4 +33,4 @@
 - If needed, refine composition based on screenshots from the generated Figma file.
 - Rerun the local plugin after v2 update to replace old generated pages with the improved vertical scene stack.
 - Use the CapCut animation guide to export Figma layers and animate the 30-second promo.
-- Review rendered MP4 and decide whether to add voiceover/music or refine scene composition/timing.
+- Use `/Users/tamerlan/Desktop/flowopsVideopreviw/exports/capcut_blocks/` for manual CapCut assembly; import each scene folder's PNGs in README order.
