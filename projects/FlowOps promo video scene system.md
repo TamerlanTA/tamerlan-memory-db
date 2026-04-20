@@ -13,6 +13,7 @@
 - 2026-04-20: After user saw the generated file, clarified that the first version placed scenes in a wide 3x2 canvas and Scene 1 was too sparse. Updated plugin v2 to stack all six scenes vertically on `01 Scenes - 1080x1920`, add a page guide, and make Scene 1 a fuller hook with a disconnected-tools dark panel plus large `better systems` mint capsule.
 - 2026-04-20: User showed that v2 still only produced Scene 1 plus labels for scenes 2-6. Diagnosis: scene labels were created before frame creation, then runtime stopped after Scene 1. Updated plugin v3 so all six 1080x1920 scene frames are prepared first before any scene is decorated.
 - 2026-04-20: Runtime error `failed at scene 1 content: not a function` was caused by `chip()` creating a pill as a Rectangle and then trying to append text into it. Fixed by changing `capsule()` to create a Frame with fills/strokes/cornerRadius, so chip labels can be editable child text layers.
+- 2026-04-20: User provided FlowOps landing screenshot and noted overlapping elements. Updated plugin v4 to use brand-aligned dark navy/cyan/violet palette, dark glass panels, soft cyan-violet cards, and revised Scene 4 spacing so panel text, progress bars, and metric chips no longer collide.
 
 ## Key decisions
 - Treat this as a small project note, not a full project folder, unless the promo design evolves into a longer multi-session workstream.
