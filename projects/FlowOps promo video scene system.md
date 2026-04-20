@@ -11,6 +11,7 @@
 - Tried Figma MCP canvas write again after reference review; still blocked by Starter-plan MCP tool-call limit.
 - 2026-04-20: Built local Figma plugin workaround at `/Users/tamerlan/Desktop/flowopsVideopreviw/figma-plugin/flowops-scene-system/`. Fixed Figma runtime syntax issue by replacing `??` with older-compatible conditional logic. User confirmed the fix was applied/run.
 - 2026-04-20: After user saw the generated file, clarified that the first version placed scenes in a wide 3x2 canvas and Scene 1 was too sparse. Updated plugin v2 to stack all six scenes vertically on `01 Scenes - 1080x1920`, add a page guide, and make Scene 1 a fuller hook with a disconnected-tools dark panel plus large `better systems` mint capsule.
+- 2026-04-20: User showed that v2 still only produced Scene 1 plus labels for scenes 2-6. Diagnosis: scene labels were created before frame creation, then runtime stopped after Scene 1. Updated plugin v3 so all six 1080x1920 scene frames are prepared first before any scene is decorated.
 
 ## Key decisions
 - Treat this as a small project note, not a full project folder, unless the promo design evolves into a longer multi-session workstream.
