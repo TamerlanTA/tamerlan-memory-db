@@ -109,6 +109,12 @@ Last updated: 2026-04-21
   - Home upload preview and Prepare preview now have UI-only contrast handling for white / near-white logos
   - `auth.logout` now clears the legacy cookie with the same session-cookie options plus expiry/maxAge
   - `pnpm check` PASS; focused targeted tests PASS (47 tests)
+- Implemented generation error taxonomy / presentation stabilization:
+  - typed generation error codes now distinguish temporary upstream outages, rate limits, timeouts, invalid/unsupported/too-large image input, and unknown failures
+  - Nano Banana / Gemini failures are normalized server-side before reaching the client
+  - Result page now shows dynamic FR/EN error copy and retry/new-image CTA behavior based on failure type
+  - generic React crash boundary no longer blames the uploaded image
+  - `pnpm check` PASS; focused error tests PASS (31 tests)
 
 ## Active mini-block
 
