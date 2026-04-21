@@ -28,6 +28,7 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-21-pre-generation-preview-polish|Pre-generation preview polish]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-21-input-guidance-softening|Input guidance softening]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-21-quote-email-unit-price-box|Quote email unit price box]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-21-legal-content-integration-and-consistency-audit|Legal content integration and consistency audit]]
 
 Last updated: 2026-04-21
 
@@ -136,6 +137,12 @@ Last updated: 2026-04-21
   - priced production tiers show locale-aware two-decimal values, e.g. `€0.60 / unit` or `0,60 € / pièce`
   - samples and unsupported tiers such as 500 pieces show `On request` / `Sur demande`
   - focused pricing/email tests, `pnpm check`, `pnpm build`, and `git diff --check` PASS
+- Implemented the legal content integration / commercial wording consistency batch:
+  - replaced placeholder legal notices with official Griffes Vivienne company details from `Mentions_Legales_CGV_FINAL.docx` (SAS, SIRET `383 927 464 00024`, Saint-Denis address, Benjamin JELIN, `devis@griffesvivienne.com`)
+  - updated `/terms`, `/privacy`, `/legal`, and `/faq` content in FR/EN using the existing legal content registry and footer links
+  - aligned legal copy with current app behavior: guest first trial, account/credits after trial, Stripe payments only when offered, quote/order intent before written confirmation, estimated pricing, AI mockup disclaimer
+  - softened product wording that implied production-ready outputs before manual technical validation
+  - `pnpm exec vitest run client/src/domain/legalContent.test.ts`, `pnpm check`, `pnpm build`, and `git diff --check` PASS
 
 ## Active mini-block
 

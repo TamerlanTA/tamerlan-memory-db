@@ -44,6 +44,7 @@ Last updated: 2026-04-21
 - Railway DB migration is applied, but live delivery is still unverified until Resend env vars are configured and a real preorder is tested
 - The preorder quote email now has a numeric unit-price helper derived from the client spreadsheet for supported production tiers, but this is still a display/helper table rather than a full contractual pricing engine
 - Quote email unit-price display is now derived from `/Users/tamerlan/Downloads/price list.xlsx`, but the workbook does not define 500-piece pricing or tax/shipping terms; 500-piece production and samples intentionally show `On request` / `Sur demande`, and displayed prices remain estimated until manually confirmed
+- Legal content is now populated from the client document and aligned to current app behavior, but it still needs client/legal-owner approval before final public sign-off; some wording was intentionally softened where the document conflicted with the live guest-first flow, credit validity, and quote-before-production behavior
 - Thumbnail rendering depends on email client image-loading behavior, so some recipients may not see the preview until remote images are enabled
 - The hosted thumbnail path is fixed locally, but still requires one live preorder + inbox verification to confirm the signed/public asset URL is fetchable by real email clients
 - The new reply-in-thread instruction is correct conceptually, but still needs one real inbox/client verification after removing the `mailto` CTA
