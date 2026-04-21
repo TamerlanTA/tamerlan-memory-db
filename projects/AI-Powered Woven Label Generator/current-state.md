@@ -143,6 +143,13 @@ Last updated: 2026-04-21
   - aligned legal copy with current app behavior: guest first trial, account/credits after trial, Stripe payments only when offered, quote/order intent before written confirmation, estimated pricing, AI mockup disclaimer
   - softened product wording that implied production-ready outputs before manual technical validation
   - `pnpm exec vitest run client/src/domain/legalContent.test.ts`, `pnpm check`, `pnpm build`, and `git diff --check` PASS
+- Completed the final post-Milestone 5 consistency sweep before full manual QA:
+  - reframed remaining order/preorder UI copy as quote/request copy in FR/EN
+  - updated Result/order CTA, Order Preview submission states, reply instructions, and quote email labels/CTA to avoid implying immediate contractual confirmation
+  - softened Premium/export and loading microcopy so AI visuals are presented as high-quality mockups/assets for quote and production discussions, not guaranteed production proofs
+  - aligned residual legal wording from `order intent` toward `quote request`
+  - confirmed remaining `pre-order` search hits are comments/test names, not live copy
+  - `pnpm exec vitest run client/src/domain/legalContent.test.ts server/preorderConfirmationEmail.test.ts server/quoteUnitPricing.test.ts`, `pnpm check`, `pnpm build`, and `git diff --check` PASS
 
 ## Active mini-block
 

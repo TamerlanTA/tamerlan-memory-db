@@ -25,6 +25,17 @@ Last updated: 2026-04-21
 - **Input guidance QA before client review**: review EN/FR Home and Prepare copy; confirm a supported unusual/random image can still continue through upload and Prepare without extra friction.
 - **Quote email unit-price QA before client review**: submit a production quote at a priced tier (1,000–10,000 pieces) and confirm the top-right box shows the correct estimated unit price in EN/FR; also confirm sample and 500-piece cases show `On request` / `Sur demande`.
 - **Legal content QA before client review**: open `/legal`, `/terms`, `/privacy`, and `/faq` in FR/EN on desktop and mobile; confirm official company details, AI mockup disclaimer, guest-first free trial wording, Stripe/credits wording, and quote/manual-confirmation wording are visible and acceptable.
+- **Final consolidated manual QA pass**: validate the full user-facing flow after the consistency sweep:
+  - upload and unusual visual upload
+  - Home/Prepare preview balance
+  - generation success and error states
+  - Premium/credits locked states
+  - guest-first first generation behavior
+  - sample request flow
+  - production quantity flow, including the 500-piece fallback
+  - quote request confirmation and quote email wording
+  - legal/footer links
+  - mobile/desktop and FR/EN
 - **Legal owner review**: have the client/legal owner review the integrated `/legal`, `/terms`, `/privacy`, and `/faq` copy before public contractual sign-off.
 - **Auth branding QA**: open `/sign-in` in FR and EN with a real Clerk publishable key; confirm the embedded form shows Griffes Vivienne logo/copy and no generic "My Application" text
 - **Clerk Dashboard branding**: confirm the Clerk application name/logo/support settings are set to Griffes Vivienne for hosted/account-portal surfaces that are not fully controlled by embedded React component localization
