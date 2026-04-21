@@ -29,7 +29,7 @@
 Last updated: 2026-04-21
 
 - Active branch: `milestone4-auth-completion`
-- Latest pushed commit: `e6b7739` — `Block double-generation on back-forward during in-flight generation`
+- Latest pushed commit: `858dfd1` — `Update favicon asset`
 - Repo status: all local changes committed and pushed; no pending local batch
 - Remaining untracked local noise: `.claude/` only, intentionally excluded from commits
 
@@ -97,6 +97,14 @@ Last updated: 2026-04-21
 - Fixed the client-reported non-JSON generation crash path (`Unexpected token 'R', "Request En..." is not valid JSON`): `Result.tsx` no longer always sends both tinted generation PNG and original upload data URL when the request body would exceed the safe budget; tinted logo canvas output is capped to 1280px; `/api/trpc` transport now normalizes unexpected non-JSON responses into JSON tRPC errors; `label.generate` schema rejects oversized logo payloads before generation work starts
 - Added the minimum legal/informational trust foundation for V1.5 stabilization: bilingual `/terms`, `/privacy`, `/legal`, and `/faq` pages; Home upload acceptance text now links to Terms and Privacy; a compact legal footer exposes the legal page set; Legal Notices intentionally isolates missing official company/legal fields as placeholders
 - Fixed the code-side unbranded Clerk login experience for V1.5 stabilization: `/sign-in` now uses the existing Griffes Vivienne header/footer shell; `ClerkProvider` receives Griffes Vivienne appearance, logo, support email, and FR/EN localized auth copy; a focused `clerkBranding` unit test guards against `"My Application"` copy in app-provided Clerk localization
+- Updated the favicon to the provided gold GV mark as `client/public/favicon.png`; `pnpm check` and `pnpm build` passed before push
+- Completed a final integrated QA audit of the assembled branch:
+  - branch is pushed and aligned with origin at `858dfd1`
+  - `pnpm check` PASS
+  - `pnpm build` PASS with known analytics env and bundle-size warnings
+  - 82 focused stabilization tests PASS across generation, tRPC transport, logo assets, order/preorder, legal content, Clerk branding, and server generation input guard
+  - local SPA route smoke returned 200 for the core app/legal/auth/admin routes
+  - confirmed remaining code issues: client `logoType` default still sends `TEXT_ONLY` despite server anti-hallucination default being `SYMBOL_ONLY`; Prepare preview still lacks near-white logo contrast handling; `auth.logout` cookie-clear behavior/test are misaligned
 
 ## Active mini-block
 
