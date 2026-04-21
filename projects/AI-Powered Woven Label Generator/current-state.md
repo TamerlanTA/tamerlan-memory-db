@@ -26,6 +26,8 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-21-qa-sweep-security-and-double-gen-fix|QA sweep: security fix + double-generation fix]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-21-legal-informational-foundation|Legal informational foundation]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-21-pre-generation-preview-polish|Pre-generation preview polish]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-21-input-guidance-softening|Input guidance softening]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-21-quote-email-unit-price-box|Quote email unit price box]]
 
 Last updated: 2026-04-21
 
@@ -121,6 +123,19 @@ Last updated: 2026-04-21
   - Prepare preview now uses a cleaner centered label frame, reduced max width, constrained logo viewport, and preserved near-white contrast surface
   - scope stayed limited to `Home.tsx` and `Prepare.tsx`; generation/pricing/legal/billing/order/result flows untouched
   - `pnpm check`, `pnpm build`, and `git diff --check` PASS; local `/` and `/prepare` returned 200 on `http://localhost:3001/`
+- Implemented post-Milestone-5 input guidance softening:
+  - Home upload copy now says “logo or visual” and frames recommendations as best-result guidance, not restrictions
+  - Added EN/FR guidance that unusual visuals remain allowed and may sometimes produce surprisingly good results
+  - Added a subtle Prepare note that unusual visuals are still possible but less predictable
+  - technical format validation unchanged; no image-category blocking or new funnel friction added
+  - `pnpm check`, `pnpm build`, and `git diff --check` PASS
+- Implemented quote email unit-price box:
+  - inspected `/Users/tamerlan/Downloads/price list.xlsx` (`Feuil1`) and mapped production unit prices by material, size, and quantity tier
+  - added `server/quoteUnitPricing.ts` as the server-side display helper for estimated unit prices
+  - updated `server/preorderConfirmationEmail.ts` so the top metadata area shows quote reference plus estimated unit price
+  - priced production tiers show locale-aware two-decimal values, e.g. `€0.60 / unit` or `0,60 € / pièce`
+  - samples and unsupported tiers such as 500 pieces show `On request` / `Sur demande`
+  - focused pricing/email tests, `pnpm check`, `pnpm build`, and `git diff --check` PASS
 
 ## Active mini-block
 

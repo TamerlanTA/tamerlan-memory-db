@@ -42,7 +42,8 @@ Last updated: 2026-04-21
 - Pre-order confirmation emails will not send in production until `RESEND_API_KEY` and `RESEND_FROM_EMAIL` are configured
 - A verified Resend sending domain is required for reliable branded delivery
 - Railway DB migration is applied, but live delivery is still unverified until Resend env vars are configured and a real preorder is tested
-- The current preorder flow still has no canonical numeric unit-pricing source; the finishing batch uses semi-manual unit-pricing wording in the email
+- The preorder quote email now has a numeric unit-price helper derived from the client spreadsheet for supported production tiers, but this is still a display/helper table rather than a full contractual pricing engine
+- Quote email unit-price display is now derived from `/Users/tamerlan/Downloads/price list.xlsx`, but the workbook does not define 500-piece pricing or tax/shipping terms; 500-piece production and samples intentionally show `On request` / `Sur demande`, and displayed prices remain estimated until manually confirmed
 - Thumbnail rendering depends on email client image-loading behavior, so some recipients may not see the preview until remote images are enabled
 - The hosted thumbnail path is fixed locally, but still requires one live preorder + inbox verification to confirm the signed/public asset URL is fetchable by real email clients
 - The new reply-in-thread instruction is correct conceptually, but still needs one real inbox/client verification after removing the `mailto` CTA
