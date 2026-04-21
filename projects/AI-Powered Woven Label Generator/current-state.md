@@ -25,6 +25,7 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-20-non-json-generation-stability-fix|Non-JSON generation stability fix]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-21-qa-sweep-security-and-double-gen-fix|QA sweep: security fix + double-generation fix]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-21-legal-informational-foundation|Legal informational foundation]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-21-pre-generation-preview-polish|Pre-generation preview polish]]
 
 Last updated: 2026-04-21
 
@@ -115,6 +116,11 @@ Last updated: 2026-04-21
   - Result page now shows dynamic FR/EN error copy and retry/new-image CTA behavior based on failure type
   - generic React crash boundary no longer blames the uploaded image
   - `pnpm check` PASS; focused error tests PASS (31 tests)
+- Implemented post-Milestone-5 pre-generation preview polish:
+  - Home upload preview now uses a smaller centered logo inside a neutral inset frame, with mobile-safe stacked action buttons
+  - Prepare preview now uses a cleaner centered label frame, reduced max width, constrained logo viewport, and preserved near-white contrast surface
+  - scope stayed limited to `Home.tsx` and `Prepare.tsx`; generation/pricing/legal/billing/order/result flows untouched
+  - `pnpm check`, `pnpm build`, and `git diff --check` PASS; local `/` and `/prepare` returned 200 on `http://localhost:3001/`
 
 ## Active mini-block
 
