@@ -104,7 +104,11 @@ Last updated: 2026-04-21
   - `pnpm build` PASS with known analytics env and bundle-size warnings
   - 82 focused stabilization tests PASS across generation, tRPC transport, logo assets, order/preorder, legal content, Clerk branding, and server generation input guard
   - local SPA route smoke returned 200 for the core app/legal/auth/admin routes
-  - confirmed remaining code issues: client `logoType` default still sends `TEXT_ONLY` despite server anti-hallucination default being `SYMBOL_ONLY`; Prepare preview still lacks near-white logo contrast handling; `auth.logout` cookie-clear behavior/test are misaligned
+- Fixed the highest-priority confirmed QA bugs:
+  - client `DEFAULT_LOGO_TYPE` now aligns with server anti-hallucination default (`symbol_only` / `SYMBOL_ONLY`)
+  - Home upload preview and Prepare preview now have UI-only contrast handling for white / near-white logos
+  - `auth.logout` now clears the legacy cookie with the same session-cookie options plus expiry/maxAge
+  - `pnpm check` PASS; focused targeted tests PASS (47 tests)
 
 ## Active mini-block
 

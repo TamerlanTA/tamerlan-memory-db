@@ -18,9 +18,8 @@ Last updated: 2026-04-21
 
 ## Immediate
 
-- **Fix before client review**: align client generation `DEFAULT_LOGO_TYPE` with the accepted anti-hallucination rule so symbol-only uploads are not sent as `TEXT_ONLY`; add a focused regression test.
-- **Fix before client review**: add Prepare mockup preview contrast handling for white/near-white logo colors on white/off-white backgrounds without changing final generation semantics.
-- **Fix before client review**: align `auth.logout` legacy cookie clearing with the secure session cookie options expected by `server/auth.logout.test.ts`.
+- **Browser QA before client review**: upload an actual white PNG logo and verify Home upload preview + Prepare preview remain visible on white/off-white backgrounds.
+- **Generation QA before client review**: live-generate one symbol-only logo and one text-containing logo to confirm the safer `symbol_only` default does not reintroduce hallucinated text and still preserves intentionally uploaded text where appropriate.
 - **Legal details completion**: fill the real Griffes Vivienne company/legal data in Legal Notices before public production launch (company name, legal form/capital, registered office, registration number, VAT if applicable, publication director, hosting provider)
 - **Auth branding QA**: open `/sign-in` in FR and EN with a real Clerk publishable key; confirm the embedded form shows Griffes Vivienne logo/copy and no generic "My Application" text
 - **Clerk Dashboard branding**: confirm the Clerk application name/logo/support settings are set to Griffes Vivienne for hosted/account-portal surfaces that are not fully controlled by embedded React component localization

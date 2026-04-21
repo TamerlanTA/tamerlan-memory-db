@@ -24,9 +24,9 @@ Last updated: 2026-04-21
 
 ## Open technical risks
 
-- **Confirmed before client review** — Client generation defaults still resolve `DEFAULT_LOGO_TYPE = "text_only"` and send `TEXT_ONLY` to `label.generate`, bypassing the accepted server default `SYMBOL_ONLY` from the anti-hallucination fix. This can encourage invented text behavior for symbol-only logo uploads unless corrected or deliberately accepted.
-- **Confirmed before client review** — White/near-white logo preview contrast is fixed in loading hero/config summary, but the main Prepare mockup preview still renders white logo pixels directly on selected white/off-white backgrounds.
-- **Confirmed but lower-risk** — `auth.logout` clears the legacy cookie with only `{ path: "/" }`; focused test expects deletion with secure/httpOnly/sameSite/maxAge options matching the original session cookie.
+- ~~**Confirmed before client review** — Client generation defaults still resolve `DEFAULT_LOGO_TYPE = "text_only"` and send `TEXT_ONLY` to `label.generate`, bypassing the accepted server default `SYMBOL_ONLY` from the anti-hallucination fix~~ — **FIXED**: client default now resolves to `symbol_only` and focused tests were updated.
+- ~~**Confirmed before client review** — White/near-white logo preview contrast is fixed in loading hero/config summary, but the main Prepare mockup preview still renders white logo pixels directly on selected white/off-white backgrounds~~ — **FIXED IN CODE**: Home and Prepare now use UI-only contrast preview surfaces; browser visual QA still needed.
+- ~~**Confirmed but lower-risk** — `auth.logout` clears the legacy cookie with only `{ path: "/" }`; focused test expects deletion with secure/httpOnly/sameSite/maxAge options matching the original session cookie~~ — **FIXED**: logout clears with session cookie options plus `maxAge: -1`.
 - Non-JSON generation stability fix still needs production/browser smoke testing with a large/high-resolution logo after deploy
 - **Brand leakage fix rollback** — generation/moodboard portion of `320262f` was reverted after severe HD / HD Cotton quality regression; original ideal references are active again, so competitor text/brand leakage risk is open until a better material-specific fix is designed
 - The crop-only safe-reference strategy from `320262f` should not be repeated for HD / HD Cotton without preserving full structural conditioning and validating live output quality
