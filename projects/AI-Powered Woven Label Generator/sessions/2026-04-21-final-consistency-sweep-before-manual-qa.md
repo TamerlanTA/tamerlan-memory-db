@@ -17,6 +17,9 @@
   - Premium/export copy now frames outputs as high-quality assets for quote and production discussions.
   - Loading microcopy now says textile mockup details are being refined rather than promising every thread is perfectly placed.
 - Aligned legal copy with the current quote-request model by replacing residual `order intent` phrasing with quote/request language.
+- Committed and pushed the legal/final consistency sweep to GitHub:
+  - commit `0667272` — `Integrate legal content and final wording sweep`
+  - branch `milestone4-auth-completion`
 
 ## Key findings
 - The most important remaining mismatch was commercial wording: some UI/email/legal copy still sounded like an immediate order or pre-order, while the actual flow records a quote request and relies on manual confirmation.
