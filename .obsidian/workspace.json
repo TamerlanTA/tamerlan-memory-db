@@ -53,10 +53,14 @@
             "id": "d434ea7298e6d14b",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Граф"
+              "type": "markdown",
+              "state": {
+                "file": "My-tasks.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "My-tasks"
             }
           }
         ],
@@ -133,6 +137,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "My-tasks.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -142,7 +147,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Обратные ссылки"
+              "title": "Обратные ссылки для My-tasks"
             }
           },
           {
@@ -245,13 +250,13 @@
   },
   "active": "d434ea7298e6d14b",
   "lastOpenFiles": [
+    "projects/FlowOps promo video scene system.md",
     "projects/AI-Powered Woven Label Generator/sessions/2026-04-21-high-priority-qa-bug-fixes.md",
     "projects/AI-Powered Woven Label Generator/sessions/2026-04-21-final-integrated-qa-audit.md",
     "projects/AI-Powered Woven Label Generator/sessions/2026-04-21-auth-branding-cleanup.md",
     "projects/AI-Powered Woven Label Generator/sessions/2026-04-21-legal-informational-foundation.md",
     "projects/AI-Powered Woven Label Generator/sessions/2026-04-20-non-json-generation-stability-fix.md",
     "My-tasks.md",
-    "projects/FlowOps promo video scene system.md",
     "projects/AI-Powered Woven Label Generator/sessions/2026-04-21-qa-sweep-security-and-double-gen-fix.md",
     "projects/AI-Powered Woven Label Generator/sessions/2026-04-20-revert-moodboard-generation-fix.md",
     "projects/David/next-steps.md",
