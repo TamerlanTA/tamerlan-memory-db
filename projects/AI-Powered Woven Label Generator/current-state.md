@@ -157,6 +157,11 @@ Last updated: 2026-04-22
   - sample request UI now explains jacquard card creation, weaving loom setup, and full deduction from a later production order
   - sample quote emails now show sample price instead of `On request` and include the same development/deduction note
   - focused tests, `pnpm check`, `pnpm build`, and `git diff --check` PASS
+- Added a small loading UX reassurance copy update:
+  - generation loading footer now says EN/FR that a generation usually takes about 1 to 2 minutes, sometimes a little less or more
+  - one long-wait rotating message now uses a restrained weaving line (`Good weaving takes a moment.` / `Un beau tissage prend un instant.`)
+  - no generation logic, loading timing architecture, API calls, pricing, legal, or quote logic changed
+  - `pnpm check`, `pnpm build`, and `git diff --check` PASS
 
 ## Active mini-block
 
