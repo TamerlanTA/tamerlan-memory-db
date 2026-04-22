@@ -30,7 +30,7 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-21-quote-email-unit-price-box|Quote email unit price box]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-21-legal-content-integration-and-consistency-audit|Legal content integration and consistency audit]]
 
-Last updated: 2026-04-21
+Last updated: 2026-04-22
 
 - Active branch: `milestone4-auth-completion`
 - Latest pushed commit: `858dfd1` — `Update favicon asset`
@@ -150,6 +150,13 @@ Last updated: 2026-04-21
   - aligned residual legal wording from `order intent` toward `quote request`
   - confirmed remaining `pre-order` search hits are comments/test names, not live copy
   - `pnpm exec vitest run client/src/domain/legalContent.test.ts server/preorderConfirmationEmail.test.ts server/quoteUnitPricing.test.ts`, `pnpm check`, `pnpm build`, and `git diff --check` PASS
+- Implemented folded format naming + sample pricing commercial polish:
+  - added shared folded-format display helper so user-facing format labels show `+ fold` in EN and `+ replis` in FR while internal size codes remain unchanged
+  - updated Prepare format cards, loading summary, Result quote panel, Order Preview summary, and quote confirmation email to use folded-format wording
+  - added shared sample pricing helper: `HD_COTTON` -> cotton sample `€380`; `HD`, `SATIN`, `TAFFETA` -> standard sample `€320`
+  - sample request UI now explains jacquard card creation, weaving loom setup, and full deduction from a later production order
+  - sample quote emails now show sample price instead of `On request` and include the same development/deduction note
+  - focused tests, `pnpm check`, `pnpm build`, and `git diff --check` PASS
 
 ## Active mini-block
 

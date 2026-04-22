@@ -14,7 +14,7 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-18-post-m5-order-flow-polish|Post-M5 order-flow polish]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-20-white-logo-fix-and-admin-metrics|White logo fix + admin metrics fix]]
 
-Last updated: 2026-04-21
+Last updated: 2026-04-22
 
 ## Immediate
 
@@ -23,7 +23,8 @@ Last updated: 2026-04-21
 - **Generation error UX QA before client review**: force or observe provider temporary failure / timeout / rate-limit cases and confirm the Result page says the service is temporarily unavailable or delayed, not that the uploaded image is invalid.
 - **Pre-generation preview QA before client review**: upload round, square, wide, tall, simple black, and white/near-white logos; confirm Home and Prepare previews stay centered, premium, visible, and balanced on desktop and mobile.
 - **Input guidance QA before client review**: review EN/FR Home and Prepare copy; confirm a supported unusual/random image can still continue through upload and Prepare without extra friction.
-- **Quote email unit-price QA before client review**: submit a production quote at a priced tier (1,000–10,000 pieces) and confirm the top-right box shows the correct estimated unit price in EN/FR; also confirm sample and 500-piece cases show `On request` / `Sur demande`.
+- **Quote email unit-price QA before client review**: submit a production quote at a priced tier (1,000–10,000 pieces) and confirm the top-right box shows the correct estimated unit price in EN/FR; also confirm the 500-piece case shows `On request` / `Sur demande`.
+- **Folded format + sample pricing QA**: verify EN/FR Prepare format cards, loading summary, Result quote panel, Order Preview summary, and quote email show folded format wording; verify standard samples show `€320` / `320 €`, cotton samples show `€380` / `380 €`, and the jacquard-card / loom-setup / deduction explanation is visible.
 - **Legal content QA before client review**: open `/legal`, `/terms`, `/privacy`, and `/faq` in FR/EN on desktop and mobile; confirm official company details, AI mockup disclaimer, guest-first free trial wording, Stripe/credits wording, and quote/manual-confirmation wording are visible and acceptable.
 - **Final consolidated manual QA pass**: validate the full user-facing flow after the consistency sweep:
   - upload and unusual visual upload
