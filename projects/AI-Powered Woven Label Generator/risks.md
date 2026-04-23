@@ -14,7 +14,7 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-16-milestone5-email-finishing-batch|Milestone 5 email finishing batch]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-18-post-m5-order-flow-polish|Post-M5 order-flow polish]]
 
-Last updated: 2026-04-22
+Last updated: 2026-04-23
 
 ## Resolved this session
 
@@ -28,6 +28,7 @@ Last updated: 2026-04-22
 - ~~**Confirmed before client review** — White/near-white logo preview contrast is fixed in loading hero/config summary, but the main Prepare mockup preview still renders white logo pixels directly on selected white/off-white backgrounds~~ — **FIXED IN CODE**: Home and Prepare now use UI-only contrast preview surfaces; browser visual QA still needed.
 - ~~**Confirmed but lower-risk** — `auth.logout` clears the legacy cookie with only `{ path: "/" }`; focused test expects deletion with secure/httpOnly/sameSite/maxAge options matching the original session cookie~~ — **FIXED**: logout clears with session cookie options plus `maxAge: -1`.
 - Non-JSON generation stability fix still needs production/browser smoke testing with a large/high-resolution logo after deploy
+- Product-photo brand-mark interpretation is now hardened in prompts, but it is still a prompt-level fix rather than a true crop/detection pipeline; live QA is still needed with chest-logo garments, centered product branding, and very tiny/low-contrast marks
 - Generation error taxonomy is implemented in code, but live provider failure behavior still needs verification with actual 503/overload/timeout/rate-limit responses to confirm the right normalized code reaches the browser
 - **Brand leakage fix rollback** — generation/moodboard portion of `320262f` was reverted after severe HD / HD Cotton quality regression; original ideal references are active again, so competitor text/brand leakage risk is open until a better material-specific fix is designed
 - The crop-only safe-reference strategy from `320262f` should not be repeated for HD / HD Cotton without preserving full structural conditioning and validating live output quality

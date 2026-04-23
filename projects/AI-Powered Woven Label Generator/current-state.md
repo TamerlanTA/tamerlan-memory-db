@@ -30,11 +30,11 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-21-quote-email-unit-price-box|Quote email unit price box]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-21-legal-content-integration-and-consistency-audit|Legal content integration and consistency audit]]
 
-Last updated: 2026-04-22
+Last updated: 2026-04-23
 
 - Active branch: `milestone4-auth-completion`
 - Latest pushed commit: `858dfd1` — `Update favicon asset`
-- Repo status: all local changes committed and pushed; no pending local batch
+- Repo status: local generation-reliability fix in progress for product-photo brand-mark interpretation; verified locally, not yet committed
 - Remaining untracked local noise: `.claude/` only, intentionally excluded from commits
 
 ## What changed today
@@ -162,6 +162,11 @@ Last updated: 2026-04-22
   - one long-wait rotating message now uses a restrained weaving line (`Good weaving takes a moment.` / `Un beau tissage prend un instant.`)
   - no generation logic, loading timing architecture, API calls, pricing, legal, or quote logic changed
   - `pnpm check`, `pnpm build`, and `git diff --check` PASS
+- Implemented a generation-interpretation reliability fix for product/fashion photo uploads with small visible branding:
+  - verified the root cause in code: the pipeline sent the whole upload as the only source image, labeled it as logo artwork, and repeatedly told Nano Banana to preserve the supplied logo geometry with no product-photo branch or crop heuristic
+  - added centralized source-image interpretation rules so prompts now treat uploads as brand-mark sources, explicitly isolate localized branding inside product photos, and ignore garment/person/product scene context
+  - updated shared label prompt builder plus compact/single-pass/HD/HD-cotton refinement prompts and inline image labeling to reinforce brand-mark isolation without blocking product photos or unusual visuals
+  - added focused regression coverage for the new prompt wording and payload labeling; `pnpm build`, `pnpm check`, `git diff --check`, and focused vitest runs PASS
 
 ## Active mini-block
 
