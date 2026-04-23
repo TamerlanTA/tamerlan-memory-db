@@ -36,5 +36,6 @@ Latest pushed commit: `0a658ea` — `Add reliable preorder confirmation emails`
 ---
 
 ## Secondary / watch
+- **LinkedIn Outreach Automation** — n8n воркфлоу для личного LinkedIn (WF-00 — WF-05), Sourcegeek + Apify + Claude. Статус: WF-05 переработан под цикличный режим, тестируется. См. [[projects/linkedin-automation]]
 - Upwork freelance work (automation / integrations — episodic)
 - Knowledge building: Firecrawl, n8n patterns (see `knowledge/`)
