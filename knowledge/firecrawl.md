@@ -3,6 +3,9 @@
 ## Related
 - [[agent-memory]]
 
+## API ключ (Tamerlan)
+`fc-031e679123db4ddcba40f963ea4a0970`
+
 ## Что это
 Firecrawl — сервис и open-source инструмент для **веб-скрапинга и краулинга**, оптимизированный под подачу данных в LLM.
 
