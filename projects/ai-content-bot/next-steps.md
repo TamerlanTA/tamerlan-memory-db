@@ -8,59 +8,104 @@
 
 ---
 
-## Приоритет 1 — Разблокировать публикацию
+## Задачи на 2026-04-26 (завтра)
 
-1. **Получить ID WF-11** в n8n:
-   - Открыть WF-11 в n8n → скопировать ID из URL
-   - Заменить `REPLACE_WITH_WF11_ID` в `WF-10_Post_Approval.json` → нода `Trigger WF-11 Publish`
-   - Переимпортировать WF-10 в n8n
+### Блок 1 — Инфраструктура (разблокировать всё остальное)
 
-2. **Импортировать / обновить WF-06 в n8n** (добавлен IF: Is Callback? + callback_query routing)
+**Задача 1.1 — Получить ID WF-11 и заменить плейсхолдер**
+- Открыть WF-11 в n8n → ID из URL
+- Заменить `REPLACE_WITH_WF11_ID` в `WF-10_Post_Approval.json` → нода `Trigger WF-11 Publish`
+- Импортировать WF-10 в n8n
 
-3. **Импортировать / обновить WF-10 в n8n** (добавлены inline keyboard кнопки)
+**Задача 1.2 — Импортировать WF-06 и WF-10 в n8n**
+- WF-06: добавлен IF: Is Callback? + Forward to WF-05
+- WF-10: добавлены inline кнопки + reply_markup
+- Проверить что Telegram шлёт сообщение с кнопками
 
----
-
-## Приоритет 2 — Инфраструктура
-
-4. **Создать Posts и Topics листы** в Google Sheets:
-   - Открыть таблицу → Extensions → Apps Script → запустить скрипт
-
-5. **Заменить оставшиеся плейсхолдеры в WF-06**:
-   - После импорта WF-07, WF-10, WF-12 → вставить реальные ID
-   - `REPLACE_WITH_WF07_ID`, `REPLACE_WITH_WF10_ID`, `REPLACE_WITH_WF12_ID`
+**Задача 1.3 — Создать Posts и Topics листы в Google Sheets**
+- Extensions → Apps Script → запустить скрипт
+- Проверить колонки: `post_id, date, topic, source, linkedin_text, twitter_text, threads_text, image_url, status`
 
 ---
 
-## Приоритет 3 — Тест флоу
+### Блок 2 — Полный пересмотр approve/publish флоу (ГЛАВНАЯ ЗАДАЧА)
 
-6. **Тестировать полный флоу:**
-   - Написать боту "create post about AI automation"
-   - Дождаться генерации → получить превью с кнопками
-   - Нажать ✅ Publish → проверить что WF-05 → WF-10 (approve) → WF-11 отработали
-   - Проверить публикацию в Buffer dashboard
+Текущая архитектура WF-05 → WF-10 → WF-11 несогласована по post_id и статусам. Нужна полная переработка.
 
-7. **Протестировать Gemini изображения** с новым API ключом
+**Требования к новому флоу:**
 
-8. **Проверить Buffer аккаунт** — связанные профили LinkedIn / X / Threads
+```
+Пользователь пишет "create post about X"
+  → WF-09 ищет тему X в Topics таблице (match by keyword)
+  → Если найдена → берёт url/headline из топика
+  → Если нет → генерирует на основе текста запроса
+  → Генерирует пост → сохраняет в Posts (status=draft, уникальный post_id)
+  → Отправляет превью с кнопками ✅ Publish / ⏭️ Skip
+
+Пользователь нажимает ✅ Publish (callback: approve_post_{post_id})
+  → WF-06 → IF: Is Callback? → WF-05
+  → WF-05 парсит post_id из callback_data
+  → Вызывает WF-10 {action: approve, post_id: XXX, chat_id: YYY}
+  → WF-10 читает пост по post_id из Posts
+  → Вызывает WF-11 {post_id, linkedin_text, twitter_text, threads_text, image_url}
+  → WF-11 публикует в Buffer → обновляет статус в Posts на published
+  → Отправляет подтверждение в Telegram
+
+Пользователь пишет "show pending posts"
+  → WF-10 (action=show) читает ВСЕ draft посты
+  → Показывает по одному с кнопками + пост 1/3 индикатором
+  → Кнопка "следующий" показывает следующий (по post_id)
+```
+
+**Конкретные изменения в воркфлоу:**
+
+- **WF-09**: добавить шаг `Search Topic in Sheet` — поиск по ключевому слову в Topics таблице перед генерацией
+- **WF-10 (show)**: убрать `items[0]` — показывать конкретный post_id или первый draft с явным post_id в кнопках
+- **WF-10 (approve)**: читать по `post_id` → вызывать WF-11 → обновлять статус на `approved`
+- **WF-11**: после публикации → обновить Posts статус на `published` → подтверждение в Telegram
+- **WF-05**: убедиться что передаёт post_id корректно в WF-10
 
 ---
 
-## Приоритет 4 — Активация по расписанию
+### Блок 3 — Персонализация изображений
 
-9. Активировать воркфлоу по расписанию:
-   - WF-06 (Telegram trigger) ✅
-   - WF-05 (callback_query) ✅
-   - WF-07 (07:00 Topic Discovery)
-   - WF-08 (08:00 Morning Briefing)
-   - WF-01 (09:00 Outreach)
-   - WF-12 (20:00 Stats)
-   - WF-00 (Пн 08:00 Lead Discovery)
+**Задача 3.1 — Разработать визуальный стиль**
+Определить:
+- Основные цвета (пример: тёмный фон #0D0D0D, акценты: электрик синий #00F0FF, неоново-зелёный #00FF88)
+- Визуальные элементы (circuit lines, floating UI fragments, minimal geometric shapes)
+- Атмосфера (tech-noir, corporate cyberpunk, minimalist AI)
+- Формат: 16:9 photorealistic, no text, no logos
+
+**Задача 3.2 — Обновить system prompt в WF-09 `Build Claude Prompt`**
+Заменить шаблон image_description на:
+```
+"MINIMALISTIC PERSONAL BRAND STYLE: Ultra dark background (#0D0D0D), 
+electric blue and neon green accent elements, [specific visual metaphor for post topic], 
+thin geometric lines/grids, cinematic lighting, photorealistic 16:9, 
+NO text, NO logos, NO people faces, depth of field blur"
+```
 
 ---
 
-## Низкий приоритет
+### Блок 4 — Замена оставшихся плейсхолдеров в WF-06
 
-- Вставить Unsplash API ключ в WF-09 (`REPLACE_WITH_UNSPLASH_ACCESS_KEY`)
-- Добавить Firecrawl credential в WF-07 (`REPLACE_WITH_FIRECRAWL_CREDENTIAL_ID`)
-- Настроить WF-02 (Followup) и WF-03 (Reply Monitor)
+После импорта WF-07, WF-10, WF-12 в n8n:
+- `REPLACE_WITH_WF07_ID` → ID WF-07
+- `REPLACE_WITH_WF10_ID` → ID WF-10
+- `REPLACE_WITH_WF12_ID` → ID WF-12
+
+---
+
+### Низкий приоритет (отложить)
+- Unsplash API ключ в WF-09
+- Firecrawl credential в WF-07
+- WF-02 Followup и WF-03 Reply Monitor
+- Активация всех воркфлоу по расписанию
+
+---
+
+## Порядок работы завтра
+
+1. Инфраструктура (Блок 1) — 20 минут
+2. Пересмотр approve/publish флоу (Блок 2) — основная работа
+3. Персонализация изображений (Блок 3) — если останется время
