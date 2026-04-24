@@ -127,6 +127,7 @@ Telegram сообщение → WF-06 AI Agent (GPT-4O)
 | WF-06_AI_Command_Center.json | `REPLACE_WITH_WF12_ID` | ID WF-12 после импорта |
 | WF-09 Content Generation.json | `REPLACE_WITH_UNSPLASH_ACCESS_KEY` | Unsplash API ключ |
 | WF-10_Post_Approval.json | `REPLACE_WITH_WF11_ID` | ID WF-11 после импорта |
+| WF-07_Topic_Discovery.json | `REPLACE_WITH_FIRECRAWL_CREDENTIAL_ID` | ID credential Firecrawl API в n8n (оба Reddit узла) |
 
 ---
 
