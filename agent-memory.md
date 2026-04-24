@@ -8,7 +8,8 @@
 - [[projects/AI-Powered Woven Label Generator/overview|AI-Powered Woven Label Generator]]
 - [[projects/David/overview|Make-David — WhatsApp automation (Колумбия)]]
 - [[knowledge/firecrawl|Firecrawl — веб-скрапинг для LLM]]
-- [[projects/linkedin-automation|LinkedIn Outreach Automation (n8n)]]
+- [[projects/linkedin-automation|LinkedIn Outreach Automation (WF-00..WF-05)]]
+- [[projects/ai-content-bot/overview|AI Content Bot — Telegram бот контент + публикация (WF-06..WF-12)]]
 
 ---
 
