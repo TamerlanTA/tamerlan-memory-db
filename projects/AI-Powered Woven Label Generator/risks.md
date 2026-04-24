@@ -14,7 +14,7 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-16-milestone5-email-finishing-batch|Milestone 5 email finishing batch]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-18-post-m5-order-flow-polish|Post-M5 order-flow polish]]
 
-Last updated: 2026-04-23
+Last updated: 2026-04-24
 
 ## Resolved this session
 
@@ -29,6 +29,9 @@ Last updated: 2026-04-23
 - ~~**Confirmed but lower-risk** — `auth.logout` clears the legacy cookie with only `{ path: "/" }`; focused test expects deletion with secure/httpOnly/sameSite/maxAge options matching the original session cookie~~ — **FIXED**: logout clears with session cookie options plus `maxAge: -1`.
 - Non-JSON generation stability fix still needs production/browser smoke testing with a large/high-resolution logo after deploy
 - Product-photo brand-mark interpretation is now hardened in prompts, but it is still a prompt-level fix rather than a true crop/detection pipeline; live QA is still needed with chest-logo garments, centered product branding, and very tiny/low-contrast marks
+- Prompt rebalance now restores exact-artwork handling for explicit logo types and keeps guarded ambiguity for `AUTO`, but there is still no explicit product-photo flag in the payload; `AUTO` remains the highest-risk branch for ambiguous uploads
+- The rebalance should recover normal text/logo quality, but live QA is still needed to confirm typography elegance and fidelity are back for straightforward wordmarks/monograms
+- Background-field stability is now hardened in prompt/profile language, but it is still a prompt-level control rather than a deterministic weave simulation; live QA is still needed to confirm beige/light luxury labels no longer show ripple, stretched rows, or warped field drift
 - Generation error taxonomy is implemented in code, but live provider failure behavior still needs verification with actual 503/overload/timeout/rate-limit responses to confirm the right normalized code reaches the browser
 - **Brand leakage fix rollback** — generation/moodboard portion of `320262f` was reverted after severe HD / HD Cotton quality regression; original ideal references are active again, so competitor text/brand leakage risk is open until a better material-specific fix is designed
 - The crop-only safe-reference strategy from `320262f` should not be repeated for HD / HD Cotton without preserving full structural conditioning and validating live output quality

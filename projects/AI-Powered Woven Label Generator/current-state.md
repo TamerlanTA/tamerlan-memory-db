@@ -29,12 +29,21 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-21-input-guidance-softening|Input guidance softening]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-21-quote-email-unit-price-box|Quote email unit price box]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-21-legal-content-integration-and-consistency-audit|Legal content integration and consistency audit]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-24-vercel-deploy-sync-after-missing-push|Vercel deploy sync after missing push]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-24-wave-quality-regression-rebalance|Wave quality regression rebalance]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-24-sample-price-card-credit-message|Sample price card credit message]]
 
-Last updated: 2026-04-23
+Last updated: 2026-04-24
 
 - Active branch: `milestone4-auth-completion`
-- Latest pushed commit: `858dfd1` — `Update favicon asset`
-- Repo status: local generation-reliability fix in progress for product-photo brand-mark interpretation; verified locally, not yet committed
+- Latest local commit: `e12c8ba` — `Stabilize woven background field prompts`
+- Repo status: local generation-stability fixes are committed and pushed through `e12c8ba`; a follow-up local prompt rebalance now softens the wave/ripple hardening language after it degraded generation quality and contaminated support surfaces with swirl-like artifacts
+- Local SEO/content polish now extends the FAQ page with richer citation-friendly answers plus `FAQPage` JSON-LD on `/faq`; the copy now includes verified facts such as Italy manufacturing, ~4-week lead time, 4 materials, 4 folded formats, and the truthful nuance that standard production pricing starts at 1,000 pieces while some 500-piece requests can still remain manual/on-request
+- A new local SEO implementation batch now replaces the FAQ with the approved 15-question FR/EN brief, adds `react-helmet-async`, route-specific `/faq` meta tags + FAQPage JSON-LD, per-page meta titles/descriptions for Home / Prepare / Result, and Organization schema on Home
+- Staging safety remains preserved: the staging gate still owns `noindex, nofollow`; this batch does not change robots behavior
+- One intentional launch-readiness deviation from the brief: Organization schema uses the real existing `/favicon.png` asset instead of `/favicon.svg`, because the SVG file is not currently served by the app
+- Search-indexing caveat remains unchanged: `noindex` is still intentionally controlled by the staging gate (`VITE_IS_STAGING === "true"`), so production crawlability still depends on the real environment not shipping with staging mode enabled
+- Deploy status: root cause of the “missing Vercel commit” confusion was a missing `git push`; after pushing `milestone4-auth-completion`, Vercel detected `e12c8ba` and created a new queued deployment on `griffes-vivienne-studio-3vop`
 - Remaining untracked local noise: `.claude/` only, intentionally excluded from commits
 
 ## What changed today
@@ -167,6 +176,26 @@ Last updated: 2026-04-23
   - added centralized source-image interpretation rules so prompts now treat uploads as brand-mark sources, explicitly isolate localized branding inside product photos, and ignore garment/person/product scene context
   - updated shared label prompt builder plus compact/single-pass/HD/HD-cotton refinement prompts and inline image labeling to reinforce brand-mark isolation without blocking product photos or unusual visuals
   - added focused regression coverage for the new prompt wording and payload labeling; `pnpm build`, `pnpm check`, `git diff --check`, and focused vitest runs PASS
+- Rebalanced the product-photo safety fix after it degraded normal logo/text quality:
+  - confirmed the regression came from applying product-photo defensive wording too broadly, including explicit `TEXT_ONLY`, `SYMBOL_ONLY`, and `SYMBOL_AND_TEXT` paths
+  - added branched source-image interpretation modes so explicit logo types now use strong supplied-artwork fidelity wording again, while `AUTO` keeps conditional product-photo isolation guidance
+  - narrowed inline source labels to `SUPPLIED LOGO ARTWORK:` for exact-artwork paths and `SOURCE IMAGE / BRAND MARK:` for ambiguous paths
+  - updated focused prompt/pipeline tests; `pnpm check`, `pnpm build`, `git diff --check`, and targeted vitest runs PASS
+- Hardened background weave stability after logo interpretation improved but the label field still drifted into wave/ripple distortion:
+  - identified the root cause as missing even-field / stable-tension / anti-warp constraints in both full and compact runtime prompts
+  - added a shared background-field stability helper and threaded it through the full prompt, compact runtime path, HD dark, HD refinement, HD Cotton Stage A/B/single-pass, and taffeta prompts
+  - added anti-wave / anti-stretched-field wording without flattening the textile into a dead uniform map
+  - updated focused generation/runtime tests; `pnpm exec vitest run server/generation.test.ts server/nanoBananaService.helpers.test.ts`, `pnpm check`, `pnpm build`, and `git diff --check` PASS
+- Rebalanced the weave-stability hardening after live outputs showed a severe quality drop:
+  - verified from real outputs that the issue was no longer just label-ground drift; support backgrounds and the whole scene were picking up swirl-like / thread-like contamination
+  - identified the likely prompt cause: repeated aggressive wording around `wave`, `ripple`, `warped`, `stretched`, and `micro-variation` was being over-literalized by the model
+  - replaced that language with calmer positive guidance about orderly premium weave plus an explicit guardrail that the wood/marble/paper support surface must stay smooth and non-textile
+  - updated focused prompt tests; `pnpm exec vitest run server/generation.test.ts server/nanoBananaService.helpers.test.ts`, `pnpm check`, `pnpm build`, and `git diff --check` PASS
+- Applied a small quote-email conversion tweak for sample requests:
+  - moved the sample reimbursement benefit directly into the top-right sample price card under the amount
+  - EN copy now reads `100% credited toward your future production order`; FR copy mirrors that deduction message
+  - the lower explanatory note now focuses on jacquard card creation and loom setup instead of repeating the deduction line
+  - `pnpm exec vitest run server/preorderConfirmationEmail.test.ts`, `pnpm check`, `pnpm build`, and `git diff --check` PASS
 
 ## Active mini-block
 
