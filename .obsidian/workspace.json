@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "projects/ai-content-bot/overview.md",
+                "file": "ai-content-bot.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "overview"
+              "title": "ai-content-bot"
             }
           },
           {
@@ -249,6 +249,10 @@
   },
   "active": "46c2c85c80748a8c",
   "lastOpenFiles": [
+    "ai-content-bot.md",
+    "knowledge/codex-local-plugins.md",
+    "projects/linkedin-automation.md",
+    "projects/ai-content-bot/overview.md",
     "projects/FlowOps promo video scene system.md",
     "projects/ai-content-bot/next-steps.md",
     "projects/ai-content-bot/sessions/2026-04-25-eod-problems-found.md",
@@ -257,12 +261,10 @@
     "projects/ai-content-bot/sessions/2026-04-25-wf09-gemini-wf10-buttons-wf06-callback.md",
     "projects/ai-content-bot/decisions.md",
     "projects/ai-content-bot/current-state.md",
-    "projects/ai-content-bot/overview.md",
     "projects/ai-content-bot/sessions",
     "projects/ai-content-bot",
     "projects/sessions/2026-04-24-flowops-bot-complete-build.md",
     "projects/sessions",
-    "projects/linkedin-automation.md",
     "My-tasks.md",
     "projects/AI-Powered Woven Label Generator/sessions/2026-04-23-product-photo-brand-mark-interpretation-fix.md",
     "projects/AI-Powered Woven Label Generator/sessions/2026-04-22-loading-time-expectation-copy.md",
@@ -276,8 +278,6 @@
     "projects/AI-Powered Woven Label Generator/sessions/2026-04-21-legal-informational-foundation.md",
     "projects/AI-Powered Woven Label Generator/sessions/2026-04-20-non-json-generation-stability-fix.md",
     "projects/AI-Powered Woven Label Generator/sessions/2026-04-21-qa-sweep-security-and-double-gen-fix.md",
-    "projects/AI-Powered Woven Label Generator/sessions/2026-04-20-revert-moodboard-generation-fix.md",
-    "projects/David/next-steps.md",
     "Без названия.base",
     "Без названия 1.canvas",
     "Без названия.canvas",
