@@ -61,11 +61,13 @@
 ```
 
 **Проверить после импорта:**
-- `create post about X` → WF-09 ищет X в Topics или генерирует на ручную тему
+- `Создай пост <VentureBeat URL>` → WF-06 должен напрямую вызвать WF-09 с `source_url`; WF-09 должен сгенерировать пост по этой статье, не generic n8n case study
 - Telegram preview содержит кнопки
-- `approve_post_{post_id}` → WF-06 → WF-05 → WF-10 approve → WF-11
+- `approve_post_{post_id}` → WF-06 → WF-10 approve → WF-11; WF-10 не должен получать `show`
+- outreach callbacks `a`/`s` → WF-06 → WF-05
 - WF-11 с валидным Buffer config обновляет `Posts.status=published`
-- При ошибке Buffer `Posts.status=error`, а Telegram получает понятное сообщение
+- Если Buffer profile IDs отсутствуют: `Posts.status=approved`, Telegram получает понятное сообщение о Buffer setup
+- При ошибке Buffer API: `Posts.status=error`, Telegram получает понятное сообщение
 
 ---
 

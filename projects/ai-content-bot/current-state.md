@@ -11,6 +11,15 @@
 ## Статус (2026-04-25)
 
 ### Последний аудит/фикс ✅
+- **2026-04-25 deterministic router fix:** после реального Telegram-теста обнаружено, что:
+  - запрос с VentureBeat URL всё равно сгенерировал generic post про n8n/automation
+  - нажатие `✅ Publish` привело к WF-10 `show`, а не `approve`
+- Исправлено архитектурно:
+  - **WF-06** теперь маршрутизирует `create post`, `show posts`, `approve_post_*`, `skip_post_*` обычными Code/Switch нодами до AI Agent.
+  - **WF-09** теперь извлекает URL из текста, нормализует URL/headline и приоритетно матчится по source URL, а не по первой строке Topics.
+  - **WF-10** получает `action/post_id/chat_id` напрямую из текущего JSON, добавлен `Prepare WF-11 Publish Payload`.
+  - **WF-05** post callbacks теперь тоже проходят через `Prepare WF-10 Post Action`, без schema-dependent workflowInputs.
+  - **WF-11** при отсутствии Buffer profile IDs ставит `Posts.status=approved` и объясняет setup blocker, вместо silent fail.
 - Проведён полный локальный аудит всех JSON workflow-файлов:
   - JSON валиден
   - connections не указывают на отсутствующие ноды
