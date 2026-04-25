@@ -21,6 +21,7 @@
   - **WF-05** post callbacks теперь тоже проходят через `Prepare WF-10 Post Action`, без schema-dependent workflowInputs.
   - **WF-11** при отсутствии Buffer profile IDs ставит `Posts.status=approved` и объясняет setup blocker, вместо silent fail.
 - **2026-04-25 WF-06 callback payload hotfix:** в n8n UI обнаружено, что WF-10 `Parse Action` получает `{ ok: true, result: true }`, потому что Telegram `Answer Post Callback` стоял перед `Call WF-10 Post Action`. Исправлено: `Answer Post Callback` теперь отдельная side branch, а WF-10 получает payload через новый `Prepare WF-10 Post Action`.
+- **2026-04-25 WF-10 show-default guard:** так как approve/skip всё ещё приводил к `show`, WF-06 перестроен ещё жёстче: `Switch post_action → Prepare WF-10 Post Action → [Answer Callback + Call WF-10]`. WF-10 `Parse Action` теперь бросает ошибку, если получает `{ok,result}` или boolean `result` без `action/post_id`, вместо молчаливого fallback в `show`.
 - Проведён полный локальный аудит всех JSON workflow-файлов:
   - JSON валиден
   - connections не указывают на отсутствующие ноды
