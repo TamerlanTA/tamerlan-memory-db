@@ -10,6 +10,22 @@
 
 ## Статус (2026-04-25)
 
+### Последний аудит/фикс ✅
+- Проведён полный локальный аудит всех JSON workflow-файлов:
+  - JSON валиден
+  - connections не указывают на отсутствующие ноды
+  - старых `YOUR_*` / `REPLACE_WITH_*` плейсхолдеров в JSON не осталось
+  - JS внутри Code-нод проходит синтаксическую проверку
+- **WF-00**: upsert лидов теперь должен матчиться по `linkedin_url`.
+- **WF-01**: исправлены `Build Prompt1`, лимит сообщения до 180 символов, и критическая ошибка обновления не того листа (`Stats` вместо `Leads`).
+- **WF-02/WF-03/WF-04**: заменены плейсхолдеры Sheet/chat ID; WF-02 переведён с рискованных Set/spread/output-path выражений на Code-ноды.
+- **WF-05**: удалён лишний Telegram Trigger из локального файла, export выставлен `active=false`, post callbacks передают в WF-10 явные `action/post_id/chat_id`.
+- **WF-06**: callback detection усилен boolean-проверкой.
+- **WF-09**: добавлен поиск темы в `Topics` через `Read Topics` → `Resolve Topic`, безопасная обработка пустого `source_url`, inline кнопки на preview.
+- **WF-10**: inline кнопки реально подключены в Telegram node; approve читает по `post_id`; WF-11 получает явный payload.
+- **WF-11**: Buffer body больше не пустой; публикация требует `profile_ids`/`BUFFER_PROFILE_IDS`; статус Posts обновляется в `published` или `error`.
+- **create_sheets.gs**: добавлены `Posts`, `Topics`, и недостающие Queue columns.
+
 ### Завершено ✅
 - **WF-09 Content Generation** — полностью переписан:
   - Вирусные промпты по 4 контентным бакетам (AI Basics Done Wrong / Real Implementation / AI Tools Breakdown / Contrarian Take)
@@ -34,11 +50,10 @@
   - ❌ `REPLACE_WITH_WF11_ID` placeholder ещё не заменён
 
 ### Ожидает ⏳
-- Получить реальный n8n ID WF-11 (из URL после импорта) → заменить в WF-10
-- Импортировать обновлённые WF-06, WF-10 в n8n (или обновить через n8n UI)
+- Импортировать обновлённые WF-05, WF-06, WF-09, WF-10, WF-11 в n8n (или обновить через n8n UI)
 - Создать Posts и Topics листы в Google Sheets (запустить Apps Script)
-- Вставить Unsplash API ключ в WF-09 (placeholder `REPLACE_WITH_UNSPLASH_ACCESS_KEY`)
+- Настроить Buffer для WF-11: нужен valid direct API token + `profile_ids` / `$env.BUFFER_PROFILE_IDS`
 - Протестировать полный флоу: create post → review → approve → publish
 
 ### Активированные воркфлоу в n8n
-WF-06 и WF-05 должны быть активны (Telegram triggers). WF-09, WF-10, WF-11 — только сохранены, не активированы.
+WF-06 — единственный активный Telegram Trigger. WF-05 должен быть callable-only через Execute Workflow, без активного Telegram Trigger. WF-09, WF-10, WF-11 могут быть сохранены/callable; отдельная активация Telegram Trigger для них не нужна.

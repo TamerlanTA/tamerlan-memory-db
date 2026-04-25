@@ -12,25 +12,28 @@
 
 ### Блок 1 — Инфраструктура (разблокировать всё остальное)
 
-**Задача 1.1 — Получить ID WF-11 и заменить плейсхолдер**
-- Открыть WF-11 в n8n → ID из URL
-- Заменить `REPLACE_WITH_WF11_ID` в `WF-10_Post_Approval.json` → нода `Trigger WF-11 Publish`
-- Импортировать WF-10 в n8n
+**Задача 1.1 — Импортировать обновлённые локальные workflows**
+- Импортировать WF-05, WF-06, WF-09, WF-10, WF-11 из `/Users/tamerlan/Desktop/linkedin automation/`
+- Важно: WF-06 — единственный активный Telegram Trigger
+- WF-05 должен оставаться callable-only через Execute Workflow
 
-**Задача 1.2 — Импортировать WF-06 и WF-10 в n8n**
-- WF-06: добавлен IF: Is Callback? + Forward to WF-05
-- WF-10: добавлены inline кнопки + reply_markup
-- Проверить что Telegram шлёт сообщение с кнопками
+**Задача 1.2 — Создать/обновить Google Sheets структуру**
+- Запустить обновлённый `create_sheets.gs` или вручную добавить:
+  - `Posts`
+  - `Topics`
+  - Queue columns: `subject`, `followup_subject`, `followup_message`
 
-**Задача 1.3 — Создать Posts и Topics листы в Google Sheets**
-- Extensions → Apps Script → запустить скрипт
-- Проверить колонки: `post_id, date, topic, source, linkedin_text, twitter_text, threads_text, image_url, status`
+**Задача 1.3 — Разблокировать Buffer**
+- Получить valid direct API token/credential для Buffer
+- Получить Buffer `profile_ids`
+- Указать `BUFFER_PROFILE_IDS` в n8n env или передавать `profile_ids` в WF-11
+- Текущий токен при прямом API тесте вернул `401 OIDC tokens are not accepted for direct API access`
 
 ---
 
-### Блок 2 — Полный пересмотр approve/publish флоу (ГЛАВНАЯ ЗАДАЧА)
+### Блок 2 — Проверка approve/publish флоу (ГЛАВНАЯ ЗАДАЧА)
 
-Текущая архитектура WF-05 → WF-10 → WF-11 несогласована по post_id и статусам. Нужна полная переработка.
+Локальная архитектура WF-05 → WF-10 → WF-11 пересобрана по `post_id` и статусам. Теперь нужна проверка после импорта.
 
 **Требования к новому флоу:**
 
@@ -57,13 +60,12 @@
   → Кнопка "следующий" показывает следующий (по post_id)
 ```
 
-**Конкретные изменения в воркфлоу:**
-
-- **WF-09**: добавить шаг `Search Topic in Sheet` — поиск по ключевому слову в Topics таблице перед генерацией
-- **WF-10 (show)**: убрать `items[0]` — показывать конкретный post_id или первый draft с явным post_id в кнопках
-- **WF-10 (approve)**: читать по `post_id` → вызывать WF-11 → обновлять статус на `approved`
-- **WF-11**: после публикации → обновить Posts статус на `published` → подтверждение в Telegram
-- **WF-05**: убедиться что передаёт post_id корректно в WF-10
+**Проверить после импорта:**
+- `create post about X` → WF-09 ищет X в Topics или генерирует на ручную тему
+- Telegram preview содержит кнопки
+- `approve_post_{post_id}` → WF-06 → WF-05 → WF-10 approve → WF-11
+- WF-11 с валидным Buffer config обновляет `Posts.status=published`
+- При ошибке Buffer `Posts.status=error`, а Telegram получает понятное сообщение
 
 ---
 
@@ -87,17 +89,14 @@ NO text, NO logos, NO people faces, depth of field blur"
 
 ---
 
-### Блок 4 — Замена оставшихся плейсхолдеров в WF-06
-
-После импорта WF-07, WF-10, WF-12 в n8n:
-- `REPLACE_WITH_WF07_ID` → ID WF-07
-- `REPLACE_WITH_WF10_ID` → ID WF-10
-- `REPLACE_WITH_WF12_ID` → ID WF-12
+### Блок 4 — Низкоуровневая проверка после импорта
+- Убедиться, что WF-06 tool workflow IDs указывают на актуальные импортированные workflow IDs
+- Проверить, что в JSON нет старых `YOUR_*` / `REPLACE_WITH_*`
+- Проверить, что в n8n UI Telegram nodes действительно показывают inlineKeyboard
 
 ---
 
 ### Низкий приоритет (отложить)
-- Unsplash API ключ в WF-09
 - Firecrawl credential в WF-07
 - WF-02 Followup и WF-03 Reply Monitor
 - Активация всех воркфлоу по расписанию
@@ -106,6 +105,6 @@ NO text, NO logos, NO people faces, depth of field blur"
 
 ## Порядок работы завтра
 
-1. Инфраструктура (Блок 1) — 20 минут
-2. Пересмотр approve/publish флоу (Блок 2) — основная работа
+1. Инфраструктура + импорт (Блок 1) — 20 минут
+2. Проверка approve/publish флоу (Блок 2) — основная работа
 3. Персонализация изображений (Блок 3) — если останется время
