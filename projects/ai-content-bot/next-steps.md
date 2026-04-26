@@ -8,7 +8,63 @@
 
 ---
 
-## Задачи на 2026-04-26 (завтра)
+## Задачи на 2026-04-28
+
+### Блок 1 — Импорт и активация после апгрейда 2026-04-27
+
+**Задача 1.1 — Переимпортировать WF-06 и WF-09**
+- WF-06: новый Route Telegram Update (детектит фото), новый AI Agent system prompt (general assistant + tools)
+- WF-09: 6 post modes, vibrant image style, image-to-image reference support
+
+**Задача 1.2 — Заменить TELEGRAM_BOT_TOKEN в WF-09**
+- Открыть Prepare Gemini Body Code ноду
+- Найти `const TELEGRAM_BOT_TOKEN = 'REPLACE_WITH_TELEGRAM_BOT_TOKEN';`
+- Заменить на токен от @BotFather (`/mybots` → FlowOpsBot → API Token)
+
+**Задача 1.3 — Переимпортировать WF-05**
+- Удалены ноды Prepare PB Body и Send connection request
+- Get Lead Approve теперь идёт напрямую в Set Approve Data
+
+---
+
+### Блок 2 — Тестовые сценарии
+
+**2.1 — Personal case post:**
+- В Telegram: "Создай пост. Я недавно автоматизировал процесс в компании, после чего уволили 4 человек. Я получил $3,350 а компания экономит $6k/мес"
+- Ожидание: post_mode=personal_case, voice первое лицо, реальные цифры, quote-card image с $3,350 на цветном фоне, БЕЗ "1. Efficiency Boost: 2. Focus Shift:"
+
+**2.2 — General assistant chat:**
+- В Telegram: "Что думаешь о Claude 4?" или "Как мне лучше сформулировать предложение клиенту?"
+- Ожидание: естественный ответ, БЕЗ попытки вызвать tool
+
+**2.3 — Image reference:**
+- В Telegram: прикрепить любую картинку с яркой палитрой + caption "сделай пост в этом стиле про AI агентов"
+- Ожидание: автоматически идёт в create_post, Gemini видит референс и генерит картинку с похожей палитрой/настроением
+
+**2.4 — Vibrant image style:**
+- Любой educational/news пост → проверить что картинка получилась как у @organizeddashboard: белый grid background, огромный заголовок, 2-3 ярких accent colors, highlight boxes, emoji-иконки
+
+---
+
+### Блок 3 — Если что-то не работает
+
+- Personal mode шаблонный → fine-tune промпт, добавить больше examples
+- Image reference не работает → проверить (a) что token правильный, (b) что photo_file_id реально приходит в WF-09 (output Resolve Topic), (c) что Gemini принял inlineData (логи Generate Image Gemini)
+- General chat не работает → проверить что AI Agent реально получает текст и не пытается роутить в tool
+
+---
+
+### Низкий приоритет (отложено)
+
+- **Outreach отправка** — функция отключена. Если возвращаемся: обновить li_at, проверить sharing settings sheet, либо искать альтернативу (n8n LinkedIn community node, Apify, HeyReach).
+- **Cloudinary секрет** в JSON (R-16) — перенести в credentials когда n8n upgrade.
+- **TELEGRAM_BOT_TOKEN** hardcoded (R-18) — то же самое.
+- **WF-13 LinkedIn post liker outreach** — отложено пока outreach неактивен.
+- **Pagination для draft posts** (R-04) — пока показываем первый.
+
+---
+
+## Прошлые задачи на 2026-04-26 (выполнены или устарели)
 
 ### Блок 1 — Инфраструктура (разблокировать всё остальное)
 

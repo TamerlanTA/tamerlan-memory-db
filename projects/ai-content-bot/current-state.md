@@ -8,10 +8,17 @@
 
 ---
 
-## Статус (2026-04-25)
+## Статус (2026-04-27)
 
 ### Последний аудит/фикс ✅
-- **2026-04-25 deterministic router fix:** после реального Telegram-теста обнаружено, что:
+- **2026-04-27 outreach sending DROPPED**: после долгих попыток заменить Sourcegeek на Phantombuster (через HTTP `api.phantombuster.com/api/v2/agents/launch`, корректные имена аргументов `leadsSourceUrl`/`columnName`/`sessionCookie`/`userAgent`/`customizeInvite`/`numberOfAddsPerLaunch`) — phantom не запускался даже вручную из Phantombuster UI, видел лиды в Google Sheet но не мог зайти в LinkedIn (Name/Headline пустые). Решение: убрать отправку connection request полностью. WF-05 теперь идёт `Get Lead Approve → Set Approve Data` напрямую, без промежуточных Phantombuster нод. Approve флоу обновляет статус в Queue/Leads, шлёт "✅ Отправлено!" в Telegram, но реальный LinkedIn-запрос не отправляется.
+- **2026-04-27 vibrant image style**: после анализа референсов (@organizeddashboard, techwith.ram, dark green workflow nodes) полностью переделан image prompt. Белый/off-white grid background, HUGE bold typography (40-50% площади), 2-3 vibrant accent colors вместо одного muted, filled highlight boxes за ключевыми словами, 3D emoji-иконки, цветные pinned cards. Промпт обновлён в двух местах: VISUAL STYLE REFERENCES внутри Build Claude Prompt и styleGuide в Prepare Gemini Body.
+- **2026-04-27 adaptive post modes**: WF-09 теперь определяет один из 6 режимов автоматически: personal_case (реальный кейс с цифрами), personal_story (мысль/опыт), news_take, educational, contrarian, tool_breakdown. Промпт делает STEP 1 — DETECT POST MODE, STEP 2 — WRITE according to mode. Personal-режимы получают voice "first person, raw, no corporate shape" и quote-card/number-card image style. Editorial-режимы — sharp analysis + vibrant infographic. Решает проблему когда на личный кейс генерился educational шаблон "1. Efficiency Boost 2. Focus Shift".
+- **2026-04-27 general assistant mode**: AI Agent system prompt в WF-06 переписан. Tool calls только когда запрос явно совпадает; на всё остальное (вопросы, брейнсторм, casual chat, follow-up) отвечает естественно как ChatGPT. Явно перечислено "When NOT to use tools".
+- **2026-04-27 reference image input**: пользователь может прикрепить картинку + caption в Telegram. Route Telegram Update в WF-06 детектит `msg.photo` массив, захватывает `photo_file_id` (последний/самый большой размер) и автоматически роутит в `create_post`. Resolve Topic в WF-09 пробрасывает file_id, Prepare Gemini Body фетчит картинку через Telegram getFile + download, конвертирует в base64 и добавляет как `inlineData` в `parts` ПЕРЕД text — Gemini Nano Banana Pro поддерживает image-to-image, использует картинку как визуальный референс. Build Claude Prompt сообщает модели о референсе, она это учитывает в image_description. **Требует**: hardcode `TELEGRAM_BOT_TOKEN` в Code ноде Prepare Gemini Body после импорта (placeholder `REPLACE_WITH_TELEGRAM_BOT_TOKEN`), потому что n8n env variables — paid feature.
+
+### Старые фиксы (2026-04-25/26) ✅
+- **2026-04-25 deterministic router fix:**  после реального Telegram-теста обнаружено, что:
   - запрос с VentureBeat URL всё равно сгенерировал generic post про n8n/automation
   - нажатие `✅ Publish` привело к WF-10 `show`, а не `approve`
 - Исправлено архитектурно:

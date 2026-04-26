@@ -8,6 +8,21 @@
 
 ---
 
+## АКТИВНЫЕ БЛОКЕРЫ (2026-04-27)
+
+### R-17: Outreach connection request не отправляется ⛔ accepted
+**Симптом:** При approve в Telegram статус обновляется в таблицах, но connection request реально не уходит на LinkedIn.
+**История:** Пробовали Sourcegeek (выдавал ошибки), затем Phantombuster через HTTP API. Phantom принимал launch (containerId возвращался) но не выполнялся даже вручную из Phantombuster UI. Видел лиды в Google Sheet, но не мог зайти в LinkedIn (Name/Headline пустые) — скорее всего невалидный/истёкший `li_at` cookie или Google Sheet недоступен.
+**Решение:** Функция отправки полностью отключена. WF-05 идёт `Get Lead Approve → Set Approve Data` напрямую. Approve работает как "пометить отправленным" без реальной отправки.
+**Что делать когда вернёмся:** обновить `li_at`, проверить sharing settings Google Sheet, или искать альтернативу (n8n LinkedIn community node, Apify, HeyReach API).
+
+### R-18: TELEGRAM_BOT_TOKEN hardcoded в WF-09 ⚠️
+**Симптом:** Для image-to-image fetch из Telegram нужен bot token, но n8n env vars — paid feature.
+**Решение:** В `Prepare Gemini Body` Code ноде стоит placeholder `REPLACE_WITH_TELEGRAM_BOT_TOKEN`. После импорта нужно вручную заменить на токен от @BotFather.
+**Что делать:** При апгрейде n8n плана перенести в env. Пока — hardcode.
+
+---
+
 ## КРИТИЧЕСКИЕ БЛОКЕРЫ (обнаружены 2026-04-25)
 
 ### R-01: Inline кнопки подтверждения поста не появляются ✅ локально исправлено
@@ -71,10 +86,10 @@
 
 ---
 
-### R-08: Генерация изображений не персонализирована под стиль ✅ локально исправлено
-**Симптом:** Изображения генерировались в общем dark/neon стиле, не в стиле Tamerlan/FlowOps.
-**Статус:** WF-09 image prompt обновлён второй раз: от минимального dashboard-card к save-worthy infographic poster. Теперь требуется headline + 3-5 полезных labels/bullets/framework elements, 4:5 vertical, paper/grid editorial style, one muted accent color.
-**Осталось:** Проверить качество реальной Gemini генерации после импорта WF-09; text rendering may still need prompt tuning because AI image models can misspell text.
+### R-08: Генерация изображений не персонализирована под стиль ✅ финал 2026-04-27
+**История:** Прошли через 3 итерации стиля — dark/neon → minimal dashboard-card → save-worthy infographic с muted accent → **vibrant viral edu-content**.
+**Финал (2026-04-27):** White grid paper background, HUGE bold typography (40-50% площади), 2-3 vibrant accent colors (lime/coral/sky/yellow), filled highlight boxes за key words, 3D emoji-иконки, цветные pinned cards. Референсы: @organizeddashboard, techwith.ram. Личные посты получают quote-card/number-card стиль вместо infographic.
+**Осталось:** Тестировать качество живой Gemini-генерации с новым промптом.
 
 ---
 
@@ -85,6 +100,18 @@
 
 ### R-10: WF-06, WF-10 локальные изменения не импортированы в n8n ⚠️
 Файлы обновлены локально. Пока не переимпортированы — изменения не активны. После deterministic-router фикса нужно импортировать WF-06, WF-05, WF-09, WF-10, WF-11.
+
+### R-19: Только educational/news посты — нет личных кейсов и историй ✅ исправлено 2026-04-27
+**Симптом:** На запрос "уволил 4 человек, заработал $3350" бот генерил educational шаблон со списком "1. Efficiency Boost: 2. Focus Shift:". Не было поддержки личных постов.
+**Решение:** WF-09 Build Claude Prompt переписан с STEP 1 — DETECT POST MODE (6 режимов: personal_case, personal_story, news_take, educational, contrarian, tool_breakdown), STEP 2 — WRITE according to mode. Personal-режимы получают voice "first person, raw, no corporate shape" + quote-card image style.
+
+### R-20: Бот не общается на общие темы — только tool calls ✅ исправлено 2026-04-27
+**Симптом:** AI Agent system prompt в WF-06 был жёстко заточен на 7 tools, не понимал что делать вне их.
+**Решение:** System prompt переписан. Tool calls только когда явно совпадает; на всё остальное — отвечает естественно как ChatGPT. Явно перечислено "When NOT to use tools".
+
+### R-21: Нет поддержки картинки-референса при генерации поста ✅ исправлено 2026-04-27
+**Симптом:** Пользователь хотел прикрепить картинку + caption и чтобы бот использовал картинку как визуальный референс для image generation.
+**Решение:** WF-06 Route Telegram Update детектит `msg.photo` массив, захватывает `photo_file_id` и роутит в `create_post`. WF-09 Resolve Topic пробрасывает file_id, Prepare Gemini Body фетчит из Telegram (getFile + download), конвертит в base64, добавляет как `inlineData` в Gemini contents ПЕРЕД text — Gemini Nano Banana Pro поддерживает image-to-image. См. R-18 про token hardcode.
 
 ### R-11: Buffer REST token/profile IDs ✅ решено заменой на GraphQL
 **Симптом:** WF-11 не публиковал, потому что old REST path требовал `profile_ids`, а текущий токен давал `401 OIDC tokens are not accepted for direct API access`.
