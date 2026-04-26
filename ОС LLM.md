@@ -6,6 +6,7 @@ qwdqqwwwdw
 - [[routing-rules]]
 - [[Obsidian - память агента]]
 - [[projects/AI-Powered Woven Label Generator/overview|AI-Powered Woven Label Generator]]
+- [[n8n]]
 
 ## A. Claude Code = Chief Reasoning Agent
 

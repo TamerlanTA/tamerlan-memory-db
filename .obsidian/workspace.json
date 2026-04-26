@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "n8n.md",
+                "file": "Completed-in-a-week.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "n8n"
+              "title": "Completed-in-a-week"
             }
           },
           {
@@ -260,8 +260,8 @@
   },
   "active": "b4d8f99f5725954f",
   "lastOpenFiles": [
-    "ОС LLM.md",
     "n8n.md",
+    "ОС LLM.md",
     "projects/ai-content-bot/sessions/2026-04-27-image-style-post-modes-assistant-mode.md",
     "agent-memory.md",
     "projects/ai-content-bot/sessions/2026-04-25-wf10-show-default-guard.md",

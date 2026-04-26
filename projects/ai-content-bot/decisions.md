@@ -73,14 +73,77 @@ const raw = j.text || j.output?.[0]?.content?.[0]?.text || j.message?.content ||
 
 ---
 
-## D-07: Промпт контента — 4 бакета
+## D-07: Промпт контента — 4 бакета [УСТАРЕЛО, см. D-08]
 
-**Решение:** WF-09 использует 4 контентных бакета случайно:
-1. AI Basics Done Wrong — разрушение мифов
-2. Real Implementation — конкретный процесс
-3. AI Tools Breakdown — инструменты/стек
-4. Contrarian Take — неудобная правда
+**Решение (старое):** WF-09 использовал 4 случайных бакета: AI Basics / Real Implementation / Tools Breakdown / Contrarian.
 
-**Почему:** Разнообразие повышает engagement на LinkedIn. Монотонный контент = падение охвата.
+**Заменено на D-08 (2026-04-27).**
 
-**Параметры:** Английский язык, тон — живой, первое лицо (Tamerlan), ниша — AI автоматизация бизнеса / n8n.
+---
+
+## D-08: Adaptive post modes (6 режимов, auto-detect)
+
+**Решение:** WF-09 Build Claude Prompt делает STEP 1 — DETECT POST MODE из запроса пользователя. 6 режимов:
+1. `personal_case` — реальный кейс с цифрами/результатами. Voice: первое лицо, raw, без educational shape.
+2. `personal_story` — мысль/опыт/наблюдение. Voice: разговорный, не preachy.
+3. `news_take` — комментарий к новости/URL.
+4. `educational` — объяснение/framework.
+5. `contrarian` — провокационная позиция.
+6. `tool_breakdown` — разбор инструмента.
+
+STEP 2 — WRITE согласно правилам режима. Personal-режимы получают voice "first person, raw, no corporate shape" и quote-card/number-card image style. Editorial-режимы — sharp analysis + vibrant infographic.
+
+**Почему:** Старая система с 4 случайными бакетами + жёсткое правило "make it about the idea, not FlowOps" мешала писать личные посты с цифрами. На запрос "уволил 4 человек, заработал $3350" получался educational шаблон.
+
+**Параметры:** post_mode возвращается моделью в JSON и пробрасывается через Parse Response → Prepare Gemini Body для адаптации image style.
+
+---
+
+## D-09: Tools опциональны, AI Agent — полноценный ассистент
+
+**Решение:** WF-06 AI Agent system prompt разделяет работу на две категории:
+1. **Automation & content tools** — когда запрос явно совпадает с одним из 7 tools.
+2. **General assistant chat** — на всё остальное (вопросы, брейнсторм, casual chat, follow-up). Просто отвечает текстом без tool call.
+
+System prompt явно перечисляет "When NOT to use tools": general questions about anything, brainstorming, casual conversation, help with non-bot work.
+
+**Почему:** Старый prompt был жёстко заточен на 7 tools. Бот не понимал что делать вне их, отказывался отвечать на вопросы или пытался найти подходящий tool которого нет.
+
+---
+
+## D-10: Reference image input через Telegram getFile в WF-09
+
+**Решение:** Пользователь прикрепляет картинку + caption в Telegram. Поток:
+1. WF-06 Route Telegram Update детектит `msg.photo` (массив размеров) → захватывает `photo_file_id` последнего размера → автоматически роутит в `create_post` с file_id.
+2. WF-09 Resolve Topic пробрасывает `photo_file_id` дальше.
+3. WF-09 Prepare Gemini Body вызывает Telegram getFile API (`https://api.telegram.org/bot{TOKEN}/getFile?file_id=X`), получает file_path, скачивает картинку (`https://api.telegram.org/file/bot{TOKEN}/{file_path}`), конвертит в base64.
+4. Base64 добавляется как `inlineData` в `parts` массив ПЕРЕД text-промптом → Gemini Nano Banana Pro использует это как visual style reference.
+
+**Почему:** image-to-image даёт пользователю прямой контроль над style референсом — гораздо точнее чем описывать словами "as @organizeddashboard".
+
+**Ограничение:** TELEGRAM_BOT_TOKEN hardcoded в Code ноде (placeholder `REPLACE_WITH_TELEGRAM_BOT_TOKEN`) — n8n env vars требуют paid план.
+
+---
+
+## D-11: Vibrant viral edu-content image style
+
+**Решение:** Финальный image style для WF-09:
+- Background: white или off-white **с видимой grid pattern** (graph paper)
+- Typography: HUGE bold black/deep-navy headline, занимает 40-50% площади
+- Accent colors: 2-3 vibrant (lime #86EFAC, coral #F97316, sky blue #38BDF8, hot yellow #FDE047), НЕ muted
+- Decorations: filled highlight boxes за key words, цветные pinned cards с буллетами, 3D emoji-иконки (✅ 🔥 ⚡ 📌 →)
+- Vibe: "scroll-stopping, viral edu-content, like @organizeddashboard"
+
+**Adaptive:** для post_mode=personal_case|personal_story → quote-card/number-card стиль вместо infographic.
+
+**Почему:** Прошлые итерации (dark/neon → minimal dashboard → muted infographic) давали слишком бледные пустые картинки. Референсы пользователя (@organizeddashboard, techwith.ram) — vibrant и energetic.
+
+---
+
+## D-12: Outreach connection request — отключён [accepted compromise]
+
+**Решение:** WF-05 идёт `Get Lead Approve → Set Approve Data` напрямую. Реальный LinkedIn connection request НЕ отправляется. Approve флоу обновляет статус в Queue/Leads + шлёт "✅ Отправлено!" в Telegram, но это маркер только в таблицах.
+
+**Почему:** Sourcegeek выдавал ошибки. Phantombuster через API принимал launch (containerId) но phantom не запускался даже вручную, не мог зайти в LinkedIn (li_at cookie или Sheet access проблема). Не нашли рабочего способа.
+
+**Когда возвращаемся:** обновить li_at, проверить Google Sheet sharing, либо альтернативы — n8n LinkedIn community node, Apify LinkedIn actors, HeyReach API.
