@@ -61,6 +61,13 @@
 ```
 
 **Проверить после импорта:**
+- `Дай мне топ тем для постов на сегодня` → WF-06 должен вызвать WF-08, не WF-07; Telegram должен показать top 5+ pending topics sorted by `Topics.score`
+- `создай пост 1` после briefing → WF-09 должен взять topic #1 by score, not first arbitrary row
+- New post preview buttons show channel options: `All`, `LinkedIn`, `X`, `Threads`, `LI+X`, `LI+Threads`, `X+Threads`, `Skip`
+- Clicking `LinkedIn` publishes only LinkedIn; clicking `LI+X` publishes only LinkedIn and X
+- Generated post should be editorial/traffic-focused, not agency ad; no `At FlowOps, we...` unless user explicitly asks for conversion/sales
+- New post should save `Posts.image_url` as a Cloudinary `secure_url`
+- Buffer publish should show `Image: attached` and create posts with the generated image
 - `Создай пост <VentureBeat URL>` → WF-06 должен напрямую вызвать WF-09 с `source_url`; WF-09 должен сгенерировать пост по этой статье, не generic n8n case study
 - Telegram preview содержит кнопки
 - `approve_post_{post_id}` → WF-06 → WF-10 approve → WF-11; WF-10 не должен получать `show`
@@ -73,21 +80,28 @@
 
 ### Блок 3 — Персонализация изображений
 
-**Задача 3.1 — Разработать визуальный стиль**
-Определить:
-- Основные цвета (пример: тёмный фон #0D0D0D, акценты: электрик синий #00F0FF, неоново-зелёный #00FF88)
-- Визуальные элементы (circuit lines, floating UI fragments, minimal geometric shapes)
-- Атмосфера (tech-noir, corporate cyberpunk, minimalist AI)
-- Формат: 16:9 photorealistic, no text, no logos
+**Задача 3.1 — Проверить новый FlowOps image style после импорта WF-09**
+- Новый стиль уже записан локально в WF-09:
+  - 4:5 vertical Threads/LinkedIn infographic poster
+  - warm off-white / subtle grid paper background
+  - bold black/deep-navy typography
+  - one muted accent color only
+  - headline + 3-5 useful short labels/bullets/framework elements
+  - clean cards/arrows/tags/checklist/stack layouts
+  - no neon/robots/rockets/fake metrics/logos
+- После импорта создать тестовый пост и оценить:
+  - есть ли сильный visual hook
+  - есть ли полезная структура, которую хочется сохранить
+  - нет ли misspelled/unreadable text
 
-**Задача 3.2 — Обновить system prompt в WF-09 `Build Claude Prompt`**
-Заменить шаблон image_description на:
-```
-"MINIMALISTIC PERSONAL BRAND STYLE: Ultra dark background (#0D0D0D), 
-electric blue and neon green accent elements, [specific visual metaphor for post topic], 
-thin geometric lines/grids, cinematic lighting, photorealistic 16:9, 
-NO text, NO logos, NO people faces, depth of field blur"
-```
+**Задача 3.2 — Проверить Cloudinary hosting для изображений**
+- WF-09 уже добавляет upload step после Gemini:
+  - `Extract Image Base64`
+  - `Prepare Cloudinary Upload`
+  - `Upload Image to Cloudinary`
+  - `Finalize Record`
+- Проверить, что `Posts.image_url` заполняется `https://res.cloudinary.com/...`
+- После успешного теста перенести Cloudinary secret из JSON в безопасное место.
 
 ---
 

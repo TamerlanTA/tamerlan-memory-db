@@ -25,10 +25,15 @@
 
 ---
 
-### R-03: Выбор темы из Morning Briefing не работает ⚠️ частично исправлено
+### R-03: Выбор темы из Morning Briefing не работает ✅ локально исправлено
 **Симптом:** Бот присылает список топиков, но пользователь не может выбрать тему из него — бот не сравнивает написанное с Topics таблицей и создаёт пост только из текста запроса.
-**Статус:** WF-09 теперь ищет тему по headline/text/source_url. Числовой выбор типа `create post 2` пока не реализован как отдельная навигация, но текстовый выбор из заголовка должен работать.
-**Что делать:** При необходимости добавить `topic_number` в Morning Briefing/AI Agent routing.
+**Статус:** WF-08 теперь показывает top topics by `Topics.score`, а WF-09 понимает `создай пост 1/2/3` и выбирает тему по тому же score ranking.
+**Что делать:** После импорта WF-06/WF-08/WF-09 протестировать: `Дай топ тем для постов` → `создай пост 1`.
+
+### R-13: Запрос топ тем запускал discovery вместо briefing ✅ локально исправлено
+**Симптом:** На `Дай мне топ тем для постов на сегодня` бот отвечал, что 30 тем сохранены, потому что AI Agent вызывал WF-07 discovery.
+**Причина:** В WF-06 не было deterministic route для topic briefing, а AI tool `run_topic_discovery` был описан слишком широко.
+**Статус:** WF-06 теперь напрямую распознаёт `топ тем / темы для постов / briefing` и вызывает WF-08. AI Agent получил отдельный tool `show_topic_briefing`; `run_topic_discovery` теперь предназначен только для явного refresh/discover новых тем.
 
 ---
 
@@ -66,9 +71,10 @@
 
 ---
 
-### R-08: Генерация изображений не персонализирована под стиль ⚠️
-**Симптом:** Изображения генерируются в общем стиле, не в стиле Tamerlan'а.
-**Что делать:** Разработать визуальный стиль (цвета, элементы, композиция) → добавить в system prompt для image_description в WF-09 `Build Claude Prompt`.
+### R-08: Генерация изображений не персонализирована под стиль ✅ локально исправлено
+**Симптом:** Изображения генерировались в общем dark/neon стиле, не в стиле Tamerlan/FlowOps.
+**Статус:** WF-09 image prompt обновлён второй раз: от минимального dashboard-card к save-worthy infographic poster. Теперь требуется headline + 3-5 полезных labels/bullets/framework elements, 4:5 vertical, paper/grid editorial style, one muted accent color.
+**Осталось:** Проверить качество реальной Gemini генерации после импорта WF-09; text rendering may still need prompt tuning because AI image models can misspell text.
 
 ---
 
@@ -80,10 +86,30 @@
 ### R-10: WF-06, WF-10 локальные изменения не импортированы в n8n ⚠️
 Файлы обновлены локально. Пока не переимпортированы — изменения не активны. После deterministic-router фикса нужно импортировать WF-06, WF-05, WF-09, WF-10, WF-11.
 
-### R-11: Buffer прямой API token/profile IDs ⛔
-**Симптом:** WF-11 не сможет публиковать без рабочих `profile_ids` и valid direct API token.
-**Факт:** Проверка текущего токена через Buffer API вернула `401 OIDC tokens are not accepted for direct API access`.
-**Что делать:** Получить токен/credential, который Buffer принимает для direct API, и указать `BUFFER_PROFILE_IDS` в n8n env или передавать `profile_ids` в WF-11. После этого протестировать WF-11 manually.
+### R-11: Buffer REST token/profile IDs ✅ решено заменой на GraphQL
+**Симптом:** WF-11 не публиковал, потому что old REST path требовал `profile_ids`, а текущий токен давал `401 OIDC tokens are not accepted for direct API access`.
+**Статус:** WF-11 переведён на Buffer GraphQL API `https://api.buffer.com`, где используются `channelId`, а не `profile_ids`.
+**Каналы:** LinkedIn `69eb419a031bfa423c3a88d2`, Twitter/X `69eb4550031bfa423c3a984e`, Threads `69eb4061031bfa423c3a81bf`.
+**Осталось:** Реально протестировать live publish после импорта WF-11.
+
+### R-12: Фото не прикрепляется к Buffer без публичного image_url ✅ локально исправлено
+**Симптом:** Telegram получает Gemini image preview, но Buffer публикует текст без изображения.
+**Причина:** Buffer GraphQL `createPost` принимает `assets.images[].url`; текущий WF-09 хранит `image_url: ''`, потому что Gemini отдаёт base64/binary, а не публичный URL.
+**Статус:** WF-09 теперь делает signed upload в Cloudinary и сохраняет `secure_url` как `image_url`; WF-11 использует этот URL в Buffer `assets.images[].url`.
+**Осталось:** После импорта протестировать live generation → Cloudinary upload → Buffer publish. Security cleanup: перенести Cloudinary secret из JSON в n8n credentials/env.
+
+### R-14: Контент слишком рекламирует агентство ✅ локально исправлено
+**Симптом:** Даже news/trend posts превращались в pitch FlowOps/agency вместо traffic/reach content.
+**Статус:** WF-09 prompt теперь default editorial reach mode: анализ темы/новости, no agency pitch, no `At FlowOps, we...`, no service CTA, no hype wording. Conversion/sales должен быть отдельным явным режимом/запросом.
+
+### R-15: Выбор соцсети для публикации отсутствовал ✅ локально исправлено
+**Симптом:** Approve публиковал во все каналы.
+**Статус:** WF-09/WF-10 preview buttons теперь позволяют выбрать channel set; WF-06/WF-10 parse callback suffix `|linkedin,twitter`; WF-11 фильтрует Buffer mutation по `target_channels`.
+
+### R-16: Cloudinary секрет временно хранится в workflow JSON ⚠️
+**Симптом:** Для быстрого signed upload Cloudinary `api_secret` добавлен прямо в WF-09 Code node.
+**Риск:** JSON export содержит секрет.
+**Что делать:** Когда флоу подтвердится live-тестом, перенести Cloudinary auth в n8n credentials/env или заменить на unsigned upload preset.
 
 ---
 
