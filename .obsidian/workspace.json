@@ -8,31 +8,31 @@
         "type": "tabs",
         "children": [
           {
-            "id": "46c2c85c80748a8c",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "ai-content-bot.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "ai-content-bot"
-            }
-          },
-          {
             "id": "b4d8f99f5725954f",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Completed-in-a-week.md",
+                "file": "agent-memory.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Completed-in-a-week"
+              "title": "agent-memory"
+            }
+          },
+          {
+            "id": "1b22e56bc915e663",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "AGENTS.md - CLAUDE.md.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "AGENTS.md - CLAUDE.md"
             }
           },
           {
@@ -73,7 +73,8 @@
               "title": "FlowOps promo video scene system"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -257,10 +258,13 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "46c2c85c80748a8c",
+  "active": "1b22e56bc915e663",
   "lastOpenFiles": [
-    "projects/storehouse-n8n/sessions/2026-04-27-ai-agent-rebuild.md",
+    "agent-memory.md",
+    "AGENTS.md - CLAUDE.md.md",
+    "ai-content-bot.md",
     "Без названия.canvas",
+    "projects/storehouse-n8n/sessions/2026-04-27-ai-agent-rebuild.md",
     "My-tasks.md",
     "projects/storehouse-n8n/current-state.md",
     "projects/storehouse-n8n/decisions.md",
@@ -277,17 +281,14 @@
     "projects/ai-content-bot/sessions/2026-04-28-personal-post-fix-and-image-style.md",
     "Completed-in-a-week.md",
     "projects/ai-content-bot/sessions/2026-04-27-image-style-post-modes-assistant-mode.md",
-    "agent-memory.md",
     "projects/ai-content-bot/sessions/2026-04-25-wf10-show-default-guard.md",
     "projects/ai-content-bot/sessions/2026-04-25-wf06-answer-callback-payload-fix.md",
     "projects/ai-content-bot/sessions/2026-04-25-deterministic-router-and-approval-fix.md",
     "projects/ai-content-bot/sessions/2026-04-25-full-json-audit-and-logic-fixes.md",
-    "ai-content-bot.md",
     "knowledge/codex-local-plugins.md",
     "projects/linkedin-automation.md",
     "projects/ai-content-bot/overview.md",
     "projects/FlowOps promo video scene system.md",
-    "projects/ai-content-bot/next-steps.md",
     "projects/ai-content-bot/sessions",
     "projects/ai-content-bot",
     "projects/sessions",
