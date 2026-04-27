@@ -14,10 +14,12 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-16-milestone5-email-finishing-batch|Milestone 5 email finishing batch]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-18-post-m5-order-flow-polish|Post-M5 order-flow polish]]
 
-Last updated: 2026-04-24
+Last updated: 2026-04-27
 
 ## Resolved this session
 
+- ~~**New label stale active-flow leak** — after a quote request, uploading a new logo could still inherit `lastGenerated*` result linkage and behave like the previous result/order session was still active~~ — **FIXED LOCALLY**: `SET_LOGO` now clears previous generation result linkage and Home upload continue now clears persisted local order-intent draft before entering Prepare.
+- ~~**Uncertain generation value safety** — it was unclear whether provider/storage failures could still burn paid credits or free-trial value~~ — **VERIFIED / TESTED**: bookkeeping still happens only after provider success and successful result-asset storage; new router-level tests cover paid provider failure, guest storage failure, and paid success ordering.
 - ~~**previewImageUrl injection** — `submitPreOrderInputSchema.previewImageUrl` accepted any string, allowing crafted requests to inject arbitrary image URLs into the preorder confirmation email~~ — **FIXED** (`fb0c5e4`, `466f897`): `.url().max(4096)` + http/https refine added to schema boundary
 - ~~**Back-forward double-generation** — `canStartGeneration` was blind to `state.isGenerating`; back-navigate + forward-navigate during in-flight generation fired a second `label.generate` and consumed a second credit~~ — **FIXED** (`e6b7739`): `isGenerating` added to `GeneratorFlowSnapshot` and gates `canStartGeneration`
 - ~~**Non-JSON generation response crash** — large `label.generate` requests could trigger plain-text upstream/body-parser responses such as `Request Entity Too Large`, which the tRPC client tried to parse as JSON and surfaced as `Unexpected token 'R'`~~ — **FIXED LOCALLY**: generation payload budget, 1280px logo canvas cap, tRPC non-JSON response normalization, and server schema payload guard added

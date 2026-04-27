@@ -32,18 +32,21 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-24-vercel-deploy-sync-after-missing-push|Vercel deploy sync after missing push]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-24-wave-quality-regression-rebalance|Wave quality regression rebalance]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-24-sample-price-card-credit-message|Sample price card credit message]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-27-new-label-reset-credit-safety-and-sample-card-proof|New label reset, credit safety, and sample card proof]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-27-sample-price-card-email-rendering-fix|Sample price card email rendering fix]]
 
-Last updated: 2026-04-24
+Last updated: 2026-04-27
 
 - Active branch: `milestone4-auth-completion`
-- Latest local commit: `e12c8ba` — `Stabilize woven background field prompts`
+- Latest local commit: `d976224` — `Fix sample price card email rendering`
 - Repo status: local generation-stability fixes are committed and pushed through `e12c8ba`; a follow-up local prompt rebalance now softens the wave/ripple hardening language after it degraded generation quality and contaminated support surfaces with swirl-like artifacts
 - Local SEO/content polish now extends the FAQ page with richer citation-friendly answers plus `FAQPage` JSON-LD on `/faq`; the copy now includes verified facts such as Italy manufacturing, ~4-week lead time, 4 materials, 4 folded formats, and the truthful nuance that standard production pricing starts at 1,000 pieces while some 500-piece requests can still remain manual/on-request
 - A new local SEO implementation batch now replaces the FAQ with the approved 15-question FR/EN brief, adds `react-helmet-async`, route-specific `/faq` meta tags + FAQPage JSON-LD, per-page meta titles/descriptions for Home / Prepare / Result, and Organization schema on Home
 - Staging safety remains preserved: the staging gate still owns `noindex, nofollow`; this batch does not change robots behavior
 - One intentional launch-readiness deviation from the brief: Organization schema uses the real existing `/favicon.png` asset instead of `/favicon.svg`, because the SVG file is not currently served by the app
 - Search-indexing caveat remains unchanged: `noindex` is still intentionally controlled by the staging gate (`VITE_IS_STAGING === "true"`), so production crawlability still depends on the real environment not shipping with staging mode enabled
-- Deploy status: root cause of the “missing Vercel commit” confusion was a missing `git push`; after pushing `milestone4-auth-completion`, Vercel detected `e12c8ba` and created a new queued deployment on `griffes-vivienne-studio-3vop`
+- Deploy status: `milestone4-auth-completion` is now pushed through `d976224`, and Vercel has built preview deployments for both `griffes-vivienne-studio` and `griffes-vivienne-studio-3vop` at commit `d976224` (`Fix sample price card email rendering`)
+- Production nuance: the live production deployment on `griffes-vivienne-studio-3vop` still points to `3040beb` (`Fix new label reset and prove generation credit safety`); `d976224` is present in Vercel as a READY preview deployment, not as the current production target
 - Remaining untracked local noise: `.claude/` only, intentionally excluded from commits
 
 ## What changed today
@@ -196,6 +199,19 @@ Last updated: 2026-04-24
   - EN copy now reads `100% credited toward your future production order`; FR copy mirrors that deduction message
   - the lower explanatory note now focuses on jacquard card creation and loom setup instead of repeating the deduction line
   - `pnpm exec vitest run server/preorderConfirmationEmail.test.ts`, `pnpm check`, `pnpm build`, and `git diff --check` PASS
+- Fixed the active flow reset leak after quote submission:
+  - a fresh logo upload now clears previous generation result linkage (`lastGeneratedUrl`, hosted asset URL, generation id, source asset id, result asset id) instead of keeping the old result-ready session alive
+  - Home upload continue now also clears any persisted local order-intent draft before entering Prepare, so a new label starts from a clean UI flow even if stale quote-preview draft data exists locally
+  - focused reducer coverage now proves a new upload resets active result linkage while preserving free-trial exhaustion state
+- Verified and proved credit/free-trial safety on generation failure:
+  - actual paid spend and free-trial commit still happen only after provider success plus successful result-asset storage
+  - added router-level tests proving provider failure does not spend a paid credit, result-storage failure does not consume guest free-trial value, and successful paid spend occurs only after the result asset has been stored
+- Confirmed the sample reimbursement conversion message remains inside the quote email price card and added explicit FR sample-card test coverage
+- Fixed the live sample price-card rendering bug in the quote confirmation email:
+  - confirmed the reassurance copy was already present in the real payload-builder and send path
+  - root cause was email-fragile markup in the right-hand price card (`div` stacking with margin-based spacing)
+  - replaced the price card body with table-based email-safe rows and explicit padding so the reassurance line renders directly under the sample price in actual sent emails
+  - added tests for EN/FR sample-card rendering and for the actual serialized send payload
 
 ## Active mini-block
 

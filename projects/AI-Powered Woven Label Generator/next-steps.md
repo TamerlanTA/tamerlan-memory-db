@@ -14,7 +14,7 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-18-post-m5-order-flow-polish|Post-M5 order-flow polish]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-20-white-logo-fix-and-admin-metrics|White logo fix + admin metrics fix]]
 
-Last updated: 2026-04-24
+Last updated: 2026-04-27
 
 ## Immediate
 
@@ -29,6 +29,11 @@ Last updated: 2026-04-24
 - **Quote email unit-price QA before client review**: submit a production quote at a priced tier (1,000–10,000 pieces) and confirm the top-right box shows the correct estimated unit price in EN/FR; also confirm the 500-piece case shows `On request` / `Sur demande`.
 - **Folded format + sample pricing QA**: verify EN/FR Prepare format cards, loading summary, Result quote panel, Order Preview summary, and quote email show folded format wording; verify standard samples show `€320` / `320 €`, cotton samples show `€380` / `380 €`, and the jacquard-card / loom-setup / deduction explanation is visible.
 - **Loading copy QA**: run a generation in EN/FR and confirm the estimated-time line is visible, wraps cleanly on mobile, and the long-wait line still feels premium.
+- **New label reset QA**: submit a quote request, trigger `New label`, upload a different logo, and confirm the app stays in a fresh flow instead of reopening the previous order/request state.
+- **Generation value-safety QA**: force one provider/storage failure path and confirm no paid credit or free-trial value is consumed; then run one successful generation and confirm the normal spend/commit still occurs.
+- **Sample quote email QA**: verify the sample price card itself shows the deduction/credited reassurance directly under the sample price in both EN and FR.
+- **Sample quote email rendering QA**: verify in real inbox clients that the reassurance line now renders directly under the sample price in the top-right card, not only in generated HTML source.
+- **Vercel production deploy QA**: if the client expects the latest email-rendering fix live, confirm whether they are viewing `griffes-vivienne-studio-3vop` production; commit `d976224` is currently READY in Vercel preview but production still points to `3040beb`, so a promote/redeploy step may still be needed.
 - **Legal content QA before client review**: open `/legal`, `/terms`, `/privacy`, and `/faq` in FR/EN on desktop and mobile; confirm official company details, AI mockup disclaimer, guest-first free trial wording, Stripe/credits wording, and quote/manual-confirmation wording are visible and acceptable.
 - **FAQ SEO QA**: after deploy, open the live `/faq` page source and confirm `FAQPage` JSON-LD is present; also verify production is not shipping with the staging `noindex` gate before expecting indexing or AI citation gains.
 - **Page-level SEO QA**: after deploy, inspect `/`, `/prepare`, and `/result` and confirm the brief-approved title + meta description overrides are present; also confirm Home alone publishes Organization JSON-LD.
