@@ -10,6 +10,7 @@
 - [[knowledge/firecrawl|Firecrawl — веб-скрапинг для LLM]]
 - [[projects/linkedin-automation|LinkedIn Outreach Automation (WF-00..WF-05)]]
 - [[projects/ai-content-bot/overview|AI Content Bot — Telegram бот контент + публикация (WF-06..WF-12)]]
+- [[projects/storehouse-n8n/overview|Storehouse n8n]]
 
 ---
 

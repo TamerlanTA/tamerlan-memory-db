@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "My-tasks.md",
+                "file": "n8n.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "My-tasks"
+              "title": "n8n"
             }
           },
           {
@@ -264,6 +264,16 @@
   },
   "active": "59d38e540c84c8cb",
   "lastOpenFiles": [
+    "projects/storehouse-n8n/sessions/2026-04-27-project-memory-skeleton.md",
+    "projects/storehouse-n8n/prompts.md",
+    "projects/storehouse-n8n/next-steps.md",
+    "projects/storehouse-n8n/risks.md",
+    "projects/storehouse-n8n/decisions.md",
+    "projects/storehouse-n8n/current-state.md",
+    "projects/storehouse-n8n/overview.md",
+    "projects/storehouse-n8n/sessions",
+    "projects/storehouse-n8n",
+    "My-tasks.md",
     "projects/ai-content-bot/sessions/2026-04-28-personal-post-fix-and-image-style.md",
     "Completed-in-a-week.md",
     "n8n.md",
@@ -282,25 +292,15 @@
     "projects/ai-content-bot/next-steps.md",
     "projects/ai-content-bot/sessions/2026-04-25-eod-problems-found.md",
     "projects/ai-content-bot/risks.md",
-    "knowledge/firecrawl.md",
-    "projects/ai-content-bot/sessions/2026-04-25-wf09-gemini-wf10-buttons-wf06-callback.md",
-    "projects/ai-content-bot/decisions.md",
-    "projects/ai-content-bot/current-state.md",
     "projects/ai-content-bot/sessions",
     "projects/ai-content-bot",
-    "projects/sessions/2026-04-24-flowops-bot-complete-build.md",
     "projects/sessions",
-    "My-tasks.md",
-    "projects/AI-Powered Woven Label Generator/sessions/2026-04-23-product-photo-brand-mark-interpretation-fix.md",
-    "projects/AI-Powered Woven Label Generator/sessions/2026-04-22-loading-time-expectation-copy.md",
     "Без названия.base",
     "Без названия 1.canvas",
     "Без названия.canvas",
     "projects/David/sessions",
     "projects/David",
     "patterns/auth",
-    "patterns/git",
-    "knowledge/vault",
-    "projects/Tamer Memory DB/sessions"
+    "patterns/git"
   ]
 }
