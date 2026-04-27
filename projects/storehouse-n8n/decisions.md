@@ -25,3 +25,17 @@ Decision: use HTTP Request nodes for StoreHouse mock calls and place sticky note
 `REPLACE WITH REAL SH API: POST /api/sh5exec, procName: [name]`
 
 Decision: use n8n variables/placeholders for sensitive values (`TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `GOOGLE_SHEETS_ID`, `ANTHROPIC_API_KEY`, `SH_USER`, `SH_PASSWORD`) and avoid hardcoded secrets.
+
+## 2026-04-27 — Rebuild into AI Agent architecture
+
+Decision: replace the prior 6-workflow Claude/HTTP architecture with 3 workflow exports:
+
+- Main AI Agent + photo recognition
+- Low Stock Alert scheduled workflow
+- Suspicious Activity Alert scheduled workflow
+
+Decision: use official n8n nodes for Telegram, OpenAI/GPT-4o, AI Agent, and Google Sheets. HTTP Request is reserved only for StoreHouse mock calls.
+
+Decision: avoid Code nodes entirely in generated workflows. Use Set/If node expressions for parsing, comparisons, and message formatting.
+
+Decision: represent the agent's 5 capabilities as connected `ai_tool` nodes. StoreHouse-backed tools use `MOCK — SH API` HTTP Request nodes so they satisfy the mock-node naming and sticky-note requirements.
