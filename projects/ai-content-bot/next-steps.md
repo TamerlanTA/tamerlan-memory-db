@@ -8,7 +8,19 @@
 
 ---
 
-## Задачи на 2026-04-28
+## Задачи на 2026-04-28 (обновлено — после диагностики)
+
+### Критические фиксы готовы локально (2026-04-28)
+
+Найдены и исправлены 3 бага из-за которых личный пост ("уволил 4 человек, $3350") генерировал generic AI content:
+
+1. **WF-06 Route Telegram Update**: regex не матчил "Create a post. [content]" из-за "a" между create и post → fixed
+2. **WF-06 Tool: Create Post schema**: нет поля `text` → AI Agent пересказывал личную историю в короткий topic → fixed
+3. **WF-09 Resolve Topic**: не unwrапал toolWorkflow format → `input.text` был undefined → personal narrative detection не срабатывала → fixed
+
+Image style: обновлён промпт в Prepare Gemini Body — герой-хедлайн теперь 45-60% высоты, 1-2 акцентных цвета, filled accent box для PERSONAL_CASE с большим числом/цитатой.
+
+---
 
 ### Блок 1 — Импорт и активация после апгрейда 2026-04-27
 

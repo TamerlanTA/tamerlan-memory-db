@@ -147,3 +147,33 @@ System prompt явно перечисляет "When NOT to use tools": general q
 **Почему:** Sourcegeek выдавал ошибки. Phantombuster через API принимал launch (containerId) но phantom не запускался даже вручную, не мог зайти в LinkedIn (li_at cookie или Sheet access проблема). Не нашли рабочего способа.
 
 **Когда возвращаемся:** обновить li_at, проверить Google Sheet sharing, либо альтернативы — n8n LinkedIn community node, Apify LinkedIn actors, HeyReach API.
+
+---
+
+## D-13: Route Telegram Update — regex включает артикли между глаголом и "post"
+
+**Решение:** `/^(create|write...)\s+(?:(?!post\b|пост\b)\w+\s+){0,2}(пост|post)(?:[.\s,!?]|$)/i` — допускает до 2 слов-заполнителей ("a", "me", "my", "the") между глаголом и словом "post".
+
+**Почему:** "Create a post. [content]" раньше не распознавался как create_post route из-за "a" перед "post". Маршрутизировался в AI Agent, который терял контекст личной истории.
+
+**Как применять:** При добавлении новых языков или вариаций глаголов — проверять что regex всё ещё распознаёт "create a post", "write me a post", "write us a post".
+
+---
+
+## D-14: toolWorkflow format unwrapping в WF-09 Resolve Topic
+
+**Решение:** В начале Resolve Topic проверяется формат входных данных. Если `rawInput.query?.some_input` существует (n8n toolWorkflow format), парсится как JSON. Иначе используется как есть (прямой executeWorkflow вызов).
+
+**Почему:** Когда WF-06 AI Agent вызывает WF-09 через toolWorkflow, данные приходят в формате `{ query: { some_input: '{"topic":"..."}' } }`. Прямой вызов через executeWorkflow приходит flat-объектом. Без unwrapping `input.text` и `input.topic` были undefined → personal narrative detection не срабатывала.
+
+**Как применять:** При добавлении новых нод в WF-09 что читают `$('When Called by WF-06').first().json` — нужен тот же unwrapping.
+
+---
+
+## D-15: Tool: Create Post schema — поле `text` для полного текста пользователя
+
+**Решение:** В схему инструмента добавлено поле `text`: "Full verbatim user message. CRITICAL: if user shared a personal story, case, money figures — copy ENTIRE message verbatim, do not summarize."
+
+**Почему:** AI Agent получал личную историю ("уволил 4 человек, заработал $3350") и пересказывал её в topic как "automation case study". WF-09 получал безликий topic, генерировал generic educational пост.
+
+**Как применять:** AI Agent prompt явно инструктирует передавать VERBATIM текст в поле text. Resolve Topic в WF-09 читает `input.text` как `rawText` → personal narrative detection срабатывает.
