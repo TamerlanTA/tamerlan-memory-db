@@ -11,6 +11,7 @@
 - Preserved the sample request flow and explanatory sample copy in the result/order CTA area.
 - Preserved server/email sample pricing logic and quote email rendering.
 - Added focused platform UI coverage for the sample info card in EN/FR.
+- Committed and pushed the implementation to `origin/milestone4-auth-completion` as `416b742` (`Hide sample pricing in platform UI`).
 
 ## Key findings
 - Platform sample pricing was rendered in two client surfaces:
