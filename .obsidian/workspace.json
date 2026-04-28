@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Gemini CLI/OPERATIONS_MANUAL.md",
+                "file": "Gemini CLI/FULL_USER_GUIDE.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "OPERATIONS_MANUAL"
+              "title": "FULL_USER_GUIDE"
             }
           },
           {
@@ -263,9 +263,12 @@
   },
   "active": "b4d8f99f5725954f",
   "lastOpenFiles": [
-    "Gemini CLI/PROJECT_MAP.md",
-    "Gemini CLI/COMMANDS_GUIDE.md",
     "Gemini CLI/OPERATIONS_MANUAL.md",
+    "Gemini CLI/PROJECT_MAP.md",
+    "Gemini CLI/SYSTEM_INFO.md",
+    "Gemini CLI/TERMINAL_CHEATSHEET.md",
+    "Gemini CLI/FULL_USER_GUIDE.md",
+    "Gemini CLI/COMMANDS_GUIDE.md",
     "AGENTS.md - CLAUDE.md.md",
     "Gemini CLI",
     "knowledge/vault/tamer-memory-db-vault.md",
@@ -287,9 +290,6 @@
     "FlowOps Team/01 - Strategy/Main Offer.md",
     "projects/FlowOps Team/06 - Priorities/What to Do First.md",
     "FlowOps Team/07 - System Map/Full System Architecture.md",
-    "agent-memory.md",
-    "FlowOps Team/06 - Priorities/What to Do First.md",
-    "FlowOps Team/04 - Sales/Sales Steps.md",
     "Без названия.canvas",
     "projects/storehouse-n8n/sessions",
     "projects/storehouse-n8n",
