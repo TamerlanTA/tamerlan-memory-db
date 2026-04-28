@@ -34,11 +34,15 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-24-sample-price-card-credit-message|Sample price card credit message]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-27-new-label-reset-credit-safety-and-sample-card-proof|New label reset, credit safety, and sample card proof]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-27-sample-price-card-email-rendering-fix|Sample price card email rendering fix]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-28-handoff-sync-memory-source-and-local-state|Handoff sync: memory source and local state]]
 
-Last updated: 2026-04-27
+Last updated: 2026-04-28
 
 - Active branch: `milestone4-auth-completion`
 - Latest local commit: `d976224` — `Fix sample price card email rendering`
+- Handoff sync confirmed the active memory protocol source is `/Users/tamerlan/AGENTS.md`, not a project-local `AGENTS.md`; it points to `/Users/tamerlan/Documents/TamerMemoryDB/Tamerlan Memory DB`.
+- Local workspace path for this handoff: `/Users/tamerlan/Desktop/griffes-vivienne-studio-claude-r2-storage-integration-pU2tu`.
+- Local `git log` confirms `HEAD` at `d976224`, but `git status` currently fails with stale/conflicting worktree metadata: `fatal: not a git repository: /Users/tamerlan/.git/worktrees/elated-engelbart`.
 - Repo status: local generation-stability fixes are committed and pushed through `e12c8ba`; a follow-up local prompt rebalance now softens the wave/ripple hardening language after it degraded generation quality and contaminated support surfaces with swirl-like artifacts
 - Local SEO/content polish now extends the FAQ page with richer citation-friendly answers plus `FAQPage` JSON-LD on `/faq`; the copy now includes verified facts such as Italy manufacturing, ~4-week lead time, 4 materials, 4 folded formats, and the truthful nuance that standard production pricing starts at 1,000 pieces while some 500-piece requests can still remain manual/on-request
 - A new local SEO implementation batch now replaces the FAQ with the approved 15-question FR/EN brief, adds `react-helmet-async`, route-specific `/faq` meta tags + FAQPage JSON-LD, per-page meta titles/descriptions for Home / Prepare / Result, and Organization schema on Home

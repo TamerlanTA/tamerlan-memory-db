@@ -13,11 +13,13 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-16-milestone5-email-finishing-batch|Milestone 5 email finishing batch]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-18-post-m5-order-flow-polish|Post-M5 order-flow polish]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-20-white-logo-fix-and-admin-metrics|White logo fix + admin metrics fix]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-28-handoff-sync-memory-source-and-local-state|Handoff sync: memory source and local state]]
 
-Last updated: 2026-04-27
+Last updated: 2026-04-28
 
 ## Immediate
 
+- **Fix local git-status issue before further implementation**: current workspace `git status` fails with stale/conflicting worktree metadata pointing at `/Users/tamerlan/.git/worktrees/elated-engelbart`; verify clean/dirty state before editing, committing, or deploying.
 - **Browser QA before client review**: upload an actual white PNG logo and verify Home upload preview + Prepare preview remain visible on white/off-white backgrounds.
 - **Generation QA before client review**: live-generate one symbol-only logo and one text-containing logo to confirm the safer `symbol_only` default does not reintroduce hallucinated text and still preserves intentionally uploaded text where appropriate.
 - **Product-photo generation QA before client review**: upload a garment/product photo with a small chest logo, an image with centered visible branding, and a tiny/low-contrast branded detail; confirm the result uses the localized brand mark instead of weaving the whole photo scene.

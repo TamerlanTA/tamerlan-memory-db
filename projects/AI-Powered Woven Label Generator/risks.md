@@ -13,8 +13,9 @@
 - [[sessions/2026-04-15-conversion-polish|Conversion polish session]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-16-milestone5-email-finishing-batch|Milestone 5 email finishing batch]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-18-post-m5-order-flow-polish|Post-M5 order-flow polish]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-28-handoff-sync-memory-source-and-local-state|Handoff sync: memory source and local state]]
 
-Last updated: 2026-04-27
+Last updated: 2026-04-28
 
 ## Resolved this session
 
@@ -83,4 +84,5 @@ Last updated: 2026-04-27
 ## Process risk
 
 - ~~`~/.codex/AGENTS.md` vault path mismatch~~ — **RESOLVED** (2026-04-15): path already points to the correct nested path `/Users/tamerlan/Documents/TamerMemoryDB/Tamerlan Memory DB`
+- **Local git-status reliability issue** — `git status` in the current workspace fails with `fatal: not a git repository: /Users/tamerlan/.git/worktrees/elated-engelbart`, even though `.git` exists and `git log` / `git rev-parse --show-toplevel` work. Treat local dirty-state checks as unreliable until stale worktree metadata/config is repaired or explicitly bypassed.
 - The Railway database URL with password was exposed in chat during migration application; safest follow-up is to rotate the credential
