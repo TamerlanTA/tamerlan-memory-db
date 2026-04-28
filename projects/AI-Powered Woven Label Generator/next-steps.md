@@ -14,6 +14,7 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-18-post-m5-order-flow-polish|Post-M5 order-flow polish]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-20-white-logo-fix-and-admin-metrics|White logo fix + admin metrics fix]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-28-handoff-sync-memory-source-and-local-state|Handoff sync: memory source and local state]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-28-sample-price-ui-visibility-fix|Sample price UI visibility fix]]
 
 Last updated: 2026-04-28
 
@@ -29,7 +30,8 @@ Last updated: 2026-04-28
 - **Pre-generation preview QA before client review**: upload round, square, wide, tall, simple black, and white/near-white logos; confirm Home and Prepare previews stay centered, premium, visible, and balanced on desktop and mobile.
 - **Input guidance QA before client review**: review EN/FR Home and Prepare copy; confirm a supported unusual/random image can still continue through upload and Prepare without extra friction.
 - **Quote email unit-price QA before client review**: submit a production quote at a priced tier (1,000–10,000 pieces) and confirm the top-right box shows the correct estimated unit price in EN/FR; also confirm the 500-piece case shows `On request` / `Sur demande`.
-- **Folded format + sample pricing QA**: verify EN/FR Prepare format cards, loading summary, Result quote panel, Order Preview summary, and quote email show folded format wording; verify standard samples show `€320` / `320 €`, cotton samples show `€380` / `380 €`, and the jacquard-card / loom-setup / deduction explanation is visible.
+- **Folded format + sample pricing QA**: verify EN/FR Prepare format cards, loading summary, Result quote panel, Order Preview summary, and quote email show folded format wording; verify sample numeric prices appear in email only (`€320` / `320 €` for standard, `€380` / `380 €` for cotton) and that jacquard-card / loom-setup / deduction explanation remains visible.
+- **Sample price visibility QA**: verify the SaaS platform sample option still works but does not show `€320`, `€380`, `320 €`, or `380 €` anywhere in the platform UI; verify those amounts still appear in the sample quote email.
 - **Loading copy QA**: run a generation in EN/FR and confirm the estimated-time line is visible, wraps cleanly on mobile, and the long-wait line still feels premium.
 - **New label reset QA**: submit a quote request, trigger `New label`, upload a different logo, and confirm the app stays in a fresh flow instead of reopening the previous order/request state.
 - **Generation value-safety QA**: force one provider/storage failure path and confirm no paid credit or free-trial value is consumed; then run one successful generation and confirm the normal spend/commit still occurs.

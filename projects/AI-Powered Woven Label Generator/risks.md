@@ -14,6 +14,7 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-16-milestone5-email-finishing-batch|Milestone 5 email finishing batch]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-18-post-m5-order-flow-polish|Post-M5 order-flow polish]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-28-handoff-sync-memory-source-and-local-state|Handoff sync: memory source and local state]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-04-28-sample-price-ui-visibility-fix|Sample price UI visibility fix]]
 
 Last updated: 2026-04-28
 
@@ -51,7 +52,7 @@ Last updated: 2026-04-28
 - Railway DB migration is applied, but live delivery is still unverified until Resend env vars are configured and a real preorder is tested
 - The preorder quote email now has a numeric unit-price helper derived from the client spreadsheet for supported production tiers, but this is still a display/helper table rather than a full contractual pricing engine
 - Quote email unit-price display is now derived from `/Users/tamerlan/Downloads/price list.xlsx`, but the workbook does not define 500-piece pricing or tax/shipping terms; 500-piece production intentionally shows `On request` / `Sur demande`, and displayed production prices remain estimated until manually confirmed
-- Sample pricing is now explicit in UI/email: standard samples `€320`, cotton samples `€380`; current implementation assumes only `HD_COTTON` is the cotton tier and `HD`, `SATIN`, `TAFFETA` are standard, so client should confirm this material-to-sample-pricing mapping
+- Sample pricing is now explicit in email only, not the SaaS platform UI: standard samples `€320`, cotton samples `€380`; current implementation assumes only `HD_COTTON` is the cotton tier and `HD`, `SATIN`, `TAFFETA` are standard, so client should confirm this material-to-sample-pricing mapping for email/ops use.
 - Legal content is now populated from the client document and aligned to current app behavior, but it still needs client/legal-owner approval before final public sign-off; some wording was intentionally softened where the document conflicted with the live guest-first flow, credit validity, and quote-before-production behavior
 - Final consistency sweep reduced the biggest quote/order wording mismatch, but one full manual QA pass is still required to confirm the app, quote email, and legal pages feel coherent in real browser/email contexts across FR/EN and desktop/mobile
 - Thumbnail rendering depends on email client image-loading behavior, so some recipients may not see the preview until remote images are enabled
