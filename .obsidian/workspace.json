@@ -39,10 +39,14 @@
             "id": "1b22e56bc915e663",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Граф"
+              "type": "markdown",
+              "state": {
+                "file": "Obsidian - память агента.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Obsidian - память агента"
             }
           },
           {
@@ -274,19 +278,24 @@
   },
   "active": "1b22e56bc915e663",
   "lastOpenFiles": [
+    "My-ideas.md",
+    "All about Agents",
+    "Completed-in-a-week.md",
+    "Orchestrator role (n8n).md",
+    "All about Agents/OC LLM.md",
+    "All about Agents/AGENTS.md - CLAUDE.md.md",
+    "routing-rules.md",
+    "All about Agents/agent-memory.md",
     "projects/AI-Powered Woven Label Generator/current-state.md",
     "n8n.md",
     "projects/FlowOps Team/01 - Strategy/Main Offer.md",
-    "Orchestrator role (n8n).md",
     "FlowOps Team/02 - Offers/Speed-to-Lead System.md",
     "projects/FlowOps Team/02 - Offers/Speed-to-Lead System.md",
     "projects/FlowOps Team/02 - Offers/AI Chatbot & Voice Agent.md",
     "My-tasks.md",
     "projects/telegram-codex-bridge.md",
     "projects/storehouse-n8n/sessions/2026-04-29-storehouse-webapi-replacement.md",
-    "My-ideas.md",
     "Obsidian - память агента.md",
-    "routing-rules.md",
     "projects/FlowOps Team/sessions/2026-04-29-youtube-shorts-sales-deck.md",
     "projects/FlowOps Team/sessions",
     "Gemini CLI/OPERATIONS_MANUAL.md",
@@ -295,13 +304,8 @@
     "Gemini CLI/SYSTEM_INFO.md",
     "Gemini CLI/TERMINAL_CHEATSHEET.md",
     "Gemini CLI/COMMANDS_GUIDE.md",
-    "AGENTS.md - CLAUDE.md.md",
     "Gemini CLI",
     "knowledge/vault/tamer-memory-db-vault.md",
-    "ОС LLM.md",
-    "projects/AI-Powered Woven Label Generator/sessions/2026-04-28-sample-price-ui-visibility-fix.md",
-    "projects/AI-Powered Woven Label Generator/sessions/2026-04-28-handoff-sync-memory-source-and-local-state.md",
-    "projects/FlowOps Team/04 - Sales/How to Sell Price.md",
     "Без названия.canvas",
     "projects/storehouse-n8n/sessions",
     "projects/storehouse-n8n",
@@ -310,7 +314,6 @@
     "projects/sessions",
     "Без названия.base",
     "Без названия 1.canvas",
-    "projects/David/sessions",
-    "projects/David"
+    "projects/David/sessions"
   ]
 }

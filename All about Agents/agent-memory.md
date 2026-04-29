@@ -3,7 +3,7 @@
 ## Related
 - [[current-focus]]
 - [[routing-rules]]
-- [[ОС LLM]]
+- [[OC LLM]]
 - [[Obsidian - память агента]]
 - [[projects/AI-Powered Woven Label Generator/overview|AI-Powered Woven Label Generator]]
 - [[projects/David/overview|Make-David — WhatsApp automation (Колумбия)]]

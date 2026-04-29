@@ -3,7 +3,7 @@
 ## Related
 - [[agent-memory]]
 - [[routing-rules]]
-- [[ОС LLM]]
+- [[OC LLM]]
 
 ---
 

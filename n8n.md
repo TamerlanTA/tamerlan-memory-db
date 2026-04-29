@@ -1,4 +1,4 @@
-- [[ОС LLM]]
+- [[OC LLM]]
 - [[agent-memory]]
 - [[Orchestrator role (n8n)]]
 ## Правила работы для агентов с n8n

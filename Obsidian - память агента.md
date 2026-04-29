@@ -3,7 +3,7 @@
 ## Related
 - [[agent-memory]]
 - [[routing-rules]]
-- [[ОС LLM]]
+- [[OC LLM]]
 - [[projects/AI-Powered Woven Label Generator/overview|AI-Powered Woven Label Generator]]
 
 4 слоя памяти:

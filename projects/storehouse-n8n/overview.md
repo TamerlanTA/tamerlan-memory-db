@@ -6,7 +6,7 @@
 - [[risks]]
 - [[next-steps]]
 - [[prompts]]
-- [[../../agent-memory|agent-memory]]
+- [[agent-memory|agent-memory]]
 
 ## Content
 Storehouse n8n is a new project memory space for work rooted at:
