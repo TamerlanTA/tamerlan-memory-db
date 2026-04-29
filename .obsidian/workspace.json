@@ -69,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "projects/FlowOps Team/03 - Acquisition Pipelines/Pipeline B — LinkedIn Pain Radar.md",
+                "file": "projects/storehouse-n8n/risks.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Pipeline B — LinkedIn Pain Radar"
+              "title": "risks"
             }
           },
           {
@@ -306,10 +306,10 @@
   },
   "active": "d2115a33185233c7",
   "lastOpenFiles": [
+    "projects/FlowOps Team/03 - Acquisition Pipelines/Pipeline B — LinkedIn Pain Radar.md",
     "projects/shanonmake-jotform-clickup.md",
     "projects/FlowOps Team/03 - Acquisition Pipelines/Pipeline D — Demo Library.md",
     "projects/FlowOps Team/03 - Acquisition Pipelines/Pipeline C — Website Audit Generator.md",
-    "projects/FlowOps Team/03 - Acquisition Pipelines/Pipeline B — LinkedIn Pain Radar.md",
     "projects/FlowOps Team/03 - Acquisition Pipelines/Pipeline A — Upwork Radar.md",
     "projects/FlowOps Team/02 - Offers/Long-Term Partner Retainer.md",
     "projects/FlowOps Team/01 - Strategy/Main Offer.md",
