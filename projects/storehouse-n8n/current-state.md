@@ -26,8 +26,10 @@ Status as of 2026-04-27:
 - HTTP Request is used only for StoreHouse WebAPI calls to `/api/sh5exec`.
 - Zero nodes named `MOCK — ...` remain in generated workflow files.
 - StoreHouse data reads now use SH WebAPI for stock balances and recent documents; Google Sheets remains only for `automation_log` and `min_thresholds`.
+- Cleaned up a dangling unused WF3 suspicious-activity error branch after visual review in n8n.
 
 ## Working assumptions
 - Treat this as an ongoing project because the user explicitly requested a project skeleton in memory.
 - Current architecture uses 3 workflows: main AI Agent/photo recognition, low stock scheduled alert, suspicious activity scheduled alert.
 - StoreHouse calls use placeholder n8n variables for host/port/login/password/proc names until on-site procedure discovery is complete.
+- In WF1, StoreHouse tool nodes may appear visually separate because they are connected to the AI Agent through `ai_tool` connections rather than normal main-flow lines.
