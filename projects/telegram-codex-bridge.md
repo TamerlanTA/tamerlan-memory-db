@@ -15,6 +15,7 @@
 - 2026-04-29: Added local offline voice transcription without OpenAI API. Installed `whisper-cpp` via Homebrew, downloaded multilingual `models/ggml-base.bin` from Hugging Face, and added `src/localAudioTranscriber.mjs`. Audio/voice files are converted with `ffmpeg` to 16kHz mono WAV under `transcriptions/`, transcribed with `whisper-cli`, and transcript text is injected into the Codex prompt before attached file paths. Tested against existing Telegram voice file; transcript succeeded in ~0.6s.
 - 2026-04-29: Latest voice command was transcribed successfully but Codex failed because OpenAI Codex returned usage limit (`You've hit your usage limit. Upgrade to Pro`). Updated `src/codexRunner.mjs` to detect usage-limit errors and return a concise Telegram message instead of echoing the full prompt/stderr. Manually recorded the transcribed task list into `[[My-tasks]]`.
 - 2026-04-29: Improved Telegram UX. Added native Telegram command menu registration (`setMyCommands`) with 35 commands, grouped `/help`, usage examples, progressive single-message status edits, output formatter/sanitizer for Codex replies, `/logs` alias, local `/files` and `/read`, command routing for planning/debug/memory/n8n/media sync commands, and `scripts/manualVerification.mjs`.
+- 2026-04-29: Adjusted Telegram reply style to be chat-assistant-like. Removed mandatory `Expected response` report sections from prompt builder, added language-aware concise Telegram style instructions, and extended formatter to strip generic report headings (`What I understood`, `Validation performed`, etc.) when they appear.
 
 ## Validation
 - `npm install` completed and created `package-lock.json`.
@@ -28,6 +29,7 @@
 - Local Whisper validation: `whisper-cli` initially could not read Telegram OGG directly, so `ffmpeg` conversion to WAV was added. Adapter test returned the expected Russian transcript from `uploads/20260429125636_43_566431.ogg`.
 - Latest voice transcript was recovered locally from `uploads/20260429131331_47_4cf402.ogg` and used to update `/Users/tamerlan/Documents/TamerMemoryDB/Tamerlan Memory DB/My-tasks.md`.
 - Telegram UX verification: `npm run check` and `npm run verify:manual` pass. PM2 restarted/saved. Runtime log shows `telegram.commands.registered count=35`.
+- Reply-style verification: `npm run check` and `npm run verify:manual` pass. PM2 restarted/saved.
 
 ## Decisions
 - Keep Codex global configuration untouched; bridge only calls existing `codex exec`.
