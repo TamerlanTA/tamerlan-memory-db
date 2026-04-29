@@ -16,6 +16,7 @@
 - 2026-04-29: Latest voice command was transcribed successfully but Codex failed because OpenAI Codex returned usage limit (`You've hit your usage limit. Upgrade to Pro`). Updated `src/codexRunner.mjs` to detect usage-limit errors and return a concise Telegram message instead of echoing the full prompt/stderr. Manually recorded the transcribed task list into `[[My-tasks]]`.
 - 2026-04-29: Improved Telegram UX. Added native Telegram command menu registration (`setMyCommands`) with 35 commands, grouped `/help`, usage examples, progressive single-message status edits, output formatter/sanitizer for Codex replies, `/logs` alias, local `/files` and `/read`, command routing for planning/debug/memory/n8n/media sync commands, and `scripts/manualVerification.mjs`.
 - 2026-04-29: Adjusted Telegram reply style to be chat-assistant-like. Removed mandatory `Expected response` report sections from prompt builder, added language-aware concise Telegram style instructions, and extended formatter to strip generic report headings (`What I understood`, `Validation performed`, etc.) when they appear.
+- 2026-04-29: n8n skill discovery/install request timed out at 300s, but skills were installed under `/Users/tamerlan/.agents/skills`. Increased bridge `timeoutMs` from 300000 to 900000 and changed timeout handling to return partial Codex stdout/stderr when available instead of only "timed out". `/tools` now lists local skills without running Codex.
 
 ## Validation
 - `npm install` completed and created `package-lock.json`.
@@ -30,6 +31,7 @@
 - Latest voice transcript was recovered locally from `uploads/20260429131331_47_4cf402.ogg` and used to update `/Users/tamerlan/Documents/TamerMemoryDB/Tamerlan Memory DB/My-tasks.md`.
 - Telegram UX verification: `npm run check` and `npm run verify:manual` pass. PM2 restarted/saved. Runtime log shows `telegram.commands.registered count=35`.
 - Reply-style verification: `npm run check` and `npm run verify:manual` pass. PM2 restarted/saved.
+- Timeout fix verification: `npm run check` and `npm run verify:manual` pass. PM2 restarted/saved. Confirmed n8n skills exist locally: `n8n`, `n8n-automation`, `n8n-automation-architect`, `n8n-code-javascript`, `n8n-code-python`, `n8n-expression-syntax`, `n8n-mcp-tools-expert`, `n8n-node-configuration`, `n8n-validation-expert`, `n8n-workflow`, `n8n-workflow-automation`, `n8n-workflow-generator`, `n8n-workflow-patterns`, `n8n-workflow-testing-fundamentals`.
 
 ## Decisions
 - Keep Codex global configuration untouched; bridge only calls existing `codex exec`.
