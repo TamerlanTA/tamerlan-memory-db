@@ -1,5 +1,6 @@
 - [[ОС LLM]]
 - [[agent-memory]]
+- [[Orchestrator role (n8n)]]
 ## Правила работы для агентов с n8n
 
 - править JSON не по одному символу, а структурно через Node: это безопаснее для n8n export-формата, потому что сохраняет валидный JSON и точечно меняет nodes/connections/parameters. 
