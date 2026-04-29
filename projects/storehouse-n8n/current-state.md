@@ -32,4 +32,4 @@ Status as of 2026-04-27:
 - Treat this as an ongoing project because the user explicitly requested a project skeleton in memory.
 - Current architecture uses 3 workflows: main AI Agent/photo recognition, low stock scheduled alert, suspicious activity scheduled alert.
 - StoreHouse calls use placeholder n8n variables for host/port/login/password/proc names until on-site procedure discovery is complete.
-- In WF1, StoreHouse tool nodes may appear visually separate because they are connected to the AI Agent through `ai_tool` connections rather than normal main-flow lines.
+- WF1 agent tools were corrected to use proper AI tool connections. StoreHouse agent tools now use `@n8n/n8n-nodes-langchain.toolHttpRequest` nodes with `ai_tool` connections to `AGENT — Main Warehouse Brain`.

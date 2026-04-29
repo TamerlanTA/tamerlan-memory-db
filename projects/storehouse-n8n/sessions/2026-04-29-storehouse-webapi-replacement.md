@@ -14,6 +14,7 @@
 - Kept Google Sheets usage for `automation_log` and `min_thresholds`.
 - Updated `README.md` and `generate-workflows.mjs`.
 - After visual review in n8n, removed an unused dangling suspicious-activity generic error branch from WF3.
+- After a second visual review, corrected WF1 agent tools: StoreHouse tools now use dedicated `toolHttpRequest` nodes connected to the agent via `ai_tool`, instead of ordinary HTTP Request nodes with misleading main-flow branches.
 
 ## Key findings
 - Current workflow files now contain zero node names starting with `MOCK —`.
@@ -26,7 +27,7 @@
 - Parsed all generated workflow JSON files with `JSON.parse`.
 - Checked unique node names, valid connection references, zero `MOCK —` nodes, zero Code nodes, `/api/sh5exec` URLs, validation branches, and error branches.
 - Confirmed Google Sheets nodes only target `automation_log` and `min_thresholds`.
-- Rechecked dangling nodes: WF1 only has intentional AI tool sources; WF2 and WF3 have no dangling non-tool nodes.
+- Rechecked dangling nodes: WF1 has no dangling non-tool nodes, and its five tool sources connect to the agent via `ai_tool`.
 
 ## Blockers
 - Real StoreHouse host, port, user, password, and procedure names are still placeholders.

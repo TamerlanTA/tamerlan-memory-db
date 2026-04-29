@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "My-tasks.md",
+                "file": "projects/telegram-codex-bridge.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "My-tasks"
+              "title": "telegram-codex-bridge"
             }
           },
           {
@@ -263,10 +263,10 @@
   },
   "active": "b4d8f99f5725954f",
   "lastOpenFiles": [
+    "My-tasks.md",
     "projects/telegram-codex-bridge.md",
     "projects/storehouse-n8n/sessions/2026-04-29-storehouse-webapi-replacement.md",
     "My-ideas.md",
-    "My-tasks.md",
     "Obsidian - память агента.md",
     "routing-rules.md",
     "projects/FlowOps Team/sessions/2026-04-29-youtube-shorts-sales-deck.md",
