@@ -39,3 +39,21 @@ Decision: use official n8n nodes for Telegram, OpenAI/GPT-4o, AI Agent, and Goog
 Decision: avoid Code nodes entirely in generated workflows. Use Set/If node expressions for parsing, comparisons, and message formatting.
 
 Decision: represent the agent's 5 capabilities as connected `ai_tool` nodes. StoreHouse-backed tools use `MOCK — SH API` HTTP Request nodes so they satisfy the mock-node naming and sticky-note requirements.
+
+## 2026-04-29 — Replace StoreHouse mocks with WebAPI calls
+
+Decision: replace all StoreHouse mock nodes with real HTTP Request nodes calling:
+
+`http://{{SH_HOST}}:{{SH_PORT}}/api/sh5exec`
+
+In n8n JSON this is expressed through `$vars.SH_HOST`, `$vars.SH_PORT`, `$vars.SH_USER`, `$vars.SH_PASSWORD`, and procedure placeholders:
+
+- `$vars.SH_PROC_STOCK_BALANCES`
+- `$vars.SH_PROC_INCOMING_INVOICE`
+- `$vars.SH_PROC_STOCK_MOVEMENT`
+- `$vars.SH_PROC_EXPENSE_REPORT`
+- `$vars.SH_PROC_DOCUMENT_LOG`
+
+Decision: remove all `MOCK —` node names and old mock sticky notes. Add on-site configuration sticky notes instead.
+
+Decision: keep Google Sheets for `automation_log` and `min_thresholds`, because these are system-owned data, not StoreHouse data. Replace previous StoreHouse-data sheet reads (`mock_stock`, `mock_documents`) with WebAPI calls.
