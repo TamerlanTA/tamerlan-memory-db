@@ -10,6 +10,7 @@
 - 2026-04-29: User filled `local.env`; bridge started under PM2 as `telegram-codex-bridge`, status online, `pm2 save` completed.
 - 2026-04-29: First plain Telegram health-check text (`Привет ты на связи?`) was routed as `/ask`, causing a full `codex exec` run that took ~203s. Added `/ping` and quick greeting/health-check handling so simple availability checks reply immediately without invoking Codex.
 - 2026-04-29: Plain casual routing was rejected by user; user wants Codex for normal plain text, not canned bridge answers. Removed casual/health phrase interception for plain text. `/ping` now also routes through Codex. `codex exec -` initially failed because bridge repo is not a trusted/git directory; fixed by adding `--skip-git-repo-check` to `project.json` `codexArgs`. Kept stdin prompt passing and progress status messages.
+- 2026-04-29: User explicitly requested full filesystem/action access from Telegram bridge and acknowledged the security risk. Updated `project.json` `codexArgs` to `["exec", "--dangerously-bypass-approvals-and-sandbox", "--skip-git-repo-check"]`. Manual check showed Codex starts with `approval: never` and `sandbox: danger-full-access`. PM2 restarted/saved.
 
 ## Validation
 - `npm install` completed and created `package-lock.json`.
@@ -18,6 +19,7 @@
 - PM2 status after launch: `telegram-codex-bridge` online, local `logs/bridge.log` contains `bridge.started`.
 - After quick health-check patch, `npm run check` passes and PM2 was restarted/saved.
 - After removing canned plain-text replies and adding `--skip-git-repo-check`, `npm run check` passes and PM2 was restarted/saved. Manual `codex exec --skip-git-repo-check -` outside sandbox returned `ready`.
+- After enabling bypass permissions, `npm run check` passes. Manual `codex exec --dangerously-bypass-approvals-and-sandbox --skip-git-repo-check -` returned `ready`.
 
 ## Decisions
 - Keep Codex global configuration untouched; bridge only calls existing `codex exec`.
@@ -30,6 +32,7 @@
 - Simple Telegram text is still `/ask` by design except recognized health-check phrases (`ping`, `пинг`, `привет`, `hello`, `hi`, and `привет/hello/hi ... на связи`).
 - All plain text now routes to Codex without requiring `/ask`; do not add canned content replies unless explicitly requested. Bridge-only messages should be operational status only, e.g. task accepted/progress/error.
 - Full reboot autostart is not yet enabled: `pm2 startup` produced a sudo launchd command that must be run manually.
+- Telegram-triggered Codex now runs with `danger-full-access` and no approval prompts. This is intentional per user request but high-risk if Telegram token/chat authorization is compromised.
 
 ## Next steps
 - In Telegram, send `/start`, `/status`, then `/ask Analyze this repository and explain what it does.`
