@@ -14,6 +14,7 @@
 - 2026-04-29: Voice/audio attachment flow verified at repository level. The bridge downloads Telegram voice/audio files and includes local paths in Codex prompts, but it does not yet contain an audio transcription adapter or transcription dependency.
 - 2026-04-29: Added local offline voice transcription without OpenAI API. Installed `whisper-cpp` via Homebrew, downloaded multilingual `models/ggml-base.bin` from Hugging Face, and added `src/localAudioTranscriber.mjs`. Audio/voice files are converted with `ffmpeg` to 16kHz mono WAV under `transcriptions/`, transcribed with `whisper-cli`, and transcript text is injected into the Codex prompt before attached file paths. Tested against existing Telegram voice file; transcript succeeded in ~0.6s.
 - 2026-04-29: Latest voice command was transcribed successfully but Codex failed because OpenAI Codex returned usage limit (`You've hit your usage limit. Upgrade to Pro`). Updated `src/codexRunner.mjs` to detect usage-limit errors and return a concise Telegram message instead of echoing the full prompt/stderr. Manually recorded the transcribed task list into `[[My-tasks]]`.
+- 2026-04-29: Improved Telegram UX. Added native Telegram command menu registration (`setMyCommands`) with 35 commands, grouped `/help`, usage examples, progressive single-message status edits, output formatter/sanitizer for Codex replies, `/logs` alias, local `/files` and `/read`, command routing for planning/debug/memory/n8n/media sync commands, and `scripts/manualVerification.mjs`.
 
 ## Validation
 - `npm install` completed and created `package-lock.json`.
@@ -26,6 +27,7 @@
 - For a received Telegram voice file (`voice-43.ogg`), local inspection confirmed a valid OGG/Opus mono audio file, 55.9s, 219120 bytes. `npm run check` passes.
 - Local Whisper validation: `whisper-cli` initially could not read Telegram OGG directly, so `ffmpeg` conversion to WAV was added. Adapter test returned the expected Russian transcript from `uploads/20260429125636_43_566431.ogg`.
 - Latest voice transcript was recovered locally from `uploads/20260429131331_47_4cf402.ogg` and used to update `/Users/tamerlan/Documents/TamerMemoryDB/Tamerlan Memory DB/My-tasks.md`.
+- Telegram UX verification: `npm run check` and `npm run verify:manual` pass. PM2 restarted/saved. Runtime log shows `telegram.commands.registered count=35`.
 
 ## Decisions
 - Keep Codex global configuration untouched; bridge only calls existing `codex exec`.
@@ -40,6 +42,7 @@
 - Telegram-triggered Codex now runs with `danger-full-access` and no approval prompts. This is intentional per user request but high-risk if Telegram token/chat authorization is compromised.
 - Audio is now transcribed locally via `ffmpeg` + `whisper-cli` + `models/ggml-base.bin`. No external API is used. If the model or tools are missing, bridge should still pass file path and include transcription failure details.
 - Codex can still fail after transcription when subscription usage limit is reached; bridge now reports that clearly, but cannot bypass account usage limits.
+- Output formatting is heuristic: it strips common Codex CLI headers, raw prompt echoes, debug/tool-call-like lines, bold markdown markers, and noisy links for normal replies. `/debug` and `/logs` intentionally expose more raw detail.
 
 ## Next steps
 - In Telegram, send `/start`, `/status`, then `/ask Analyze this repository and explain what it does.`
