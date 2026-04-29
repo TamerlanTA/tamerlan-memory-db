@@ -17,6 +17,7 @@
 - 2026-04-29: Improved Telegram UX. Added native Telegram command menu registration (`setMyCommands`) with 35 commands, grouped `/help`, usage examples, progressive single-message status edits, output formatter/sanitizer for Codex replies, `/logs` alias, local `/files` and `/read`, command routing for planning/debug/memory/n8n/media sync commands, and `scripts/manualVerification.mjs`.
 - 2026-04-29: Adjusted Telegram reply style to be chat-assistant-like. Removed mandatory `Expected response` report sections from prompt builder, added language-aware concise Telegram style instructions, and extended formatter to strip generic report headings (`What I understood`, `Validation performed`, etc.) when they appear.
 - 2026-04-29: n8n skill discovery/install request timed out at 300s, but skills were installed under `/Users/tamerlan/.agents/skills`. Increased bridge `timeoutMs` from 300000 to 900000 and changed timeout handling to return partial Codex stdout/stderr when available instead of only "timed out". `/tools` now lists local skills without running Codex.
+- 2026-04-29: Added Codex plugins section for Telegram. New commands: `/plugins` lists installed/connected plugins from `/Users/tamerlan/.codex/plugins/cache`; `/plugins <name>` shows details, skills, app connector IDs, and examples; `/plugin <name> <task>` runs Codex with explicit instruction to use that installed plugin, its skills, and connected app when available. Telegram command menu now registers 37 commands.
 
 ## Validation
 - `npm install` completed and created `package-lock.json`.
@@ -32,6 +33,7 @@
 - Telegram UX verification: `npm run check` and `npm run verify:manual` pass. PM2 restarted/saved. Runtime log shows `telegram.commands.registered count=35`.
 - Reply-style verification: `npm run check` and `npm run verify:manual` pass. PM2 restarted/saved.
 - Timeout fix verification: `npm run check` and `npm run verify:manual` pass. PM2 restarted/saved. Confirmed n8n skills exist locally: `n8n`, `n8n-automation`, `n8n-automation-architect`, `n8n-code-javascript`, `n8n-code-python`, `n8n-expression-syntax`, `n8n-mcp-tools-expert`, `n8n-node-configuration`, `n8n-validation-expert`, `n8n-workflow`, `n8n-workflow-automation`, `n8n-workflow-generator`, `n8n-workflow-patterns`, `n8n-workflow-testing-fundamentals`.
+- Plugin registry verification: `npm run check` and `npm run verify:manual` pass. Local registry found Browser Use, Build macOS Apps, Build Web Apps, Computer Use, Documents, Figma, GitHub, Gmail, Notion, Presentations, Spreadsheets, Stripe, Teams, Vercel. Runtime log shows `telegram.commands.registered count=37`.
 
 ## Decisions
 - Keep Codex global configuration untouched; bridge only calls existing `codex exec`.
@@ -47,6 +49,7 @@
 - Audio is now transcribed locally via `ffmpeg` + `whisper-cli` + `models/ggml-base.bin`. No external API is used. If the model or tools are missing, bridge should still pass file path and include transcription failure details.
 - Codex can still fail after transcription when subscription usage limit is reached; bridge now reports that clearly, but cannot bypass account usage limits.
 - Output formatting is heuristic: it strips common Codex CLI headers, raw prompt echoes, debug/tool-call-like lines, bold markdown markers, and noisy links for normal replies. `/debug` and `/logs` intentionally expose more raw detail.
+- `/plugin` can guide Codex to use a plugin and connected app, but actual plugin/app execution still depends on Codex CLI session capabilities, account auth, and plugin availability in the underlying Codex runtime.
 
 ## Next steps
 - In Telegram, send `/start`, `/status`, then `/ask Analyze this repository and explain what it does.`
