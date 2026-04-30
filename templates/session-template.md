@@ -1,8 +1,11 @@
 # Session {{date}}
 
 ## Related
-- [[agent-memory]]
-- [[Obsidian - память агента]]
+- [[overview]]
+- [[current-state]]
+- [[next-steps]]
+- [[decisions]]
+- [[risks]]
 - [[project-template|project template]]
 
 ## Project

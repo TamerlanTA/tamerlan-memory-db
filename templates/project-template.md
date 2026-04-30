@@ -2,8 +2,10 @@
 
 ## Related
 - [[agent-memory]]
+- [[current-focus]]
 - [[Obsidian - память агента]]
 - [[routing-rules]]
+- [[session-template|session template]]
 
 ## Summary
 What this project is about.
