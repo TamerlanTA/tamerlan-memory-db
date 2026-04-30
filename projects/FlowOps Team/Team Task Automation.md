@@ -15,6 +15,7 @@
 - Same day normalize fix: n8n HTTP Request may output GitHub folder arrays as one item per file, so normalize logic must support both array responses and single file-object items.
 - Telegram delivery was switched from HTTP Request to official `n8n-nodes-base.telegram` node, with one post-send Code node retained only to persist processed state after confirmed success.
 - v2 fix: `New File?` and `Bootstrap Mode?` use explicit Boolean `Equal` comparisons. Code nodes no longer reference other nodes by name via `$items(...)`, avoiding failures when n8n auto-renames imported nodes with suffixes.
+- v3 fix: added automatic first-run bootstrap when static processed storage is empty, so existing active-task markdown files are marked as baseline without Telegram. Also excludes template markdown files by default and disables Telegram node attribution.
 
 ## What it does
 - Supports Manual Trigger and POST Webhook trigger.
@@ -34,3 +35,4 @@
 - Corrected import file: `/Users/tamerlan/Desktop/flowopsteamPipelines/flowops-team-github-task-notifier-static-fixed-paths.json`.
 - Latest corrected import file: `/Users/tamerlan/Desktop/flowopsteamPipelines/flowops-team-github-task-notifier-telegram-node-fixed-normalize.json`.
 - Current latest import file: `/Users/tamerlan/Desktop/flowopsteamPipelines/flowops-team-github-task-notifier-telegram-node-v2.json`.
+- Current latest import file: `/Users/tamerlan/Desktop/flowopsteamPipelines/flowops-team-github-task-notifier-telegram-node-v3-auto-bootstrap.json`.
