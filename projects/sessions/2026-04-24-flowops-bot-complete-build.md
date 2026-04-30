@@ -1,7 +1,7 @@
 # Session 2026-04-24 — FlowOps Bot Complete Build
 
 ## Related
-- [[ai-content-bot]]
+- [[projects/ai-content-bot]]
 - [[current-focus]]
 
 ---
