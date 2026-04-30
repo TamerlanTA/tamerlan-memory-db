@@ -1,7 +1,7 @@
 # Alexey — Team Profile
 
 ## Related
-- [[progress-log]]
+- [[My-Team/Alexey/progress-log]]
 
 ## Role
 To be filled.

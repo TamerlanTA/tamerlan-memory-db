@@ -1,7 +1,7 @@
 # Alexey — Progress Log
 
 ## Related
-- [[profile]]
+- [[My-Team/Alexey/profile]]
 
 ## 2026-04-30
 - Team memory skeleton created.

@@ -1,7 +1,7 @@
 # Adil — Team Profile
 
 ## Related
-- [[progress-log]]
+- [[My-Team/Adil/progress-log]]
 
 ## Role
 To be filled.
