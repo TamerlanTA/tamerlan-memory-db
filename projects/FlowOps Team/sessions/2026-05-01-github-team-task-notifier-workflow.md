@@ -11,6 +11,7 @@
 - Added bootstrap mode logic so existing `.md` files can be marked processed without sending Telegram messages.
 - Revised the workflow after import/runtime issue: user's n8n instance does not recognize `n8n-nodes-base.dataStore`, so the corrected version uses Code node static workflow data.
 - Created corrected workflow file at `/Users/tamerlan/Desktop/flowopsteamPipelines/flowops-team-github-task-notifier-static-fixed-paths.json`.
+- Created newer corrected workflow file at `/Users/tamerlan/Desktop/flowopsteamPipelines/flowops-team-github-task-notifier-telegram-node-fixed-normalize.json`.
 
 ## Key findings
 - Dedupe must be based on `file_path`, not GitHub `sha`, to prevent duplicate Telegram notifications after file edits.
@@ -18,6 +19,8 @@
 - Telegram send failure should not mark a file processed, so the next scheduled run can retry.
 - Static workflow data fallback stores records in `processedTeamTaskFiles[file_path]`; this persists inside the workflow but does not transfer automatically to a separately imported duplicate workflow.
 - The GitHub web URL `https://github.com/TamerlanTA/tamerlan-memory-db/tree/main/My-Team/Aslanbek/tasks/active-tasks` maps to GitHub Contents API path `My-Team/Aslanbek/tasks/active-tasks`; the repo root already represents the vault root.
+- `Filter Only Markdown Files` returned nothing because `Normalize GitHub Folder Response` expected an array, while n8n had already split the GitHub folder response into individual file-object items. The newer normalize code accepts both shapes.
+- Official Telegram node is now used for sending. The only Code node after Telegram is the static processed-state save gate, needed so failed Telegram sends do not mark files processed.
 
 ## Blockers
 - Data Store node is unavailable in the user's n8n instance; use static workflow data fallback unless Data Store/Data Table is later enabled.
