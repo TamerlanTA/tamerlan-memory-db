@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "My-Team/Aslanbek/tasks/active-tasks/TASK-2026-04-30-001.md",
+                "file": "My-Team/Aslanbek/tasks/comleted/_completed-task-template.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "TASK-2026-04-30-001"
+              "title": "_completed-task-template"
             }
           }
         ],
@@ -234,8 +234,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "d2115a33185233c7",
+  "active": "a7e3df8f6bd81cee",
   "lastOpenFiles": [
+    "projects/FlowOps Team/Team Task Automation.md",
+    "My-Team/Aslanbek/tasks/active-tasks/TASK-2026-04-30-001.md",
     "projects/FlowOps Team/04 - Sales/How to Sell Price.md",
     "knowledge/vault/tamer-memory-db-vault.md",
     "projects/storehouse-n8n/current-state.md",
@@ -244,7 +246,6 @@
     "My-Team/Aslanbek/tasks/TASK-2026-04-30-pricing-section.json",
     "My-Team/Aslanbek/tasks/next-task/_next-task-template.md",
     "My-Team/Aslanbek/tasks/active-tasks/_active-task-template.md",
-    "My-Team/Aslanbek/tasks/active-tasks/TASK-2026-04-30-001.md",
     "My-Team/Aslanbek/progress-log.md",
     "projects/FlowOps Team/Pipeline A — Upwork Radar.md",
     "My-Team/Adil/tasks/comleted/_completed-task-template.md",
@@ -271,7 +272,6 @@
     "projects/FlowOps Team/sessions/2026-04-30-team-tasks-json-import.md",
     "Без названия.md",
     "projects/FlowOps Team/03 - Pipelines/Pipeline A — Upwork Radar.md",
-    "projects/FlowOps Team/03 - Pipelines/Pipeline C — Website Audit Generator.md",
     "Без названия.canvas",
     "Без названия 1.canvas"
   ]
