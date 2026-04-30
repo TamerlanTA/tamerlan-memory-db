@@ -6,6 +6,7 @@
 - [[flowops-agency-website]]
 
 ## Current status
+- Completed as of 2026-04-30: Make project with Shanon/Shen is marked done in [[My-tasks]].
 - Updated `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.updated.blueprint.json` with active two-list routing.
 - Created import/review copy: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.routed.blueprint.json`.
 - Scenario now uses a top-level router with two duplicated create-new-tree branches:
@@ -39,12 +40,14 @@
 - Assignees were left unchanged.
 - Attachment upload handling was intentionally not implemented; attachment fields are text references only.
 
-## Blockers / manual follow-up
+## Historical manual follow-up
 - Need manual import test in Make/ClickUp to confirm ClickUp accepts `custom_type` via API and exposes type-specific custom fields afterward.
 - Existing-task-ID reuse flow is documented/prepared only in module metadata notes; it was not implemented to avoid destabilizing the working hierarchy.
 - Verify Make accepts `text:equal` / `text:notequal` filters on `q10_housebrand`; if Make UI prompts, reselect filter operators as equals / does not equal.
 
 ## Next steps
+- No immediate next step tracked after completion mark.
+- Historical implementation notes retained below; not tracked as active tasks after the completion mark.
 - Import the updated blueprint into Make and reselect/reconnect ClickUp/Jotform connections if Make prompts.
 - Test sample submissions for standard customer, Unbranded house brand, and each request-type combination.
 - Later, implement existing-task-ID reuse as a separate safe pass:

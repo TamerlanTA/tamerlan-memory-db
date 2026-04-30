@@ -2,6 +2,7 @@
 ## Related
 - [[My-ideas]]
 - [[agent-memory]]
+- [[projects/FlowOps Team/00 - Overview|FlowOps Team]]
 
 ## Tasks
 
@@ -42,5 +43,19 @@
 - [x] Закончить работу с Gemini CLI
 - [x] Подготовить 2 презентации для автоматизации блогером: на английском и на русском
 - [ ] Закончить проект с лейблами
-- [ ] Закончить проект с Шеном в Make
+- [x] Закончить проект с Шеном в Make
 - [ ] Подготовить всю архитектуру n8n для Алдияра
+
+## FlowOps — новая структура и позиционирование
+
+- [ ] Зафиксировать короткое позиционирование FlowOps: AI automation systems for businesses tired of manual work, missed leads, and messy operations
+- [ ] Упаковать главный sales angle: не продавать "AI agents", а продавать результат — меньше ручной работы, быстрее обработка лидов, меньше хаоса в операциях
+- [ ] Описать 3 основных оффера: Speed-to-Lead System, Ops Automation Sprint, AI Chatbot & Voice Agent
+- [ ] Сформировать product ladder: Free Automation Audit -> Automation Sprint -> Long-Term Automation Partner
+- [ ] Собрать первые 5 демо для Demo Library: Real Estate Speed-to-Lead, Clinic Lead Qualification Chatbot, Agency Onboarding, Jotform -> CRM + Slack, Appointment + Reminder System
+- [ ] Запустить Upwork Radar вручную: мониторить ключевые запросы, оценивать fit score, отправлять 10-15 персонализированных proposal в день
+- [ ] Подготовить Website Audit Generator: выбрать 2-3 ниши, сделать audit template, записать первые 10 Loom-аудитов
+- [ ] Запустить LinkedIn Pain Radar: обновить профиль, мониторить боли, отправлять 10-15 персонализированных DM в день, публиковать 3 поста в неделю
+- [ ] Настроить CRM-структуру для FlowOps: leads, opportunities, demos, audits, proposals, clients, retainers
+- [ ] Прописать sales process по шагам: signal -> opener -> pre-call research -> discovery call -> proposal -> objections -> close/onboarding
+- [ ] Закрыть первого Sprint-клиента через Upwork или LinkedIn и после результата предложить retainer через 7-14 дней
