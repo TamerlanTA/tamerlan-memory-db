@@ -39,16 +39,16 @@ Create a polished pricing section with 3 service tiers for the agency website.
 - Task file: [[TASK-2026-04-30-pricing-section]]
 
 
+## All Progress
 
-
-### Done
+#Done
 - Completed pricing section desktop layout.
 
-### In Progress
+#In-Progress
 - Mobile responsiveness.
 
-### Blocked
+#Blocked
 - Waiting for final CTA copy.
 
-### Next
+#Next
 - Finish mobile layout and send for review.
