@@ -9,6 +9,7 @@
 - On 2026-04-30, converted `/Users/tamerlan/Desktop/flowopsteamPipelines/team-tasks-import.json` from a custom data import file into a real n8n workflow export.
 - Ready n8n workflow file: `/Users/tamerlan/Desktop/flowopsteamPipelines/team-task-n8n-workflow.json`.
 - Workflow name: `FlowOps Team Task - Create Aslanbek Pricing Task`.
+- On 2026-05-01, designed an importable n8n workflow JSON for polling GitHub-backed Obsidian team task folders every 5 minutes and notifying Telegram only for new `.md` task files.
 
 ## What it does
 - Supports Manual Trigger and POST Webhook trigger.
@@ -23,3 +24,4 @@
 - Reconnect Telegram credentials after import.
 - Activate workflow for production webhook use.
 - The workflow intentionally has no hardcoded n8n credential IDs.
+- For the GitHub polling task-notifier workflow, dedupe must use `file_path` as the primary key; GitHub `sha` is metadata only because it changes when a markdown file is edited.

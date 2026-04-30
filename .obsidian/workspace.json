@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "projects/ai-content-bot/current-state.md",
+                "file": "My-Team/Aslanbek/tasks/active-tasks/TASK-2026-04-30-001.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "current-state"
+              "title": "TASK-2026-04-30-001"
             }
           }
         ],
@@ -220,12 +220,13 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "a7e3df8f6bd81cee",
+  "active": "cd4bd0e7a37bcccd",
   "lastOpenFiles": [
-    "My-Team/Aslanbek/tasks/next-task/_next-task-template.md",
-    "My-Team/Aslanbek/tasks/comleted/_completed-task-template.md",
+    "projects/FlowOps Team/sessions/2026-05-01-github-team-task-notifier-workflow.md",
     "My-Team/Aslanbek/tasks/active-tasks/_active-task-template.md",
     "My-Team/Aslanbek/tasks/active-tasks/TASK-2026-04-30-001.md",
+    "My-Team/Aslanbek/tasks/comleted/_completed-task-template.md",
+    "My-Team/Aslanbek/tasks/next-task/_next-task-template.md",
     "My-Team/Aslanbek/tasks/next-task",
     "My-Team/Aslanbek/tasks/comleted",
     "My-Team/Aslanbek/tasks/active-tasks",
@@ -234,7 +235,6 @@
     "My-Team/Aslanbek/profile.md",
     "My-Team/Aslanbek",
     "projects/FlowOps Team/Team Task Automation.md",
-    "My-Team/Aslanbek/tasks/active-tasks/TASK-2026-04-30-001.md",
     "projects/FlowOps Team/04 - Sales/How to Sell Price.md",
     "knowledge/vault/tamer-memory-db-vault.md",
     "projects/storehouse-n8n/current-state.md",
@@ -242,13 +242,11 @@
     "My-Team/Aslanbek/profile.md",
     "My-Team/Aslanbek/tasks/TASK-2026-04-30-pricing-section.json",
     "My-Team/Aslanbek/tasks/next-task/_next-task-template.md",
-    "My-Team/Aslanbek/tasks/active-tasks/_active-task-template.md",
     "My-Team/Aslanbek/progress-log.md",
     "projects/FlowOps Team/Pipeline A — Upwork Radar.md",
     "My-Team/Adil/tasks/comleted/_completed-task-template.md",
     "projects/FlowOps Team/sessions/2026-04-30-team-task-templates-and-aslanbek-speed-to-lead.md",
     "My-Team/Adil/progress-log.md",
-    "My-Team/Aslanbek/tasks/comleted/_completed-task-template.md",
     "My-Team/Alexey/tasks/next-task/_next-task-template.md",
     "My-Team/Alexey/tasks/comleted/_completed-task-template.md",
     "My-Team/Alexey/tasks/active-tasks/_active-task-template.md",
