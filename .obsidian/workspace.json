@@ -51,12 +51,40 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Tasks.md",
+                "file": "My-Team/Aslanbek/active-tasks.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Tasks"
+              "title": "active-tasks"
+            }
+          },
+          {
+            "id": "a71572e1d1fb0d5d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "My-Team/Aslanbek/profile.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "profile"
+            }
+          },
+          {
+            "id": "1f0f1b6627ea5867",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "My-Team/Aslanbek/progress-log.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "progress-log"
             }
           },
           {
@@ -116,7 +144,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 5
       }
     ],
     "direction": "vertical"
@@ -300,10 +328,20 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "1c02e5620209d09d",
+  "active": "1f0f1b6627ea5867",
   "lastOpenFiles": [
+    "My-Team/Aslanbek/active-tasks.md",
+    "My-Team/Aslanbek/profile.md",
+    "My-Team/Aslanbek/progress-log.md",
+    "projects/FlowOps Team/03 - Pipelines/Pipeline A — Upwork Radar.md",
+    "projects/FlowOps Team/03 - Pipelines/Pipeline C — Website Audit Generator.md",
+    "projects/FlowOps Team/02 - Offers/Ops Automation Sprint.md",
+    "projects/FlowOps Team/02 - Offers/Long-Term Partner Retainer.md",
+    "projects/FlowOps Team/02 - Offers/AI Chatbot & Voice Agent.md",
+    "projects/FlowOps Team/01 - Strategy/Product Ladder.md",
+    "projects/FlowOps Team/01 - Strategy/Positioning.md",
+    "projects/FlowOps Team/01 - Strategy/Main Offer.md",
     "My-Team/Без названия.md",
-    "Tasks.md",
     "My-Team/Alexey",
     "My-Team/Adil",
     "My-Team/Aslanbek",
@@ -321,16 +359,6 @@
     "projects/sessions/2026-04-24-flowops-bot-complete-build.md",
     "projects/ai-content-bot.md",
     "knowledge/firecrawl.md",
-    "ai-content-bot.md",
-    "prompts/handoff-summary-template.md",
-    "inbox.md",
-    "My-ideas.md",
-    "projects/FlowOps Team/04 - Sales/Sales Steps.md",
-    "projects/FlowOps Team/04 - Sales/Message Templates.md",
-    "projects/FlowOps Team/04 - Sales/How to Sell Price.md",
-    "projects/FlowOps Team/04 - Sales/Discovery Call Script.md",
-    "projects/FlowOps Team/07 - System Map/Full System Architecture.md",
-    "projects/FlowOps Team/02 - Offers/Speed-to-Lead System.md",
     "All about Agents",
     "projects/FlowOps Team/sessions",
     "Gemini CLI",
