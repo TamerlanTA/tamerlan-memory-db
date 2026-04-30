@@ -2,7 +2,7 @@
 
 ## Related
 - [[agent-memory]]
-- [[OC LLM]]
+- [[OS LLM]]
 - [[Obsidian - память агента]]
 
 ---

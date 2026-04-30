@@ -1,5 +1,5 @@
 -[[agent-memory]]
--[[OC LLM]]
+-[[OS LLM]]
 -[[AGENTS.md - CLAUDE.md]]
 
 

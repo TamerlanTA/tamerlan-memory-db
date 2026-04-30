@@ -3,7 +3,7 @@
 ## Related
 - [[agent-memory]]
 - [[routing-rules]]
-- [[OC LLM]]
+- [[OS LLM]]
 - [[patterns/batch-prompt-template]]
 
 ---

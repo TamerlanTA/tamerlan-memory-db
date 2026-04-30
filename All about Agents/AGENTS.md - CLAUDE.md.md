@@ -1,7 +1,7 @@
 -[[agent-memory]]
 -[[routing-rules]]
 -[[Obsidian - память агента]]
--[[OC LLM]]
+-[[OS LLM]]
 
 # Project Memory Operating Protocol
 
