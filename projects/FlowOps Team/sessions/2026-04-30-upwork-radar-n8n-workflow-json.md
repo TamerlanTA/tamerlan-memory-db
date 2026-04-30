@@ -14,6 +14,7 @@
 - Strengthened `OpenAI Generate Proposal` prompt with the full operational proposal rules and expanded `Validate Proposal` into a deterministic gate for closing block order, word counts, specialist positioning, banned phrases, markdown symbols, concrete timeline, concrete budget, generic questions, and signature.
 - Rebuilt proposal prompt around FlowOps positioning adapted for Upwork solo-freelancer positioning: first-person Tamerlan, no agency/team language, business outcomes over tools, offer mapping to Speed-to-Lead / Ops Automation Sprint / AI Chatbot.
 - Updated Telegram output to send only `proposal_full` inside an HTML `<pre>` block for copy-friendly Telegram behavior. Short version and one-liner are no longer generated for Telegram.
+- Fixed proposal validator false positive where banned phrase `our team` matched client-facing phrase `your team`; banned phrases now use regex boundaries. Prompt now explicitly requires a specialist phrase in the relevance paragraph.
 
 ## Key findings
 - The local workspace folder was empty before this workflow file was created.
@@ -36,3 +37,4 @@
 - Confirm proposal validation does not reject good drafts too aggressively.
 - If validation is too strict in live runs, tune the deterministic `Validate Proposal` Code node rather than weakening the proposal prompt.
 - Test Telegram rendering on mobile/desktop and confirm the `<pre>` block copy action copies only the full proposal.
+- Re-import the workflow JSON or manually update the `OpenAI Generate Proposal` prompt and `Validate Proposal` Code node in n8n after validator changes.
