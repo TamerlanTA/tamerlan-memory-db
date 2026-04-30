@@ -58,7 +58,7 @@
 - [ ] Описать 3 основных оффера: Speed-to-Lead System, Ops Automation Sprint, AI Chatbot & Voice Agent
 - [ ] Сформировать product ladder: Free Automation Audit -> Automation Sprint -> Long-Term Automation Partner
 - [ ] Собрать первые 5 демо для Demo Library: Real Estate Speed-to-Lead, Clinic Lead Qualification Chatbot, Agency Onboarding, Jotform -> CRM + Slack, Appointment + Reminder System
-- [ ] Запустить Upwork Radar вручную: мониторить ключевые запросы, оценивать fit score, отправлять 10-15 персонализированных proposal в день
+- [x] Запустить Upwork Radar вручную: мониторить ключевые запросы, оценивать fit score, отправлять 10-15 персонализированных proposal в день
 - [ ] Подготовить Website Audit Generator: выбрать 2-3 ниши, сделать audit template, записать первые 10 Loom-аудитов
 - [ ] Запустить LinkedIn Pain Radar: обновить профиль, мониторить боли, отправлять 10-15 персонализированных DM в день, публиковать 3 поста в неделю
 - [ ] Настроить CRM-структуру для FlowOps: leads, opportunities, demos, audits, proposals, clients, retainers
