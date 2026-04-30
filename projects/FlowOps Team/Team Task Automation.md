@@ -14,6 +14,7 @@
 - Same day path fix: GitHub repo root is the memory vault root, so active task folders must be `My-Team/...`, not `Tamerlan Memory DB/My-Team/...`.
 - Same day normalize fix: n8n HTTP Request may output GitHub folder arrays as one item per file, so normalize logic must support both array responses and single file-object items.
 - Telegram delivery was switched from HTTP Request to official `n8n-nodes-base.telegram` node, with one post-send Code node retained only to persist processed state after confirmed success.
+- v2 fix: `New File?` and `Bootstrap Mode?` use explicit Boolean `Equal` comparisons. Code nodes no longer reference other nodes by name via `$items(...)`, avoiding failures when n8n auto-renames imported nodes with suffixes.
 
 ## What it does
 - Supports Manual Trigger and POST Webhook trigger.
@@ -32,3 +33,4 @@
 - Static workflow data fallback stores processed records under `processedTeamTaskFiles[file_path]` inside the workflow's global static data. This state is per workflow copy.
 - Corrected import file: `/Users/tamerlan/Desktop/flowopsteamPipelines/flowops-team-github-task-notifier-static-fixed-paths.json`.
 - Latest corrected import file: `/Users/tamerlan/Desktop/flowopsteamPipelines/flowops-team-github-task-notifier-telegram-node-fixed-normalize.json`.
+- Current latest import file: `/Users/tamerlan/Desktop/flowopsteamPipelines/flowops-team-github-task-notifier-telegram-node-v2.json`.
