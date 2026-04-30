@@ -16,6 +16,7 @@
 - Telegram delivery was switched from HTTP Request to official `n8n-nodes-base.telegram` node, with one post-send Code node retained only to persist processed state after confirmed success.
 - v2 fix: `New File?` and `Bootstrap Mode?` use explicit Boolean `Equal` comparisons. Code nodes no longer reference other nodes by name via `$items(...)`, avoiding failures when n8n auto-renames imported nodes with suffixes.
 - v3 fix: added automatic first-run bootstrap when static processed storage is empty, so existing active-task markdown files are marked as baseline without Telegram. Also excludes template markdown files by default and disables Telegram node attribution.
+- v4 format update: Telegram message now uses the requested block layout with blank lines and fewer emojis.
 
 ## What it does
 - Supports Manual Trigger and POST Webhook trigger.
@@ -36,3 +37,4 @@
 - Latest corrected import file: `/Users/tamerlan/Desktop/flowopsteamPipelines/flowops-team-github-task-notifier-telegram-node-fixed-normalize.json`.
 - Current latest import file: `/Users/tamerlan/Desktop/flowopsteamPipelines/flowops-team-github-task-notifier-telegram-node-v2.json`.
 - Current latest import file: `/Users/tamerlan/Desktop/flowopsteamPipelines/flowops-team-github-task-notifier-telegram-node-v3-auto-bootstrap.json`.
+- Current latest import file: `/Users/tamerlan/Desktop/flowopsteamPipelines/flowops-team-github-task-notifier-telegram-node-v4-message-format.json`.

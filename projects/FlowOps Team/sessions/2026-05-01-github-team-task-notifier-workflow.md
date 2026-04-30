@@ -14,6 +14,7 @@
 - Created newer corrected workflow file at `/Users/tamerlan/Desktop/flowopsteamPipelines/flowops-team-github-task-notifier-telegram-node-fixed-normalize.json`.
 - Created current corrected workflow file at `/Users/tamerlan/Desktop/flowopsteamPipelines/flowops-team-github-task-notifier-telegram-node-v2.json`.
 - Created current corrected workflow file at `/Users/tamerlan/Desktop/flowopsteamPipelines/flowops-team-github-task-notifier-telegram-node-v3-auto-bootstrap.json`.
+- Created current corrected workflow file at `/Users/tamerlan/Desktop/flowopsteamPipelines/flowops-team-github-task-notifier-telegram-node-v4-message-format.json`.
 
 ## Key findings
 - Dedupe must be based on `file_path`, not GitHub `sha`, to prevent duplicate Telegram notifications after file edits.
@@ -27,6 +28,8 @@
 - Removed `$items(...)` cross-node references from Code nodes because n8n import suffixes such as `Config / Settings1` can break exact-name references.
 - Problem observed: with empty static storage and `BOOTSTRAP_MODE=false`, workflow sent every existing `.md` in all active-task folders as "new". v3 solves this with `AUTO_BOOTSTRAP_IF_STORAGE_EMPTY=true`: first run marks current files as processed baseline without sending.
 - v3 also excludes template files such as `active-task-template.md` by default and sets Telegram node `appendAttribution=false`.
+- v4 adjusts Telegram output format to:
+  `🆕 New active task`, blank lines between sections, `👤 For`, plain `Task`, `Offer`, `Pipeline`, `Status`, `Deadline`, `Assigned by`, and only `🗂 Project` / `🔥 Priority` emojis.
 
 ## Blockers
 - Data Store node is unavailable in the user's n8n instance; use static workflow data fallback unless Data Store/Data Table is later enabled.
