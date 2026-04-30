@@ -93,12 +93,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Без названия.md",
+                "file": "My-Team/Aslanbek/active-tasks.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Без названия"
+              "title": "active-tasks"
             }
           },
           {
@@ -344,8 +344,8 @@
   },
   "active": "e576b8331b99c796",
   "lastOpenFiles": [
-    "My-Team/Aslanbek/progress-log.md",
     "Без названия.md",
+    "My-Team/Aslanbek/progress-log.md",
     "My-Team/Aslanbek/active-tasks.md",
     "My-Team/Aslanbek/profile.md",
     "projects/FlowOps Team/03 - Pipelines/Pipeline A — Upwork Radar.md",

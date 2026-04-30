@@ -37,3 +37,18 @@ Create a polished pricing section with 3 service tiers for the agency website.
 **Links:**
 - Project: [[FlowOps-Website]]
 - Task file: [[TASK-2026-04-30-pricing-section]]
+
+
+
+
+### Done
+- Completed pricing section desktop layout.
+
+### In Progress
+- Mobile responsiveness.
+
+### Blocked
+- Waiting for final CTA copy.
+
+### Next
+- Finish mobile layout and send for review.
