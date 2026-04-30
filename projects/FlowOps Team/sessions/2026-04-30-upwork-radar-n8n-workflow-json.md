@@ -12,6 +12,8 @@
 - Added placeholders only: Gmail, Firecrawl, OpenAI HTTP Header Auth, Telegram, Google Sheets, Sheet ID, Telegram chat ID.
 - Updated OpenAI scoring and proposal nodes from generic HTTP Request nodes to official n8n OpenAI nodes: `@n8n/n8n-nodes-langchain.openAi`, resource `text`, operation `message`, `jsonOutput: true`.
 - Strengthened `OpenAI Generate Proposal` prompt with the full operational proposal rules and expanded `Validate Proposal` into a deterministic gate for closing block order, word counts, specialist positioning, banned phrases, markdown symbols, concrete timeline, concrete budget, generic questions, and signature.
+- Rebuilt proposal prompt around FlowOps positioning adapted for Upwork solo-freelancer positioning: first-person Tamerlan, no agency/team language, business outcomes over tools, offer mapping to Speed-to-Lead / Ops Automation Sprint / AI Chatbot.
+- Updated Telegram output to send only `proposal_full` inside an HTML `<pre>` block for copy-friendly Telegram behavior. Short version and one-liner are no longer generated for Telegram.
 
 ## Key findings
 - The local workspace folder was empty before this workflow file was created.
@@ -19,6 +21,7 @@
 - Firecrawl community node is used as requested: `@mendable/n8n-nodes-firecrawl.firecrawl`.
 - OpenAI now uses official n8n OpenAI credentials via `openAiApi` with placeholder `REPLACE_WITH_OPENAI_CREDENTIAL_ID`.
 - Proposal compliance is enforced by validation after generation. If the model drifts, the workflow stops before Telegram/Sheets instead of treating the draft as ready.
+- External Upwork proposal research reinforced: strong first lines, personalization, client-problem focus, relevant proof, concise/scannable copy, hidden-instruction compliance, and clear CTA/question.
 
 ## Blockers
 - Workflow was JSON-validated locally, but not imported into a live n8n instance yet.
@@ -32,3 +35,4 @@
 - Confirm Google Sheets dedup and append behavior.
 - Confirm proposal validation does not reject good drafts too aggressively.
 - If validation is too strict in live runs, tune the deterministic `Validate Proposal` Code node rather than weakening the proposal prompt.
+- Test Telegram rendering on mobile/desktop and confirm the `<pre>` block copy action copies only the full proposal.
