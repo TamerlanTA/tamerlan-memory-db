@@ -15,6 +15,7 @@
 - Rebuilt proposal prompt around FlowOps positioning adapted for Upwork solo-freelancer positioning: first-person Tamerlan, no agency/team language, business outcomes over tools, offer mapping to Speed-to-Lead / Ops Automation Sprint / AI Chatbot.
 - Updated Telegram output to send only `proposal_full` inside an HTML `<pre>` block for copy-friendly Telegram behavior. Short version and one-liner are no longer generated for Telegram.
 - Fixed proposal validator false positive where banned phrase `our team` matched client-facing phrase `your team`; banned phrases now use regex boundaries. Prompt now explicitly requires a specialist phrase in the relevance paragraph.
+- Relaxed `Validate Proposal` formatting checks after live n8n error: closing block now tolerates harmless whitespace variations while preserving required order/signature/link, and markdown detection only flags markdown markers at line starts or bold markers instead of any `>` character.
 
 ## Key findings
 - The local workspace folder was empty before this workflow file was created.
