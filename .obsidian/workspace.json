@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "My-Team/Aslanbek/tasks/active-tasks/TASK-Aslan-2026-04-30-001.md",
+                "file": "My-Team/Adil/tasks/active-tasks/TASK-Adil-2026-04-30-001.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "TASK-Aslan-2026-04-30-001"
+              "title": "TASK-Adil-2026-04-30-001"
             }
           }
         ],
@@ -222,12 +222,14 @@
   },
   "active": "cd4bd0e7a37bcccd",
   "lastOpenFiles": [
+    "My-Team/Alexey/tasks/active-tasks/TASK-Alexey-2026-04-30-001.md",
+    "My-Team/Aslanbek/tasks/active-tasks/TASK-Aslan-2026-04-30-001.md",
+    "My-Team/Aslanbek/tasks/active-tasks/_active-task-template.md",
+    "My-Team/Adil/tasks/active-tasks/_active-task-template.md",
+    "My-Team/Alexey/tasks/active-tasks/_active-task-template.md",
     "My-Team/Aslanbek/tasks/active-tasks/TASK-2026-04-30-002.md",
     "My-Team/Adil/tasks/active-tasks/TASK-Adil-2026-04-30-001.md",
-    "My-Team/Adil/tasks/active-tasks/_active-task-template.md",
-    "My-Team/Aslanbek/tasks/active-tasks/TASK-Aslan-2026-04-30-001.md",
     "projects/FlowOps Team/sessions/2026-05-01-github-team-task-notifier-workflow.md",
-    "My-Team/Aslanbek/tasks/active-tasks/_active-task-template.md",
     "My-Team/Aslanbek/tasks/comleted/_completed-task-template.md",
     "My-Team/Aslanbek/tasks/next-task/_next-task-template.md",
     "My-Team/Aslanbek/tasks/next-task",
@@ -251,9 +253,7 @@
     "My-Team/Adil/progress-log.md",
     "My-Team/Alexey/tasks/next-task/_next-task-template.md",
     "My-Team/Alexey/tasks/comleted/_completed-task-template.md",
-    "My-Team/Alexey/tasks/active-tasks/_active-task-template.md",
     "My-Team/Adil/tasks/next-task/_next-task-template.md",
-    "My-Team/Adil/profile.md",
     "My-Team/Alexey/tasks/next-task",
     "My-Team/Alexey/tasks/comleted",
     "My-Team/Alexey/tasks/active-tasks",
