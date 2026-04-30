@@ -10,12 +10,13 @@
 - Created importable n8n workflow JSON at `/Users/tamerlan/Desktop/flowopsteamPipelines/upwork-radar-workflow.json`.
 - Workflow implements Gmail Upwork `New job alert` trigger -> URL extraction -> Google Sheets dedup -> Firecrawl scrape -> OpenAI scoring -> OpenAI proposal generation -> proposal validation -> Telegram send -> Google Sheets append.
 - Added placeholders only: Gmail, Firecrawl, OpenAI HTTP Header Auth, Telegram, Google Sheets, Sheet ID, Telegram chat ID.
+- Updated OpenAI scoring and proposal nodes from generic HTTP Request nodes to official n8n OpenAI nodes: `@n8n/n8n-nodes-langchain.openAi`, resource `text`, operation `message`, `jsonOutput: true`.
 
 ## Key findings
 - The local workspace folder was empty before this workflow file was created.
 - Existing memory already defined this as FlowOps Team Pipeline A - Upwork Radar, so no new project folder was created.
 - Firecrawl community node is used as requested: `@mendable/n8n-nodes-firecrawl.firecrawl`.
-- OpenAI is called through n8n HTTP Request nodes with an OpenAI header-auth credential placeholder for predictable import behavior.
+- OpenAI now uses official n8n OpenAI credentials via `openAiApi` with placeholder `REPLACE_WITH_OPENAI_CREDENTIAL_ID`.
 
 ## Blockers
 - Workflow was JSON-validated locally, but not imported into a live n8n instance yet.
