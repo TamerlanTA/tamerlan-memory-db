@@ -10,6 +10,7 @@
 - Ready n8n workflow file: `/Users/tamerlan/Desktop/flowopsteamPipelines/team-task-n8n-workflow.json`.
 - Workflow name: `FlowOps Team Task - Create Aslanbek Pricing Task`.
 - On 2026-05-01, designed an importable n8n workflow JSON for polling GitHub-backed Obsidian team task folders every 5 minutes and notifying Telegram only for new `.md` task files.
+- Same day correction: user's n8n instance rejected `n8n-nodes-base.dataStore`; use static workflow data fallback instead for processed-file storage.
 
 ## What it does
 - Supports Manual Trigger and POST Webhook trigger.
@@ -25,3 +26,4 @@
 - Activate workflow for production webhook use.
 - The workflow intentionally has no hardcoded n8n credential IDs.
 - For the GitHub polling task-notifier workflow, dedupe must use `file_path` as the primary key; GitHub `sha` is metadata only because it changes when a markdown file is edited.
+- Static workflow data fallback stores processed records under `processedTeamTaskFiles[file_path]` inside the workflow's global static data. This state is per workflow copy.
