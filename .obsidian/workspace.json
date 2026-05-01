@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "086578ff18bfb808",
+        "id": "2eeefbe7399df8f8",
         "type": "tabs",
         "children": [
           {
-            "id": "b4d8f99f5725954f",
+            "id": "efff1550dbd2669d",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -22,91 +22,21 @@
             }
           },
           {
-            "id": "cd4bd0e7a37bcccd",
+            "id": "8358a851115bd668",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "My-Team/Alexey/progress-log.md",
+                "file": "My-Team/Adil/profile.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "progress-log"
-            }
-          },
-          {
-            "id": "ab06e3231f224761",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "projects/FlowOps Team/05 - CRM Structure/Airtable CRM Build Spec.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Airtable CRM Build Spec"
-            }
-          },
-          {
-            "id": "9d4c65f2e90a8cfb",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "projects/FlowOps Team/05 - CRM Structure/Airtable CRM Build Spec.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Airtable CRM Build Spec"
-            }
-          },
-          {
-            "id": "b1a20fbf5040a890",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "projects/FlowOps Team/05 - CRM Structure/Airtable CRM Build Spec.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Airtable CRM Build Spec"
-            }
-          },
-          {
-            "id": "e5f2919c8072d34c",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "projects/FlowOps Team/05 - CRM Structure/Airtable CRM Build Spec.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Airtable CRM Build Spec"
-            }
-          },
-          {
-            "id": "dd2e90d8f66c49e6",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "projects/FlowOps Team/05 - CRM Structure/Airtable CRM Build Spec.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Airtable CRM Build Spec"
+              "title": "profile"
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -290,11 +220,16 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "dd2e90d8f66c49e6",
+  "active": "8358a851115bd668",
   "lastOpenFiles": [
+    "My-Team/Aslanbek/profile.md",
     "projects/FlowOps Team/05 - CRM Structure/Airtable CRM Build Spec.md",
-    "projects/FlowOps Team/05 - CRM Structure/CRM Automation Plan.md",
     "My-Team/Alexey/progress-log.md",
+    "conflict-files-obsidian-git.md",
+    "projects/FlowOps Team/05 - CRM Structure/CRM Automation Plan.md",
+    "2026-05-01.md",
+    "Без названия.canvas",
+    "Без названия.base",
     "My-Team/Adil/profile.md",
     "projects/FlowOps Team/sessions/2026-05-01-pipeline-b-linkedin-radar-workflow-json.md",
     "projects/FlowOps Team/08 - Выполненные задачи/Completed.md",
@@ -302,7 +237,6 @@
     "projects/FlowOps Team/08 - Выполненные задачи",
     "projects/FlowOps Team/sessions/2026-05-01-crm-automation-plan.md",
     "projects/FlowOps Team/sessions/2026-05-01-flowops-airtable-crm-prep.md",
-    "My-Team/Aslanbek/profile.md",
     "My-Team/Alexey/profile.md",
     "My-Team/Adil/progress-log.md",
     "My-Team/Aslanbek/tasks/active-tasks/TASK-Aslan-2026-04-30-001.md",

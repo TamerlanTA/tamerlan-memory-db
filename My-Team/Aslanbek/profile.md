@@ -1,5 +1,8 @@
 # Aslan — Team Profile
 
+Kalabayaslanbek@gmail.com
+GitHub: KalabayAslanbek
+
 ## Role
 Main executor - the inspector
 
