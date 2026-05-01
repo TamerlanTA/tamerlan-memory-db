@@ -116,6 +116,10 @@ Won ✅ / Lost ❌
 - **Notion** — если уже используешь для заметок
 - **HubSpot Free** — если нужен более "продажный" интерфейс
 
+## Airtable build spec
+
+- [[Airtable CRM Build Spec]] — готовая структура Airtable base: таблицы, поля, select-значения, связи, views, initial records и правила для будущих n8n/Make автоматизаций.
+
 ---
 
 ## Связанные страницы
@@ -125,6 +129,7 @@ Won ✅ / Lost ❌
 - [[Pipeline B — LinkedIn Pain Radar]] — источник лидов
 - [[Pipeline D — Demo Library]] — таблица Demos
 - [[What to Do First]] — приоритеты
+- [[Airtable CRM Build Spec]] — Airtable-ready спецификация
 
 ---
 
