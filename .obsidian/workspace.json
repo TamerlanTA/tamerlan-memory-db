@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "14970c21771a81e2",
+        "id": "3e5578b72b0cd787",
         "type": "tabs",
         "children": [
           {
-            "id": "4775618cb8b44366",
+            "id": "c7c19b9a983c8d43",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -74,8 +74,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 304.5,
-    "collapsed": true
+    "width": 304.5
   },
   "right": {
     "id": "b9794a6278a01a92",
@@ -202,8 +201,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "4775618cb8b44366",
+  "active": "4bbea2973636dfa8",
   "lastOpenFiles": [
+    "Без названия.base",
+    "Без названия.canvas",
     "2026-05-01.md",
     "Без названия",
     "My-Team/Alexey/progress-log.md",
@@ -231,7 +232,6 @@
     "My-Team/Adil/tasks/active-tasks/_active-task-template.md",
     "My-Team/Alexey/tasks/active-tasks/_active-task-template.md",
     "My-Team/Aslanbek/tasks/active-tasks/TASK-2026-04-30-002.md",
-    "projects/FlowOps Team/sessions/2026-05-01-github-team-task-notifier-workflow.md",
     "My-Team/Aslanbek/tasks/next-task",
     "My-Team/Aslanbek/tasks/comleted",
     "My-Team/Aslanbek/tasks/active-tasks",
@@ -240,7 +240,6 @@
     "My-Team/Aslanbek/tasks/TASK-2026-04-30-pricing-section.json",
     "My-Team/Alexey/tasks/next-task",
     "My-Team/Alexey/tasks/comleted",
-    "Без названия.canvas",
     "Без названия 1.canvas"
   ]
 }
