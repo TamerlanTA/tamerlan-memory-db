@@ -40,31 +40,31 @@
 
 Основная таблица. Одна запись = один потенциальный клиент или компания.
 
-| Field | Airtable type | Options / notes |
-|---|---|---|
-| `Lead Name` | Single line text | Имя контакта или primary label |
-| `Company` | Single line text | Название компании |
-| `Website` | URL | Для аудита |
-| `Source` | Single select | `Upwork`, `LinkedIn`, `Cold Email`, `Referral`, `Inbound`, `Manual`, `Other` |
-| `Niche` | Single select | `Real Estate`, `Home Services`, `Agency`, `E-commerce`, `Clinic`, `SaaS`, `Coach`, `Other` |
-| `Pain Signal` | Long text | Что увидели или что клиент сказал |
-| `Likely Offer` | Single select | `Speed-to-Lead`, `Ops Sprint`, `AI Chatbot`, `Voice Agent`, `Audit`, `Retainer` |
-| `Fit Score` | Number | 0-10 |
-| `Budget Estimate` | Single line text | Например `$500-2k`, `$2k+`, unknown |
-| `Status` | Single select | `New`, `Contacted`, `Replied`, `Call Booked`, `Called`, `Proposal Sent`, `Won`, `Lost`, `Nurture` |
-| `Next Action` | Single line text | Следующий ручной шаг |
-| `First Contact Date` | Date | Первое касание |
-| `Last Contacted` | Date | Последнее касание |
-| `Follow-up Date` | Date | Когда написать снова |
-| `Last Activity` | Last modified time | Airtable system field |
-| `Contact URL` | URL | LinkedIn / Upwork / profile |
-| `Email` | Email | Если есть |
-| `LinkedIn URL` | URL | Если отдельно от Contact URL |
-| `Upwork Job URL` | URL | Если источник Upwork |
-| `Opportunities` | Link to `Opportunities` | Связанные сделки |
-| `Messages` | Link to `Messages` | История сообщений |
-| `Audits` | Link to `Audits` | Связанные аудиты |
-| `Notes` | Long text | Контекст, research, conversation notes |
+| Field                | Airtable type           | Options / notes                                                                                   |
+| -------------------- | ----------------------- | ------------------------------------------------------------------------------------------------- |
+| `Lead Name`          | Single line text        | Имя контакта или primary label                                                                    |
+| `Company`            | Single line text        | Название компании                                                                                 |
+| `Website`            | URL                     | Для аудита                                                                                        |
+| `Source`             | Single select           | `Upwork`, `LinkedIn`, `Cold Email`, `Referral`, `Inbound`, `Manual`, `Other`                      |
+| `Niche`              | Single select           | `Real Estate`, `Home Services`, `Agency`, `E-commerce`, `Clinic`, `SaaS`, `Coach`, `Other`        |
+| `Pain Signal`        | Long text               | Что увидели или что клиент сказал                                                                 |
+| `Likely Offer`       | Single select           | `Speed-to-Lead`, `Ops Sprint`, `AI Chatbot`, `Voice Agent`, `Audit`, `Retainer`                   |
+| `Fit Score`          | Number                  | 0-10                                                                                              |
+| `Budget Estimate`    | Single line text        | Например `$500-2k`, `$2k+`, unknown                                                               |
+| `Status`             | Single select           | `New`, `Contacted`, `Replied`, `Call Booked`, `Called`, `Proposal Sent`, `Won`, `Lost`, `Nurture` |
+| `Next Action`        | Single line text        | Следующий ручной шаг                                                                              |
+| `First Contact Date` | Date                    | Первое касание                                                                                    |
+| `Last Contacted`     | Date                    | Последнее касание                                                                                 |
+| `Follow-up Date`     | Date                    | Когда написать снова                                                                              |
+| `Last Activity`      | Last modified time      | Airtable system field                                                                             |
+| `Contact URL`        | URL                     | LinkedIn / Upwork / profile                                                                       |
+| `Email`              | Email                   | Если есть                                                                                         |
+| `LinkedIn URL`       | URL                     | Если отдельно от Contact URL                                                                      |
+| `Upwork Job URL`     | URL                     | Если источник Upwork                                                                              |
+| `Opportunities`      | Link to `Opportunities` | Связанные сделки                                                                                  |
+| `Messages`           | Link to `Messages`      | История сообщений                                                                                 |
+| `Audits`             | Link to `Audits`        | Связанные аудиты                                                                                  |
+| `Notes`              | Long text               | Контекст, research, conversation notes                                                            |
 
 ## Table: Opportunities
 
@@ -101,24 +101,24 @@
 
 История касаний и база для follow-up автоматизаций.
 
-| Field | Airtable type | Options / notes |
-|---|---|---|
-| `Message ID` | Autonumber | Primary field can be formula `MSG-{Message ID}` |
-| `Lead` | Link to `Leads` | Required |
-| `Opportunity` | Link to `Opportunities` | Optional |
-| `Channel` | Single select | `Upwork`, `LinkedIn`, `Email`, `WhatsApp`, `Call`, `Referral` |
-| `Message Type` | Single select | `Proposal`, `DM`, `Cold Email`, `Follow-up`, `Retainer Pitch`, `Call Note`, `Manual Note` |
-| `Template Used` | Single select | `Upwork Proposal`, `LinkedIn Opener`, `Cold Audit Email`, `Follow-up 1`, `Follow-up 2`, `Retainer Pitch`, `Custom` |
-| `Draft` | Long text | Текст до отправки |
-| `Message Text` | Long text | Фактически отправленный текст |
-| `Sent?` | Checkbox | Отправлено |
-| `Date Sent` | Date/time | Когда отправлено |
-| `Opened?` | Checkbox | Если отслеживается |
-| `Response` | Single select | `No Response`, `Replied`, `Interested`, `Not Interested`, `Call Booked`, `Nurture` |
-| `Reply Sentiment` | Single select | `Positive`, `Neutral`, `Negative`, `No Reply` |
-| `Follow-up Date` | Date | Следующий контакт |
-| `Outcome` | Single select | `Call Booked`, `Not Interested`, `No Reply`, `Nurture`, `Won`, `Lost` |
-| `Notes` | Long text | Любой контекст |
+| Field             | Airtable type           | Options / notes                                                                                                    |
+| ----------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `Message ID`      | Autonumber              | Primary field can be formula `MSG-{Message ID}`                                                                    |
+| `Lead`            | Link to `Leads`         | Required                                                                                                           |
+| `Opportunity`     | Link to `Opportunities` | Optional                                                                                                           |
+| `Channel`         | Single select           | `Upwork`, `LinkedIn`, `Email`, `WhatsApp`, `Call`, `Referral`                                                      |
+| `Message Type`    | Single select           | `Proposal`, `DM`, `Cold Email`, `Follow-up`, `Retainer Pitch`, `Call Note`, `Manual Note`                          |
+| `Template Used`   | Single select           | `Upwork Proposal`, `LinkedIn Opener`, `Cold Audit Email`, `Follow-up 1`, `Follow-up 2`, `Retainer Pitch`, `Custom` |
+| `Draft`           | Long text               | Текст до отправки                                                                                                  |
+| `Message Text`    | Long text               | Фактически отправленный текст                                                                                      |
+| `Sent?`           | Checkbox                | Отправлено                                                                                                         |
+| `Date Sent`       | Date/time               | Когда отправлено                                                                                                   |
+| `Opened?`         | Checkbox                | Если отслеживается                                                                                                 |
+| `Response`        | Single select           | `No Response`, `Replied`, `Interested`, `Not Interested`, `Call Booked`, `Nurture`                                 |
+| `Reply Sentiment` | Single select           | `Positive`, `Neutral`, `Negative`, `No Reply`                                                                      |
+| `Follow-up Date`  | Date                    | Следующий контакт                                                                                                  |
+| `Outcome`         | Single select           | `Call Booked`, `Not Interested`, `No Reply`, `Nurture`, `Won`, `Lost`                                              |
+| `Notes`           | Long text               | Любой контекст                                                                                                     |
 
 ## Table: Demos
 
