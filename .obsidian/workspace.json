@@ -34,8 +34,79 @@
               "icon": "lucide-file",
               "title": "progress-log"
             }
+          },
+          {
+            "id": "ab06e3231f224761",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "projects/FlowOps Team/05 - CRM Structure/Airtable CRM Build Spec.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Airtable CRM Build Spec"
+            }
+          },
+          {
+            "id": "9d4c65f2e90a8cfb",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "projects/FlowOps Team/05 - CRM Structure/Airtable CRM Build Spec.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Airtable CRM Build Spec"
+            }
+          },
+          {
+            "id": "b1a20fbf5040a890",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "projects/FlowOps Team/05 - CRM Structure/Airtable CRM Build Spec.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Airtable CRM Build Spec"
+            }
+          },
+          {
+            "id": "e5f2919c8072d34c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "projects/FlowOps Team/05 - CRM Structure/Airtable CRM Build Spec.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Airtable CRM Build Spec"
+            }
+          },
+          {
+            "id": "dd2e90d8f66c49e6",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "projects/FlowOps Team/05 - CRM Structure/Airtable CRM Build Spec.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Airtable CRM Build Spec"
+            }
           }
-        ]
+        ],
+        "currentTab": 6
       }
     ],
     "direction": "vertical"
@@ -219,10 +290,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "b4d8f99f5725954f",
+  "active": "dd2e90d8f66c49e6",
   "lastOpenFiles": [
-    "projects/FlowOps Team/05 - CRM Structure/CRM Automation Plan.md",
     "projects/FlowOps Team/05 - CRM Structure/Airtable CRM Build Spec.md",
+    "projects/FlowOps Team/05 - CRM Structure/CRM Automation Plan.md",
+    "My-Team/Alexey/progress-log.md",
     "My-Team/Adil/profile.md",
     "projects/FlowOps Team/sessions/2026-05-01-pipeline-b-linkedin-radar-workflow-json.md",
     "projects/FlowOps Team/08 - Выполненные задачи/Completed.md",
@@ -238,16 +310,12 @@
     "projects/FlowOps Team/sessions/2026-05-01-adil-flowops-documentation-task.md",
     "My-Team/Adil/tasks/active-tasks/TASK-Adil-2026-05-01-001.md",
     "n8n.md",
-    "My-Team/Alexey/progress-log.md",
     "My-Team/Aslanbek/tasks/active-tasks/TASK-Aslan-2026-04-30-002.md",
     "My-Team/Alexey/tasks/active-tasks/TASK-Alexey-2026-04-30-001.md",
     "My-Team/Adil/tasks/active-tasks/TASK-Adil-2026-04-30-001.md",
     "My-Team/Aslanbek/tasks/active-tasks/_active-task-template.md",
     "My-Team/Adil/tasks/active-tasks/_active-task-template.md",
     "My-Team/Alexey/tasks/active-tasks/_active-task-template.md",
-    "My-Team/Aslanbek/tasks/active-tasks/TASK-2026-04-30-002.md",
-    "projects/FlowOps Team/sessions/2026-05-01-github-team-task-notifier-workflow.md",
-    "My-Team/Aslanbek/tasks/comleted/_completed-task-template.md",
     "My-Team/Aslanbek/tasks/next-task",
     "My-Team/Aslanbek/tasks/comleted",
     "My-Team/Aslanbek/tasks/active-tasks",
@@ -256,8 +324,6 @@
     "My-Team/Aslanbek/tasks/TASK-2026-04-30-pricing-section.json",
     "My-Team/Alexey/tasks/next-task",
     "My-Team/Alexey/tasks/comleted",
-    "My-Team/Alexey/tasks/active-tasks",
-    "Без названия.canvas",
     "Без названия 1.canvas"
   ]
 }

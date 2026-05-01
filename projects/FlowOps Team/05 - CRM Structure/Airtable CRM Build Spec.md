@@ -124,120 +124,120 @@
 
 Библиотека демо для продаж.
 
-| Field | Airtable type | Options / notes |
-|---|---|---|
-| `Demo Name` | Single line text | Например `Speed-to-Lead — Real Estate` |
-| `Offer` | Single select | `Speed-to-Lead`, `Ops Sprint`, `AI Chatbot`, `Voice Agent`, `Retainer` |
-| `Niche` | Single select | Same as Leads.Niche |
-| `Problem Solved` | Long text | Какую боль решает |
-| `Loom URL` | URL | Ссылка на видео |
-| `Date Created` | Date | Когда создано |
-| `Status` | Single select | `Idea`, `Scripted`, `Recorded`, `Live`, `Needs Update` |
-| `When to Use` | Long text | В каком контексте отправлять |
-| `Times Sent` | Number | Можно обновлять автоматизацией |
-| `Views` | Number | Если данные доступны из Loom/ручного ввода |
-| `Replies After Demo` | Number | Ручной или автоматический счетчик |
-| `Calls Booked` | Number | Атрибуция |
-| `Deals Closed` | Number | Атрибуция |
-| `Close Rate %` | Formula | `IF({Times Sent}=0,0,{Deals Closed}/{Times Sent})` |
-| `Notes` | Long text | Что улучшить |
+| Field                | Airtable type    | Options / notes                                                        |
+| -------------------- | ---------------- | ---------------------------------------------------------------------- |
+| `Demo Name`          | Single line text | Например `Speed-to-Lead — Real Estate`                                 |
+| `Offer`              | Single select    | `Speed-to-Lead`, `Ops Sprint`, `AI Chatbot`, `Voice Agent`, `Retainer` |
+| `Niche`              | Single select    | Same as Leads.Niche                                                    |
+| `Problem Solved`     | Long text        | Какую боль решает                                                      |
+| `Loom URL`           | URL              | Ссылка на видео                                                        |
+| `Date Created`       | Date             | Когда создано                                                          |
+| `Status`             | Single select    | `Idea`, `Scripted`, `Recorded`, `Live`, `Needs Update`                 |
+| `When to Use`        | Long text        | В каком контексте отправлять                                           |
+| `Times Sent`         | Number           | Можно обновлять автоматизацией                                         |
+| `Views`              | Number           | Если данные доступны из Loom/ручного ввода                             |
+| `Replies After Demo` | Number           | Ручной или автоматический счетчик                                      |
+| `Calls Booked`       | Number           | Атрибуция                                                              |
+| `Deals Closed`       | Number           | Атрибуция                                                              |
+| `Close Rate %`       | Formula          | `IF({Times Sent}=0,0,{Deals Closed}/{Times Sent})`                     |
+| `Notes`              | Long text        | Что улучшить                                                           |
 
 ## Table: Audits
 
 Для Website Audit Generator и персонализированных cold outreach.
 
-| Field | Airtable type | Options / notes |
-|---|---|---|
-| `Audit Name` | Formula or single line text | `{Company} & " — Website Audit"` |
-| `Lead` | Link to `Leads` | Required |
-| `Website` | Lookup from Leads | Or URL if independent |
-| `Audit Type` | Single select | `Website`, `Speed-to-Lead`, `CRM/Ops`, `Booking Flow`, `Chatbot Opportunity` |
-| `Findings` | Long text | Конкретные находки |
-| `Pain Hypothesis` | Long text | Предположение о боли |
-| `Recommended Offer` | Single select | Same as `Likely Offer` |
-| `Recommended Workflow` | Long text | Что предложить |
-| `Audit Loom URL` | URL | Если записан Loom |
-| `Audit Status` | Single select | `Queued`, `Researching`, `Drafted`, `Recorded`, `Sent`, `Replied`, `Archived` |
-| `Created Date` | Created time | Airtable system field |
-| `Sent Date` | Date | Когда отправили |
-| `Notes` | Long text | Дополнительный контекст |
+| Field                  | Airtable type               | Options / notes                                                               |
+| ---------------------- | --------------------------- | ----------------------------------------------------------------------------- |
+| `Audit Name`           | Formula or single line text | `{Company} & " — Website Audit"`                                              |
+| `Lead`                 | Link to `Leads`             | Required                                                                      |
+| `Website`              | Lookup from Leads           | Or URL if independent                                                         |
+| `Audit Type`           | Single select               | `Website`, `Speed-to-Lead`, `CRM/Ops`, `Booking Flow`, `Chatbot Opportunity`  |
+| `Findings`             | Long text                   | Конкретные находки                                                            |
+| `Pain Hypothesis`      | Long text                   | Предположение о боли                                                          |
+| `Recommended Offer`    | Single select               | Same as `Likely Offer`                                                        |
+| `Recommended Workflow` | Long text                   | Что предложить                                                                |
+| `Audit Loom URL`       | URL                         | Если записан Loom                                                             |
+| `Audit Status`         | Single select               | `Queued`, `Researching`, `Drafted`, `Recorded`, `Sent`, `Replied`, `Archived` |
+| `Created Date`         | Created time                | Airtable system field                                                         |
+| `Sent Date`            | Date                        | Когда отправили                                                               |
+| `Notes`                | Long text                   | Дополнительный контекст                                                       |
 
 ## Table: Proposals
 
 Коммерческие предложения и scope.
 
-| Field | Airtable type | Options / notes |
-|---|---|---|
-| `Proposal Name` | Single line text | Название предложения |
-| `Lead` | Link to `Leads` | Required |
-| `Opportunity` | Link to `Opportunities` | Required |
-| `Offer` | Single select | Same as Opportunities.Offer |
-| `Scope Summary` | Long text | Что входит |
-| `Deliverables` | Long text | Конкретные deliverables |
-| `Price` | Currency | Цена |
-| `Timeline` | Single line text | Например `5-7 days` |
-| `Status` | Single select | `Draft`, `Sent`, `Follow-up Needed`, `Accepted`, `Rejected`, `Expired` |
-| `Proposal URL` | URL | Google Doc / PDF / Upwork proposal |
-| `Sent Date` | Date | Когда отправлено |
-| `Follow-up Date` | Date | Когда напомнить |
-| `Accepted Date` | Date | Если принято |
-| `Notes` | Long text | Контекст и изменения |
+| Field            | Airtable type           | Options / notes                                                        |
+| ---------------- | ----------------------- | ---------------------------------------------------------------------- |
+| `Proposal Name`  | Single line text        | Название предложения                                                   |
+| `Lead`           | Link to `Leads`         | Required                                                               |
+| `Opportunity`    | Link to `Opportunities` | Required                                                               |
+| `Offer`          | Single select           | Same as Opportunities.Offer                                            |
+| `Scope Summary`  | Long text               | Что входит                                                             |
+| `Deliverables`   | Long text               | Конкретные deliverables                                                |
+| `Price`          | Currency                | Цена                                                                   |
+| `Timeline`       | Single line text        | Например `5-7 days`                                                    |
+| `Status`         | Single select           | `Draft`, `Sent`, `Follow-up Needed`, `Accepted`, `Rejected`, `Expired` |
+| `Proposal URL`   | URL                     | Google Doc / PDF / Upwork proposal                                     |
+| `Sent Date`      | Date                    | Когда отправлено                                                       |
+| `Follow-up Date` | Date                    | Когда напомнить                                                        |
+| `Accepted Date`  | Date                    | Если принято                                                           |
+| `Notes`          | Long text               | Контекст и изменения                                                   |
 
 ## Table: Clients
 
 Клиенты после won.
 
-| Field | Airtable type | Options / notes |
-|---|---|---|
-| `Client Name` | Single line text | Company or person |
-| `Lead` | Link to `Leads` | Источник |
-| `Opportunity` | Link to `Opportunities` | Won deal |
-| `Primary Contact` | Single line text | Имя |
-| `Email` | Email | Контакт |
-| `Website` | URL | Сайт |
-| `Client Status` | Single select | `Onboarding`, `Active Sprint`, `Delivered`, `Retainer Offered`, `Retainer Active`, `Paused`, `Closed` |
-| `Project Start Date` | Date | Старт |
-| `Project End Date` | Date | План/факт завершения |
-| `Total Revenue` | Currency | Можно rollup из proposals/retainers |
-| `Retainer` | Link to `Retainers` | Если есть |
-| `Handoff URL` | URL | Loom/doc handoff |
-| `Notes` | Long text | Контекст клиента |
+| Field                | Airtable type           | Options / notes                                                                                       |
+| -------------------- | ----------------------- | ----------------------------------------------------------------------------------------------------- |
+| `Client Name`        | Single line text        | Company or person                                                                                     |
+| `Lead`               | Link to `Leads`         | Источник                                                                                              |
+| `Opportunity`        | Link to `Opportunities` | Won deal                                                                                              |
+| `Primary Contact`    | Single line text        | Имя                                                                                                   |
+| `Email`              | Email                   | Контакт                                                                                               |
+| `Website`            | URL                     | Сайт                                                                                                  |
+| `Client Status`      | Single select           | `Onboarding`, `Active Sprint`, `Delivered`, `Retainer Offered`, `Retainer Active`, `Paused`, `Closed` |
+| `Project Start Date` | Date                    | Старт                                                                                                 |
+| `Project End Date`   | Date                    | План/факт завершения                                                                                  |
+| `Total Revenue`      | Currency                | Можно rollup из proposals/retainers                                                                   |
+| `Retainer`           | Link to `Retainers`     | Если есть                                                                                             |
+| `Handoff URL`        | URL                     | Loom/doc handoff                                                                                      |
+| `Notes`              | Long text               | Контекст клиента                                                                                      |
 
 ## Table: Retainers
 
 MRR и пост-проектная конверсия.
 
-| Field | Airtable type | Options / notes |
-|---|---|---|
-| `Retainer Name` | Single line text | Например `{Client} — Growth` |
-| `Client` | Link to `Clients` | Required |
-| `Tier` | Single select | `Starter`, `Growth`, `Partner`, `Custom` |
-| `Monthly Fee` | Currency | MRR |
-| `Status` | Single select | `Pitch Planned`, `Pitched`, `Negotiating`, `Active`, `Paused`, `Cancelled`, `Declined` |
-| `Pitch Date` | Date | 7-14 дней после delivery |
-| `Start Date` | Date | Если active |
-| `Renewal Date` | Date | Следующее продление |
-| `Included Work` | Long text | Что входит |
-| `Monthly Report URL` | URL | Отчет |
-| `Notes` | Long text | Контекст |
+| Field                | Airtable type     | Options / notes                                                                        |
+| -------------------- | ----------------- | -------------------------------------------------------------------------------------- |
+| `Retainer Name`      | Single line text  | Например `{Client} — Growth`                                                           |
+| `Client`             | Link to `Clients` | Required                                                                               |
+| `Tier`               | Single select     | `Starter`, `Growth`, `Partner`, `Custom`                                               |
+| `Monthly Fee`        | Currency          | MRR                                                                                    |
+| `Status`             | Single select     | `Pitch Planned`, `Pitched`, `Negotiating`, `Active`, `Paused`, `Cancelled`, `Declined` |
+| `Pitch Date`         | Date              | 7-14 дней после delivery                                                               |
+| `Start Date`         | Date              | Если active                                                                            |
+| `Renewal Date`       | Date              | Следующее продление                                                                    |
+| `Included Work`      | Long text         | Что входит                                                                             |
+| `Monthly Report URL` | URL               | Отчет                                                                                  |
+| `Notes`              | Long text         | Контекст                                                                               |
 
 ## Table: Automation Logs
 
 Служебная таблица для n8n/Make.
 
-| Field | Airtable type | Options / notes |
-|---|---|---|
-| `Log ID` | Autonumber | Primary can be formula `LOG-{Log ID}` |
-| `Workflow Name` | Single line text | Например `Upwork Radar` |
-| `Source` | Single select | `Upwork`, `LinkedIn`, `Website Audit`, `CRM Follow-up`, `Manual`, `Other` |
-| `Related Lead` | Link to `Leads` | Optional |
-| `Related Opportunity` | Link to `Opportunities` | Optional |
-| `Execution Status` | Single select | `Success`, `Skipped`, `Warning`, `Failed`, `Retried` |
-| `Action Taken` | Single line text | Что сделал workflow |
-| `Input Snapshot` | Long text | Sanitized JSON only, no secrets |
-| `Error Message` | Long text | Если ошибка |
-| `Run URL` | URL | n8n execution URL if useful |
-| `Created At` | Created time | Airtable system field |
+| Field                 | Airtable type           | Options / notes                                                           |
+| --------------------- | ----------------------- | ------------------------------------------------------------------------- |
+| `Log ID`              | Autonumber              | Primary can be formula `LOG-{Log ID}`                                     |
+| `Workflow Name`       | Single line text        | Например `Upwork Radar`                                                   |
+| `Source`              | Single select           | `Upwork`, `LinkedIn`, `Website Audit`, `CRM Follow-up`, `Manual`, `Other` |
+| `Related Lead`        | Link to `Leads`         | Optional                                                                  |
+| `Related Opportunity` | Link to `Opportunities` | Optional                                                                  |
+| `Execution Status`    | Single select           | `Success`, `Skipped`, `Warning`, `Failed`, `Retried`                      |
+| `Action Taken`        | Single line text        | Что сделал workflow                                                       |
+| `Input Snapshot`      | Long text               | Sanitized JSON only, no secrets                                           |
+| `Error Message`       | Long text               | Если ошибка                                                               |
+| `Run URL`             | URL                     | n8n execution URL if useful                                               |
+| `Created At`          | Created time            | Airtable system field                                                     |
 
 ## Views
 
