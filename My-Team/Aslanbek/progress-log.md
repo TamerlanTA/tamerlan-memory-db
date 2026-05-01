@@ -10,3 +10,7 @@ Issue: missing final copy.
 Next: connect CTA buttons and polish mobile version.
 
 Assigned new FlowOps task: build first Speed-to-Lead System pipeline MVP in n8n.
+
+## 2026-05-01
+Completed FlowOps website redesign.
+- Completed task: [[TASK-Aslan-2026-05-01-website-redesign]]
