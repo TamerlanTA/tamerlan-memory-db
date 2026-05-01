@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "8100e5c1c9cdcb1b",
+        "id": "14970c21771a81e2",
         "type": "tabs",
         "children": [
           {
-            "id": "1f92418a37943ace",
+            "id": "4775618cb8b44366",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -74,7 +74,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 304.5
+    "width": 304.5,
+    "collapsed": true
   },
   "right": {
     "id": "b9794a6278a01a92",
@@ -181,12 +182,12 @@
               "title": "Source Control"
             }
           }
-        ]
+        ],
+        "currentTab": 6
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -201,8 +202,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "1f92418a37943ace",
+  "active": "4775618cb8b44366",
   "lastOpenFiles": [
+    "2026-05-01.md",
+    "Без названия",
     "My-Team/Alexey/progress-log.md",
     "My-Team/Adil/profile.md",
     "projects/FlowOps Team/sessions/2026-05-01-pipeline-b-linkedin-radar-workflow-json.md",
@@ -229,7 +232,6 @@
     "My-Team/Alexey/tasks/active-tasks/_active-task-template.md",
     "My-Team/Aslanbek/tasks/active-tasks/TASK-2026-04-30-002.md",
     "projects/FlowOps Team/sessions/2026-05-01-github-team-task-notifier-workflow.md",
-    "My-Team/Aslanbek/tasks/comleted/_completed-task-template.md",
     "My-Team/Aslanbek/tasks/next-task",
     "My-Team/Aslanbek/tasks/comleted",
     "My-Team/Aslanbek/tasks/active-tasks",
@@ -238,7 +240,6 @@
     "My-Team/Aslanbek/tasks/TASK-2026-04-30-pricing-section.json",
     "My-Team/Alexey/tasks/next-task",
     "My-Team/Alexey/tasks/comleted",
-    "My-Team/Alexey/tasks/active-tasks",
     "Без названия.canvas",
     "Без названия 1.canvas"
   ]
