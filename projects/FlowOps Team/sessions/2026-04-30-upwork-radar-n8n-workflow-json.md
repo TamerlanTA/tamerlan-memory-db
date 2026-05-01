@@ -17,6 +17,7 @@
 - Fixed proposal validator false positive where banned phrase `our team` matched client-facing phrase `your team`; banned phrases now use regex boundaries. Prompt now explicitly requires a specialist phrase in the relevance paragraph.
 - Relaxed `Validate Proposal` formatting checks after live n8n error: closing block now tolerates harmless whitespace variations while preserving required order/signature/link, and markdown detection only flags markdown markers at line starts or bold markers instead of any `>` character.
 - Updated Telegram message format again: plain metadata first (`Score`, `Title`, `Budget`, `Connects`, `URL`), followed by only the full proposal inside an HTML `<pre>` block for easy copying.
+- Fixed another live `Validate Proposal` false negative for timeline detection. Validator now accepts numeric durations, word-number durations (`two weeks`), timeline phrases like `within/about/around/complete/deliver`, and calendar dates. Prompt now asks the model to use exact `Estimated time: X days/weeks` wording.
 
 ## Key findings
 - The local workspace folder was empty before this workflow file was created.
