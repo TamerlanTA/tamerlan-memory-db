@@ -70,32 +70,32 @@
 
 Одна запись = конкретная сделка / автоматизация, которую можно продать.
 
-| Field | Airtable type | Options / notes |
-|---|---|---|
-| `Opportunity Name` | Formula or single line text | Например `{Company} & " — " & {Offer}` |
-| `Lead` | Link to `Leads` | Required |
-| `Offer` | Single select | `Speed-to-Lead`, `Ops Sprint`, `AI Chatbot`, `Voice Agent`, `Audit`, `Retainer` |
-| `Automation Opportunity` | Single line text | Короткое название идеи |
-| `Problem` | Long text | Конкретная проблема клиента |
-| `Suggested Workflow` | Long text | Как будет работать автоматизация |
-| `Tools Needed` | Multiple select | `n8n`, `Make`, `OpenAI`, `Airtable`, `HubSpot`, `GoHighLevel`, `Slack`, `Email`, `Calendly`, `Twilio`, `Vapi`, `Retell`, `Other` |
-| `Stage` | Single select | `Discovery`, `Proposal Draft`, `Proposal Sent`, `Negotiating`, `Won`, `Lost`, `Nurture` |
-| `Proposed Value` | Currency | Ценность/размер сделки |
-| `Build Price` | Currency | Цена разработки |
-| `Estimated Client Value` | Currency | Сколько проблема стоит клиенту |
-| `Retainer Potential` | Single select | `High`, `Medium`, `Low`, `None` |
-| `Close Probability %` | Percent | Оценка вероятности |
-| `Discovery Call Date` | Date | Если был звонок |
-| `Proposal Sent Date` | Date | Если отправлено предложение |
-| `Decision Date` | Date | Плановая/фактическая дата решения |
-| `Pain Summary` | Long text | Итог discovery |
-| `ROI Presented` | Long text | Как объясняли ROI |
-| `Decision Maker` | Single line text | Кто решает |
-| `Objections Raised` | Long text | Возражения |
-| `Won/Lost Reason` | Long text | Причина результата |
-| `Proposal` | Link to `Proposals` | Если есть |
-| `Client` | Link to `Clients` | Если won |
-| `Notes` | Long text | Follow-up/context |
+| Field                    | Airtable type               | Options / notes                                                                                                                  |
+| ------------------------ | --------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `Opportunity Name`       | Formula or single line text | Например `{Company} & " — " & {Offer}`                                                                                           |
+| `Lead`                   | Link to `Leads`             | Required                                                                                                                         |
+| `Offer`                  | Single select               | `Speed-to-Lead`, `Ops Sprint`, `AI Chatbot`, `Voice Agent`, `Audit`, `Retainer`                                                  |
+| `Automation Opportunity` | Single line text            | Короткое название идеи                                                                                                           |
+| `Problem`                | Long text                   | Конкретная проблема клиента                                                                                                      |
+| `Suggested Workflow`     | Long text                   | Как будет работать автоматизация                                                                                                 |
+| `Tools Needed`           | Multiple select             | `n8n`, `Make`, `OpenAI`, `Airtable`, `HubSpot`, `GoHighLevel`, `Slack`, `Email`, `Calendly`, `Twilio`, `Vapi`, `Retell`, `Other` |
+| `Stage`                  | Single select               | `Discovery`, `Proposal Draft`, `Proposal Sent`, `Negotiating`, `Won`, `Lost`, `Nurture`                                          |
+| `Proposed Value`         | Currency                    | Ценность/размер сделки                                                                                                           |
+| `Build Price`            | Currency                    | Цена разработки                                                                                                                  |
+| `Estimated Client Value` | Currency                    | Сколько проблема стоит клиенту                                                                                                   |
+| `Retainer Potential`     | Single select               | `High`, `Medium`, `Low`, `None`                                                                                                  |
+| `Close Probability %`    | Percent                     | Оценка вероятности                                                                                                               |
+| `Discovery Call Date`    | Date                        | Если был звонок                                                                                                                  |
+| `Proposal Sent Date`     | Date                        | Если отправлено предложение                                                                                                      |
+| `Decision Date`          | Date                        | Плановая/фактическая дата решения                                                                                                |
+| `Pain Summary`           | Long text                   | Итог discovery                                                                                                                   |
+| `ROI Presented`          | Long text                   | Как объясняли ROI                                                                                                                |
+| `Decision Maker`         | Single line text            | Кто решает                                                                                                                       |
+| `Objections Raised`      | Long text                   | Возражения                                                                                                                       |
+| `Won/Lost Reason`        | Long text                   | Причина результата                                                                                                               |
+| `Proposal`               | Link to `Proposals`         | Если есть                                                                                                                        |
+| `Client`                 | Link to `Clients`           | Если won                                                                                                                         |
+| `Notes`                  | Long text                   | Follow-up/context                                                                                                                |
 
 ## Table: Messages
 
