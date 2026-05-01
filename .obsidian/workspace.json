@@ -4,35 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "086578ff18bfb808",
+        "id": "8100e5c1c9cdcb1b",
         "type": "tabs",
         "children": [
           {
-            "id": "b4d8f99f5725954f",
+            "id": "1f92418a37943ace",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "My-Team/Adil/profile.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "profile"
-            }
-          },
-          {
-            "id": "cd4bd0e7a37bcccd",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "My-Team/Alexey/progress-log.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "progress-log"
+              "title": "Новая вкладка"
             }
           }
         ]
@@ -219,8 +201,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "b4d8f99f5725954f",
+  "active": "1f92418a37943ace",
   "lastOpenFiles": [
+    "My-Team/Alexey/progress-log.md",
+    "My-Team/Adil/profile.md",
     "projects/FlowOps Team/sessions/2026-05-01-pipeline-b-linkedin-radar-workflow-json.md",
     "projects/FlowOps Team/08 - Выполненные задачи/Completed.md",
     "projects/FlowOps Team/08 - Выполненные задачи/Выполненные задачи.md",
@@ -231,14 +215,12 @@
     "projects/FlowOps Team/05 - CRM Structure/Airtable CRM Build Spec.md",
     "My-Team/Aslanbek/profile.md",
     "My-Team/Alexey/profile.md",
-    "My-Team/Adil/profile.md",
     "My-Team/Adil/progress-log.md",
     "My-Team/Aslanbek/tasks/active-tasks/TASK-Aslan-2026-04-30-001.md",
     "My-Team/Aslanbek/tasks/comleted/TASK-Aslan-2026-05-01-website-redesign.md",
     "projects/FlowOps Team/sessions/2026-05-01-adil-flowops-documentation-task.md",
     "My-Team/Adil/tasks/active-tasks/TASK-Adil-2026-05-01-001.md",
     "n8n.md",
-    "My-Team/Alexey/progress-log.md",
     "My-Team/Aslanbek/tasks/active-tasks/TASK-Aslan-2026-04-30-002.md",
     "My-Team/Alexey/tasks/active-tasks/TASK-Alexey-2026-04-30-001.md",
     "My-Team/Adil/tasks/active-tasks/TASK-Adil-2026-04-30-001.md",
