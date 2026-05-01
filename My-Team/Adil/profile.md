@@ -4,25 +4,30 @@
 - [[My-Team/Adil/progress-log]]
 
 ## Role
-To be filled.
+Generalist / Adaptive Support
 
 ## Main Responsibilities
-- To be filled.
+- Eliminating "gaps" in tasks where narrow specialization is not required, but speed is needed.
+- Rapid development and implementation of new tools and technologies.
+- Vibe
+- Aura
 
-> [!abstract] Current Status
-> **Available**.
+> [!abstract] Current Status **Available**.
 
 ## Best For
-- To be filled.
+- "Do this, I don't know what" tasks are when you need to figure out a new topic from scratch.
+- Small tasks that do not require deep knowledge
+- Вайбово пообщаться
 
 ## Not Best For
-- To be filled.
+- Tasks that need deep knowledges and high accuracy
 
 ## Communication Style
-To be filled.
+Need detailed explanation of task and comprehensive answers for my questions
 
 ## Reliability Notes
-- To be filled.
+- Not available 24/7. If some task need to be handled, write me and I'll start it a little bit later
+- In learning process
 
 ## Current Projects
 - To be filled.
