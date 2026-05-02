@@ -21,6 +21,7 @@
 - Fixed `Invalid regular expression flags` in `Validate Proposal` by removing unsupported/dangerous regex literal patterns and converting the calendar-date check to `new RegExp(...)`; local `node --check` now passes for the validator code.
 - Added `Quiet Hours Gate` after Gmail Trigger. It stops processing between 02:00 and 09:00 Asia/Almaty by returning no items.
 - Reworked proposal prompt for conversion/readability after live output felt too dense. New structure is preview-first: standalone greeting, short hook max 22 words, short relevance paragraph, exactly 3 compact bullets, `Estimated time:` line, `Investment:` line, then required closing. Validator now accepts 95-170 body words and enforces first content paragraph <=22 words.
+- After live validation was too strict, moved proposal body word count and first-paragraph length checks from hard errors to `proposal_quality_warnings`. Hard validation now focuses on critical rules only, while prompt still asks for a separate hook paragraph and lighter 95-170 word body.
 
 ## Key findings
 - The local workspace folder was empty before this workflow file was created.
