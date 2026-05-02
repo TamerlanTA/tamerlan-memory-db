@@ -18,6 +18,8 @@
 - Relaxed `Validate Proposal` formatting checks after live n8n error: closing block now tolerates harmless whitespace variations while preserving required order/signature/link, and markdown detection only flags markdown markers at line starts or bold markers instead of any `>` character.
 - Updated Telegram message format again: plain metadata first (`Score`, `Title`, `Budget`, `Connects`, `URL`), followed by only the full proposal inside an HTML `<pre>` block for easy copying.
 - Fixed another live `Validate Proposal` false negative for timeline detection. Validator now accepts numeric durations, word-number durations (`two weeks`), timeline phrases like `within/about/around/complete/deliver`, and calendar dates. Prompt now asks the model to use exact `Estimated time: X days/weeks` wording.
+- Fixed `Invalid regular expression flags` in `Validate Proposal` by removing unsupported/dangerous regex literal patterns and converting the calendar-date check to `new RegExp(...)`; local `node --check` now passes for the validator code.
+- Added `Quiet Hours Gate` after Gmail Trigger. It stops processing between 02:00 and 09:00 Asia/Almaty by returning no items.
 
 ## Key findings
 - The local workspace folder was empty before this workflow file was created.
@@ -41,3 +43,4 @@
 - If validation is too strict in live runs, tune the deterministic `Validate Proposal` Code node rather than weakening the proposal prompt.
 - Test Telegram rendering on mobile/desktop and confirm the `<pre>` block copy action copies only the full proposal.
 - Re-import the workflow JSON or manually update the `OpenAI Generate Proposal` prompt and `Validate Proposal` Code node in n8n after validator changes.
+- Important: the current quiet-hours gate skips items during 02:00-09:00. If jobs from that window must be processed after 09:00 instead of skipped, redesign trigger as scheduled Gmail search + dedup rather than Gmail Trigger + drop gate.
