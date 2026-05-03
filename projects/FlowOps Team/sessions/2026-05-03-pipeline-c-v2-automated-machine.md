@@ -25,6 +25,7 @@
 - Fourth normalization fix after repeated live failure: removed `new URL()` from `Normalize Search Results` entirely and replaced it with manual host parsing. This makes the normalizer robust against n8n runtime/parser oddities and accepts valid Firecrawl `item.json.data.web[].url` strings like `https://soflochiro.com/`.
 - Expanded soft directory blocking to include `clutch`, `upcity`, `designrush`, `goodfirms`, `sortlist`, `themanifest`, `g2`, `capterra`, `softwareadvice`, `expertise`, and `threebestrated`; these only pass as fallback if no direct business domains are found.
 - Audited all generated workflows after the fix: 24 Code nodes compile with 0 syntax errors; all workflow graph edges resolve; `Normalize Search Results` smoke test against the failing Firecrawl payload returns real `candidate_found` domains; WF-06 `audit_approve_rec...` routing, Approval Handler callback parsing, and Gmail MIME body generation pass local smoke tests.
+- Fixed live Telegram `Approve + Send` failure where Gmail OAuth credentials rejected use from an HTTP Request node (`This credential is configured to prevent use within an HTTP Request node`). Approval Handler now uses native `n8n-nodes-base.gmail` message send node with `sendTo`, `subject`, `emailType: text`, `message`, and `appendAttribution: false`.
 
 ## Key findings
 - The best v2 architecture is split into Prospecting, Audit Queue, and Approval Handler workflows.
@@ -35,6 +36,7 @@
 - Current generated Prospecting JSON no longer contains `new URL()` inside `Normalize Search Results`; if n8n still shows `invalid_url`, the imported workflow is stale and must be re-imported or the node code replaced from the regenerated JSON.
 - Audit Queue creates Airtable `Leads`, `Audits`, `Messages`, `Automation Logs`, then sends Telegram approval cards.
 - Approval Handler is callable via WF-06 and sends Gmail only after `Approve + Send`.
+- Approval Handler must be re-imported or patched in n8n after the Gmail-node fix; old imports still have the invalid Gmail HTTP Request node.
 - WF-06 must remain the only active Telegram Trigger. The patched WF-06 export is intentionally `active=false` to avoid duplicate webhook registration on import.
 
 ## Blockers
@@ -45,6 +47,7 @@
 
 ## Next steps
 - Re-import `/Users/tamerlan/Desktop/flowopsteamPipelines/pipeline-c-v2-prospecting-workflow.json` or replace the live `Normalize Search Results` node code from the regenerated file.
+- Re-import `/Users/tamerlan/Desktop/flowopsteamPipelines/pipeline-c-v2-approval-handler-workflow.json` or manually replace the Gmail HTTP Request node with native Gmail `Send` node.
 - Import Audit Queue, Approval Handler, then Prospecting if not already imported.
 - Replace `REPLACE_WITH_PIPELINE_C_V2_AUDIT_QUEUE_WORKFLOW_ID`.
 - Patch WF-06 with `audit_*` routing and replace `REPLACE_WITH_PIPELINE_C_V2_APPROVAL_HANDLER_WORKFLOW_ID`.
