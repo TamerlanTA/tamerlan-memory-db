@@ -20,11 +20,13 @@
   - `/Users/tamerlan/Desktop/flowopsteamPipelines/pipeline-c-v2-runbook.md`
 - Validated all generated JSON files parse correctly and all Code node JavaScript compiles.
 - Hotfixed `Normalize Search Results` after live n8n step showed Firecrawl returning `item.json.data.web` results but the node returning no candidates. The normalizer now prioritizes `item.json.data.web`, supports `data.results`, `data.links`, array `data`, object/string URL inputs, logs per-input counts, and returns `status: error_no_candidates` instead of throwing. Prospecting now has a branch to log that skip to Airtable.
+- Second normalization fix after Airtable logs showed `web_results_found: 4` for each query but 0 usable candidates. Normalizer now records sample URLs and rejection reasons, uses hard-block only for social/Google domains, and keeps soft-blocked directory domains as fallback only when no direct business domains are found.
 
 ## Key findings
 - The best v2 architecture is split into Prospecting, Audit Queue, and Approval Handler workflows.
 - Prospecting uses Firecrawl Search across multiple niche packs and caps review candidates at 10/day.
 - Local sample validation confirmed `soflochiro.com`, `miami-chiropractors.com`, and `miamispineclinic.com` pass normalization from the same `data.web` shape shown in n8n.
+- Local fallback validation confirmed normal business domains are preferred, while Yelp/BBB only pass as `soft_blocked_source: true` if no better candidates exist.
 - Audit Queue creates Airtable `Leads`, `Audits`, `Messages`, `Automation Logs`, then sends Telegram approval cards.
 - Approval Handler is callable via WF-06 and sends Gmail only after `Approve + Send`.
 - WF-06 must remain the only active Telegram Trigger. The patched WF-06 export is intentionally `active=false` to avoid duplicate webhook registration on import.
