@@ -6,6 +6,75 @@
 
 ---
 
+# Неделя 28 апреля — 4 мая 2026
+
+---
+
+## 🤖 Пайплайны и автоматизация
+
+### Pipeline A — Upwork Radar
+Собран полный n8n workflow JSON (`upwork-radar-workflow.json`):
+Gmail trigger → парсинг URL → дедупликация Google Sheets → Firecrawl scrape → OpenAI скоринг → генерация + валидация предложения → Telegram → запись в Sheets. Добавлен Quiet Hours Gate (02:00–09:00 Almaty). Несколько итераций по формату предложения и валидатору.
+
+### Pipeline B — LinkedIn Pain Radar ✔ ЗАВЕРШЁН
+Создан и готов n8n workflow JSON (`pipeline-b-linkedin-pain-radar-crm-workflow.json`): Firecrawl поиск → OpenAI квалификация → скор-гейт → черновик DM → Airtable CRM → Telegram review. Помечен как **готов к операционному использованию**.
+
+### Pipeline C — Website Audit Generator (v1 + v2)
+- **v1:** workflow-шаблон + runbook — первичный draft.
+- **v2:** разбит на 3 workflow (Prospecting, Audit Queue, Approval Handler) + WF-06 router patch. Прошёл 4 итерации фикса нормализации URL Firecrawl. Gmail-отправка переведена на нативный n8n Gmail-узел. Все 24 Code-ноды валидированы без синтаксических ошибок.
+> Статус: import-ready, операционно не завершён (нужен импорт в n8n и первый QA batch).
+
+---
+
+## 🗂 CRM
+
+Airtable CRM FlowOps **создана** (подтверждено). Оформлены `Airtable CRM Build Spec.md` и `CRM Automation Plan.md` — таблицы, поля, view-ы, seed-записи и план автоматизаций.
+
+---
+
+## 📋 Linear — миграция задач
+
+- Создано **18 labels**, **8 проектов** (FlowOps OS, Demo Library, Upwork Radar, CRM, Website Audit Generator, LinkedIn Pain Radar, Sales Assets, Retainer Conversion).
+- Создано **issues FLO-5 → FLO-24** с полным контекстом, шагами и acceptance criteria.
+- FLO-1–FLO-4 закрыты как onboarding-плейсхолдеры.
+
+---
+
+## 👥 Команда
+
+| Кто | Что назначено |
+|---|---|
+| **Aslanbek** | Speed-to-Lead MVP в n8n (TASK-2026-04-30-002 / FLO-17) |
+| **Adil** | FlowOps documentation kit — КП, аудит, кейсы, портфолио, onboarding (FLO-16) |
+| Шаблоны | Созданы папки active-tasks / completed / next-task для всех трёх участников |
+
+---
+
+## 🔔 Team Task Notifier (n8n)
+
+Собран workflow для Telegram-уведомлений о новых задачах команды из GitHub/Obsidian-папок. Версии v1→v4: авто-бутстрап при первом запуске, фильтр template-файлов, корректный формат Telegram-сообщений.
+
+---
+
+## 📊 Продажи / Контент
+
+Подготовлена PPTX-презентация для клиента: **AI-система для YouTube Shorts** (Nate Friedman-style). Фреймворк: MVP $1.5–2.5K → Production $4–7K → Autonomous $8–15K.
+
+---
+
+## ⏳ Ещё не закрыто (перенесено на следующую неделю)
+
+- CRM QA / automation-readiness — не сделан
+- Pipeline C: импорт v2 в n8n, первый QA batch, первые реальные аудиты
+- Upwork Radar: импорт в n8n, reconnect, первый тест
+- Alexey: профиль роли не заполнен, задачи не назначены
+
+---
+
+*Обновлено автоматически — воскресенье 4 мая 2026*
+
+---
+
 # Неделя 21–27 апреля 2026
 
 ---
