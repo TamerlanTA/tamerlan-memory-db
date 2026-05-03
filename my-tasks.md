@@ -60,7 +60,7 @@
 - [ ] Собрать первые 5 демо для Demo Library: Real Estate Speed-to-Lead, Clinic Lead Qualification Chatbot, Agency Onboarding, Jotform -> CRM + Slack, Appointment + Reminder System
 - [x] Запустить Upwork Radar вручную: мониторить ключевые запросы, оценивать fit score, отправлять 10-15 персонализированных proposal в день
 - [ ] Подготовить Website Audit Generator: выбрать 2-3 ниши, сделать audit template, записать первые 10 Loom-аудитов
-- [ ] Запустить LinkedIn Pain Radar: обновить профиль, мониторить боли, отправлять 10-15 персонализированных DM в день, публиковать 3 поста в неделю
-- [ ] Настроить CRM-структуру для FlowOps: leads, opportunities, demos, audits, proposals, clients, retainers
+- [x] Запустить LinkedIn Pain Radar: обновить профиль, мониторить боли, отправлять 10-15 персонализированных DM в день, публиковать 3 поста в неделю
+- [x] Настроить CRM-структуру для FlowOps: leads, opportunities, demos, audits, proposals, clients, retainers
 - [ ] Прописать sales process по шагам: signal -> opener -> pre-call research -> discovery call -> proposal -> objections -> close/onboarding
 - [ ] Закрыть первого Sprint-клиента через Upwork или LinkedIn и после результата предложить retainer через 7-14 дней
