@@ -21,24 +21,31 @@
 - Validated all generated JSON files parse correctly and all Code node JavaScript compiles.
 - Hotfixed `Normalize Search Results` after live n8n step showed Firecrawl returning `item.json.data.web` results but the node returning no candidates. The normalizer now prioritizes `item.json.data.web`, supports `data.results`, `data.links`, array `data`, object/string URL inputs, logs per-input counts, and returns `status: error_no_candidates` instead of throwing. Prospecting now has a branch to log that skip to Airtable.
 - Second normalization fix after Airtable logs showed `web_results_found: 4` for each query but 0 usable candidates. Normalizer now records sample URLs and rejection reasons, uses hard-block only for social/Google domains, and keeps soft-blocked directory domains as fallback only when no direct business domains are found.
+- Third normalization fix after Airtable debug showed every valid URL returning `invalid_url`. Root cause was n8n escaping around regex protocol detection causing valid `https://...` values to be treated as invalid/prefixed incorrectly. `normalizeUrl` now uses `startsWith('https://') || startsWith('http://')` and avoids regex protocol detection.
+- Fourth normalization fix after repeated live failure: removed `new URL()` from `Normalize Search Results` entirely and replaced it with manual host parsing. This makes the normalizer robust against n8n runtime/parser oddities and accepts valid Firecrawl `item.json.data.web[].url` strings like `https://soflochiro.com/`.
+- Expanded soft directory blocking to include `clutch`, `upcity`, `designrush`, `goodfirms`, `sortlist`, `themanifest`, `g2`, `capterra`, `softwareadvice`, `expertise`, and `threebestrated`; these only pass as fallback if no direct business domains are found.
+- Audited all generated workflows after the fix: 24 Code nodes compile with 0 syntax errors; all workflow graph edges resolve; `Normalize Search Results` smoke test against the failing Firecrawl payload returns real `candidate_found` domains; WF-06 `audit_approve_rec...` routing, Approval Handler callback parsing, and Gmail MIME body generation pass local smoke tests.
 
 ## Key findings
 - The best v2 architecture is split into Prospecting, Audit Queue, and Approval Handler workflows.
 - Prospecting uses Firecrawl Search across multiple niche packs and caps review candidates at 10/day.
 - Local sample validation confirmed `soflochiro.com`, `miami-chiropractors.com`, and `miamispineclinic.com` pass normalization from the same `data.web` shape shown in n8n.
 - Local fallback validation confirmed normal business domains are preferred, while Yelp/BBB only pass as `soft_blocked_source: true` if no better candidates exist.
+- Local validation with the exact failing domains (`soflochiro.com`, `miami-chiropractors.com`, `miamispineclinic.com`, `chiropractic-clinics.com`, `charlottesinc.com`) now returns all as usable candidates.
+- Current generated Prospecting JSON no longer contains `new URL()` inside `Normalize Search Results`; if n8n still shows `invalid_url`, the imported workflow is stale and must be re-imported or the node code replaced from the regenerated JSON.
 - Audit Queue creates Airtable `Leads`, `Audits`, `Messages`, `Automation Logs`, then sends Telegram approval cards.
 - Approval Handler is callable via WF-06 and sends Gmail only after `Approve + Send`.
 - WF-06 must remain the only active Telegram Trigger. The patched WF-06 export is intentionally `active=false` to avoid duplicate webhook registration on import.
 
 ## Blockers
-- Workflows are not imported into n8n yet.
+- Workflows are import-ready, but the current live n8n Prospecting workflow may still be an older import if it continues showing `invalid_url`.
 - Placeholder credentials/workflow IDs must be replaced after import.
 - Gmail OAuth send path must be live-tested in n8n.
 - WF-06 router patch must be applied carefully to the active command-center workflow.
 
 ## Next steps
-- Import Audit Queue, Approval Handler, then Prospecting.
+- Re-import `/Users/tamerlan/Desktop/flowopsteamPipelines/pipeline-c-v2-prospecting-workflow.json` or replace the live `Normalize Search Results` node code from the regenerated file.
+- Import Audit Queue, Approval Handler, then Prospecting if not already imported.
 - Replace `REPLACE_WITH_PIPELINE_C_V2_AUDIT_QUEUE_WORKFLOW_ID`.
 - Patch WF-06 with `audit_*` routing and replace `REPLACE_WITH_PIPELINE_C_V2_APPROVAL_HANDLER_WORKFLOW_ID`.
 - Reconnect Firecrawl, OpenAI, Airtable, Telegram, and Gmail credentials.
