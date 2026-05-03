@@ -11,6 +11,8 @@
 
 ## Priority 1 — Build the Demo Library (Week 1)
 
+**Current status as of 2026-05-03:** still active. This is the main sales-enablement gap.
+
 **Why first:** Every other pipeline requires a demo. Without demos, proposals are weak and response rates are low. Demos are the multiplier for everything else.
 
 **What to build (first 5):**
@@ -29,12 +31,17 @@
 
 ## Priority 2 — Activate Upwork Radar (Week 1–2)
 
+**Current status as of 2026-05-03:** prepared but not fully operationalized. A workflow JSON and clean import variant exist; next work is import, credential reconnect, Firecrawl node check/replacement, live test, and first proposal batch.
+
 **Why second:** Upwork has the highest concentration of active buyers with explicit intent and verified payment. Fastest path to first revenue.
 
 **What to do:**
-- [ ] Set up keyword monitoring (RSS, Phantombuster, or daily manual search)
-- [ ] Calibrate fit scoring criteria
-- [ ] Send first 10–15 proposals/day (manually before automating)
+- [x] Prepare Upwork Radar workflow concept and JSON.
+- [ ] Import `upwork-radar-workflow.clean-import.json` into n8n.
+- [ ] Reconnect Gmail, Google Sheets, Firecrawl, OpenAI, and Telegram credentials.
+- [ ] Ensure Firecrawl community node is installed or replace it with built-in HTTP Request.
+- [ ] Calibrate fit scoring criteria against real jobs.
+- [ ] Send first 10–15 proposals/day from the reviewed queue.
 - [ ] Refine based on response rate
 - [ ] Target: 50–100 quality proposals/week within 2 weeks
 
@@ -62,14 +69,17 @@
 
 ## Priority 4 — LinkedIn Pain Radar (Week 2–3)
 
+**Current status as of 2026-05-03:** complete as a FlowOps pipeline. Future work is QA, first operational batch, CRM hygiene, and iteration.
+
 **Why fourth:** Warmer leads with active, expressed pain — but requires more research time than Upwork.
 
 **What to do:**
-- [ ] Set up daily keyword monitoring
-- [ ] Optimize LinkedIn profile (headline, about, featured section)
-- [ ] Send 10–15 personalized DMs/day
-- [ ] Post 3x/week (frameworks, client wins, problem posts)
-- [ ] Target: 100 personal touches/week
+- [x] Build Pipeline B / LinkedIn Pain Radar.
+- [x] Treat CRM integration target as available because FlowOps CRM exists.
+- [ ] Run the first QA batch and verify candidate quality.
+- [ ] Verify CRM writes / manual review queue fields.
+- [ ] Iterate keywords and scoring based on first results.
+- [ ] Maintain 100 personal touches/week once QA passes.
 
 → Full system: [[Pipeline B — LinkedIn Pain Radar]]
 

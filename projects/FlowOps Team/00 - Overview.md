@@ -19,6 +19,10 @@ FlowOps — это агентство AI-автоматизации. Мы про
 
 ## 🗺️ Навигация по проекту
 
+> [!warning] Vault audit note — 2026-05-03
+> В проекте временно есть дублирующие структуры: `03 - Acquisition Pipelines` и `03 - Pipelines`, `04 - Sales Process` и `04 - Sales`, `05 - CRM Structure` и `05 - CRM`, плюс корневая копия `Pipeline A — Upwork Radar.md`.
+> До слияния/удаления дубликатов не полагаться на короткие ссылки вслепую; сверять актуальное состояние через этот hub, [[What to Do First]], [[Completed]] и свежие session notes.
+
 ### 🎯 Стратегия
 - [[Positioning]] — позиционирование и главный sales angle
 - [[Main Offer]] — структура офферов и лестница продуктов
@@ -54,6 +58,9 @@ FlowOps — это агентство AI-автоматизации. Мы про
 
 ### ✅ Выполненные задачи
 - [[Completed]] — что уже подготовлено и что пока не считается завершённым
+
+### 🤖 Linear automation layer
+- [[Linear/Linear Ops Automation System/overview|Linear Ops Automation System]] — planned automations for Linear + Obsidian execution
 
 ---
 

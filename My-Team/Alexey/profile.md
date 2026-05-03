@@ -4,25 +4,27 @@
 - [[My-Team/Alexey/progress-log]]
 
 ## Role
-To be filled.
+Undefined / needs role clarification.
 
 ## Main Responsibilities
-- To be filled.
+- Not assigned yet.
+- Clarify strengths, preferred task types, availability, and communication style before assigning production work.
 
 > [!abstract] Current Status
 > **Available**.
 
 ## Best For
-- To be filled.
+- Unknown until profile is completed.
 
 ## Not Best For
-- To be filled.
+- Production-critical work until role, reliability, and review needs are known.
 
 ## Communication Style
-To be filled.
+To be clarified.
 
 ## Reliability Notes
-- To be filled.
+- Profile is incomplete. Treat `FLO-24` as the onboarding task before assigning active FlowOps work.
 
 ## Current Projects
-- To be filled.
+- No active project assigned yet.
+- Linear mapping: `FLO-24` / complete Alexey role profile before assigning production work.

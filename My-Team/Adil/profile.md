@@ -30,4 +30,5 @@ Need detailed explanation of task and comprehensive answers for my questions
 - In learning process
 
 ## Current Projects
-- To be filled.
+- [[projects/FlowOps Team/00 - Overview|FlowOps Team]] — documentation and sales asset support.
+- Linear mapping: `FLO-16` / sales documentation kit.

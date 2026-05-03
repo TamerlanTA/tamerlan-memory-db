@@ -3,40 +3,37 @@
 ## Related
 - [[agent-memory]]
 - [[routing-rules]]
+- [[projects/FlowOps Team/00 - Overview|FlowOps Team — overview]]
+- [[Linear/Linear Ops Automation System/overview|Linear Ops Automation System]]
 - [[projects/AI-Powered Woven Label Generator/current-state|AI-Powered Woven Label Generator — current state]]
-- [[projects/AI-Powered Woven Label Generator/next-steps|AI-Powered Woven Label Generator — next steps]]
 
 ---
 
-## Active project (as of 2026-04-15)
+## Active project (as of 2026-05-03)
 
-**AI-Powered Woven Label Generator** — client: Griffes Vivienne
+**FlowOps Team** — agency operating system + Linear execution layer
 
 ### Status
-Post-Milestone-5 polish. All 5 milestones functionally complete.
-Active branch: `milestone4-auth-completion`
-Latest pushed commit: `0a658ea` — `Add reliable preorder confirmation emails`
+FlowOps is now the active operating focus. The CRM system exists, Pipeline B / LinkedIn Pain Radar is complete, and Linear has been populated with detailed FlowOps execution issues.
 
 ### What was last completed
-- Header system refinement (desktop + mobile), brand logo asset added
-- Pre-order confirmation emails via Resend (transactional, delivery tracked on DB)
-- Guest email capture at order boundary
-- Conversion polish: email gate, unit tests, translations (FR + EN)
-- DB migration `0012_preorder_confirmation_email.sql` applied to Railway MySQL
+- FlowOps Linear projects, labels, and issues were created and rewritten with detailed context and acceptance criteria.
+- Linear Ops Automation System was specified in Obsidian memory and linked from [[My-tasks]].
+- FlowOps CRM is treated as created; future work starts from QA, validation, data hygiene, and production-safe automation wiring.
+- Pipeline B / LinkedIn Pain Radar is treated as complete; future work is operational QA and iteration, not initial build.
 
 ### Immediate blockers / next actions
-1. Set `RESEND_API_KEY` + `RESEND_FROM_EMAIL` in production env
-2. Redeploy after Resend env setup
-3. Run live preorder test → confirm email delivery
-4. Rotate Railway DB credential (URL was exposed in chat)
-5. Browser-based visual QA: desktop Home, Prepare, Result, My Account + mobile Home
-6. Confirm desktop header approved by client after restoration pass
-7. Fix `~/.codex/AGENTS.md` vault path (currently points to wrong nested path)
+1. Build or prototype the Linear Ops Automation System from [[Linear/Linear Ops Automation System/implementation-plan]].
+2. Run CRM QA / automation-readiness review before scaling n8n/Make workflows.
+3. Build the first 5 Demo Library Loom assets.
+4. Continue Upwork Radar from the prepared workflow state: import, reconnect credentials, test, then operationalize.
+5. Prepare Website Audit Generator and retainer packaging.
+6. Resolve FlowOps duplicate note structure before deleting old folders.
 
 ---
 
 ## Secondary / watch
-- **FlowOps Team** — агентство AI automation. Статус на 2026-05-03: CRM система создана; Pipeline B / LinkedIn Pain Radar завершён. Следующие задачи вести от состояния готовой CRM: QA/валидация, production-safe automation wiring, Demo Library, Upwork Radar, Website Audit Generator. См. [[projects/FlowOps Team/00 - Overview]]
+- **AI-Powered Woven Label Generator** — client: Griffes Vivienne. Product-flow work is functionally complete through Milestone 5, but remaining risk notes still mention production env / QA / credential rotation. См. [[projects/AI-Powered Woven Label Generator/current-state]] and [[projects/AI-Powered Woven Label Generator/risks]].
 - **AI Content Bot** — Telegram бот (@FlowOpstg_bot) для генерации и публикации контента (WF-06..WF-12). Статус: WF-09 Gemini image gen ✅, WF-06 callback routing ✅, WF-10 inline кнопки ✅. Блокер: WF-11 ID нужен для финального флоу. См. [[projects/ai-content-bot/overview]]
 - **LinkedIn Outreach Automation** — n8n воркфлоу для личного LinkedIn (WF-00..WF-05). Статус: WF-05 переработан. См. [[projects/linkedin-automation]]
 - Upwork freelance work (automation / integrations — episodic)

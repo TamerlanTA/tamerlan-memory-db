@@ -32,4 +32,5 @@ Needs clear task breakdown, examples, screenshots, and exact acceptance criteria
 - Should not receive vague tasks.
 
 ## Current Projects
-- [[00 - Overview]]
+- [[projects/FlowOps Team/00 - Overview|FlowOps Team]] — Speed-to-Lead MVP / technical execution support.
+- Linear mapping: `FLO-17` / Speed-to-Lead MVP.
