@@ -6,6 +6,7 @@
 
 ## Tasks
 
+- [ ] Спроектировать и внедрить Linear Ops Automation System: Daily Command Center, Blocked Decision Bot, Team Assignment Notifier, Stale Issue Reminder, Linear -> Obsidian Memory Sync, Weekly FlowOps Review. См. [[Linear/Linear Ops Automation System/overview]]
 - [x] Завершить тестировку проекта
 - [x] Заполнить LinkedIn профиль 
 - [ ]  Узнать больше об Claude Chrome какие там фичи и как работает запись рабочего процесса
