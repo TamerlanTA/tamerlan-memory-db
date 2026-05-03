@@ -19,10 +19,12 @@
   - `/Users/tamerlan/Desktop/flowopsteamPipelines/WF-06 AI Command Center - Pipeline C v2 Router Patch.json`
   - `/Users/tamerlan/Desktop/flowopsteamPipelines/pipeline-c-v2-runbook.md`
 - Validated all generated JSON files parse correctly and all Code node JavaScript compiles.
+- Hotfixed `Normalize Search Results` after live n8n step showed Firecrawl returning results but the node returning no output. The normalizer now reads multiple Firecrawl response shapes, handles callback pairing more safely, extracts URLs from text robustly, and throws a clear error instead of silently returning zero candidates.
 
 ## Key findings
 - The best v2 architecture is split into Prospecting, Audit Queue, and Approval Handler workflows.
 - Prospecting uses Firecrawl Search across multiple niche packs and caps review candidates at 10/day.
+- Local sample validation confirmed `soflochiro.com` and `miami-chiropractors.com` pass normalization while directory/social domains remain filtered.
 - Audit Queue creates Airtable `Leads`, `Audits`, `Messages`, `Automation Logs`, then sends Telegram approval cards.
 - Approval Handler is callable via WF-06 and sends Gmail only after `Approve + Send`.
 - WF-06 must remain the only active Telegram Trigger. The patched WF-06 export is intentionally `active=false` to avoid duplicate webhook registration on import.
