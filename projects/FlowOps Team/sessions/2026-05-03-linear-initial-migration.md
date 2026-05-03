@@ -26,12 +26,21 @@
 - Marked Linear onboarding placeholders `FLO-1` through `FLO-4` as done with short explanations.
 
 ## Key findings
-- Linear currently exposes only Tamerlan and the system Linear user as assignable users through the connector.
-- Adil, Aslanbek, and Alexey are therefore represented with owner labels and issue descriptions until they are assignable Linear members.
+- Initial Linear read exposed only Tamerlan and the system Linear user, but later issue updates showed assignable users for at least Aslanbek (`kalabayaslanbek@gmail.com`) and Adil (`vlastus11@gmail.com`).
+- Owner labels are still useful for filtering, but some issues can now also use real Linear assignees.
 - Linear MCP discovery listed initiative/document/status-update tools, but calls to those tools returned `tool not found`; project and issue descriptions now hold the migrated context instead.
 
+## Follow-up update — issue detail pass
+- After Tamerlan noted that the first issue pass was too shallow, existing issues `FLO-5` through `FLO-24` were rewritten in-place with clearer task briefs.
+- No new issues were created during this pass.
+- Updated issue descriptions now generally include context, goal, work steps, deliverables, acceptance/done criteria, and update expectations.
+- Important semantic corrections:
+  - CRM tasks now assume FlowOps CRM exists and focus on QA/automation readiness instead of base creation from zero.
+  - LinkedIn Pain Radar task now treats Pipeline B as completed and asks for operational QA/first batch rather than initial planning.
+  - Adil and Aslanbek tasks were rewritten with owner-specific clarity based on `My-Team` profiles.
+
 ## Blockers
-- Need Adil, Aslanbek, and Alexey to appear as Linear users before issues can be directly assigned.
+- Need Alexey to appear as a clear/assignable Linear user and have profile details filled before meaningful ownership can be assigned.
 - Need decision on whether Obsidian task files continue syncing into Linear, Linear becomes source of truth, or a bidirectional process is needed.
 - Need decisions for blocked active tasks:
   - Speed-to-Lead CRM/storage target.
@@ -40,6 +49,6 @@
 
 ## Next steps
 - In Linear, start with `FLO-5`, `FLO-10`, `FLO-13`, and `FLO-17`.
-- Add Linear member accounts or invite emails for Adil, Aslanbek, and Alexey, then replace owner labels with real assignees.
-- Create actual Airtable base `FlowOps CRM` and attach/link it to `FLO-13`.
+- Confirm assignee mapping for Adil/Aslanbek/Alexey and keep owner labels for filtering.
+- Run `FLO-13` as CRM QA/automation-readiness, not as fresh CRM creation.
 - Decide task source-of-truth rule for [[Team Task Automation]] before wiring any Obsidian-to-Linear automation.
