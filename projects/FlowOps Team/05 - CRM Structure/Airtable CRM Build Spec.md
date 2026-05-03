@@ -21,6 +21,14 @@
 - хранить сообщения, демо, аудиты, предложения и клиентов;
 - дать n8n/Make стабильную структуру для записи, обновления и follow-up логики.
 
+## Build Status
+
+**Status as of 2026-05-03:** FlowOps CRM system has been created.
+
+- Earlier memory treated this note as an Airtable-ready spec only.
+- Current project state: CRM is no longer just planned/prepared; it exists and should be treated as the operating CRM for FlowOps.
+- Next CRM work should focus on validation, QA, automation wiring, data hygiene, and reporting rather than base creation.
+
 ## Base
 
 **Base name:** `FlowOps CRM`

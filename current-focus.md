@@ -36,6 +36,7 @@ Latest pushed commit: `0a658ea` — `Add reliable preorder confirmation emails`
 ---
 
 ## Secondary / watch
+- **FlowOps Team** — агентство AI automation. Статус на 2026-05-03: CRM система создана; Pipeline B / LinkedIn Pain Radar завершён. Следующие задачи вести от состояния готовой CRM: QA/валидация, production-safe automation wiring, Demo Library, Upwork Radar, Website Audit Generator. См. [[projects/FlowOps Team/00 - Overview]]
 - **AI Content Bot** — Telegram бот (@FlowOpstg_bot) для генерации и публикации контента (WF-06..WF-12). Статус: WF-09 Gemini image gen ✅, WF-06 callback routing ✅, WF-10 inline кнопки ✅. Блокер: WF-11 ID нужен для финального флоу. См. [[projects/ai-content-bot/overview]]
 - **LinkedIn Outreach Automation** — n8n воркфлоу для личного LinkedIn (WF-00..WF-05). Статус: WF-05 переработан. См. [[projects/linkedin-automation]]
 - Upwork freelance work (automation / integrations — episodic)

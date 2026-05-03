@@ -4,6 +4,14 @@
 
 > Цель: 100 персональных касаний в неделю с людьми, которые публично говорят о своей боли.
 
+## Status
+
+**Status as of 2026-05-03:** Pipeline B is complete.
+
+- LinkedIn Pain Radar is now considered built for the FlowOps system.
+- CRM integration target exists because the FlowOps CRM system has been created.
+- Future work should treat Pipeline B as operational/ready for refinement, QA, and iteration rather than as a planning task.
+
 ---
 
 ## Логика работы

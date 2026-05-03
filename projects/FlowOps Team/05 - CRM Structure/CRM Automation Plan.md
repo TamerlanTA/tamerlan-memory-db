@@ -17,13 +17,21 @@
 
 Build automations around `FlowOps CRM` after the Airtable base exists, using Airtable as the source of truth and n8n/Make as the execution layer.
 
+## Current status
+
+**Status as of 2026-05-03:** CRM system is created, and Pipeline B is complete.
+
+- The previous blocker "confirm/create Airtable base" is resolved from project-memory perspective.
+- Next automation work should assume the CRM exists and start with validation, QA, and production-safe wiring.
+- Pipeline B should be treated as completed and ready for operational review/refinement.
+
 ## Build order
 
 ### 1. CRM core setup validation
-- Check that required Airtable tables, fields, select values, links, and views exist.
+- Validate that required Airtable tables, fields, select values, links, and views exist in the created CRM.
 - Create initial demo records.
 - Write a test `Automation Logs` record.
-- Blocker: do this before any production automation.
+- Required before enabling/expanding production automation.
 
 ### 2. Upwork Radar to CRM
 - Trigger: scheduled Upwork search, RSS/manual import, or scraped jobs.
@@ -96,4 +104,3 @@ Build automations around `FlowOps CRM` after the Airtable base exists, using Air
 2. Upwork Radar to CRM.
 3. Follow-up queue.
 4. Outreach draft generator.
-
