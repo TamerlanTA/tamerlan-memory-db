@@ -72,7 +72,7 @@ FlowOps — это агентство AI-автоматизации. Мы про
 | 2 | LinkedIn Pain Radar / Pipeline B | ✅ Завершён |
 | 3 | Demo Library — 5 первых демо | 🔴 Нужно сделать |
 | 4 | Upwork Radar — настройка автоматизации | 🔴 Нужно сделать |
-| 5 | Website Audit Generator | 🟡 Планирование |
+| 5 | Website Audit Generator / Pipeline C v2 | ✅ Завершён, запуск из Telegram |
 | 6 | Retainer packaging | ⚪ Следующий шаг |
 
 ---

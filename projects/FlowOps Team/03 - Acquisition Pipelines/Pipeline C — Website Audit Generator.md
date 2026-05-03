@@ -22,8 +22,8 @@
 
 - Local workflow JSON: `/Users/tamerlan/Desktop/flowopsteamPipelines/pipeline-c-website-audit-generator-workflow.json`
 - Local runbook: `/Users/tamerlan/Desktop/flowopsteamPipelines/pipeline-c-website-audit-generator-runbook.md`
-- Workflow mode: draft-only outbound. It creates Airtable `Leads`, `Audits`, `Messages`, `Automation Logs`, and sends a Telegram review item, but does not send cold email automatically.
-- Next work: import into n8n, reconnect Firecrawl/OpenAI/Airtable/Telegram credentials, replace config seed list with 10-15 real websites, run manual QA, then record/send first audit Looms manually.
+- v1 workflow mode: legacy draft-only outbound. It creates Airtable `Leads`, `Audits`, `Messages`, `Automation Logs`, and sends a Telegram review item, but does not send cold email automatically.
+- Do not continue v1 unless there is a specific reason; v2 supersedes it and is the completed operational version.
 
 **Pipeline C v2 implementation files:**
 

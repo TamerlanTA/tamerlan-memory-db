@@ -28,10 +28,11 @@
 - Fixed live Telegram `Approve + Send` failure where Gmail OAuth credentials rejected use from an HTTP Request node (`This credential is configured to prevent use within an HTTP Request node`). Approval Handler now uses native `n8n-nodes-base.gmail` message send node with `sendTo`, `subject`, `emailType: text`, `message`, and `appendAttribution: false`.
 - Converted Pipeline C v2 Prospecting from schedule-driven to Telegram-command-driven. Prospecting no longer has `Daily Schedule Trigger`; it now has `When Called by Telegram Command` (`executeWorkflowTrigger`) plus Manual Trigger for n8n testing.
 - Updated WF-06 patch to route `/pipeline_c`, `/audit_sites`, `запусти pipeline c`, and `найди сайты для аудита` to `pipeline_c_prospecting`, send a Telegram start confirmation, then call Pipeline C v2 Prospecting via `REPLACE_WITH_PIPELINE_C_V2_PROSPECTING_WORKFLOW_ID`.
+- User confirmed Pipeline C is now working well end-to-end. As of 2026-05-04, mark Pipeline C v2 as completed operationally, not merely prepared.
 
 ## Key findings
 - The best v2 architecture is split into Prospecting, Audit Queue, and Approval Handler workflows.
-- Prospecting uses Firecrawl Search across multiple niche packs and caps review candidates at 10/day.
+- Prospecting uses Firecrawl Search across multiple niche packs and caps review candidates at 10/run.
 - Local sample validation confirmed `soflochiro.com`, `miami-chiropractors.com`, and `miamispineclinic.com` pass normalization from the same `data.web` shape shown in n8n.
 - Local fallback validation confirmed normal business domains are preferred, while Yelp/BBB only pass as `soft_blocked_source: true` if no better candidates exist.
 - Local validation with the exact failing domains (`soflochiro.com`, `miami-chiropractors.com`, `miamispineclinic.com`, `chiropractic-clinics.com`, `charlottesinc.com`) now returns all as usable candidates.
@@ -41,18 +42,14 @@
 - Approval Handler must be re-imported or patched in n8n after the Gmail-node fix; old imports still have the invalid Gmail HTTP Request node.
 - WF-06 must remain the only active Telegram Trigger. The patched WF-06 export is intentionally `active=false` to avoid duplicate webhook registration on import.
 - Telegram menu commands to expose through BotFather: `/pipeline_c` and `/audit_sites`.
+- Completion status: Pipeline C v2 is done. Future work is campaign operation, QA, copy/filter iteration, and reply-rate optimization.
 
 ## Blockers
-- Workflows are import-ready, but the current live n8n Prospecting workflow may still be an older import if it continues showing `invalid_url`.
-- Placeholder credentials/workflow IDs must be replaced after import.
-- Gmail OAuth send path must be live-tested in n8n.
-- WF-06 router patch must be applied carefully to the active command-center workflow.
+- No active build blockers for Pipeline C v2 after live confirmation.
+- Residual operational risks: monitor duplicate behavior, deliverability, Gmail/API failures, Firecrawl result quality, and Airtable field drift.
 
 ## Next steps
-- Re-import `/Users/tamerlan/Desktop/flowopsteamPipelines/pipeline-c-v2-prospecting-workflow.json` or replace the live `Normalize Search Results` node code from the regenerated file.
-- Re-import `/Users/tamerlan/Desktop/flowopsteamPipelines/pipeline-c-v2-approval-handler-workflow.json` or manually replace the Gmail HTTP Request node with native Gmail `Send` node.
-- Import Audit Queue, Approval Handler, then Prospecting if not already imported.
-- Replace `REPLACE_WITH_PIPELINE_C_V2_AUDIT_QUEUE_WORKFLOW_ID`.
-- Patch WF-06 with `audit_*` approval routing and `pipeline_c_prospecting` command routing; replace `REPLACE_WITH_PIPELINE_C_V2_APPROVAL_HANDLER_WORKFLOW_ID` and `REPLACE_WITH_PIPELINE_C_V2_PROSPECTING_WORKFLOW_ID`.
-- Reconnect Firecrawl, OpenAI, Airtable, Telegram, and Gmail credentials.
-- Run one manual 10-candidate QA batch and test all Telegram buttons before activating the daily schedule.
+- Run Pipeline C from Telegram using `/pipeline_c` or `/audit_sites`.
+- Review Telegram cards, approve good candidates, reject/edit/Need Loom as appropriate.
+- Track replies and delivery quality; iterate niche rotation, city/query list, fit scoring, and teaser copy.
+- Use Loom selectively for high-fit prospects or `Need Loom`, not as a required step for every email.

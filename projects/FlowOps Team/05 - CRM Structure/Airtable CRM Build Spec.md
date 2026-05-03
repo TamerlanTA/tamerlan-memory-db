@@ -328,8 +328,9 @@ Use these rules before building n8n/Make:
    - Output: list of due follow-ups, draft messages, optional Telegram/Slack alert.
 
 3. **Website Audit Generator**
-   - Trigger: new lead with website and source `Cold Email` or manual audit request.
-   - Output: `Audits` record with findings, recommended workflow, outreach draft.
+   - Status: Pipeline C v2 completed operationally on 2026-05-04.
+   - Trigger: Telegram command through WF-06 (`/pipeline_c`, `/audit_sites`) or manual audit request.
+   - Output: `Leads`, `Audits`, `Messages`, and `Automation Logs`; Telegram approval card; Gmail send only after `Approve + Send`.
 
 4. **Proposal/Retainer Reminder**
    - Trigger: proposal sent or client delivered.

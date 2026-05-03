@@ -16,7 +16,8 @@
 - Updated Pipeline C memory, priorities, completed-work note, and current focus.
 
 ## Key findings
-- Pipeline C should stay draft-only at this stage: generate audits, CRM records, message drafts, and Telegram review items, but do not send cold emails automatically.
+- Historical note: the original Pipeline C v1 template was draft-only at this stage.
+- Superseded by Pipeline C v2 on 2026-05-04: v2 is operationally completed, runs from Telegram command, and sends Gmail only after Telegram `Approve + Send`.
 - The workflow follows existing FlowOps CRM patterns: Airtable `Leads`, `Audits`, `Messages`, `Automation Logs`, plus Telegram review queue.
 - The workflow uses Airtable base `apppMcDUQaQwijvIV` and known table IDs from Pipeline B for `Leads`, `Messages`, and `Automation Logs`; `Audits` is referenced by table name.
 

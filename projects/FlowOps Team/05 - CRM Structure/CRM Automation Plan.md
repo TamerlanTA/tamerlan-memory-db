@@ -44,9 +44,10 @@ Build automations around `FlowOps CRM` after the Airtable base exists, using Air
 - Output: `Leads`, `Messages`, `Automation Logs`.
 
 ### 4. Website audit generator
-- Trigger: new lead with website and good fit score, or manual status/action.
-- Actions: inspect website, summarize conversion/ops gaps, generate `Pain Hypothesis`, `Recommended Offer`, and `Recommended Workflow`.
-- Output: `Audits`, updated `Leads`, optional draft outreach in `Messages`, `Automation Logs`.
+- Status: Pipeline C v2 completed operationally on 2026-05-04.
+- Trigger: Telegram command via WF-06 (`/pipeline_c`, `/audit_sites`) or manual status/action.
+- Actions: Firecrawl Search finds websites automatically, dedupes domains, scrapes sites, summarizes conversion/ops gaps, generates `Pain Hypothesis`, `Recommended Offer`, and teaser email.
+- Output: `Leads`, `Audits`, `Messages`, `Automation Logs`, Telegram approval cards, and Gmail send only after `Approve + Send`.
 
 ### 5. Outreach draft generator
 - Trigger: new qualified lead, audit completed, or manual request.
