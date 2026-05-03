@@ -26,6 +26,8 @@
 - Expanded soft directory blocking to include `clutch`, `upcity`, `designrush`, `goodfirms`, `sortlist`, `themanifest`, `g2`, `capterra`, `softwareadvice`, `expertise`, and `threebestrated`; these only pass as fallback if no direct business domains are found.
 - Audited all generated workflows after the fix: 24 Code nodes compile with 0 syntax errors; all workflow graph edges resolve; `Normalize Search Results` smoke test against the failing Firecrawl payload returns real `candidate_found` domains; WF-06 `audit_approve_rec...` routing, Approval Handler callback parsing, and Gmail MIME body generation pass local smoke tests.
 - Fixed live Telegram `Approve + Send` failure where Gmail OAuth credentials rejected use from an HTTP Request node (`This credential is configured to prevent use within an HTTP Request node`). Approval Handler now uses native `n8n-nodes-base.gmail` message send node with `sendTo`, `subject`, `emailType: text`, `message`, and `appendAttribution: false`.
+- Converted Pipeline C v2 Prospecting from schedule-driven to Telegram-command-driven. Prospecting no longer has `Daily Schedule Trigger`; it now has `When Called by Telegram Command` (`executeWorkflowTrigger`) plus Manual Trigger for n8n testing.
+- Updated WF-06 patch to route `/pipeline_c`, `/audit_sites`, `запусти pipeline c`, and `найди сайты для аудита` to `pipeline_c_prospecting`, send a Telegram start confirmation, then call Pipeline C v2 Prospecting via `REPLACE_WITH_PIPELINE_C_V2_PROSPECTING_WORKFLOW_ID`.
 
 ## Key findings
 - The best v2 architecture is split into Prospecting, Audit Queue, and Approval Handler workflows.
@@ -38,6 +40,7 @@
 - Approval Handler is callable via WF-06 and sends Gmail only after `Approve + Send`.
 - Approval Handler must be re-imported or patched in n8n after the Gmail-node fix; old imports still have the invalid Gmail HTTP Request node.
 - WF-06 must remain the only active Telegram Trigger. The patched WF-06 export is intentionally `active=false` to avoid duplicate webhook registration on import.
+- Telegram menu commands to expose through BotFather: `/pipeline_c` and `/audit_sites`.
 
 ## Blockers
 - Workflows are import-ready, but the current live n8n Prospecting workflow may still be an older import if it continues showing `invalid_url`.
@@ -50,6 +53,6 @@
 - Re-import `/Users/tamerlan/Desktop/flowopsteamPipelines/pipeline-c-v2-approval-handler-workflow.json` or manually replace the Gmail HTTP Request node with native Gmail `Send` node.
 - Import Audit Queue, Approval Handler, then Prospecting if not already imported.
 - Replace `REPLACE_WITH_PIPELINE_C_V2_AUDIT_QUEUE_WORKFLOW_ID`.
-- Patch WF-06 with `audit_*` routing and replace `REPLACE_WITH_PIPELINE_C_V2_APPROVAL_HANDLER_WORKFLOW_ID`.
+- Patch WF-06 with `audit_*` approval routing and `pipeline_c_prospecting` command routing; replace `REPLACE_WITH_PIPELINE_C_V2_APPROVAL_HANDLER_WORKFLOW_ID` and `REPLACE_WITH_PIPELINE_C_V2_PROSPECTING_WORKFLOW_ID`.
 - Reconnect Firecrawl, OpenAI, Airtable, Telegram, and Gmail credentials.
 - Run one manual 10-candidate QA batch and test all Telegram buttons before activating the daily schedule.
