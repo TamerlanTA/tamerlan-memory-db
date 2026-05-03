@@ -6,6 +6,17 @@
 
 ---
 
+## Build Status
+
+**Status as of 2026-05-03:** workflow template and runbook prepared; not yet operationally completed.
+
+- Local workflow JSON: `/Users/tamerlan/Desktop/flowopsteamPipelines/pipeline-c-website-audit-generator-workflow.json`
+- Local runbook: `/Users/tamerlan/Desktop/flowopsteamPipelines/pipeline-c-website-audit-generator-runbook.md`
+- Workflow mode: draft-only outbound. It creates Airtable `Leads`, `Audits`, `Messages`, `Automation Logs`, and sends a Telegram review item, but does not send cold email automatically.
+- Next work: import into n8n, reconnect Firecrawl/OpenAI/Airtable/Telegram credentials, replace config seed list with 10-15 real websites, run manual QA, then record/send first audit Looms manually.
+
+---
+
 ## Целевые ниши
 
 - Property management companies
@@ -63,6 +74,30 @@
 | Cold email | Черновик email |
 | LinkedIn message | Черновик DM |
 | Follow-up | Следующий шаг |
+
+---
+
+## MVP workflow
+
+1. Manual/weekly trigger.
+2. Target website config list.
+3. Airtable dedupe by `Website` or `Company`.
+4. Firecrawl scrape of public website content.
+5. OpenAI audit generation:
+   - fit score;
+   - bottleneck;
+   - pain hypothesis;
+   - 3 opportunities;
+   - recommended offer/workflow;
+   - Loom script;
+   - cold email and follow-up drafts.
+6. Quality gate: only `Fit Score >= 7` becomes a lead/audit draft.
+7. Airtable writes:
+   - `Leads` record;
+   - `Audits` draft;
+   - `Messages` cold email draft;
+   - `Automation Logs` success/skipped record.
+8. Telegram review message for manual Loom/email review.
 
 ---
 

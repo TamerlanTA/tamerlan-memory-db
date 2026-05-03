@@ -54,11 +54,15 @@
 
 ## Priority 3 — Website Audit Generator (Week 2)
 
+**Current status as of 2026-05-03:** workflow template and runbook are prepared, but the pipeline is not yet operational. Next step is import + credential reconnect + first manual QA batch.
+
 **Why third:** Personalized audits convert better than any generic cold email. A specific finding about THEIR business is impossible to ignore.
 
 **What to do:**
 - [ ] Choose 2–3 niche target lists (real estate, home services, med spa)
-- [ ] Build the audit template from [[Pipeline C — Website Audit Generator]]
+- [x] Build the audit template/workflow from [[Pipeline C — Website Audit Generator]]
+- [ ] Import `pipeline-c-website-audit-generator-workflow.json` into n8n and reconnect credentials
+- [ ] Run first 10-15 website QA batch and verify Airtable + Telegram outputs
 - [ ] Record first 10 audit Looms
 - [ ] Send 50 personalized emails/DMs per week
 
