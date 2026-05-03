@@ -54,21 +54,23 @@
 
 ## Priority 3 — Website Audit Generator (Week 2)
 
-**Current status as of 2026-05-03:** v1 manual-site workflow and v2 automated multi-niche workflow templates are prepared, but the pipeline is not yet operational. Next step is import + credential reconnect + first manual QA batch.
+**Current status as of 2026-05-04:** Pipeline C v2 is completed and working end-to-end. It runs from Telegram command, finds sites automatically, creates Airtable records, sends Telegram review cards, and sends Gmail email after `Approve + Send`.
 
 **Why third:** Personalized audits convert better than any generic cold email. A specific finding about THEIR business is impossible to ignore.
 
 **What to do:**
-- [ ] Choose 2–3 niche target lists (real estate, home services, med spa)
+- [x] Replace manual target lists with automated Firecrawl Search multi-niche rotation
 - [x] Build the audit template/workflow from [[Pipeline C — Website Audit Generator]]
 - [x] Build Pipeline C v2 automated prospecting + Telegram approve + Gmail send templates
-- [ ] Import Pipeline C v2 workflows into n8n and reconnect Firecrawl/OpenAI/Airtable/Telegram/Gmail credentials
-- [ ] Patch WF-06 callback routing for `audit_*` actions without activating a second Telegram Trigger
-- [ ] Run first 10-candidate QA batch and verify Airtable + Telegram + Gmail behavior
-- [ ] Record first 10 audit Looms
-- [ ] Send 50 personalized emails/DMs per week
+- [x] Import and operate Pipeline C v2 in n8n with Firecrawl/OpenAI/Airtable/Telegram/Gmail
+- [x] Patch WF-06 callback routing for `audit_*` actions without activating a second Telegram Trigger
+- [x] Fix live Firecrawl normalization and Gmail send issues
+- [x] Convert launch mode from schedule to Telegram commands (`/pipeline_c`, `/audit_sites`)
+- [x] Verify Airtable + Telegram + Gmail behavior through live approve flow
+- [ ] Use Pipeline C operationally: run approved batches, monitor replies, and iterate copy/filters
+- [ ] Record Looms only for prospects marked `Need Loom` or strong-fit manual follow-up
 
-**Time to complete:** 1 week to first batch
+**Time to complete:** completed; now campaign operation/iteration
 **Impact:** 5–10 replies per 50 audit outreach messages
 
 ---

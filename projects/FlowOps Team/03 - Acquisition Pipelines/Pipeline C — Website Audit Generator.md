@@ -8,14 +8,24 @@
 
 ## Build Status
 
-**Status as of 2026-05-03:** workflow template and runbook prepared; not yet operationally completed.
+**Status as of 2026-05-04:** Pipeline C v2 is operationally completed and working end-to-end in n8n.
+
+- The system now finds sites automatically, scrapes and audits them, writes Airtable CRM records, sends Telegram approval cards, and sends Gmail email only after `Approve + Send`.
+- User confirmed live operation is working after fixes to Firecrawl result normalization and Gmail sending.
+- Main trigger mode is now Telegram command, not schedule:
+  - `/pipeline_c`
+  - `/audit_sites`
+  - `запусти pipeline c`
+  - `найди сайты для аудита`
+- Prospecting no longer uses `Daily Schedule Trigger`; it uses `When Called by Telegram Command` plus Manual Trigger for n8n testing.
+- WF-06 remains the only active Telegram Trigger and routes both `audit_*` callbacks and Pipeline C launch commands.
 
 - Local workflow JSON: `/Users/tamerlan/Desktop/flowopsteamPipelines/pipeline-c-website-audit-generator-workflow.json`
 - Local runbook: `/Users/tamerlan/Desktop/flowopsteamPipelines/pipeline-c-website-audit-generator-runbook.md`
 - Workflow mode: draft-only outbound. It creates Airtable `Leads`, `Audits`, `Messages`, `Automation Logs`, and sends a Telegram review item, but does not send cold email automatically.
 - Next work: import into n8n, reconnect Firecrawl/OpenAI/Airtable/Telegram credentials, replace config seed list with 10-15 real websites, run manual QA, then record/send first audit Looms manually.
 
-**Pipeline C v2 prepared on 2026-05-03:** fully automated multi-niche prospecting + Telegram approval + Gmail send templates are now available locally.
+**Pipeline C v2 implementation files:**
 
 - Prospecting: `/Users/tamerlan/Desktop/flowopsteamPipelines/pipeline-c-v2-prospecting-workflow.json`
 - Audit Queue: `/Users/tamerlan/Desktop/flowopsteamPipelines/pipeline-c-v2-audit-queue-workflow.json`
@@ -23,7 +33,7 @@
 - WF-06 router patch: `/Users/tamerlan/Desktop/flowopsteamPipelines/WF-06 AI Command Center - Pipeline C v2 Router Patch.json`
 - Runbook: `/Users/tamerlan/Desktop/flowopsteamPipelines/pipeline-c-v2-runbook.md`
 - Generator/source of truth for regenerating files: `/Users/tamerlan/Desktop/flowopsteamPipelines/build-pipeline-c-v2-workflows.js`
-- v2 mode: Firecrawl Search rotates several niches, caps review queue at 10/day, creates CRM/audit/message/log records, sends Telegram cards with `Approve + Send`, `Reject`, `Edit Needed`, `Need Loom`, and sends Gmail only after approve.
+- v2 mode: Firecrawl Search rotates several niches, caps review queue at 10/run, creates CRM/audit/message/log records, sends Telegram cards with `Approve + Send`, `Reject`, `Edit Needed`, `Need Loom`, and sends Gmail only after approve.
 - Important: WF-06 must remain the only active Telegram Trigger; the patched WF-06 export is intentionally inactive to avoid duplicate webhook registration.
 
 ---
@@ -114,14 +124,22 @@
 
 ## v2 automated workflow
 
-1. Daily/manual multi-niche prospecting.
+1. Telegram-command/manual multi-niche prospecting.
 2. Firecrawl Search rotates across Home Services, Real Estate, Clinics, Agencies, E-commerce, and Coaches/Consultants.
 3. Results are normalized, directory/social domains are filtered out, and Airtable dedupe runs before scraping.
-4. Top candidates are capped at 10/day before audit generation.
+4. Top candidates are capped at 10/run before audit generation.
 5. Audit Queue generates AI audit + teaser email, creates Airtable `Leads`, `Audits`, `Messages`, `Automation Logs`, then sends Telegram approval card.
 6. Approval Handler receives `audit_*` callbacks through WF-06 and only sends Gmail after `Approve + Send`.
 7. `Reject`, `Edit Needed`, and `Need Loom` update CRM/logs without sending email.
 8. Duplicate approve and missing recipient email are blocked from sending.
+
+## Operational Notes
+
+- Pipeline C v2 should be treated as completed. Future work is optimization and campaign iteration, not initial build.
+- Use Telegram to start a batch: `/pipeline_c` or `/audit_sites`.
+- Email copy is teaser-style and must not claim a Loom exists unless a Loom URL exists.
+- Gmail send uses native `n8n-nodes-base.gmail`, not HTTP Request with Gmail OAuth.
+- `Normalize Search Results` uses manual URL parsing and supports Firecrawl `item.json.data.web`.
 
 ---
 
