@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "My-tasks.md",
+                "file": "projects/FlowOps Team/Pipeline A — Upwork Radar.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "My-tasks"
+              "title": "Pipeline A — Upwork Radar"
             }
           },
           {
@@ -27,15 +27,16 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "My-tasks.md",
+                "file": "projects/FlowOps Team/03 - Acquisition Pipelines/Pipeline D — Demo Library.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "My-tasks"
+              "title": "Pipeline D — Demo Library"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -219,13 +220,21 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "efff1550dbd2669d",
+  "active": "8358a851115bd668",
   "lastOpenFiles": [
+    "projects/FlowOps Team/03 - Acquisition Pipelines/Pipeline C — Website Audit Generator.md",
+    "projects/FlowOps Team/03 - Acquisition Pipelines/Pipeline A — Upwork Radar.md",
+    "projects/FlowOps Team/03 - Pipelines/Pipeline A — Upwork Radar.md",
+    "projects/FlowOps Team/04 - Sales Process/Discovery Call Script.md",
+    "projects/FlowOps Team/04 - Sales/Discovery Call Script.md",
+    "projects/FlowOps Team/04 - Sales/How to Sell Price.md",
+    "My-Team/Adil/tasks/active-tasks/_active-task-template.md",
+    "My-tasks.md",
+    "projects/FlowOps Team/Pipeline A — Upwork Radar.md",
     "projects/FlowOps Team/00 - Overview.md",
     "sessions/2026-05-03-vault-audit-and-cleanup.md",
     "projects/AI-Powered Woven Label Generator/overview.md",
     "patterns/claude-code-workflow.md",
-    "My-tasks.md",
     "projects/FlowOps Team/05 - CRM Structure/Airtable CRM Build Spec.md",
     "Linear/Linear Ops Automation System/overview.md",
     "Linear/Linear Ops Automation System/implementation-plan.md",
@@ -240,15 +249,7 @@
     "Linear/Linear Ops Automation System",
     "inbox.md",
     "Completed-in-a-week.md",
-    "current-focus.md",
-    "All about Agents/Orchestrator role (n8n).md",
-    "All about Agents/n8n.md",
     "Linear",
-    "projects/FlowOps Team/08 - Выполненные задачи/Completed.md",
-    "projects/FlowOps Team/03 - Acquisition Pipelines/Pipeline B — LinkedIn Pain Radar.md",
-    "projects/FlowOps Team/03 - Pipelines/Pipeline B — LinkedIn Pain Radar.md",
-    "projects/FlowOps Team/05 - CRM Structure/CRM Automation Plan.md",
-    "projects/FlowOps Team/sessions/2026-05-03-pipeline-b-and-crm-completion.md",
     "Без названия.canvas",
     "Без названия.base",
     "projects/FlowOps Team/08 - Выполненные задачи",
