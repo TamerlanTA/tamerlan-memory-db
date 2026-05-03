@@ -11,7 +11,8 @@
 - **CRM система FlowOps** — создана CRM система; дальнейшие задачи должны идти от состояния "CRM существует", а не "нужно создать базу".
 - **Pipeline B — LinkedIn Pain Radar** — завершён; считать готовым к операционному использованию, QA и дальнейшей итерации.
 - **Pipeline C — Website Audit Generator workflow template** — подготовлены локальные `pipeline-c-website-audit-generator-workflow.json` и `pipeline-c-website-audit-generator-runbook.md`; это draft-only workflow, не полная operational completion.
+- **Pipeline C v2 — automated website audit machine templates** — подготовлены import-ready workflow файлы для multi-niche Firecrawl prospecting, AI audit queue, Telegram approve buttons, Gmail send after approve, WF-06 router patch, and runbook.
 
 ## Пока не считаем завершенным
 - CRM QA/валидация, production-safe automation wiring, отчётность и data hygiene.
-- Pipeline C operational completion: импорт в n8n, credential reconnect, первый QA batch, запись первых Loom-аудитов и ручная отправка первых сообщений.
+- Pipeline C operational completion: импорт v2 в n8n, credential reconnect, WF-06 callback patch, первый QA batch, проверка Gmail send после approve, запись первых Loom-аудитов и первые реальные отправки.

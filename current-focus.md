@@ -27,7 +27,7 @@ FlowOps is now the active operating focus. The CRM system exists, Pipeline B / L
 2. Run CRM QA / automation-readiness review before scaling n8n/Make workflows.
 3. Build the first 5 Demo Library Loom assets.
 4. Continue Upwork Radar from the prepared workflow state: import, reconnect credentials, test, then operationalize.
-5. Operationalize Website Audit Generator: import local Pipeline C workflow, reconnect credentials, run first 10-15 website QA batch, then record/send first audit Looms manually.
+5. Operationalize Website Audit Generator v2: import local Pipeline C v2 workflows, reconnect Firecrawl/OpenAI/Airtable/Telegram/Gmail credentials, patch WF-06 `audit_*` routing, run first 10-candidate QA batch, then approve/send first emails from Telegram.
 6. Resolve FlowOps duplicate note structure before deleting old folders.
 
 ---
