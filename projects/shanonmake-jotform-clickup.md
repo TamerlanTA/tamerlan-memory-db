@@ -6,6 +6,15 @@
 - [[flowops-agency-website]]
 
 ## Current status
+- Readable description fix on 2026-05-05:
+  - User confirmed tasks now create in the correct ClickUp folder/list, but descriptions displayed poorly with literal `\n`, and Design/Sampling/Costing subtasks were empty.
+  - Backup before change: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-readable-descriptions.backup.json`.
+  - Updated active blueprint: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.updated.blueprint.json`.
+  - Saved copy: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.readable-descriptions.blueprint.json`.
+  - API-call task modules `107`, `7`, `5`, `9`, `12`, and `13` now use ClickUp `markdown_description` with section headings and bullet-style field labels.
+  - Native Unbranded modules `105`, `109`, `112`, and `113` now use matching markdown `content` with `contentType = markdown`.
+  - Dynamic child modules `9`, `12`, and `13` now include non-empty descriptions again.
+  - Parent references remain `{{107.body.id}}`, `{{7.body.id}}`, `{{5.body.id}}`, and `{{105.id}}`; routing and Task Type/custom field no-op protections were not changed.
 - Reverted `toJSON()` body fix on 2026-05-05:
   - Screenshot showed Make IML parser errors: `Invalid IML ... Unexpected [` because `toJSON({... "assignees": [50784171] ...})` is not valid Make IML syntax in the API Call Body field.
   - Backup before change: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-tojson-revert.backup.json`.
