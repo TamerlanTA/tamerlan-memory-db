@@ -6,6 +6,16 @@
 - [[flowops-agency-website]]
 
 ## Current status
+- Minimal child API date-object fix on 2026-05-05:
+  - After reverting the overcorrection, user reported module `9` failing with ClickUp `[400] JSON_001` at runtime.
+  - Applied a minimal fix only to dynamic API child task descriptions: removed direct raw Jotform date-object mappings from child API body descriptions.
+  - Backup before change: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-api-child-due-field-removal.backup.json`.
+  - Updated active blueprint: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.updated.blueprint.json`.
+  - Saved copy: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.api-child-due-field-safe.blueprint.json`.
+  - Module `9`: replaced `{{1.request.q84_sellsheetdue}}` with `check original Jotform submission`.
+  - Module `12`: replaced `{{1.request.q85_samplesdue}}` with `check original Jotform submission`.
+  - Module `13` already did not include `q83_costingdue` in the compact body.
+  - Verification: JSON valid, 25 modules, no duplicate IDs, no active `toJSON`, task-creation API modules unchanged (`107`, `7`, `5`, `9`, `12`, `13`).
 - Revert after overcorrection on 2026-05-05:
   - User rejected the large native-route rebuild and asked to return the blueprint to how it was before the description appearance fix.
   - Active file restored from `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-readable-descriptions.backup.json`.
