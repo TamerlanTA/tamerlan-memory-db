@@ -6,6 +6,16 @@
 - [[flowops-agency-website]]
 
 ## Current status
+- Dynamic customer routing upgrade on 2026-05-05:
+  - Backup before change: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-dynamic-customer-routing.backup.json`.
+  - Updated active blueprint: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.updated.blueprint.json`.
+  - Saved copy: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.dynamic-customer-routing.blueprint.json`.
+  - Module `22` now maps `customer_code` and `target_list_id` from `lower(trim(q11_customer))` for the full confirmed mapping table.
+  - Ecommerce variants map to `ECOM` and list `901712725600`.
+  - Big Sky Supply variants map to `BSS` and list `901711769119`.
+  - Module `107` converted from fixed ClickUp Create Task to dynamic ClickUp API Call creating parent task in Unbranded list `901711595874`.
+  - General branch modules `7`, `5`, `9`, `12`, and `13` converted to ClickUp API Call using `/v2/list/{{22.target_list_id}}/task`; IDs preserved so parent/subtask references remain `{{7.id}}`, `{{5.id}}`, etc.
+  - Unbranded subtask modules `105`, `109`, `112`, `113` remain regular ClickUp Create Task modules with fixed Unbranded list because that branch is static.
 - Make import/test fix on 2026-05-04:
   - Screenshot showed module `22` (`Tools - Set multiple variables`) failing with `BundleValidationError: Missing value of required parameter 'scope'`.
   - Patched module `22` to include `mapper.scope = roundtrip`, restore metadata `scope = One cycle`, expected `scope`/`variables` schema, and output interface entries for the normalization variables.
