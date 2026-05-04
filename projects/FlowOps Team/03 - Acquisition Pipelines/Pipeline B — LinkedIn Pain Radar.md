@@ -12,6 +12,12 @@
 - CRM integration target exists because the FlowOps CRM system has been created.
 - Future work should treat Pipeline B as operational/ready for refinement, QA, and iteration rather than as a planning task.
 
+**Dedupe fix as of 2026-05-04:**
+- Local n8n JSON now includes persistent Airtable duplicate checking before create/notify.
+- Duplicate records are skipped and logged instead of being sent again to Telegram.
+- Search depth increased to reduce repeated top-5 results.
+- Import/test runbook: `/Users/tamerlan/Desktop/flowopsteamPipelines/pipeline-b-linkedin-pain-radar-dedupe-runbook.md`.
+
 ---
 
 ## Логика работы

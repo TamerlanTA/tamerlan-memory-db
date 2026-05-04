@@ -21,14 +21,14 @@ FlowOps is now the active operating focus. The CRM system exists, Pipeline B / L
 - Linear Ops Automation System was specified in Obsidian memory and linked from [[My-tasks]].
 - FlowOps CRM is treated as created; future work starts from QA, validation, data hygiene, and production-safe automation wiring.
 - Pipeline B / LinkedIn Pain Radar is treated as complete; future work is operational QA and iteration, not initial build.
-- Pipeline C v2 / Website Audit Generator is completed operationally end-to-end: Telegram command starts prospecting, Firecrawl finds/scrapes sites, Airtable records are created, Telegram approve cards work, and Gmail sends only after `Approve + Send`.
+- Pipeline C v2 / Website Audit Generator is completed operationally end-to-end. v2.1 Prospecting was strengthened on 2026-05-04 for lead volume: Telegram command starts 24 randomized search queries, Firecrawl finds/scrapes sites, Airtable records are created, Telegram approve cards work, and Gmail sends only after `Approve + Send`.
 
 ### Immediate blockers / next actions
 1. Build or prototype the Linear Ops Automation System from [[Linear/Linear Ops Automation System/implementation-plan]].
 2. Run CRM QA / automation-readiness review before scaling n8n/Make workflows.
 3. Build the first 5 Demo Library Loom assets.
 4. Continue Upwork Radar from the prepared workflow state: import, reconnect credentials, test, then operationalize.
-5. Use Website Audit Generator v2 operationally: trigger `/pipeline_c` or `/audit_sites` in Telegram, review/approve cards, monitor replies, and iterate niche/query rotation and teaser copy.
+5. Use Website Audit Generator v2.1 operationally after re-import/patch: trigger `/pipeline_c` or `/audit_sites` in Telegram, review/approve cards, monitor replies, and iterate niche/query rotation and teaser copy.
 6. Resolve FlowOps duplicate note structure before deleting old folders.
 
 ---

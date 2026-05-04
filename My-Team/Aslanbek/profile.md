@@ -3,6 +3,9 @@
 Kalabayaslanbek@gmail.com
 GitHub: KalabayAslanbek
 
+Kalabayaslanbek@gmail.com
+GitHub: KalabayAslanbek
+
 ## Role
 Main executor - the inspector
 

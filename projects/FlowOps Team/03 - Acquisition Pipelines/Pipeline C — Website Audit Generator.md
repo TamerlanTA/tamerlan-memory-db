@@ -35,6 +35,7 @@
 - Generator/source of truth for regenerating files: `/Users/tamerlan/Desktop/flowopsteamPipelines/build-pipeline-c-v2-workflows.js`
 - v2 mode: Firecrawl Search rotates several niches, caps review queue at 10/run, creates CRM/audit/message/log records, sends Telegram cards with `Approve + Send`, `Reject`, `Edit Needed`, `Need Loom`, and sends Gmail only after approve.
 - Important: WF-06 must remain the only active Telegram Trigger; the patched WF-06 export is intentionally inactive to avoid duplicate webhook registration.
+- **v2.1 prospecting upgrade on 2026-05-04:** strengthened after live runs repeated the same 2 sites and produced too few Telegram cards. Prospecting now runs 24 randomized niche/city/intent queries per launch, requests 8 results/query, normalizes up to 120 unique domains, uses stronger Airtable dedupe by domain/company, caps scraping at up to 60 new websites, and sends up to 30 review candidates/run.
 
 ---
 
@@ -127,16 +128,19 @@
 1. Telegram-command/manual multi-niche prospecting.
 2. Firecrawl Search rotates across Home Services, Real Estate, Clinics, Agencies, E-commerce, and Coaches/Consultants.
 3. Results are normalized, directory/social domains are filtered out, and Airtable dedupe runs before scraping.
-4. Top candidates are capped at 10/run before audit generation.
-5. Audit Queue generates AI audit + teaser email, creates Airtable `Leads`, `Audits`, `Messages`, `Automation Logs`, then sends Telegram approval card.
-6. Approval Handler receives `audit_*` callbacks through WF-06 and only sends Gmail after `Approve + Send`.
-7. `Reject`, `Edit Needed`, and `Need Loom` update CRM/logs without sending email.
-8. Duplicate approve and missing recipient email are blocked from sending.
+4. Search produces a larger pool: 24 randomized queries x 8 results/query, then up to 120 unique domains are normalized.
+5. Airtable dedupe checks domain/company before scraping; scrape work is capped at up to 60 new websites/run.
+6. Top candidates are capped at 30/run before audit generation.
+7. Audit Queue generates AI audit + teaser email, creates Airtable `Leads`, `Audits`, `Messages`, `Automation Logs`, then sends Telegram approval card.
+8. Approval Handler receives `audit_*` callbacks through WF-06 and only sends Gmail after `Approve + Send`.
+9. `Reject`, `Edit Needed`, and `Need Loom` update CRM/logs without sending email.
+10. Duplicate approve and missing recipient email are blocked from sending.
 
 ## Operational Notes
 
 - Pipeline C v2 should be treated as completed. Future work is optimization and campaign iteration, not initial build.
 - Use Telegram to start a batch: `/pipeline_c` or `/audit_sites`.
+- Default batch is 30 review candidates/run; smaller runs can be requested with `/pipeline_c 20`, `/pipeline_c 15`, etc.
 - Email copy is teaser-style and must not claim a Loom exists unless a Loom URL exists.
 - Gmail send uses native `n8n-nodes-base.gmail`, not HTTP Request with Gmail OAuth.
 - `Normalize Search Results` uses manual URL parsing and supports Firecrawl `item.json.data.web`.

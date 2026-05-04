@@ -25,6 +25,13 @@ Build automations around `FlowOps CRM` after the Airtable base exists, using Air
 - Next automation work should assume the CRM exists and start with validation, QA, and production-safe wiring.
 - Pipeline B should be treated as completed and ready for operational review/refinement.
 
+**Pipeline B dedupe update as of 2026-05-04:**
+- Updated local workflow JSON at `/Users/tamerlan/Desktop/flowopsteamPipelines/pipeline-b-linkedin-pain-radar-crm-workflow.json`.
+- Pipeline B now checks Airtable before creating a lead or sending Telegram.
+- Duplicate LinkedIn leads are logged as `Skipped` in `Automation Logs` and should not create new CRM records or Telegram notifications.
+- Search depth increased from 5 to 20 results per query and up to 80 normalized candidates per run.
+- Runbook: `/Users/tamerlan/Desktop/flowopsteamPipelines/pipeline-b-linkedin-pain-radar-dedupe-runbook.md`.
+
 ## Build order
 
 ### 1. CRM core setup validation
