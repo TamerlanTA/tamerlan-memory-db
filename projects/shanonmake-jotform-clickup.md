@@ -6,6 +6,14 @@
 - [[flowops-agency-website]]
 
 ## Current status
+- Reverted `toJSON()` body fix on 2026-05-05:
+  - Screenshot showed Make IML parser errors: `Invalid IML ... Unexpected [` because `toJSON({... "assignees": [50784171] ...})` is not valid Make IML syntax in the API Call Body field.
+  - Backup before change: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-tojson-revert.backup.json`.
+  - Updated files: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.updated.blueprint.json`, `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.dynamic-customer-routing.blueprint.json`, `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.api-parent-id-fixed.blueprint.json`, `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.no-tojson-safe-api.blueprint.json`.
+  - API-call modules `107`, `7`, `5`, `9`, `12`, `13` now use plain JSON bodies again.
+  - Removed `assignees` arrays from API-call bodies; assignee automation remains out of scope.
+  - Trimmed API-call descriptions to controlled short fields to reduce JSON breakage risk from arbitrary free-text/attachment values.
+  - Parent references remain `{{107.body.id}}`, `{{7.body.id}}`, and `{{5.body.id}}`.
 - JSON body escaping fix on 2026-05-05:
   - Screenshot showed parent module `7` and item module `5` succeeded, but Design module `9` failed with ClickUp `[400] JSON_001: Expected ',' or '}' after property value...`.
   - Cause: raw JSON body could be broken at runtime when mapped Jotform values contain quotes/newlines/special characters.
