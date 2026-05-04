@@ -6,6 +6,13 @@
 - [[flowops-agency-website]]
 
 ## Current status
+- Revert after overcorrection on 2026-05-05:
+  - User rejected the large native-route rebuild and asked to return the blueprint to how it was before the description appearance fix.
+  - Active file restored from `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-readable-descriptions.backup.json`.
+  - Updated active blueprint: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.updated.blueprint.json`.
+  - Saved restored copy: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.reverted-before-readable-description-fix.blueprint.json`.
+  - The rejected large native-route file was preserved only as `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.bad-native-routes-reverted-from.backup.json`; it is no longer active.
+  - Verification after restore: JSON valid, 25 modules, no duplicate IDs, task creation API-call modules are back to `107`, `7`, `5`, `9`, `12`, `13`; no active `toJSON` in module bodies.
 - Root stability fix on 2026-05-05:
   - User reported module `7` failing with `Function 'toJSON' not found!` and asked to solve the error pattern at the root instead of chasing one module at a time.
   - Root cause: ClickUp `Make an API Call` task creation required hand-built raw JSON bodies. Make does not support `toJSON()` in that module body field, and raw Jotform values can break JSON at runtime.
