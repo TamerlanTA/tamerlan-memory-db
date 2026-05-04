@@ -6,6 +6,19 @@
 - [[flowops-agency-website]]
 
 ## Current status
+- Root stability fix on 2026-05-05:
+  - User reported module `7` failing with `Function 'toJSON' not found!` and asked to solve the error pattern at the root instead of chasing one module at a time.
+  - Root cause: ClickUp `Make an API Call` task creation required hand-built raw JSON bodies. Make does not support `toJSON()` in that module body field, and raw Jotform values can break JSON at runtime.
+  - Backup before architecture change: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-native-routes-root-fix.backup.json`.
+  - Backup before metadata slimming: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-restore-metadata-slim.backup.json` and `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-custom-field-metadata-slim.backup.json`.
+  - Updated active blueprint: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.updated.blueprint.json`.
+  - Saved copy: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.native-routes-root-fixed.blueprint.json`.
+  - Removed all task-creation `clickup:makeApiCall` modules; verification found zero `makeApiCall` modules and zero active `body` mappers.
+  - Replaced dynamic API creation with 39 top-level native ClickUp Create Task routes: Unbranded, all confirmed mapped customer/list IDs, and Potential/New Customer fallback.
+  - Each list route has its own native Collection -> Item Set -> conditional Design/Sampling/Costing tree, so task descriptions/content are handled by Make's native ClickUp module instead of raw JSON.
+  - Ecommerce route uses list `901712725600`; Big Sky Supply route uses `901711769119`; fallback route uses `901711596089`; Unbranded route uses `901711595874`.
+  - Child request filters use `text:contain` on `q37_requesttype`; parent route filters use `target_list_id` equality except Unbranded, which accepts either `q10_housebrand = Unbranded` or `target_list_id = 901711595874`.
+  - Active `custom_fields` mappers remain removed; Task Type/custom field behavior remains bypassed through no-op Set Variable modules, not ClickUp API calls.
 - API JSON safety fix on 2026-05-05:
   - User reported module `9` failing with ClickUp `[400] JSON_001: Expected ',' or '}' after property value...` while the task description layout itself looked good.
   - Cause: API-call modules used raw JSON bodies with mapped Jotform values inside JSON strings; values like quoted collection titles or date objects such as `{"month":"05"...}` can break the JSON body at runtime.
