@@ -6,6 +6,13 @@
 - [[flowops-agency-website]]
 
 ## Current status
+- JSON body escaping fix on 2026-05-05:
+  - Screenshot showed parent module `7` and item module `5` succeeded, but Design module `9` failed with ClickUp `[400] JSON_001: Expected ',' or '}' after property value...`.
+  - Cause: raw JSON body could be broken at runtime when mapped Jotform values contain quotes/newlines/special characters.
+  - Backup before change: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-json-body-escape-fix.backup.json`.
+  - Updated files: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.updated.blueprint.json`, `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.dynamic-customer-routing.blueprint.json`, `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.api-parent-id-fixed.blueprint.json`, `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.json-escape-fixed.blueprint.json`.
+  - Patched API-call task modules `107`, `7`, `5`, `9`, `12`, `13` so `mapper.body` is generated via Make `toJSON(...)`.
+  - Parent references remain `{{107.body.id}}`, `{{7.body.id}}`, and `{{5.body.id}}`.
 - API parent ID fix on 2026-05-05:
   - Screenshot showed module `7` (dynamic parent task API call) completed, then module `5` failed with ClickUp `[400] ITEM_170: Missing parent`.
   - Cause: module `5` used `{{7.id}}`, but Make API Call exposes the ClickUp response ID under `body.id`.
