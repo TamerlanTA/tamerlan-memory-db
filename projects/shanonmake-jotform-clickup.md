@@ -6,6 +6,16 @@
 - [[flowops-agency-website]]
 
 ## Current status
+- API parent ID fix on 2026-05-05:
+  - Screenshot showed module `7` (dynamic parent task API call) completed, then module `5` failed with ClickUp `[400] ITEM_170: Missing parent`.
+  - Cause: module `5` used `{{7.id}}`, but Make API Call exposes the ClickUp response ID under `body.id`.
+  - Backup before change: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-api-parent-id-fix.backup.json`.
+  - Updated files: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.updated.blueprint.json`, `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.dynamic-customer-routing.blueprint.json`, `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.api-parent-id-fixed.blueprint.json`.
+  - Patched parent references:
+    - module `105`: `{{107.body.id}}`
+    - module `5`: parent `{{7.body.id}}`
+    - modules `9`, `12`, `13`: parent `{{5.body.id}}`
+  - Added `body.id` response interface metadata to API-call task modules `107`, `7`, `5`, `9`, `12`, `13`.
 - Dynamic customer routing upgrade on 2026-05-05:
   - Backup before change: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-dynamic-customer-routing.backup.json`.
   - Updated active blueprint: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.updated.blueprint.json`.
