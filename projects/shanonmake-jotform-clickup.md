@@ -6,6 +6,14 @@
 - [[flowops-agency-website]]
 
 ## Current status
+- API JSON safety fix on 2026-05-05:
+  - User reported module `9` failing with ClickUp `[400] JSON_001: Expected ',' or '}' after property value...` while the task description layout itself looked good.
+  - Cause: API-call modules used raw JSON bodies with mapped Jotform values inside JSON strings; values like quoted collection titles or date objects such as `{"month":"05"...}` can break the JSON body at runtime.
+  - Backup before change: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-tojson-body-safe.backup.json` and newline-escape backup `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-tojson-newline-escape.backup.json`.
+  - Updated active blueprint: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.updated.blueprint.json`.
+  - Saved copy: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.tojson-body-safe.blueprint.json`.
+  - API-call task modules `107`, `7`, `5`, `9`, `12`, and `13` now wrap body payloads in Make `toJSON(...)` without any array literals, preserving the readable `markdown_description` layout while letting Make escape mapped values safely.
+  - Parent references remain `{{7.body.id}}` and `{{5.body.id}}`; Task Type/custom field no-op protections remain unchanged.
 - Readable description fix on 2026-05-05:
   - User confirmed tasks now create in the correct ClickUp folder/list, but descriptions displayed poorly with literal `\n`, and Design/Sampling/Costing subtasks were empty.
   - Backup before change: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-readable-descriptions.backup.json`.
