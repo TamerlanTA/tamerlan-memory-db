@@ -6,6 +6,22 @@
 - [[flowops-agency-website]]
 
 ## Current status
+- Brand Type routing source fix on 2026-05-05:
+  - User reported a House Brand submission where `Brand Type = House Brand`, `Customer` was blank, and `House Brand = Fortunes Without Cookies`, but module `22` routed from blank `q11_customer` to `UNKNOWN` / fallback list `901711596089`.
+  - Confirmed field keys in blueprint metadata:
+    - `q19_brandtype` = Brand Type
+    - `q10_housebrand` = House Brand
+    - `q11_customer` = Customer
+    - `q20_hovbrand` = HoV Brand
+  - Backup before change: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-brand-type-routing-source-fix.backup.json`.
+  - Updated active blueprint: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.updated.blueprint.json`.
+  - Saved copy: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.brand-type-routing-source-fixed.blueprint.json`.
+  - Module `22` now exposes `brand_type`, `private_label_customer`, `house_brand_customer`, `routing_display`, `customer_display`, `normalized_customer`, `customer_code`, and `target_list_id`.
+  - Routing source logic now uses `q19_brandtype`: Private Label -> `q11_customer`; House Brand -> `q10_housebrand`; House of Velas -> `q20_hovbrand`; Unbranded/Potential use explicit labels; else first non-empty among Customer, House Brand, HoV Brand, Brand Type, then `UNKNOWN`.
+  - `customer_code` and `target_list_id` now map from the normalized routing display, so `House Brand + Fortunes Without Cookies` maps to `Fortunes Without Cookies` / `901712753222`.
+  - Module `107` Unbranded branch filter now checks `q19_brandtype = Unbranded` or `22.target_list_id = 901711595874`, instead of relying only on `q10_housebrand`.
+  - Task content labels were updated from raw `Customer: q11_customer` to `Customer/Routing Display: {{22.customer_display}}` so house-brand tasks do not show a blank customer line.
+  - Verification: JSON valid, 25 modules, no duplicate IDs, no active `toJSON`, no active `custom_fields` mappers, module `7` URL still `/v2/list/{{22.target_list_id}}/task`.
 - Minimal child API date-object fix on 2026-05-05:
   - After reverting the overcorrection, user reported module `9` failing with ClickUp `[400] JSON_001` at runtime.
   - Applied a minimal fix only to dynamic API child task descriptions: removed direct raw Jotform date-object mappings from child API body descriptions.
