@@ -1,10 +1,10 @@
 # Risks
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[decisions]]
-- [[next-steps]]
+- [[projects/AI-Powered Woven Label Generator/overview]]
+- [[projects/AI-Powered Woven Label Generator/current-state]]
+- [[projects/AI-Powered Woven Label Generator/decisions]]
+- [[projects/AI-Powered Woven Label Generator/next-steps]]
 - [[patterns/git/verify-git-base-before-implementation|Verify git base before implementation]]
 - [[patterns/auth/use-useauth-logout|Use useAuth.logout()]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-15-header-refinement-and-eod-sync|Header refinement and EOD sync]]

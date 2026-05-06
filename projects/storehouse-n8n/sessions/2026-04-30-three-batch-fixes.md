@@ -1,11 +1,11 @@
 # Session 2026-04-30 — Three-Batch Fix Run
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[decisions]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/decisions]]
+- [[projects/David/risks]]
 
 ## What was done
 

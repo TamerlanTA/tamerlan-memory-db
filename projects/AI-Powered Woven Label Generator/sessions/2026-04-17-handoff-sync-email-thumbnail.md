@@ -1,11 +1,11 @@
 # Session 2026-04-17 — Handoff sync after email thumbnail hosted URL fix
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
-- [[decisions]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
+- [[projects/David/decisions]]
 
 ## What was done
 - Completed a targeted Milestone 5 fix for the missing preorder email thumbnail

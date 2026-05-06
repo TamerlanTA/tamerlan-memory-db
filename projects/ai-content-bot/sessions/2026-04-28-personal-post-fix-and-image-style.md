@@ -1,11 +1,11 @@
 # Session 2026-04-28 — Personal Post Fix + Image Style
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[decisions]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/decisions]]
+- [[projects/David/risks]]
 
 ## What was done
 

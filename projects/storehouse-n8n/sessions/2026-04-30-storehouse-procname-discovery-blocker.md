@@ -1,10 +1,10 @@
 # Session 2026-04-30 — StoreHouse ProcName Discovery Blocker
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
 
 ## What was done
 - Interpreted n8n HTTP Request tests to `/api/sh5`, `/api/sh5struct`, and `/api/sh5exec`.

@@ -1,11 +1,11 @@
 # Session 2026-04-17 — Batch 1 preorders / PO visibility
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[decisions]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/decisions]]
+- [[projects/David/risks]]
 
 ## What was done
 - Implemented Batch 1 of the bonus back-office mini-block inside the existing `/admin/stats` page

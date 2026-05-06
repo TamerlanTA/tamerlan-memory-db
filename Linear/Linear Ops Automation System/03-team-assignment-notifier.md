@@ -1,7 +1,7 @@
 # Team Assignment Notifier
 
 ## Related
-- [[overview]]
+- [[Linear/Linear Ops Automation System/overview]]
 - [[04-stale-issue-reminder]]
 - [[projects/FlowOps Team/00 - Overview|FlowOps Team]]
 

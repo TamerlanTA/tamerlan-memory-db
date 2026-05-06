@@ -1,10 +1,10 @@
 # Session 2026-04-15 — Initial Project Analysis
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
 
 ---
 

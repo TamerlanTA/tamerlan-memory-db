@@ -1,7 +1,7 @@
 # Linear Ops Automation Implementation Log
 
 ## Related
-- [[overview]]
+- [[Linear/Linear Ops Automation System/overview]]
 - [[implementation-plan]]
 - [[projects/FlowOps Team/00 - Overview|FlowOps Team]]
 

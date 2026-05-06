@@ -1,11 +1,11 @@
 # Storehouse n8n
 
 ## Related
-- [[current-state]]
-- [[decisions]]
-- [[risks]]
-- [[next-steps]]
-- [[prompts]]
+- [[projects/storehouse-n8n/current-state]]
+- [[projects/storehouse-n8n/decisions]]
+- [[projects/storehouse-n8n/risks]]
+- [[projects/storehouse-n8n/next-steps]]
+- [[projects/storehouse-n8n/prompts]]
 - [[agent-memory|agent-memory]]
 
 ## Content

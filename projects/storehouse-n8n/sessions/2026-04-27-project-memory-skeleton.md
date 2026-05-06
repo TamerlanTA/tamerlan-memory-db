@@ -1,11 +1,11 @@
 # Session 2026-04-27 — Project Memory Skeleton
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[decisions]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/decisions]]
+- [[projects/David/risks]]
 
 ## What was done
 - Created canonical project memory folder for Storehouse n8n.

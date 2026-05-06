@@ -1,9 +1,9 @@
 # Session 2026-05-06 — Unfairgaps Healthcare Monetization
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
 - [[../00 - Overview]]
 - [[../01 - Strategy/validation-hipaa-safe-intake-automation-2026-05-06]]
 - [[../03 - Acquisition Pipelines/Pipeline C — Website Audit Generator]]

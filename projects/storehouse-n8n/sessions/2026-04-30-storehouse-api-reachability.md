@@ -1,10 +1,10 @@
 # Session 2026-04-30 — StoreHouse API Reachability
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
 
 ## What was done
 - Interpreted the on-site browser response from `http://10.0.23.2:9797/api/sh5`.

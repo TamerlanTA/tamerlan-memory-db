@@ -1,11 +1,11 @@
 # Session 2026-04-16 — Email thumbnail hosted URL fix
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[decisions]]
-- [[risks]]
-- [[next-steps]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/decisions]]
+- [[projects/David/risks]]
+- [[projects/David/next-steps]]
 
 ## What was done
 - Audited the full thumbnail path for the preorder / quote confirmation email from Result page to submit payload to backend email rendering

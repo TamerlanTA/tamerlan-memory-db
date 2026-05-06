@@ -1,10 +1,10 @@
 # Session 2026-04-24 — Vercel deploy sync after missing push
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
 
 ## What was done
 - Investigated why the user could not see the latest generation-stability commit in Vercel.

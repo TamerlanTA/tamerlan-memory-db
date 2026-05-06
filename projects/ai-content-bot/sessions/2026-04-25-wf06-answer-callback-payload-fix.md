@@ -1,11 +1,11 @@
 # Session 2026-04-25 — WF06 Answer Callback Payload Fix
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[decisions]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/decisions]]
+- [[projects/David/risks]]
 
 ## What was done
 - Fixed a real n8n runtime issue found in WF-10 `Parse Action`: it received `{ ok: true, result: true }` from Telegram `Answer Callback`, not `{ action, post_id, chat_id }`.

@@ -1,9 +1,9 @@
 # Session 2026-04-22 — Loading Time Expectation Copy
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
 
 ## What was done
 - Added a truthful estimated-time line to the generation loading footer copy in FR/EN.

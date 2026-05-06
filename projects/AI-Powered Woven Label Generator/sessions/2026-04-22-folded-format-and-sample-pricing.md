@@ -1,10 +1,10 @@
 # Session 2026-04-22 — Folded Format and Sample Pricing
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
 
 ## What was done
 - Implemented the client-requested commercial/domain polish for folded label naming and sample pricing.

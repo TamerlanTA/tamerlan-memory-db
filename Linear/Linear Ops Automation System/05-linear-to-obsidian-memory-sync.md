@@ -1,7 +1,7 @@
 # Linear to Obsidian Memory Sync
 
 ## Related
-- [[overview]]
+- [[Linear/Linear Ops Automation System/overview]]
 - [[projects/FlowOps Team/Team Task Automation]]
 - [[projects/FlowOps Team/sessions/2026-05-03-linear-initial-migration]]
 

@@ -1,10 +1,10 @@
 # Session 2026-04-17 — Batch 2 Generations Visibility
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
 
 ## What was done
 - Implemented Batch 2 inside the existing `/admin/stats` page without creating a new admin surface

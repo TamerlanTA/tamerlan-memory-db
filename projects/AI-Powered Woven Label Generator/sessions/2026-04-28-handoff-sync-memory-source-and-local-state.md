@@ -1,10 +1,10 @@
 # Session 2026-04-28 — Handoff sync: memory source and local state
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
 
 ## What was done
 - Confirmed the active Codex/agent memory rules are sourced from `/Users/tamerlan/AGENTS.md`.
@@ -25,4 +25,4 @@
 ## Next steps
 - Before any new implementation, fix or bypass the local git-status issue and verify the worktree is clean/dirty safely.
 - If the client expects the sample price-card rendering fix live, confirm whether production has been promoted from `3040beb` to `d976224`; memory still indicates `d976224` is READY in Vercel preview, while production may remain on `3040beb`.
-- Continue with the existing QA/deploy next steps in [[next-steps]].
+- Continue with the existing QA/deploy next steps in [[projects/David/next-steps]].

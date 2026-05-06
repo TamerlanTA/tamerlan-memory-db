@@ -1,10 +1,10 @@
 # Session 2026-04-28 — Sample price UI visibility fix
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
 
 ## What was done
 - Removed user-facing numeric sample pricing from the SaaS platform UI only.

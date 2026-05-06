@@ -1,12 +1,12 @@
 # Session 2026-05-07 — Project Skeleton And Runner Prompt
 
 ## Related
-- [[../overview]]
-- [[../current-state]]
-- [[../next-steps]]
-- [[../decisions]]
-- [[../risks]]
-- [[../prompts]]
+- [[projects/pipeline-C-praga/overview]]
+- [[projects/pipeline-C-praga/current-state]]
+- [[projects/pipeline-C-praga/next-steps]]
+- [[projects/pipeline-C-praga/decisions]]
+- [[projects/pipeline-C-praga/risks]]
+- [[projects/pipeline-C-praga/prompts]]
 
 ## What was done
 - Created the `pipline-C-praga` memory project skeleton.

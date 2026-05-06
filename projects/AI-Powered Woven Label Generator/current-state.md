@@ -1,11 +1,11 @@
 # Current State
 
 ## Related
-- [[overview]]
-- [[decisions]]
-- [[risks]]
-- [[next-steps]]
-- [[prompts]]
+- [[projects/AI-Powered Woven Label Generator/overview]]
+- [[projects/AI-Powered Woven Label Generator/decisions]]
+- [[projects/AI-Powered Woven Label Generator/risks]]
+- [[projects/AI-Powered Woven Label Generator/next-steps]]
+- [[projects/AI-Powered Woven Label Generator/prompts]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-15-header-refinement-and-eod-sync|Header refinement and EOD sync]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-15-preorder-confirmation-email-delivery|Pre-order confirmation email delivery]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-15-handoff-sync-preorder-email|Handoff sync after preorder email delivery]]

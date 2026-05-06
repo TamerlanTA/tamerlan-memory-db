@@ -1,10 +1,10 @@
 # Risks
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[decisions]]
-- [[next-steps]]
+- [[projects/storehouse-n8n/overview]]
+- [[projects/storehouse-n8n/current-state]]
+- [[projects/storehouse-n8n/decisions]]
+- [[projects/storehouse-n8n/next-steps]]
 
 ## Content
 ## Open risks

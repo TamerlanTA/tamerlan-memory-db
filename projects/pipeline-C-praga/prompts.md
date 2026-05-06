@@ -1,11 +1,11 @@
 # Prompts
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[decisions]]
-- [[risks]]
+- [[projects/pipeline-C-praga/overview]]
+- [[projects/pipeline-C-praga/current-state]]
+- [[projects/pipeline-C-praga/next-steps]]
+- [[projects/pipeline-C-praga/decisions]]
+- [[projects/pipeline-C-praga/risks]]
 - [[../FlowOps Team/03 - Acquisition Pipelines/Pipeline C — Website Audit Generator]]
 
 ## Content

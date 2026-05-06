@@ -1,11 +1,11 @@
 # Session 2026-04-15 — Griffes Vivienne Conversion Polish
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[decisions]]
-- [[risks]]
-- [[next-steps]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/decisions]]
+- [[projects/David/risks]]
+- [[projects/David/next-steps]]
 - [[patterns/git/verify-git-base-before-implementation|git base check feedback]]
 - [[patterns/auth/use-useauth-logout|logout feedback]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-15-header-refinement-and-eod-sync|Header refinement and EOD sync]]

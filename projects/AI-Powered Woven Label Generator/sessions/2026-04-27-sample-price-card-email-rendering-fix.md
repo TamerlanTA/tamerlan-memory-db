@@ -1,11 +1,11 @@
 # Session 2026-04-27 — Sample price card email rendering fix
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[decisions]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/decisions]]
+- [[projects/David/risks]]
 
 ## What was done
 - Investigated the missing sample-price reassurance line in the quote confirmation email.

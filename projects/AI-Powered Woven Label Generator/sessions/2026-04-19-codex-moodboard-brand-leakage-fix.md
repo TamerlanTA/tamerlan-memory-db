@@ -1,10 +1,10 @@
 # Session 2026-04-19 — Codex: Moodboard Brand Leakage Fix
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
 
 ## What was done (by Codex, session cut by token limit)
 

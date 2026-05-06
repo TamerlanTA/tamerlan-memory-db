@@ -1,10 +1,10 @@
 # Session 2026-04-25 — Buffer Multichannel And Image Style
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
 
 ## What was done
 - Updated WF-11 so one approval creates one Buffer GraphQL mutation with aliases for `linkedin`, `twitter`, and `threads`.

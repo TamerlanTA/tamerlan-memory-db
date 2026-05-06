@@ -1,10 +1,10 @@
 # Session 2026-04-19 — Owner Mobile and White Logo Hotfix
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
 
 ## What was done
 - Audited the owner-reported mobile generic result error and white-logo loading/mockup visibility issue.

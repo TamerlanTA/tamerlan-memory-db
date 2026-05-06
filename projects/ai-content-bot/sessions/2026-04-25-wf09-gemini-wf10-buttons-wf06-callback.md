@@ -1,11 +1,11 @@
 # Session 2026-04-25 — WF-09 Gemini image gen, WF-10 кнопки, WF-06 callback routing
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[decisions]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/decisions]]
+- [[projects/David/risks]]
 
 ---
 

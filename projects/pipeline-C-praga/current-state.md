@@ -1,11 +1,11 @@
 # Current State
 
 ## Related
-- [[overview]]
-- [[decisions]]
-- [[risks]]
-- [[next-steps]]
-- [[prompts]]
+- [[projects/pipeline-C-praga/overview]]
+- [[projects/pipeline-C-praga/decisions]]
+- [[projects/pipeline-C-praga/risks]]
+- [[projects/pipeline-C-praga/next-steps]]
+- [[projects/pipeline-C-praga/prompts]]
 
 ## Content
 - Project created on 2026-05-07 as a new FlowOps-related workstream.

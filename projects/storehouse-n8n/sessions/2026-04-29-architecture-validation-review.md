@@ -1,10 +1,10 @@
 # Session 2026-04-29 — Architecture Validation Review
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
 
 ## What was done
 - Reviewed all 3 workflow JSON exports using n8n workflow testing and validation criteria.

@@ -1,10 +1,10 @@
 # Session 2026-04-20 — Non-JSON Generation Stability Fix
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
 
 ## What was done
 - Audited the client-reported `Unexpected token 'R', "Request En..." is not valid JSON` failure path.

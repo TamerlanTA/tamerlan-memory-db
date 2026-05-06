@@ -1,10 +1,10 @@
 # Session 2026-04-30 — Critical Review Fixes
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
 
 ## What was done
 - Updated `/Users/tamerlan/Desktop/storehouse-n8n/workflows/workflow-1-main-ai-agent-photo-recognition.json`.

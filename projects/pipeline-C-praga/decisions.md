@@ -1,11 +1,11 @@
 # Decisions
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[risks]]
-- [[next-steps]]
-- [[prompts]]
+- [[projects/pipeline-C-praga/overview]]
+- [[projects/pipeline-C-praga/current-state]]
+- [[projects/pipeline-C-praga/risks]]
+- [[projects/pipeline-C-praga/next-steps]]
+- [[projects/pipeline-C-praga/prompts]]
 
 ## Content
 - Treat this as a separate project from FlowOps Team, but link it to FlowOps Pipeline C memory.

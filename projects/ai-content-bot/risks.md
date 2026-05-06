@@ -1,10 +1,10 @@
 # AI Content Bot — Risks & Blockers
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[decisions]]
-- [[next-steps]]
+- [[projects/ai-content-bot/overview]]
+- [[projects/ai-content-bot/current-state]]
+- [[projects/ai-content-bot/decisions]]
+- [[projects/ai-content-bot/next-steps]]
 
 ---
 

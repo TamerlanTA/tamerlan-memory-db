@@ -1,10 +1,10 @@
 # AI Content Bot — Overview
 
 ## Related
-- [[current-state]]
-- [[decisions]]
-- [[risks]]
-- [[next-steps]]
+- [[projects/ai-content-bot/current-state]]
+- [[projects/ai-content-bot/decisions]]
+- [[projects/ai-content-bot/risks]]
+- [[projects/ai-content-bot/next-steps]]
 - [[projects/linkedin-automation|LinkedIn Outreach (WF-00..WF-05)]]
 - [[agent-memory]]
 

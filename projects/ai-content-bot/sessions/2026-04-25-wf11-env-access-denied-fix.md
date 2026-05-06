@@ -1,11 +1,11 @@
 # Session 2026-04-25 — WF11 Env Access Denied Fix
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[decisions]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/decisions]]
+- [[projects/David/risks]]
 
 ## What was done
 - User reported WF-11 `Validate Input` fails in n8n Cloud with `access to env vars denied`.

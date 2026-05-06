@@ -1,11 +1,11 @@
 # Session 2026-04-25 — Remove Post Answer Callback
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[decisions]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/decisions]]
+- [[projects/David/risks]]
 
 ## What was done
 - User reported WF-10 still receives Telegram `{ok,result}` and throws the new guard error.

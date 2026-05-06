@@ -1,10 +1,10 @@
 # Current State
 
 ## Related
-- [[overview]]
-- [[decisions]]
-- [[risks]]
-- [[next-steps]]
+- [[projects/storehouse-n8n/overview]]
+- [[projects/storehouse-n8n/decisions]]
+- [[projects/storehouse-n8n/risks]]
+- [[projects/storehouse-n8n/next-steps]]
 
 ## Content
 Status as of 2026-04-30:

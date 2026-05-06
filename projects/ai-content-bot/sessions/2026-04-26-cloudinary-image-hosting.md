@@ -1,10 +1,10 @@
 # Session 2026-04-26 — Cloudinary Image Hosting
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
 
 ## What was done
 - Added Cloudinary signed image upload to WF-09.

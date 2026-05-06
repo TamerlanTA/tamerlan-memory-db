@@ -1,10 +1,10 @@
 # Session 2026-04-21 — Final Consistency Sweep Before Manual QA
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
 
 ## What was done
 - Completed the final post-Milestone 5 user-facing wording sweep across upload guidance, generation/result copy, Premium/credits language, quote request flow, quote email wording, legal pages, and FR/EN consistency.

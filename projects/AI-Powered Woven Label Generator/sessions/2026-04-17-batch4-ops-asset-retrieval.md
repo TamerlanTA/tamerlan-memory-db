@@ -1,10 +1,10 @@
 # Session 2026-04-17 — Batch 4 Ops Asset Retrieval
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
 
 ## What was done
 - Implemented Batch 4 inside the existing `/admin/stats` preorder view

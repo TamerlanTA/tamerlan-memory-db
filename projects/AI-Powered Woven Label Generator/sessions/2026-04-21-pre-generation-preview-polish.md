@@ -1,10 +1,10 @@
 # Session 2026-04-21 — Pre-Generation Preview Polish
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
 
 ## What was done
 - Polished the pre-generation logo preview UI only, staying within post-Milestone-5 polish scope.

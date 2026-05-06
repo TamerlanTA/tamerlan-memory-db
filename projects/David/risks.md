@@ -1,10 +1,10 @@
 # Make-David — Risks & Blockers
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[decisions]]
-- [[next-steps]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/decisions]]
+- [[projects/David/next-steps]]
 
 ---
 

@@ -1,7 +1,7 @@
 # Weekly FlowOps Review
 
 ## Related
-- [[overview]]
+- [[Linear/Linear Ops Automation System/overview]]
 - [[01-daily-command-center]]
 - [[05-linear-to-obsidian-memory-sync]]
 - [[projects/FlowOps Team/00 - Overview|FlowOps Team]]

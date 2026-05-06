@@ -1,10 +1,10 @@
 # Session 2026-04-20 — White Logo Preview Fix + Admin Users Metrics Fix
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
 
 ## What was done
 

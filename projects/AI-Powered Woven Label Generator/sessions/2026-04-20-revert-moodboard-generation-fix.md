@@ -1,10 +1,10 @@
 # Session 2026-04-20 — Revert Moodboard Generation Fix
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
 - [[2026-04-19-codex-moodboard-brand-leakage-fix]]
 
 ## What was done

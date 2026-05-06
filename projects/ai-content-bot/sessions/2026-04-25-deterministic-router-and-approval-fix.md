@@ -1,11 +1,11 @@
 # Session 2026-04-25 — Deterministic Router And Approval Fix
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[decisions]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/decisions]]
+- [[projects/David/risks]]
 
 ## What was done
 - Reworked the bot flow so critical commands no longer depend on AI Agent interpretation:

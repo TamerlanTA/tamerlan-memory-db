@@ -1,10 +1,10 @@
 # Session 2026-04-24 — Sample price card credit message
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
 
 ## What was done
 - Updated the quote confirmation email so the sample reimbursement / deduction benefit appears directly inside the top-right sample price card, immediately under the price.

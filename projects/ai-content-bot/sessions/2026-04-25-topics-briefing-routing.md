@@ -1,10 +1,10 @@
 # Session 2026-04-25 — Topics Briefing Routing
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
 
 ## What was done
 - Fixed WF-06 routing so `топ тем / темы для постов / briefing` requests call WF-08 instead of WF-07 discovery.

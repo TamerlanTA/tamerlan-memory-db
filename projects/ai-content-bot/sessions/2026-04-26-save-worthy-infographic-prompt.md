@@ -1,11 +1,11 @@
 # Session 2026-04-26 — Save-Worthy Infographic Prompt
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
-- [[prompts]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
+- [[projects/David/prompts]]
 
 ## What was done
 - Updated WF-09 image generation prompt after user feedback that images were cleaner but too empty and not engaging.

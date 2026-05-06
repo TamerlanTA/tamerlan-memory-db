@@ -1,10 +1,10 @@
 # Session 2026-04-25 — Channel Selection And Editorial Style
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
 
 ## What was done
 - Added publish channel selection to post preview buttons:

@@ -1,10 +1,10 @@
 # Session 2026-04-18 — Batch B Color Consistency Fix
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[decisions]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/decisions]]
 
 ## What was done
 

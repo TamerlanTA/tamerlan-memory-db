@@ -1,10 +1,10 @@
 # Session 2026-04-24 — Wave quality regression rebalance
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
 
 ## What was done
 - Investigated a new live-quality regression reported with real generated outputs: the whole scene, including the label ground and support surface, was covered with wavy / swirl-like artifacts.

@@ -1,7 +1,7 @@
 # Linear Ops Automation Implementation Plan
 
 ## Related
-- [[overview]]
+- [[Linear/Linear Ops Automation System/overview]]
 - [[01-daily-command-center]]
 - [[02-blocked-decision-bot]]
 - [[03-team-assignment-notifier]]

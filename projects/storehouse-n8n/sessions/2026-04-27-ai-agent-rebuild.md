@@ -1,11 +1,11 @@
 # Session 2026-04-27 — AI Agent Rebuild
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[decisions]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/decisions]]
+- [[projects/David/risks]]
 
 ## What was done
 - Rebuilt StoreHouse Telegram Bot workflow exports from the prior module-split architecture into a central AI Agent architecture.

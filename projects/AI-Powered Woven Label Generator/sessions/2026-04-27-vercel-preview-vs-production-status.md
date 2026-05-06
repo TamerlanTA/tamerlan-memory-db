@@ -1,10 +1,10 @@
 # Session 2026-04-27 — Vercel preview vs production status
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
 
 ## What was done
 - Verified local git state on `milestone4-auth-completion` and confirmed local `HEAD` is `d9762240467712f4994e663946b721a06982a6bc` (`Fix sample price card email rendering`).

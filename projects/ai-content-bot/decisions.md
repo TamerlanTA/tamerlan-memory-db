@@ -1,10 +1,10 @@
 # AI Content Bot — Decisions
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[risks]]
-- [[next-steps]]
+- [[projects/ai-content-bot/overview]]
+- [[projects/ai-content-bot/current-state]]
+- [[projects/ai-content-bot/risks]]
+- [[projects/ai-content-bot/next-steps]]
 
 ---
 

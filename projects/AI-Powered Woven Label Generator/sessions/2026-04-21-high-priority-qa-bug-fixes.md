@@ -1,11 +1,11 @@
 # Session 2026-04-21 — High-Priority QA Bug Fixes
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
-- [[decisions]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
+- [[projects/David/decisions]]
 
 ## What was done
 - Fixed the highest-priority confirmed bugs from the final integrated QA audit on `milestone4-auth-completion`.

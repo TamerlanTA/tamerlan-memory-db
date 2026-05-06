@@ -1,11 +1,11 @@
 # Session 2026-04-25 — Full JSON Audit And Logic Fixes
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[decisions]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/decisions]]
+- [[projects/David/risks]]
 
 ## What was done
 - Audited all local n8n JSON workflow files in `/Users/tamerlan/Desktop/linkedin automation/` for JSON validity, broken connections, leftover placeholders, Code-node syntax errors, and core logic gaps.
@@ -40,7 +40,7 @@
 
 ## Key findings
 - Local JSON now passes basic checks: JSON parse, connection target/source integrity, no `YOUR_*` / `REPLACE_WITH_*` placeholders, and Code-node syntax validation.
-- The main internal logic gaps from [[risks]] R-01/R-07 were addressed in local files.
+- The main internal logic gaps from [[projects/David/risks]] R-01/R-07 were addressed in local files.
 - Buffer remains externally blocked: the token currently stored in memory/API test returns `401 OIDC tokens are not accepted for direct API access`, and real Buffer profile IDs are still needed.
 
 ## Blockers

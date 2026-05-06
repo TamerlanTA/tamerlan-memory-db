@@ -1,7 +1,7 @@
 # Blocked Decision Bot
 
 ## Related
-- [[overview]]
+- [[Linear/Linear Ops Automation System/overview]]
 - [[01-daily-command-center]]
 - [[projects/FlowOps Team/Team Task Automation]]
 

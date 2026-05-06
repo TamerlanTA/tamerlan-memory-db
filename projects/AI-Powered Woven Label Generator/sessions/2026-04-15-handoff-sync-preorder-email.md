@@ -1,11 +1,11 @@
 # Session 2026-04-15 — Handoff sync after preorder email delivery
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[decisions]]
-- [[risks]]
-- [[next-steps]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/decisions]]
+- [[projects/David/risks]]
+- [[projects/David/next-steps]]
 
 ## Project
 AI-Powered Woven Label Generator (Griffes Vivienne)

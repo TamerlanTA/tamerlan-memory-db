@@ -1,10 +1,10 @@
 # Session 2026-04-24 — Background weave stability hardening
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
 
 ## What was done
 - Investigated the new post-rebalance failure class where logo/text reading was closer to correct but the woven label background itself became wavy, stretched, or uneven.

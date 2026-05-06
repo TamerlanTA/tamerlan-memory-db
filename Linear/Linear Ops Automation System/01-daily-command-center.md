@@ -1,7 +1,7 @@
 # Daily Command Center
 
 ## Related
-- [[overview]]
+- [[Linear/Linear Ops Automation System/overview]]
 - [[02-blocked-decision-bot]]
 - [[04-stale-issue-reminder]]
 - [[projects/FlowOps Team/00 - Overview|FlowOps Team]]

@@ -39,14 +39,10 @@
             "id": "407eaf30c8695fa4",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "projects/night-runner-agent-orchestration.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "night-runner-agent-orchestration"
+              "title": "Новая вкладка"
             }
           }
         ],
@@ -234,17 +230,18 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "a7e3df8f6bd81cee",
+  "active": "407eaf30c8695fa4",
   "lastOpenFiles": [
-    "projects/pipline-C-praga/sessions/2026-05-07-project-skeleton-and-runner-prompt.md",
-    "projects/pipline-C-praga/prompts.md",
-    "projects/pipline-C-praga/next-steps.md",
-    "projects/pipline-C-praga/risks.md",
-    "projects/pipline-C-praga/decisions.md",
-    "projects/pipline-C-praga/current-state.md",
-    "projects/pipline-C-praga/overview.md",
-    "projects/pipline-C-praga/sessions",
-    "projects/pipline-C-praga",
+    "projects/pipeline-C-praga/next-steps.md",
+    "projects/night-runner-agent-orchestration.md",
+    "projects/pipeline-C-praga/sessions/2026-05-07-project-skeleton-and-runner-prompt.md",
+    "projects/pipeline-C-praga/prompts.md",
+    "projects/pipeline-C-praga/risks.md",
+    "projects/pipeline-C-praga/decisions.md",
+    "projects/pipeline-C-praga/current-state.md",
+    "projects/pipeline-C-praga/overview.md",
+    "projects/pipeline-C-praga/sessions",
+    "projects/pipeline-C-praga",
     "projects/FlowOps Team/09 - Масштабирование/10 - Med Spa GTM Strategy Tracker.md",
     "projects/FlowOps Team/09 - Масштабирование/08 - Med Spa HIPAA Intake Launch Kit.md",
     "projects/FlowOps Team/09 - Масштабирование/09 - Pipeline C Med Spa Audit Prompt Spec.md",
@@ -264,7 +261,6 @@
     "projects/FlowOps Team/sessions/2026-05-04-pipeline-c-v2-completed.md",
     "projects/FlowOps Team/03 - Acquisition Pipelines/Pipeline D — Demo Library.md",
     "projects/FlowOps Team/03 - Acquisition Pipelines/Pipeline C — Website Audit Generator.md",
-    "projects/FlowOps Team/sessions/2026-05-03-pipeline-c-v2-automated-machine.md",
     "Linear/Linear Ops Automation System",
     "Linear",
     "Без названия.canvas",

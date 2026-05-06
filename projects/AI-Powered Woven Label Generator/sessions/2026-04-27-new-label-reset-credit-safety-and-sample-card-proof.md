@@ -1,11 +1,11 @@
 # Session 2026-04-27 — New label reset, credit safety, and sample card proof
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[decisions]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/decisions]]
+- [[projects/David/risks]]
 
 ## What was done
 - Fixed the active-flow reset bug so a newly uploaded logo now clears prior generation result linkage instead of reusing the previous `lastGenerated*` session state.

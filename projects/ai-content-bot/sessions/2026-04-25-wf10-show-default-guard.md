@@ -1,11 +1,11 @@
 # Session 2026-04-25 — WF10 Show Default Guard
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[decisions]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/decisions]]
+- [[projects/David/risks]]
 
 ## What was done
 - User confirmed approve/skip still invoked WF-10 `show`; WF-10 input showed only `ok/result`.

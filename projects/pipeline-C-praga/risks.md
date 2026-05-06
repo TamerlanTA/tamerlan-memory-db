@@ -1,11 +1,11 @@
 # Risks
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[decisions]]
-- [[next-steps]]
-- [[prompts]]
+- [[projects/pipeline-C-praga/overview]]
+- [[projects/pipeline-C-praga/current-state]]
+- [[projects/pipeline-C-praga/decisions]]
+- [[projects/pipeline-C-praga/next-steps]]
+- [[projects/pipeline-C-praga/prompts]]
 
 ## Content
 - Search APIs may return non-Prague or directory/social results; workflow needs strict Prague evidence checks.

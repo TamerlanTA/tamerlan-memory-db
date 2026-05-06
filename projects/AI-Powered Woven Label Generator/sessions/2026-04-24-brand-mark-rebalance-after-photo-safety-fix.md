@@ -1,11 +1,11 @@
 # Session 2026-04-24 — Brand-mark rebalance after photo-safety fix
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[decisions]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/decisions]]
+- [[projects/David/risks]]
 
 ## What was done
 - Re-audited the recent product-photo brand-mark interpretation fix and confirmed the regression source: product-photo defensive wording had been applied across nearly every prompt path, including explicit `TEXT_ONLY`, `SYMBOL_ONLY`, and `SYMBOL_AND_TEXT`.

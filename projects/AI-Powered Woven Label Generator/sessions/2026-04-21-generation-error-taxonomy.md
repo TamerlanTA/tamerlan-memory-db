@@ -1,11 +1,11 @@
 # Session 2026-04-21 — Generation Error Taxonomy
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
-- [[decisions]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
+- [[projects/David/decisions]]
 
 ## What was done
 - Implemented a narrow UX/error-handling stabilization fix for generation failures.

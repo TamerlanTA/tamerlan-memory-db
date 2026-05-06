@@ -1,10 +1,10 @@
 # Session 2026-04-17 — Batch 3 Preorder Generation Asset Linkage
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
 
 ## What was done
 - Implemented Batch 3 by persisting exact preorder linkage to `generationId`, `sourceAssetId`, and `resultAssetId`

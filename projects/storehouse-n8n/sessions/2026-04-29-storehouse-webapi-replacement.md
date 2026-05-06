@@ -1,11 +1,11 @@
 # Session 2026-04-29 — StoreHouse WebAPI Replacement
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[decisions]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/decisions]]
+- [[projects/David/risks]]
 
 ## What was done
 - Replaced all `MOCK —` StoreHouse nodes with real HTTP Request nodes targeting `/api/sh5exec`.

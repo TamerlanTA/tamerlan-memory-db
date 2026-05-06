@@ -1,11 +1,11 @@
 # Pipeline C Praga Overview
 
 ## Related
-- [[current-state]]
-- [[decisions]]
-- [[risks]]
-- [[next-steps]]
-- [[prompts]]
+- [[projects/pipeline-C-praga/current-state]]
+- [[projects/pipeline-C-praga/decisions]]
+- [[projects/pipeline-C-praga/risks]]
+- [[projects/pipeline-C-praga/next-steps]]
+- [[projects/pipeline-C-praga/prompts]]
 - [[../FlowOps Team/00 - Overview]]
 - [[../FlowOps Team/03 - Acquisition Pipelines/Pipeline C — Website Audit Generator]]
 

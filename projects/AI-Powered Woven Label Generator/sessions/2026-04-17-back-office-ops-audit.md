@@ -1,10 +1,10 @@
 # Session 2026-04-17 — Back-office ops audit for sales-first mini-block
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
 
 ## What was done
 - Performed a grounded audit of the current Griffes Vivienne codebase for the new small-scope back-office / ops visibility block

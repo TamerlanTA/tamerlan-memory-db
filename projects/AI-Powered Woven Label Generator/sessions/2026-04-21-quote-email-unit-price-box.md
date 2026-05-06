@@ -1,11 +1,11 @@
 # Session 2026-04-21 — Quote Email Unit Price Box
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
-- [[decisions]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
+- [[projects/David/decisions]]
 
 ## What was done
 - Status: accepted by user for this batch.

@@ -1,10 +1,10 @@
 # Session 2026-04-23 — Product Photo Brand-Mark Interpretation Fix
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
 
 ## What was done
 - Inspected the live generation path in `server/nanoBananaService.ts`, `server/label/buildGenerationPrompt.ts`, `server/label/variationProfiles.ts`, and the generation/pipeline tests.

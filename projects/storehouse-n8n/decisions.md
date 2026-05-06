@@ -1,10 +1,10 @@
 # Decisions
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[risks]]
-- [[next-steps]]
+- [[projects/storehouse-n8n/overview]]
+- [[projects/storehouse-n8n/current-state]]
+- [[projects/storehouse-n8n/risks]]
+- [[projects/storehouse-n8n/next-steps]]
 
 ## Content
 ## 2026-04-27 — Create full project memory skeleton

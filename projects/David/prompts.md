@@ -1,9 +1,9 @@
 # Make-David — Prompts & Patterns
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
 
 ---
 

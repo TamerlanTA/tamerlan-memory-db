@@ -1,10 +1,10 @@
 # Next Steps
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[risks]]
-- [[decisions]]
+- [[projects/storehouse-n8n/overview]]
+- [[projects/storehouse-n8n/current-state]]
+- [[projects/storehouse-n8n/risks]]
+- [[projects/storehouse-n8n/decisions]]
 
 ## Content
 Immediate next steps (as of 2026-04-30, all requested workflow JSON fixes are complete):

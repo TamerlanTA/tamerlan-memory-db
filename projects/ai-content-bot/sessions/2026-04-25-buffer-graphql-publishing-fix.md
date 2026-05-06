@@ -1,11 +1,11 @@
 # Session 2026-04-25 — Buffer GraphQL Publishing Fix
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[decisions]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/decisions]]
+- [[projects/David/risks]]
 
 ## What was done
 - User reported WF-11 skipped Buffer because `IF: Buffer Configured` returned false, then sent a misleading approval message.

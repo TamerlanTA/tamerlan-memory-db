@@ -1,11 +1,11 @@
 # Session 2026-04-21 — Final Integrated QA Audit
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
-- [[decisions]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
+- [[projects/David/decisions]]
 
 ## What was done
 - Audited the integrated `milestone4-auth-completion` branch after legal/auth/favicon work and accepted Vercel-fix cherry-picks.

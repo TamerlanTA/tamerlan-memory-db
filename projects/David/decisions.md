@@ -1,10 +1,10 @@
 # Make-David — Decisions
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[risks]]
-- [[next-steps]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/risks]]
+- [[projects/David/next-steps]]
 
 ---
 

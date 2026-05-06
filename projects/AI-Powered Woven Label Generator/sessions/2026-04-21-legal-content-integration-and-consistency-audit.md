@@ -1,10 +1,10 @@
 # Session 2026-04-21 — Legal Content Integration and Consistency Audit
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
 
 ## What was done
 - Integrated the client-provided `Mentions_Legales_CGV_FINAL.docx` into the existing legal page registry rather than creating a new legal-page architecture.

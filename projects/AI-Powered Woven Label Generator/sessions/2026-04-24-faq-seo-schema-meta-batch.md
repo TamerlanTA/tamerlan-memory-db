@@ -1,11 +1,11 @@
 # Session 2026-04-24 — FAQ SEO, schema, and meta batch
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[decisions]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/decisions]]
+- [[projects/David/risks]]
 
 ## What was done
 - Read the approved FR and EN FAQ SEO briefs from local PDFs in Downloads.

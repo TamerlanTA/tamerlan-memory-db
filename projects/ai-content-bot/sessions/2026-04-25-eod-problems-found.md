@@ -1,10 +1,10 @@
 # Session 2026-04-25 EOD — Обнаруженные проблемы и план на завтра
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
 
 ---
 
@@ -35,4 +35,4 @@
 
 ## Что нужно завтра
 
-Полная переработка блока approve/publish (WF-09 тема-матчинг + WF-10 post_id навигация + WF-11 статус обновление). Детальный план — в [[next-steps]].
+Полная переработка блока approve/publish (WF-09 тема-матчинг + WF-10 post_id навигация + WF-11 статус обновление). Детальный план — в [[projects/David/next-steps]].

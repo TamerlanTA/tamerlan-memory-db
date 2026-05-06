@@ -1,11 +1,11 @@
 # Session 2026-04-27 — Mock n8n Workflows
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[decisions]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/decisions]]
+- [[projects/David/risks]]
 
 ## What was done
 - Generated mock-version n8n workflow JSON exports for StoreHouse Telegram Bot automation.

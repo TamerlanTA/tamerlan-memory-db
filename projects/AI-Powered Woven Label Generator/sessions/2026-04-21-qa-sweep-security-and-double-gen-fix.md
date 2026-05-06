@@ -7,10 +7,10 @@ type: project
 # Session 2026-04-21 — QA Sweep: Security Fix + Double-Generation Fix
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
 
 ## What was done
 

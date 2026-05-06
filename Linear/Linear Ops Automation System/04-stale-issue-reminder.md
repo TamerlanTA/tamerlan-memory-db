@@ -1,7 +1,7 @@
 # Stale Issue Reminder
 
 ## Related
-- [[overview]]
+- [[Linear/Linear Ops Automation System/overview]]
 - [[03-team-assignment-notifier]]
 - [[01-daily-command-center]]
 

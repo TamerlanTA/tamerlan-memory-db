@@ -1,10 +1,10 @@
 # Session 2026-04-30 — Windows Server n8n Install Guidance
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[next-steps]]
-- [[risks]]
+- [[projects/David/overview]]
+- [[projects/David/current-state]]
+- [[projects/David/next-steps]]
+- [[projects/David/risks]]
 
 ## What was done
 - Prepared operational guidance for installing n8n on a Windows Server accessed over RDP.

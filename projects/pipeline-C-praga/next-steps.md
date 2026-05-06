@@ -1,14 +1,14 @@
 # Next Steps
 
 ## Related
-- [[overview]]
-- [[current-state]]
-- [[decisions]]
-- [[risks]]
-- [[prompts]]
+- [[projects/pipeline-C-praga/overview]]
+- [[projects/pipeline-C-praga/current-state]]
+- [[projects/pipeline-C-praga/decisions]]
+- [[projects/pipeline-C-praga/risks]]
+- [[projects/pipeline-C-praga/prompts]]
 
 ## Content
-1. Use the prepared task prompt in [[prompts]] with the Night Runner autonomous orchestration system.
+1. Use the prepared task prompt in [[projects/pipeline-C-praga/prompts]] with the Night Runner autonomous orchestration system.
 2. Configure `.agent/memory-config.json` in the target project:
    - `project_memory_dir`: `projects/pipline-C-praga`
 3. Keep `read_before_run` focused on:
