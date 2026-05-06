@@ -40,6 +40,7 @@ Do not build all offers at once. Treat this as an experimentation backlog. Promo
 |---|---|---|
 | Med Spa HIPAA Intake Launch Kit | First practical sales kit for testing HIPAA-safe intake cleanup with Pipeline C | [[08 - Med Spa HIPAA Intake Launch Kit]] |
 | Pipeline C Med Spa Audit Prompt Spec | Copy-paste-ready AI prompt, JSON schema, scoring rubric, Telegram card, Airtable mapping, guardrails, and test run plan for Miami/Scottsdale/Austin | [[09 - Pipeline C Med Spa Audit Prompt Spec]] |
+| Med Spa GTM Strategy Tracker | Metrics, stop/pivot rules, funnel targets, and review cadence for validating the first med spa campaign | [[10 - Med Spa GTM Strategy Tracker]] |
 
 ## Operating rule
 
@@ -66,3 +67,5 @@ The product is not "compliance". The product is an operational evidence system:
 3. Use Pipeline C to generate targeted website audits.
 4. Record Loom only for strong-fit prospects.
 5. After replies, write a follow-up session note with actual response quality.
+
+For med spa execution metrics and decision rules, use [[10 - Med Spa GTM Strategy Tracker]].

@@ -35,6 +35,7 @@
 - Created [[../09 - Масштабирование/09 - Pipeline C Med Spa Audit Prompt Spec]]: full copy-paste-ready specification for patching Pipeline C to run med spa HIPAA intake audits.
 - Spec includes: system prompt, user prompt with 6-dimension scoring rubric (0–20), all 28 JSON output fields, quality gate routing rules (16–20 Loom / 12–15 Email / 8–11 CRM / 0–7 Skip), cold email wrapper, Telegram review card format, Airtable field mapping (new fields to add), safe language guardrails with n8n Code node blocklist, and first test run plan for Miami + Scottsdale + Austin (24 queries, 8 per city).
 - Updated [[../09 - Масштабирование/00 - Scaling Hub]] with new kit entry.
+- Created [[../09 - Масштабирование/10 - Med Spa GTM Strategy Tracker]] to track the acquisition hypothesis, funnel targets, metrics, stop/pivot rules, and review cadence.
 
 ## Status of spec
 - Med spa prompt spec remains not fully implemented.
@@ -50,3 +51,4 @@
 - Run first batch: `/pipeline_c` targeting Miami, Scottsdale, Austin.
 - Success target: 5+ Telegram cards score 12+, 10+ emails sent, track replies for 5 days.
 - Close a paid sprint at $1,500–$4,000 after free audit interest.
+- After 50 touches, update [[../09 - Масштабирование/10 - Med Spa GTM Strategy Tracker]] and write a session note with reply rate, serious replies, Loom requests, objections, and recommendation to continue/adjust/pivot.
