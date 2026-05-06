@@ -69,7 +69,7 @@ Check:
 
 ## Pricing
 
-- Audit: **$300-$750**.
+- Audit: **free** as the first trust-building touch.
 - Sprint: **$1,500-$4,000**.
 - Monthly support: **$500-$1,500/month**.
 
@@ -94,7 +94,7 @@ Run Pipeline C for one week only against:
 Goal:
 - 30-50 targeted audits;
 - 5 serious replies;
-- 1 paid audit or sprint.
+- 1 paid sprint.
 
 First practical launch kit:
 - [[08 - Med Spa HIPAA Intake Launch Kit]]

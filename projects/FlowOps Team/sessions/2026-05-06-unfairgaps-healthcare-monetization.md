@@ -27,13 +27,14 @@
 
 ## Blockers
 - FlowOps is not a law/compliance firm; outreach must avoid legal claims and should frame findings as operational risk cleanup.
-- Validation is still incomplete until small clinics confirm budget through calls or paid audit/sprint purchases.
+- Validation is still incomplete until small clinics confirm budget through calls or paid sprint purchases.
+- User clarified on 2026-05-06 that the audit should be free; monetization starts from the cleanup sprint / implementation.
 
 ## Next steps
 - Adapt Pipeline C rubric for healthcare/wellness site audits.
 - Build one Loom demo showing "risky intake flow → safer intake/follow-up architecture."
 - Run 30-50 healthcare-specific audit outreaches.
-- Close paid audit at $300-$750 or sprint at $1,500-$4,000.
+- Close a paid sprint at $1,500-$4,000 after free audit interest.
 - If testing more than one offer, start with three cards: healthcare intake cleanup, lead consent evidence chain, and ADA remediation evidence pack.
 - Next work block can turn the first 1-3 briefs into landing-page cards, Pipeline C audit rubrics, and outreach templates.
 - For the immediate med spa test, use [[../09 - Масштабирование/08 - Med Spa HIPAA Intake Launch Kit]]: run 30-50 prospects, email score 12+, Loom score 16+.

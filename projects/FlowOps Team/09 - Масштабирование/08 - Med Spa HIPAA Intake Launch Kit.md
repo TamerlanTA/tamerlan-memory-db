@@ -34,6 +34,14 @@ Why med spas first:
 - many collect sensitive treatment interests or health-adjacent intake details;
 - buying decision can be faster than traditional clinics.
 
+## Profile links for messages
+
+Use these in cold emails, follow-ups, LinkedIn DMs, and Loom descriptions:
+
+- Website: https://www.flowops.agency
+- LinkedIn: https://www.linkedin.com/in/tamerlan-togysbayev-855a8526b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app
+- Upwork: https://www.upwork.com/freelancers/tamerlantog?mp_source=share
+
 ## Prospect filters
 
 Good fit:
@@ -143,7 +151,7 @@ The cleaner version is: form or booking request comes in, the lead is logged wit
 ### 5. CTA
 
 ```text
-I can map this in a short paid cleanup audit, or rebuild the intake/follow-up workflow in a 5-7 day sprint. If helpful, I can send a simple one-page version of what I would change.
+I can send you a short free cleanup audit showing what I would tighten. If it looks useful, the implementation is a focused 5-7 day sprint.
 ```
 
 ## Cold email 1
@@ -166,6 +174,9 @@ Worth sending you a quick 2-min Loom with what I noticed?
 
 Tamerlan
 FlowOps
+Website: https://www.flowops.agency
+LinkedIn: https://www.linkedin.com/in/tamerlan-togysbayev-855a8526b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app
+Upwork: https://www.upwork.com/freelancers/tamerlantog?mp_source=share
 ```
 
 ## Cold email 2, stronger pain angle
@@ -192,8 +203,10 @@ Happy to record a short Loom showing the workflow I would clean up on your site.
 Worth sending?
 
 Tamerlan
-
-
+FlowOps
+Website: https://www.flowops.agency
+LinkedIn: https://www.linkedin.com/in/tamerlan-togysbayev-855a8526b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app
+Upwork: https://www.upwork.com/freelancers/tamerlantog?mp_source=share
 ```
 
 ## LinkedIn DM
@@ -223,17 +236,17 @@ Still happy to send the 2-min Loom.
 ```text
 Hey [Name],
 
-Closing the loop here. I am testing a small cleanup audit for med spas: mapping the consultation request flow and showing where response time or data handoffs can be tightened.
+Closing the loop here. I am testing a free cleanup audit for med spas: mapping the consultation request flow and showing where response time or data handoffs can be tightened.
 
 If that is useful, I can send the quick audit. If not, no worries.
 ```
 
-## Paid audit offer
+## Free audit offer
 
 Use after a reply.
 
 ```text
-Perfect. The light version is a paid cleanup audit.
+Perfect. I can do the light version as a free cleanup audit.
 
 I review the consultation/intake path, identify where data and follow-up handoffs get messy, and send:
 
@@ -243,7 +256,7 @@ I review the consultation/intake path, identify where data and follow-up handoff
 - a short Loom walkthrough;
 - a sprint quote if you want me to implement it.
 
-It is $500 fixed and usually takes 48 hours.
+No charge for the audit. If the workflow is worth fixing, I can quote the 5-7 day implementation sprint after that.
 ```
 
 ## Sprint offer
@@ -326,4 +339,3 @@ Never say:
 - [ ] Record Looms only for score 16+.
 - [ ] Track replies in FlowOps CRM.
 - [ ] After 50 sends, review reply rate and objections.
-
