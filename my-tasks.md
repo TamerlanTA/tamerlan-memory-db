@@ -20,6 +20,8 @@
 - [ ] Прописать и упаковать retainer offer: tiers, pitch, follow-up sequence, delivery boundaries.
 - [ ] Прописать sales process по шагам в актуальной рабочей версии: signal -> opener -> pre-call research -> discovery call -> proposal -> objections -> close/onboarding.
 - [ ] Закрыть первого Sprint-клиента через Upwork или LinkedIn и после результата предложить retainer через 7-14 дней.
+- [ ] Изменить pipeline C на поиск всех чатов именно в Праге 
+- [ ] Настроить команикайию между ии агентами 
 
 ### Team / Delegation
 - [ ] Adil: довести FlowOps sales documentation kit до usable состояния. Linear: `FLO-16`.

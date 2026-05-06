@@ -6,6 +6,24 @@
 - [[flowops-agency-website]]
 
 ## Current status
+- Due date update fix on 2026-05-07:
+  - Client reported ClickUp due date columns were empty even though due date text existed in task descriptions.
+  - Confirmed Jotform date fields in blueprint metadata:
+    - `q84_sellsheetdue` = Sellsheet Due / Design due date
+    - `q83_costingdue` = Costing Due
+    - `q85_samplesdue` = Samples Due (Goal Ship Date)
+    - Each is a Jotform `collection` with `day`, `month`, and `year`.
+  - Backup before change: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-due-date-update-modules.backup.json`.
+  - Updated active blueprint: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.updated.blueprint.json`.
+  - Saved copy: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.due-date-update-modules.blueprint.json`.
+  - Module `22` now exposes `design_due_ms`, `costing_due_ms`, and `sampling_due_ms`.
+  - Date conversion uses Make date functions: `parseDate(year-month-day; "YYYY-MM-DD"; "UTC")` then `formatDate(...; "x"; "UTC")` to produce Unix timestamp milliseconds for ClickUp.
+  - Added post-create ClickUp update API modules rather than changing task creation JSON:
+    - dynamic branch: `130` updates Design task `{{9.body.id}}`; `132` updates Sampling `{{12.body.id}}`; `134` updates Costing `{{13.body.id}}`
+    - Unbranded branch: `136` updates Design `{{109.id}}`; `138` updates Sampling `{{112.id}}`; `140` updates Costing `{{113.id}}`
+  - Each due-date update module uses `PUT /v2/task/{task_id}` with body `{"due_date": {{22.<due_ms>}}, "due_date_time": false}` and is filtered to run only when the corresponding due date variable is non-empty.
+  - Task creation modules are unchanged; routing and parent/item/child hierarchy remain intact.
+  - Verification: JSON valid, 31 modules, no duplicate IDs, no active `toJSON`, no active `custom_fields` mappers. Router `8` flows are now `[9,20,130]`, `[12,21,132]`, `[13,16,134]`; router `108` flows are `[109,120,136]`, `[112,121,138]`, `[113,116,140]`.
 - Brand Type routing source fix on 2026-05-05:
   - User reported a House Brand submission where `Brand Type = House Brand`, `Customer` was blank, and `House Brand = Fortunes Without Cookies`, but module `22` routed from blank `q11_customer` to `UNKNOWN` / fallback list `901711596089`.
   - Confirmed field keys in blueprint metadata:
