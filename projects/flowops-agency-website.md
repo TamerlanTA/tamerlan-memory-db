@@ -5,6 +5,7 @@
 - [[FlowOps promo video scene system]]
 
 ## Current status
+- 2026-05-05: Built the new cinematic FlowOps hero section in `/Users/tamerlan/Desktop/FlowOps2`: full-screen space video background from `public/hero-video.mp4`, GSAP/ScrollTrigger pinning, scroll-scrubbed video currentTime, staged hero text transforms, floating proof badges, exit fade, CSS star-field fallback, and mobile non-pinned looping video behavior. Homepage now renders `HeroSection` plus an empty black `#systems` section as the next-section transition target.
 - 2026-05-05: In `/Users/tamerlan/Desktop/FlowOps2`, set up the new website foundation only: dark Space/Electric Blue/Amber CSS token system, Inter via `next/font/google`, Lenis provider, GSAP/ScrollTrigger helpers, custom cursor, and root layout wrappers. No page content or API routes were intentionally changed.
 - 2026-04-26: Published the `FlowOps2` rebrand to GitHub production branch `main` for `https://github.com/TamerlanTA/FlowOps`. Commit: `d0c9d99` (`Launch FlowOps command-center rebrand`).
 - Vercel project `flowops` built the new `main` commit successfully. Deployment `dpl_2ZrnYgHabX4VRyvMVrDUZW76UhmN` reached `READY` and aliases include `www.flowops.agency`, `flowops-orpin.vercel.app`, and `flowops-git-main-tamertt931-8560s-projects.vercel.app`.
@@ -24,6 +25,7 @@
 - 2026-04-26: Addressed reported hydration mismatch warning by adding root `suppressHydrationWarning` on `html`/`body` for extension-injected attributes and fixing Navbar hash-route active comparison (`/#cases`) to compare only the pathname.
 
 ## Key decisions
+- 2026-05-05 hero pass: Used Lucide SVG icons for stat badges instead of emoji glyphs to keep icon rendering consistent with the UI/UX quality checklist. Used `/hero-video.mp4` as the served asset path even though the source file lives at `public/hero-video.mp4`, because Next serves `public` files from the site root.
 - 2026-05-05: Treat the current rebuild as a foundation pass. Page sections/content should be rebuilt later against the new design system rather than expanded during this infrastructure step.
 - User explicitly asked for a full rebrand and to reuse only the old site's information; therefore the old visual components were not reused in `FlowOps2`.
 - GitHub clone/download of the two reference repos stalled on network, so the `FlowOps2` implementation adapted the referenced effect direction from the known pattern: canvas orbit/data particles, horizon grid, scan-panel hover, portal-like cards, and command-panel workflow UI.
@@ -37,6 +39,7 @@
 - For the GitHub-reference pass, adapted visual techniques instead of copying the repos directly: 2D canvas approximates orbit/ring/data movement, CSS handles portal/depth hover, and pointer CSS variables provide a “camera” feel without Three.js/GSAP runtime cost.
 
 ## Validation
+- 2026-05-05 hero pass: `npm run build` passed. Playwright CLI/browser checks on `http://localhost:3000` confirmed desktop has one pin spacer, scroll advances video currentTime from ~0s to full duration, staged text/badges/exit overlay opacity changes during scroll, and console had 0 errors/warnings. Mobile `390x844` check confirmed no pin spacer, video `autoplay=true`, `loop=true`, not paused, and badges hidden. `npm run lint` still fails only on protected Session A file `components/providers/LenisProvider.tsx` (`react-hooks/set-state-in-effect`); the new hero files no longer add lint errors.
 - 2026-05-05 foundation pass: `npm run build` passed. Dev server ran at `http://localhost:3000`. Chromium CDP smoke check confirmed `body` background `rgb(0, 0, 0)`, custom cursor dot/ring visible after mouse movement, `html` had the Lenis class, and no browser console warnings/errors were emitted during load. `npx playwright screenshot` captured `/tmp/flowops-foundation.png`.
 - Production deploy validation: Vercel deployment for commit `d0c9d995b4565718bc4ae0277c3d9b0c609de0e0` is `READY`; Vercel fetch of `https://flowops-orpin.vercel.app` returned HTTP 200 and contained the new command-center rebrand HTML.
 - Clean `main` worktree validation before push: `npm run lint` passed and `npm run build` passed.
@@ -56,6 +59,8 @@
 - Hydration warning fix validation: `npm run lint` passed with the same pre-existing `components/Services.tsx` warning and `npm run build` passed after the Navbar nullable pathname type fix.
 
 ## Residual risks
+- 2026-05-05 hero pass: The next section is currently an empty black `#systems` placeholder so the hero exit fade has somewhere to transition. Future section builds should replace it with real content without changing the hero foundation.
+- 2026-05-05 hero pass: `npm run lint` is blocked by `components/providers/LenisProvider.tsx`, which was explicitly protected in the hero request and not modified.
 - 2026-05-05: `npm install` reported 7 audit vulnerabilities (3 moderate, 4 high) in the dependency tree. No audit fix was run because that could change package versions beyond the requested install.
 - 2026-05-05: Replacing `globals.css` with the new foundation removes the prior page-specific global styling. This matches the infrastructure-only rebuild request, but existing page content will need a future rebuild/restyle pass to look production-ready again.
 - `/Users/tamerlan/Desktop/PC/FlowOps` is still the old local dirty `milestone4-auth-completion` worktree; production `main` was updated through `/tmp/flowops-main-worktree`. If future local edits should start from production, switch/clone from `main` carefully instead of continuing from the dirty milestone branch.
@@ -68,6 +73,7 @@
 - `test-results/.last-run.json` remains untracked from a failed temporary Playwright test attempt; deletion needs explicit user confirmation.
 
 ## Next steps
+- Build the first real post-hero section at `#systems` and connect the secondary CTA to meaningful live-systems content.
 - Build the actual FlowOps page sections/components on top of the new dark foundation, using the new CSS variables, Lenis scroll, GSAP helpers, and cursor data attributes.
 - Decide whether to address the npm audit findings now or after the page rebuild, to avoid unrelated dependency churn during design implementation.
 - Manually open `https://www.flowops.agency` and `https://flowops-orpin.vercel.app` to check final visual behavior on real desktop/mobile browsers.

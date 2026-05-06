@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "GPT project instructions.md",
+                "file": "projects/flowops-agency-website.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "GPT project instructions"
+              "title": "flowops-agency-website"
             }
           }
         ],
@@ -236,8 +236,8 @@
   },
   "active": "407eaf30c8695fa4",
   "lastOpenFiles": [
-    "projects/FlowOps Team/08 - Выполненные задачи/Completed.md",
     "GPT project instructions.md",
+    "projects/FlowOps Team/08 - Выполненные задачи/Completed.md",
     "projects/FlowOps Team/03 - Acquisition Pipelines/Pipeline E — Retainer Conversion.md",
     "projects/FlowOps Team/sessions/2026-05-04-pipeline-c-v2-completed.md",
     "projects/FlowOps Team/03 - Acquisition Pipelines/Pipeline D — Demo Library.md",
