@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "projects/flowops-agency-website.md",
+                "file": "projects/FlowOps Team/09 - Масштабирование/00 - Scaling Hub.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "flowops-agency-website"
+              "title": "00 - Scaling Hub"
             }
           }
         ],
@@ -234,8 +234,17 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "a7e3df8f6bd81cee",
+  "active": "407eaf30c8695fa4",
   "lastOpenFiles": [
+    "projects/FlowOps Team/09 - Масштабирование/07 - Subscription Cancellation Flow Audit.md",
+    "projects/FlowOps Team/09 - Масштабирование/06 - AI Hiring Audit Trail Sprint.md",
+    "projects/FlowOps Team/09 - Масштабирование/05 - Auto Dealer Price Fees Cleanup Sprint.md",
+    "projects/FlowOps Team/09 - Масштабирование/04 - OSHA Safety Evidence Vault Sprint.md",
+    "projects/FlowOps Team/09 - Масштабирование/03 - ADA Website Defense Prep Sprint.md",
+    "projects/FlowOps Team/09 - Масштабирование/02 - Lead Consent Evidence Chain Sprint.md",
+    "projects/FlowOps Team/09 - Масштабирование/01 - HIPAA-Safe Intake Cleanup Sprint.md",
+    "projects/FlowOps Team/09 - Масштабирование/00 - Scaling Hub.md",
+    "projects/flowops-agency-website.md",
     "projects/FlowOps Team/09 - Масштабирование",
     "GPT project instructions.md",
     "projects/FlowOps Team/08 - Выполненные задачи/Completed.md",
@@ -254,14 +263,6 @@
     "My-tasks.md",
     "projects/FlowOps Team/Pipeline A — Upwork Radar.md",
     "projects/FlowOps Team/00 - Overview.md",
-    "sessions/2026-05-03-vault-audit-and-cleanup.md",
-    "projects/AI-Powered Woven Label Generator/overview.md",
-    "patterns/claude-code-workflow.md",
-    "projects/FlowOps Team/05 - CRM Structure/Airtable CRM Build Spec.md",
-    "Linear/Linear Ops Automation System/overview.md",
-    "Linear/Linear Ops Automation System/implementation-plan.md",
-    "Linear/Linear Ops Automation System/implementation-log.md",
-    "Linear/Linear Ops Automation System/06-weekly-flowops-review.md",
     "Linear/Linear Ops Automation System",
     "Linear",
     "Без названия.canvas",
@@ -272,7 +273,6 @@
     "My-Team/Aslanbek/tasks/active-tasks",
     "My-Team/Aslanbek/tasks",
     "My-Team/Aslanbek",
-    "My-Team/Aslanbek/tasks/TASK-2026-04-30-pricing-section.json",
     "Без названия 1.canvas"
   ]
 }

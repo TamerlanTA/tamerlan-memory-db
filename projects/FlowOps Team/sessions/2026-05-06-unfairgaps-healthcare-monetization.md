@@ -15,6 +15,7 @@
 - Created [[../01 - Strategy/validation-hipaa-safe-intake-automation-2026-05-06]].
 - User liked the healthcare wedge and asked to explore several additional FlowOps offer candidates instead of staying limited to the original three offers.
 - Created [[../01 - Strategy/unfairgaps-offer-backlog-2026-05-06]] with a ranked regulatory-risk sprint backlog.
+- Expanded the backlog into detailed briefs under [[../09 - Масштабирование/00 - Scaling Hub]].
 
 ## Key findings
 - Best near-term revenue wedge: **HIPAA-Safe Intake + Follow-up Cleanup Sprint** for small US healthcare/wellness practices.
@@ -33,3 +34,4 @@
 - Run 30-50 healthcare-specific audit outreaches.
 - Close paid audit at $300-$750 or sprint at $1,500-$4,000.
 - If testing more than one offer, start with three cards: healthcare intake cleanup, lead consent evidence chain, and ADA remediation evidence pack.
+- Next work block can turn the first 1-3 briefs into landing-page cards, Pipeline C audit rubrics, and outreach templates.

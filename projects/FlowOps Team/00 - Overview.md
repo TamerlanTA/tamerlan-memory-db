@@ -62,6 +62,9 @@ FlowOps — это агентство AI-автоматизации. Мы про
 ### 🤖 Linear automation layer
 - [[Linear/Linear Ops Automation System/overview|Linear Ops Automation System]] — planned automations for Linear + Obsidian execution
 
+### 📈 Масштабирование
+- [[09 - Масштабирование/00 - Scaling Hub|Scaling Hub]] — каталог новых Risk Cleanup Sprint офферов
+
 ---
 
 ## 🔥 Текущие приоритеты
