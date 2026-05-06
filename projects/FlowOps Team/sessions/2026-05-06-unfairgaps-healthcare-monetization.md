@@ -16,6 +16,7 @@
 - User liked the healthcare wedge and asked to explore several additional FlowOps offer candidates instead of staying limited to the original three offers.
 - Created [[../01 - Strategy/unfairgaps-offer-backlog-2026-05-06]] with a ranked regulatory-risk sprint backlog.
 - Expanded the backlog into detailed briefs under [[../09 - Масштабирование/00 - Scaling Hub]].
+- Created [[../09 - Масштабирование/08 - Med Spa HIPAA Intake Launch Kit]] as the first practical sales kit for Pipeline C testing.
 
 ## Key findings
 - Best near-term revenue wedge: **HIPAA-Safe Intake + Follow-up Cleanup Sprint** for small US healthcare/wellness practices.
@@ -35,3 +36,4 @@
 - Close paid audit at $300-$750 or sprint at $1,500-$4,000.
 - If testing more than one offer, start with three cards: healthcare intake cleanup, lead consent evidence chain, and ADA remediation evidence pack.
 - Next work block can turn the first 1-3 briefs into landing-page cards, Pipeline C audit rubrics, and outreach templates.
+- For the immediate med spa test, use [[../09 - Масштабирование/08 - Med Spa HIPAA Intake Launch Kit]]: run 30-50 prospects, email score 12+, Loom score 16+.

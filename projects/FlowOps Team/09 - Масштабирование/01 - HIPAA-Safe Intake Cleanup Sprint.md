@@ -96,3 +96,5 @@ Goal:
 - 5 serious replies;
 - 1 paid audit or sprint.
 
+First practical launch kit:
+- [[08 - Med Spa HIPAA Intake Launch Kit]]

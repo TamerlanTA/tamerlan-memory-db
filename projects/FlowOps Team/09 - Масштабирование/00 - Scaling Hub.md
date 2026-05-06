@@ -34,6 +34,12 @@ Do not build all offers at once. Treat this as an experimentation backlog. Promo
 |    6 | AI Hiring Audit Trail                 | EMERGING             | recruiters, staffing firms, HR teams                | [[06 - AI Hiring Audit Trail Sprint]]          |
 |    7 | Subscription Cancellation Flow Audit  | WEAK / PROMISING     | SaaS, subscription e-commerce, gyms, education      | [[07 - Subscription Cancellation Flow Audit]]  |
 
+## Active launch kits
+
+| Kit | Purpose | Link |
+|---|---|---|
+| Med Spa HIPAA Intake Launch Kit | First practical sales kit for testing HIPAA-safe intake cleanup with Pipeline C | [[08 - Med Spa HIPAA Intake Launch Kit]] |
+
 ## Operating rule
 
 Each offer must stay tied to the FlowOps delivery model:
@@ -59,4 +65,3 @@ The product is not "compliance". The product is an operational evidence system:
 3. Use Pipeline C to generate targeted website audits.
 4. Record Loom only for strong-fit prospects.
 5. After replies, write a follow-up session note with actual response quality.
-
