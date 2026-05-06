@@ -17,6 +17,7 @@
 - Created [[../01 - Strategy/unfairgaps-offer-backlog-2026-05-06]] with a ranked regulatory-risk sprint backlog.
 - Expanded the backlog into detailed briefs under [[../09 - Масштабирование/00 - Scaling Hub]].
 - Created [[../09 - Масштабирование/08 - Med Spa HIPAA Intake Launch Kit]] as the first practical sales kit for Pipeline C testing.
+- Fixed Pipeline C v2 email drafts after Telegram preview showed messages without Tamerlan's profile links. Updated `/Users/tamerlan/Desktop/flowopsteamPipelines/pipeline-c-v2-audit-queue-workflow.json` and source generator `/Users/tamerlan/Desktop/flowopsteamPipelines/build-pipeline-c-v2-workflows.js` so generated cold emails always append Website, LinkedIn, and Upwork links.
 
 ## Key findings
 - Best near-term revenue wedge: **HIPAA-Safe Intake + Follow-up Cleanup Sprint** for small US healthcare/wellness practices.
@@ -36,14 +37,16 @@
 - Updated [[../09 - Масштабирование/00 - Scaling Hub]] with new kit entry.
 
 ## Status of spec
-- Specification only. Not yet implemented in n8n workflow JSON.
-- Do NOT modify n8n workflow files until explicitly asked.
+- Med spa prompt spec remains not fully implemented.
+- Partial workflow patch completed: current Pipeline C v2 Audit Queue now appends profile links to cold email drafts / Telegram email previews.
+- The active n8n workflow still needs to be re-imported or manually updated from `/Users/tamerlan/Desktop/flowopsteamPipelines/pipeline-c-v2-audit-queue-workflow.json` before the live bot reflects this fix.
 
 ## Next steps
 - Patch `pipeline-c-v2-audit-queue-workflow.json`: swap AI prompt, add guardrail Code node, extend Airtable Create Record nodes with new med spa fields.
 - Patch `pipeline-c-v2-prospecting-workflow.json`: replace query arrays with med spa city queries.
 - Add new Airtable fields to `Audits` and `Leads` tables (listed in spec section 7).
 - Test prompt in OpenAI Playground with 3 sample scraped pages before importing to n8n.
+- Re-import/update the active n8n Audit Queue workflow so profile links appear in new Telegram previews and approved Gmail sends.
 - Run first batch: `/pipeline_c` targeting Miami, Scottsdale, Austin.
 - Success target: 5+ Telegram cards score 12+, 10+ emails sent, track replies for 5 days.
 - Close a paid sprint at $1,500–$4,000 after free audit interest.
