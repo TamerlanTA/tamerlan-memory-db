@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "projects/FlowOps Team/09 - Масштабирование/10 - Med Spa GTM Strategy Tracker.md",
+                "file": "projects/night-runner-agent-orchestration.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "10 - Med Spa GTM Strategy Tracker"
+              "title": "night-runner-agent-orchestration"
             }
           }
         ],
@@ -234,10 +234,19 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "407eaf30c8695fa4",
+  "active": "a7e3df8f6bd81cee",
   "lastOpenFiles": [
-    "projects/FlowOps Team/09 - Масштабирование/08 - Med Spa HIPAA Intake Launch Kit.md",
+    "projects/pipline-C-praga/sessions/2026-05-07-project-skeleton-and-runner-prompt.md",
+    "projects/pipline-C-praga/prompts.md",
+    "projects/pipline-C-praga/next-steps.md",
+    "projects/pipline-C-praga/risks.md",
+    "projects/pipline-C-praga/decisions.md",
+    "projects/pipline-C-praga/current-state.md",
+    "projects/pipline-C-praga/overview.md",
+    "projects/pipline-C-praga/sessions",
+    "projects/pipline-C-praga",
     "projects/FlowOps Team/09 - Масштабирование/10 - Med Spa GTM Strategy Tracker.md",
+    "projects/FlowOps Team/09 - Масштабирование/08 - Med Spa HIPAA Intake Launch Kit.md",
     "projects/FlowOps Team/09 - Масштабирование/09 - Pipeline C Med Spa Audit Prompt Spec.md",
     "projects/FlowOps Team/09 - Масштабирование/01 - HIPAA-Safe Intake Cleanup Sprint.md",
     "projects/FlowOps Team/09 - Масштабирование/00 - Scaling Hub.md",
@@ -256,13 +265,6 @@
     "projects/FlowOps Team/03 - Acquisition Pipelines/Pipeline D — Demo Library.md",
     "projects/FlowOps Team/03 - Acquisition Pipelines/Pipeline C — Website Audit Generator.md",
     "projects/FlowOps Team/sessions/2026-05-03-pipeline-c-v2-automated-machine.md",
-    "projects/FlowOps Team/sessions/2026-05-03-pipeline-c-workflow-template.md",
-    "projects/FlowOps Team/03 - Acquisition Pipelines/Pipeline A — Upwork Radar.md",
-    "projects/FlowOps Team/03 - Pipelines/Pipeline A — Upwork Radar.md",
-    "projects/FlowOps Team/04 - Sales Process/Discovery Call Script.md",
-    "projects/FlowOps Team/04 - Sales/Discovery Call Script.md",
-    "projects/FlowOps Team/04 - Sales/How to Sell Price.md",
-    "My-Team/Adil/tasks/active-tasks/_active-task-template.md",
     "Linear/Linear Ops Automation System",
     "Linear",
     "Без названия.canvas",
@@ -271,8 +273,6 @@
     "My-Team/Aslanbek/tasks/next-task",
     "My-Team/Aslanbek/tasks/comleted",
     "My-Team/Aslanbek/tasks/active-tasks",
-    "My-Team/Aslanbek/tasks",
-    "My-Team/Aslanbek",
     "Без названия 1.canvas"
   ]
 }
