@@ -30,11 +30,20 @@
 - Validation is still incomplete until small clinics confirm budget through calls or paid sprint purchases.
 - User clarified on 2026-05-06 that the audit should be free; monetization starts from the cleanup sprint / implementation.
 
+## What was created (2026-05-06 continuation)
+- Created [[../09 - Масштабирование/09 - Pipeline C Med Spa Audit Prompt Spec]]: full copy-paste-ready specification for patching Pipeline C to run med spa HIPAA intake audits.
+- Spec includes: system prompt, user prompt with 6-dimension scoring rubric (0–20), all 28 JSON output fields, quality gate routing rules (16–20 Loom / 12–15 Email / 8–11 CRM / 0–7 Skip), cold email wrapper, Telegram review card format, Airtable field mapping (new fields to add), safe language guardrails with n8n Code node blocklist, and first test run plan for Miami + Scottsdale + Austin (24 queries, 8 per city).
+- Updated [[../09 - Масштабирование/00 - Scaling Hub]] with new kit entry.
+
+## Status of spec
+- Specification only. Not yet implemented in n8n workflow JSON.
+- Do NOT modify n8n workflow files until explicitly asked.
+
 ## Next steps
-- Adapt Pipeline C rubric for healthcare/wellness site audits.
-- Build one Loom demo showing "risky intake flow → safer intake/follow-up architecture."
-- Run 30-50 healthcare-specific audit outreaches.
-- Close a paid sprint at $1,500-$4,000 after free audit interest.
-- If testing more than one offer, start with three cards: healthcare intake cleanup, lead consent evidence chain, and ADA remediation evidence pack.
-- Next work block can turn the first 1-3 briefs into landing-page cards, Pipeline C audit rubrics, and outreach templates.
-- For the immediate med spa test, use [[../09 - Масштабирование/08 - Med Spa HIPAA Intake Launch Kit]]: run 30-50 prospects, email score 12+, Loom score 16+.
+- Patch `pipeline-c-v2-audit-queue-workflow.json`: swap AI prompt, add guardrail Code node, extend Airtable Create Record nodes with new med spa fields.
+- Patch `pipeline-c-v2-prospecting-workflow.json`: replace query arrays with med spa city queries.
+- Add new Airtable fields to `Audits` and `Leads` tables (listed in spec section 7).
+- Test prompt in OpenAI Playground with 3 sample scraped pages before importing to n8n.
+- Run first batch: `/pipeline_c` targeting Miami, Scottsdale, Austin.
+- Success target: 5+ Telegram cards score 12+, 10+ emails sent, track replies for 5 days.
+- Close a paid sprint at $1,500–$4,000 after free audit interest.

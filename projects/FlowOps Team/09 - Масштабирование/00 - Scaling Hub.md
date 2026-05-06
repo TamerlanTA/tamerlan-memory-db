@@ -39,6 +39,7 @@ Do not build all offers at once. Treat this as an experimentation backlog. Promo
 | Kit | Purpose | Link |
 |---|---|---|
 | Med Spa HIPAA Intake Launch Kit | First practical sales kit for testing HIPAA-safe intake cleanup with Pipeline C | [[08 - Med Spa HIPAA Intake Launch Kit]] |
+| Pipeline C Med Spa Audit Prompt Spec | Copy-paste-ready AI prompt, JSON schema, scoring rubric, Telegram card, Airtable mapping, guardrails, and test run plan for Miami/Scottsdale/Austin | [[09 - Pipeline C Med Spa Audit Prompt Spec]] |
 
 ## Operating rule
 
