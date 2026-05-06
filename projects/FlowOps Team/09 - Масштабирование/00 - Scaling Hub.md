@@ -24,15 +24,15 @@ Do not build all offers at once. Treat this as an experimentation backlog. Promo
 
 ## Offer briefs
 
-| Rank | Offer | Status | Best first buyer | Brief |
-|---:|---|---|---|---|
-| 1 | HIPAA-Safe Intake + Follow-up Cleanup | PROMISING | small clinics, therapy, med spas, dental | [[01 - HIPAA-Safe Intake Cleanup Sprint]] |
-| 2 | Lead Consent Evidence Chain | PROMISING | home services, solar, insurance, mortgage, agencies | [[02 - Lead Consent Evidence Chain Sprint]] |
-| 3 | ADA Website Defense Prep | PROMISING / crowded | Shopify, local services, clinics, restaurants | [[03 - ADA Website Defense Prep Sprint]] |
-| 4 | OSHA Safety Evidence Vault | PROMISING | contractors, roofing, stone fabrication | [[04 - OSHA Safety Evidence Vault Sprint]] |
-| 5 | Auto Dealer Price Fees Cleanup | EMERGING / PROMISING | used-car and local auto dealers | [[05 - Auto Dealer Price Fees Cleanup Sprint]] |
-| 6 | AI Hiring Audit Trail | EMERGING | recruiters, staffing firms, HR teams | [[06 - AI Hiring Audit Trail Sprint]] |
-| 7 | Subscription Cancellation Flow Audit | WEAK / PROMISING | SaaS, subscription e-commerce, gyms, education | [[07 - Subscription Cancellation Flow Audit]] |
+| Rank | Offer                                 | Status               | Best first buyer                                    | Brief                                          |
+| ---: | ------------------------------------- | -------------------- | --------------------------------------------------- | ---------------------------------------------- |
+|    1 | HIPAA-Safe Intake + Follow-up Cleanup | PROMISING            | small clinics, therapy, med spas, dental            | [[01 - HIPAA-Safe Intake Cleanup Sprint]]      |
+|    2 | Lead Consent Evidence Chain           | PROMISING            | home services, solar, insurance, mortgage, agencies | [[02 - Lead Consent Evidence Chain Sprint]]    |
+|    3 | ADA Website Defense Prep              | PROMISING / crowded  | Shopify, local services, clinics, restaurants       | [[03 - ADA Website Defense Prep Sprint]]       |
+|    4 | OSHA Safety Evidence Vault            | PROMISING            | contractors, roofing, stone fabrication             | [[04 - OSHA Safety Evidence Vault Sprint]]     |
+|    5 | Auto Dealer Price Fees Cleanup        | EMERGING / PROMISING | used-car and local auto dealers                     | [[05 - Auto Dealer Price Fees Cleanup Sprint]] |
+|    6 | AI Hiring Audit Trail                 | EMERGING             | recruiters, staffing firms, HR teams                | [[06 - AI Hiring Audit Trail Sprint]]          |
+|    7 | Subscription Cancellation Flow Audit  | WEAK / PROMISING     | SaaS, subscription e-commerce, gyms, education      | [[07 - Subscription Cancellation Flow Audit]]  |
 
 ## Operating rule
 
