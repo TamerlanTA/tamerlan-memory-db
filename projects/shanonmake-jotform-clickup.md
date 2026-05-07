@@ -6,6 +6,20 @@
 - [[flowops-agency-website]]
 
 ## Current status
+- Submitted By custom field update on 2026-05-07:
+  - Client accepted workaround for ClickUp system `Created by`: a regular ClickUp email custom field named `Submitted By`.
+  - Field ID: `c8de277b-6bf8-4891-aea2-fd2f87460051`.
+  - Confirmed Jotform field key in blueprint metadata:
+    - `q6_submitteremail` = `Please enter your VH Clickup Email Address`.
+  - Backup before change: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-submitted-by-field-update.backup.json`.
+  - Updated active blueprint: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.updated.blueprint.json`.
+  - Saved copy: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.submitted-by-field-fixed.blueprint.json`.
+  - Module `22` now exposes `submitted_by_email = {{trim(1.request.q6_submitteremail)}}`.
+  - Added filtered post-create ClickUp API modules instead of reintroducing task-create `custom_fields` payloads:
+    - Unbranded: `150` parent `{{107.body.id}}`, `151` item `{{105.id}}`, `152` Design `{{109.id}}`, `153` Sampling `{{112.id}}`, `154` Costing `{{113.id}}`.
+    - General/dynamic: `155` parent `{{7.body.id}}`, `156` item `{{5.body.id}}`, `157` Design `{{9.body.id}}`, `158` Sampling `{{12.body.id}}`, `159` Costing `{{13.body.id}}`.
+  - Each new module calls `POST /v2/task/{task_id}/field/c8de277b-6bf8-4891-aea2-fd2f87460051` with body `{"value": "{{22.submitted_by_email}}"}` and is filtered out when `submitted_by_email` is blank.
+  - Verification: JSON valid, 41 modules, no duplicate IDs, no active `toJSON`, no active task-create `custom_fields` mappers. Routing, due-date update modules, and no-op Task Type/custom field protections remain in place.
 - Due date update fix on 2026-05-07:
   - Client reported ClickUp due date columns were empty even though due date text existed in task descriptions.
   - Confirmed Jotform date fields in blueprint metadata:
