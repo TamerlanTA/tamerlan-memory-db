@@ -29,6 +29,7 @@ Last updated: 2026-05-08
 
 ## Immediate
 
+- **25x25 live generation QA**: after deploying the square-format hotfix, generate `25x25` HD beige/black and `25x25` HD Cotton beige/black; confirm the visible label body is square/1:1, not long horizontal.
 - **Fix local git-status issue before further implementation**: current workspace `git status` fails with stale/conflicting worktree metadata pointing at `/Users/tamerlan/.git/worktrees/elated-engelbart`; verify clean/dirty state before editing, committing, or deploying.
 - **Browser QA before client review**: upload an actual white PNG logo and verify Home upload preview + Prepare preview remain visible on white/off-white backgrounds.
 - **Generation QA before client review**: live-generate one symbol-only logo and one text-containing logo to confirm the safer `symbol_only` default does not reintroduce hallucinated text and still preserves intentionally uploaded text where appropriate.

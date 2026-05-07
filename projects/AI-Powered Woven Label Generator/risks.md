@@ -27,6 +27,7 @@ Last updated: 2026-05-08
 
 ## Resolved this session
 
+- ~~**25x25 generates as long horizontal label** — owner screenshots showed selected `25x25` output rendering as a wide rectangular label~~ — **FIXED LOCALLY**: prompt/domain controls now lock `25x25` as a physical square label body with 1:1 aspect ratio; HD Cotton no longer hardcodes long-horizontal composition for all sizes.
 - ~~**New label stale active-flow leak** — after a quote request, uploading a new logo could still inherit `lastGenerated*` result linkage and behave like the previous result/order session was still active~~ — **FIXED LOCALLY**: `SET_LOGO` now clears previous generation result linkage and Home upload continue now clears persisted local order-intent draft before entering Prepare.
 - ~~**Uncertain generation value safety** — it was unclear whether provider/storage failures could still burn paid credits or free-trial value~~ — **VERIFIED / TESTED**: bookkeeping still happens only after provider success and successful result-asset storage; new router-level tests cover paid provider failure, guest storage failure, and paid success ordering.
 - ~~**previewImageUrl injection** — `submitPreOrderInputSchema.previewImageUrl` accepted any string, allowing crafted requests to inject arbitrary image URLs into the preorder confirmation email~~ — **FIXED** (`fb0c5e4`, `466f897`): `.url().max(4096)` + http/https refine added to schema boundary
@@ -35,6 +36,7 @@ Last updated: 2026-05-08
 
 ## Open technical risks
 
+- 25x25 square-format fix is prompt/test verified but still needs live Gemini QA after deploy with HD beige/black and HD Cotton beige/black; if drift persists, add format-specific retry feedback on validator failure.
 - ~~**Confirmed before client review** — Client generation defaults still resolve `DEFAULT_LOGO_TYPE = "text_only"` and send `TEXT_ONLY` to `label.generate`, bypassing the accepted server default `SYMBOL_ONLY` from the anti-hallucination fix~~ — **FIXED**: client default now resolves to `symbol_only` and focused tests were updated.
 - ~~**Confirmed before client review** — White/near-white logo preview contrast is fixed in loading hero/config summary, but the main Prepare mockup preview still renders white logo pixels directly on selected white/off-white backgrounds~~ — **FIXED IN CODE**: Home and Prepare now use UI-only contrast preview surfaces; browser visual QA still needed.
 - ~~**Confirmed but lower-risk** — `auth.logout` clears the legacy cookie with only `{ path: "/" }`; focused test expects deletion with secure/httpOnly/sameSite/maxAge options matching the original session cookie~~ — **FIXED**: logout clears with session cookie options plus `maxAge: -1`.
