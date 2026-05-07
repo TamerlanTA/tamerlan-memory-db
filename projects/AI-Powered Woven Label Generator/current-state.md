@@ -36,8 +36,19 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-27-sample-price-card-email-rendering-fix|Sample price card email rendering fix]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-28-handoff-sync-memory-source-and-local-state|Handoff sync: memory source and local state]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-28-sample-price-ui-visibility-fix|Sample price UI visibility fix]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-05-08-moq-1000-r2-hotfix-and-freemium-ux|MOQ 1000, R2 hotfix, and freemium gate UX]]
 
-Last updated: 2026-05-07
+Last updated: 2026-05-08
+
+## 2026-05-08 deltas
+
+- Active branch is now `claude/magical-mendel-0ac677` (worktree `magical-mendel-0ac677` at `/Users/tamerlan/Desktop/griffes-vivienne-studio-claude-r2-storage-integration-pU2tu/.claude/worktrees/magical-mendel-0ac677`). 70 commits ahead of `origin/main`.
+- Latest commits on this branch: `35faedc` (MOQ 1000 + 25×25 + brand-leakage prompts) → `ab9b86c` (R2 storage hotfix) → `5e54191` (freemium gate UX).
+- **Production MOQ raised from 500 to 1000 pcs**. Sample flow unchanged. `client/src/domain/order.ts:PRODUCTION_MIN_QUANTITY = 1_000`. Backend Zod refines on `orderIntentDraftPayloadSchema` reject production quantity < 1000.
+- **R2 storage: degraded inline-key mode** active in production until `R2_ACCESS_KEY_ID` / `R2_SECRET_ACCESS_KEY` / `R2_BUCKET` are set in Vercel. `server/assets.ts` no longer gates the inline fallback on `!ENV.isProduction`; it stores `inline://assets/<kind>-<nanoid>.<ext>` as the URL placeholder (NOT data URLs — would overflow MySQL TEXT 65535-byte limit). `getGenerationDownloadUrl` returns NOT_FOUND when it sees an inline-key labelUrl.
+- **Freemium gate now surfaces actionable errors**. `GUEST_FREE_TRIAL_EXHAUSTED` and `INSUFFICIENT_CREDITS` codes added to `shared/generationErrors.ts`; mapped to tRPC FORBIDDEN; Result page CTAs route to `/sign-in` and `/credits`.
+- Vercel project: `griffes-vivienne-studio-3vop` (`prj_LkPZqybEyxElduycv9y1O1qu6G4j`), team `team_JfRybqpC6WsadUDMtKRb857f`. Production domain `methode.griffesvivienne.com`. Latest production deployment is `dpl_3chqiCXLhRD8Y69AuwTANjkrFVZt` (commit `35faedc`); `ab9b86c` and `5e54191` will deploy on next push trigger.
+- Vercel runtime log MCP tool is severely capped (~5 entries per query, only first log line per request). Use `web_fetch_vercel_url` or code analysis when you need full error context.
 
 - Active long-running branch: `milestone4-auth-completion` — HEAD `416b742` (Hide sample pricing in platform UI, 2026-04-28) — **NOT yet merged to `main`**
 - `origin/main` HEAD: `f51482c` (Integrate Clerk auth across client and backend, 2026-04-13) — **30+ commits behind `milestone4-auth-completion`**

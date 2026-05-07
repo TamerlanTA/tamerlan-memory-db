@@ -16,7 +16,14 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-28-handoff-sync-memory-source-and-local-state|Handoff sync: memory source and local state]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-28-sample-price-ui-visibility-fix|Sample price UI visibility fix]]
 
-Last updated: 2026-04-28
+Last updated: 2026-05-08
+
+## Production blockers (2026-05-08)
+
+- **R2 credentials NOT set in Vercel production env** — `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET` are missing on `griffes-vivienne-studio-3vop` (`prj_LkPZqybEyxElduycv9y1O1qu6G4j`). Generation now works in degraded inline-key mode after hotfix `ab9b86c`, but **re-download of any label generated without R2 returns NOT_FOUND**. Owner must add env vars in Vercel and redeploy for persistent storage to work.
+- **MySQL TEXT overflow risk** — `generations.logoUrl`/`labelUrl` are `text() NOT NULL` (65535-byte cap). Storing base64 data URLs there would overflow for typical PNG output (~200KB+). Hotfix `ab9b86c` stores short `inline://...` keys instead. If anyone later changes the fallback to write data URLs, this overflow will return.
+- **Favicon not yet replaced** — owner provided new gold "F" circle logo image but it must be saved manually to `client/public/favicon.png`. `?v=2` cache-bust already shipped in `index.html`.
+
 
 ## Resolved this session
 

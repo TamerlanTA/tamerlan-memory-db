@@ -16,7 +16,16 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-28-handoff-sync-memory-source-and-local-state|Handoff sync: memory source and local state]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-28-sample-price-ui-visibility-fix|Sample price UI visibility fix]]
 
-Last updated: 2026-04-28
+Last updated: 2026-05-08
+
+## Production hotfix follow-up (2026-05-08)
+
+- **Owner: add R2 env vars to Vercel** — `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET`, and `R2_ACCOUNT_ID` (or `R2_ENDPOINT`) on `griffes-vivienne-studio-3vop` (production env), then redeploy. Without these, generation runs in degraded inline-key mode and re-downloads return NOT_FOUND.
+- **Owner: replace `client/public/favicon.png`** with new gold "F" circle logo image. `?v=2` cache-bust already shipped.
+- **End-to-end generation QA** in incognito (fresh guest session) after R2 env vars are set — confirm asset records, presigned URLs, and re-download all work.
+- **Freemium gate UX QA** — exhaust a guest free trial and confirm the new `GUEST_FREE_TRIAL_EXHAUSTED` screen shows "Create an account" CTA routing to `/sign-in`; for a paid user with zero balance, confirm `INSUFFICIENT_CREDITS` screen routes to `/credits` via "Buy credits" CTA.
+- **Branch decision**: `claude/magical-mendel-0ac677` is now 70 commits ahead of `origin/main`. Decide whether to merge to `milestone4-auth-completion` first or open a PR straight to `main`.
+- **Pre-existing test failures still open** (unrelated): `texturePresets`, `label.domain`, `label.productionBatch`, `nanoBanana.pipeline` — investigate separately.
 
 ## Immediate
 
