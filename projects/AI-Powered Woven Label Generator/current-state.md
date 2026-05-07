@@ -42,7 +42,7 @@ Last updated: 2026-05-08
 
 ## 2026-05-08 deltas
 
-- **25x25 square-format generation hotfix implemented locally** after owner screenshots showed `25x25` selections generating as long horizontal labels. Prompt/domain control now treats `25x25` as a physical square label body with 1:1 aspect ratio, not just a reference code. HD Cotton compact prompts no longer hardcode `One long horizontal woven cotton label only`; HD/HD Cotton regression tests added. Verification: focused prompt/generation tests PASS, `pnpm check` PASS, `pnpm build` PASS.
+- **25x25 square-format generation hotfix implemented and pushed** (`a8a8e5a` on `milestone4-auth-completion`) after owner screenshots showed `25x25` selections generating as long horizontal labels. Prompt/domain control now treats `25x25` as a physical square label body with 1:1 aspect ratio, not just a reference code. HD Cotton compact prompts no longer hardcode `One long horizontal woven cotton label only`; HD/HD Cotton regression tests added. Verification: focused prompt/generation tests PASS, `pnpm check` PASS, `pnpm build` PASS.
 - Active branch is now `claude/magical-mendel-0ac677` (worktree `magical-mendel-0ac677` at `/Users/tamerlan/Desktop/griffes-vivienne-studio-claude-r2-storage-integration-pU2tu/.claude/worktrees/magical-mendel-0ac677`). 70 commits ahead of `origin/main`.
 - Latest commits on this branch: `35faedc` (MOQ 1000 + 25×25 + brand-leakage prompts) → `ab9b86c` (R2 storage hotfix) → `5e54191` (freemium gate UX).
 - **Production MOQ raised from 500 to 1000 pcs**. Sample flow unchanged. `client/src/domain/order.ts:PRODUCTION_MIN_QUANTITY = 1_000`. Backend Zod refines on `orderIntentDraftPayloadSchema` reject production quantity < 1000.

@@ -26,6 +26,7 @@
 - `pnpm exec vitest run server/nanoBananaService.helpers.test.ts server/generation.test.ts` PASS — 49 tests.
 - `pnpm check` PASS.
 - `pnpm build` PASS with existing analytics env and bundle-size warnings.
+- Committed and pushed to GitHub on `milestone4-auth-completion`: `a8a8e5a` — `Fix 25x25 square label generation prompts`.
 
 ## Next steps
 - Run a live generation for `25x25` HD beige/black and `25x25` HD Cotton beige/black after deploying this patch.
