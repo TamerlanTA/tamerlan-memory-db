@@ -37,10 +37,12 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-28-handoff-sync-memory-source-and-local-state|Handoff sync: memory source and local state]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-28-sample-price-ui-visibility-fix|Sample price UI visibility fix]]
 
-Last updated: 2026-04-28
+Last updated: 2026-05-07
 
-- Active branch: `milestone4-auth-completion`
-- Latest pushed commit: `416b742` — `Hide sample pricing in platform UI`
+- Active long-running branch: `milestone4-auth-completion` — HEAD `416b742` (Hide sample pricing in platform UI, 2026-04-28) — **NOT yet merged to `main`**
+- `origin/main` HEAD: `f51482c` (Integrate Clerk auth across client and backend, 2026-04-13) — **30+ commits behind `milestone4-auth-completion`**
+- Current worktree session (`magical-mendel-0ac677`): on `main`, clean, no new work yet
+- R2 storage integration fully committed and included in `milestone4-auth-completion`
 - Handoff sync confirmed the active memory protocol source is `/Users/tamerlan/AGENTS.md`, not a project-local `AGENTS.md`; it points to `/Users/tamerlan/Documents/TamerMemoryDB/Tamerlan Memory DB`.
 - Local workspace path for this handoff: `/Users/tamerlan/Desktop/griffes-vivienne-studio-claude-r2-storage-integration-pU2tu`.
 - Local `git log` confirms `HEAD` at `d976224`, but `git status` currently fails with stale/conflicting worktree metadata: `fatal: not a git repository: /Users/tamerlan/.git/worktrees/elated-engelbart`.
