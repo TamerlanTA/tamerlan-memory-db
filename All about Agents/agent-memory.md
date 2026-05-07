@@ -39,6 +39,13 @@
 - **Databases:** MySQL, Supabase (Postgres), Drizzle migrations
 - **Memory / continuity:** Obsidian vault as cross-session memory for AI agents
 
+### Resume baseline
+- 2026-05-08: updated resume files created on Desktop:
+  - `/Users/tamerlan/Desktop/Tamerlan_Togysbayev_Resume_2026-05-Updated.pdf`
+  - `/Users/tamerlan/Desktop/Tamerlan_Togysbayev_Resume_2026-05-Updated.md`
+- Current positioning: AI Automation Engineer / Full-Stack AI Systems Builder focused on n8n/Make, LLM workflows, Telegram command centers, Airtable/Linear operating systems, AI website audits, and production AI web apps.
+- Fresh highlights to preserve in future resume iterations: FlowOps Client Acquisition OS, Pipeline C Website Audit Generator + Prague visit-ready variant, LinkedIn Outreach Automation, AI Content Bot, Linear Ops Automation System, StoreHouse n8n Warehouse Automation, Griffes Vivienne production AI product, WhatsApp traffic-fines bot, and FlowOps agency website.
+
 ---
 
 ## Multi-Agent Orchestration (ОС LLM pattern)
