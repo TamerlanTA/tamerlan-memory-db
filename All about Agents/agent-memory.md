@@ -45,6 +45,10 @@
   - `/Users/tamerlan/Desktop/Tamerlan_Togysbayev_Resume_2026-05-Updated.md`
 - Current positioning: AI Automation Engineer / Full-Stack AI Systems Builder focused on n8n/Make, LLM workflows, Telegram command centers, Airtable/Linear operating systems, AI website audits, and production AI web apps.
 - Fresh highlights to preserve in future resume iterations: FlowOps Client Acquisition OS, Pipeline C Website Audit Generator + Prague visit-ready variant, LinkedIn Outreach Automation, AI Content Bot, Linear Ops Automation System, StoreHouse n8n Warehouse Automation, Griffes Vivienne production AI product, WhatsApp traffic-fines bot, and FlowOps agency website.
+- 2026-05-08 follow-up: user rejected the first update as too much like a list of tasks. New target is a confident business-owner-facing resume / mini-portfolio, not an implementation inventory. New draft created:
+  - `/Users/tamerlan/Desktop/Tamerlan_Togysbayev_Business_Owner_Resume.pdf`
+  - `/Users/tamerlan/Desktop/resume-screenshot-pack-needed.md`
+- Resume narrative to preserve: "AI Automation Engineer for owners who want fewer manual processes, faster lead response, and systems that keep running." Emphasize owner pains, business outcomes, approval gates, reliability, CRM visibility, and case-study proof. Use screenshots as evidence, not decoration.
 
 ---
 
