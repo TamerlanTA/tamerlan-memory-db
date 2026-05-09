@@ -139,6 +139,7 @@
 ## Operational Notes
 
 - Pipeline C v2 should be treated as completed. Future work is optimization and campaign iteration, not initial build.
+- **FlowOps Opportunity Engine skill created on 2026-05-09:** `/Users/tamerlan/.codex/skills/flowops-opportunity-engine/`. Use it for trigger-based prospect diagnosis across website signals, reviews, hiring pain, tech stack gaps, event/exhibitor triggers, scoring, outreach, Loom scripts, and compliance-safe B2B outbound.
 - Use Telegram to start a batch: `/pipeline_c` or `/audit_sites`.
 - Default batch is 30 review candidates/run; smaller runs can be requested with `/pipeline_c 20`, `/pipeline_c 15`, etc.
 - Email copy is teaser-style and must not claim a Loom exists unless a Loom URL exists.

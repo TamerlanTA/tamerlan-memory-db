@@ -14,6 +14,7 @@
 - **Pipeline C v1 — legacy workflow template** — подготовлены локальные `pipeline-c-website-audit-generator-workflow.json` и `pipeline-c-website-audit-generator-runbook.md`; v1 был draft-only и теперь superseded by completed Pipeline C v2.
 - **Pipeline C v2 — automated website audit machine templates** — подготовлены import-ready workflow файлы для multi-niche Firecrawl prospecting, AI audit queue, Telegram approve buttons, Gmail send after approve, WF-06 router patch, and runbook.
 - **Pipeline C v2 — выполнен operationally end-to-end** — подтверждён рабочий n8n pipeline: Telegram command запускает prospecting, Firecrawl автоматически ищет сайты, нормализация/дедуп/скрейп работают, Audit Queue пишет `Leads`/`Audits`/`Messages`/`Automation Logs`, Telegram карточки приходят с approve-кнопками, `Approve + Send` отправляет Gmail через native Gmail node, остальные кнопки логируют без отправки. Запуск переведён с расписания на `/pipeline_c` и `/audit_sites` через WF-06 без второго Telegram Trigger.
+- **FlowOps Opportunity Engine skill** — создан пользовательский Codex skill `/Users/tamerlan/.codex/skills/flowops-opportunity-engine/` для trigger-based prospecting: сигналы вакансий, отзывов, сайтов, tech stack, событий, scoring, mini-audit, outreach, Loom scripts и compliance guardrails.
 
 ## Пока не считаем завершенным
 - CRM QA/валидация, production-safe automation wiring, отчётность и data hygiene.
