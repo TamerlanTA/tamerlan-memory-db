@@ -22,7 +22,7 @@ FlowOps is now the active operating focus. The CRM system exists, Pipeline B / L
 - FlowOps CRM is treated as created; future work starts from QA, validation, data hygiene, and production-safe automation wiring.
 - Pipeline B / LinkedIn Pain Radar is treated as complete; future work is operational QA and iteration, not initial build.
 - Pipeline C v2 / Website Audit Generator is completed operationally end-to-end. v2.1 Prospecting was strengthened on 2026-05-04 for lead volume: Telegram command starts 24 randomized search queries, Firecrawl finds/scrapes sites, Airtable records are created, Telegram approve cards work, and Gmail sends only after `Approve + Send`.
-- FlowOps Opportunity Engine skill was created on 2026-05-09 at `/Users/tamerlan/.codex/skills/flowops-opportunity-engine/` to guide trigger-based prospect diagnosis, scoring, outreach, Loom scripts, and compliance-safe B2B outbound.
+- FlowOps Opportunity Engine skill was created on 2026-05-09 at `/Users/tamerlan/.codex/skills/flowops-opportunity-engine/` to guide trigger-based prospect diagnosis, scoring, outreach, Loom scripts, and compliance-safe B2B outbound. It explicitly excludes Upwork and freelance marketplaces because Upwork already has its own prepared pipeline.
 
 ### Immediate blockers / next actions
 1. Build or prototype the Linear Ops Automation System from [[Linear/Linear Ops Automation System/implementation-plan]].

@@ -24,6 +24,7 @@
 - The skill should be used for trigger-based prospecting across job postings, reviews, websites, tech stack gaps, event/exhibitor pages, local business sources, and enrichment sources.
 - Core rule: every outreach output must be based on visible evidence, a specific operational hypothesis, and a concrete FlowOps offer angle.
 - The skill explicitly prevents fake Loom claims and requires compliance-safe source/relevance/opt-out tracking.
+- Later correction from Tamerlan: this skill must not search Upwork or other freelance platforms because Upwork already has a separate prepared pipeline. FlowOps Opportunity Engine is for direct non-marketplace prospecting from company-owned/public signals.
 
 ## Blockers
 - No implementation blocker.
@@ -33,3 +34,4 @@
 - Test the skill on 5-10 real companies from Pipeline C or event/exhibitor sources.
 - Compare generated opportunity briefs against current Pipeline C audit output.
 - If quality improves, update n8n prompt templates and Airtable fields to include signal source, confidence, compliance notes, and recommended Loom angle.
+- When using the skill for lead search, exclude Upwork, Fiverr, Freelancer.com, Contra, Toptal, PeoplePerHour, Guru, and similar freelance marketplaces.

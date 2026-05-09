@@ -25,10 +25,14 @@
             "id": "8358a851115bd668",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Граф"
+              "type": "markdown",
+              "state": {
+                "file": "knowledge/claude-code-32-hacks.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "claude-code-32-hacks"
             }
           },
           {
@@ -232,6 +236,7 @@
   },
   "active": "8358a851115bd668",
   "lastOpenFiles": [
+    "knowledge/codex-local-plugins.md",
     "projects/FlowOps Team/08 - Выполненные задачи/Completed.md",
     "projects/FlowOps Team/sessions/2026-04-29-youtube-shorts-sales-deck.md",
     "projects/pipeline-C-praga/current-state.md",
@@ -266,7 +271,6 @@
     "projects/FlowOps Team/09 - Масштабирование/06 - AI Hiring Audit Trail Sprint.md",
     "projects/FlowOps Team/09 - Масштабирование/05 - Auto Dealer Price Fees Cleanup Sprint.md",
     "projects/FlowOps Team/09 - Масштабирование/04 - OSHA Safety Evidence Vault Sprint.md",
-    "projects/FlowOps Team/09 - Масштабирование/03 - ADA Website Defense Prep Sprint.md",
     "projects/FlowOps Team/09 - Масштабирование",
     "Linear/Linear Ops Automation System",
     "Linear",
