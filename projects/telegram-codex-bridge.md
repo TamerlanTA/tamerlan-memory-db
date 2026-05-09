@@ -20,6 +20,7 @@
 - 2026-04-29: Added Codex plugins section for Telegram. New commands: `/plugins` lists installed/connected plugins from `/Users/tamerlan/.codex/plugins/cache`; `/plugins <name>` shows details, skills, app connector IDs, and examples; `/plugin <name> <task>` runs Codex with explicit instruction to use that installed plugin, its skills, and connected app when available. Telegram command menu now registers 37 commands.
 - 2026-04-30: Updated Obsidian vault templates so generated session/project notes keep correct graph links. `templates/session-template.md` now links to project core notes (`overview`, `current-state`, `next-steps`, plus `decisions`/`risks`), and `templates/project-template.md` now links to `current-focus` and the session template.
 - 2026-05-09: Diagnosed user report that Telegram bot stopped replying. PM2 daemon had been killed on 2026-05-05 and restarted empty on 2026-05-09, so `telegram-codex-bridge` was not running. Restarted with `pm2 start ecosystem.config.cjs`, verified PM2 status online, saved with `pm2 save`, validated Telegram `getMe`, and sent a successful diagnostic message to the allowed chat.
+- 2026-05-09: Expanded bridge plugin/skill discovery. Added `src/skillRegistry.mjs`, new Telegram commands `/skills` and `/skill`, and changed `/tools` to list all installed skills from `/Users/tamerlan/.agents/skills`, `/Users/tamerlan/.codex/skills`, and `/Users/tamerlan/.codex/plugins/cache`. Runtime scan now finds 21 plugins and 180 skills, including plugin-qualified names like `vercel:nextjs`, `github:github`, and `browser-use:browser`.
 
 ## Validation
 - `npm install` completed and created `package-lock.json`.
@@ -38,6 +39,7 @@
 - Plugin registry verification: `npm run check` and `npm run verify:manual` pass. Local registry found Browser Use, Build macOS Apps, Build Web Apps, Computer Use, Documents, Figma, GitHub, Gmail, Notion, Presentations, Spreadsheets, Stripe, Teams, Vercel. Runtime log shows `telegram.commands.registered count=37`.
 - Template link verification: both files in `/Users/tamerlan/Documents/TamerMemoryDB/Tamerlan Memory DB/templates` contain `## Related` with operational wikilinks.
 - 2026-05-09 incident verification: `npm run check` passed; `pm2 status telegram-codex-bridge` showed `online`; `curl .../getMe` returned `ok:true` for `@codextamerbot`; `sendMessage` to the configured chat returned `ok:true` with message id `224`.
+- 2026-05-09 plugin/skill sync verification: `npm run check` passed, `npm run verify:manual` passed, registry smoke test returned `plugins=21` and `skills=180`, PM2 restart registered 39 Telegram commands, and `pm2 save` completed. `codex plugin marketplace upgrade` returned `No configured Git marketplaces to upgrade`, so there was no CLI marketplace update to apply.
 
 ## Decisions
 - Keep Codex global configuration untouched; bridge only calls existing `codex exec`.
@@ -55,6 +57,7 @@
 - Codex can still fail after transcription when subscription usage limit is reached; bridge now reports that clearly, but cannot bypass account usage limits.
 - Output formatting is heuristic: it strips common Codex CLI headers, raw prompt echoes, debug/tool-call-like lines, bold markdown markers, and noisy links for normal replies. `/debug` and `/logs` intentionally expose more raw detail.
 - `/plugin` can guide Codex to use a plugin and connected app, but actual plugin/app execution still depends on Codex CLI session capabilities, account auth, and plugin availability in the underlying Codex runtime.
+- `/skill <name> <task>` now guides Codex to read and follow a specific installed `SKILL.md`. Skill selection is name-based and supports plugin-qualified names; ambiguous duplicate names should be called with qualified form such as `vercel:nextjs`.
 
 ## Next steps
 - In Telegram, send `/start`, `/status`, then `/ask Analyze this repository and explain what it does.`
@@ -64,3 +67,4 @@
 - If audit risk is unacceptable, replace `node-telegram-bot-api` with a maintained Telegram SDK, but that would deviate from the current master prompt.
 - Test a fresh Telegram voice message end-to-end; expected behavior: immediate “Принял. Готовлю данные для Codex.”, local transcription log `audio.transcription.finished`, then Codex output based on transcript.
 - If the bot is silent again, first check `pm2 status telegram-codex-bridge`; if PM2 is empty, run `cd /Users/tamerlan/telegram-codex-bridge && pm2 start ecosystem.config.cjs && pm2 save`. For true reboot resilience, enable the previously noted `pm2 startup` launchd command with sudo.
+- Test Telegram commands `/skills`, `/plugins`, `/skill n8n спроектируй workflow для лидов`, and `/skill vercel:nextjs проверь app router проект`.
