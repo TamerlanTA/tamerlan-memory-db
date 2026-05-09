@@ -19,6 +19,7 @@
 - 2026-04-29: n8n skill discovery/install request timed out at 300s, but skills were installed under `/Users/tamerlan/.agents/skills`. Increased bridge `timeoutMs` from 300000 to 900000 and changed timeout handling to return partial Codex stdout/stderr when available instead of only "timed out". `/tools` now lists local skills without running Codex.
 - 2026-04-29: Added Codex plugins section for Telegram. New commands: `/plugins` lists installed/connected plugins from `/Users/tamerlan/.codex/plugins/cache`; `/plugins <name>` shows details, skills, app connector IDs, and examples; `/plugin <name> <task>` runs Codex with explicit instruction to use that installed plugin, its skills, and connected app when available. Telegram command menu now registers 37 commands.
 - 2026-04-30: Updated Obsidian vault templates so generated session/project notes keep correct graph links. `templates/session-template.md` now links to project core notes (`overview`, `current-state`, `next-steps`, plus `decisions`/`risks`), and `templates/project-template.md` now links to `current-focus` and the session template.
+- 2026-05-09: Diagnosed user report that Telegram bot stopped replying. PM2 daemon had been killed on 2026-05-05 and restarted empty on 2026-05-09, so `telegram-codex-bridge` was not running. Restarted with `pm2 start ecosystem.config.cjs`, verified PM2 status online, saved with `pm2 save`, validated Telegram `getMe`, and sent a successful diagnostic message to the allowed chat.
 
 ## Validation
 - `npm install` completed and created `package-lock.json`.
@@ -36,6 +37,7 @@
 - Timeout fix verification: `npm run check` and `npm run verify:manual` pass. PM2 restarted/saved. Confirmed n8n skills exist locally: `n8n`, `n8n-automation`, `n8n-automation-architect`, `n8n-code-javascript`, `n8n-code-python`, `n8n-expression-syntax`, `n8n-mcp-tools-expert`, `n8n-node-configuration`, `n8n-validation-expert`, `n8n-workflow`, `n8n-workflow-automation`, `n8n-workflow-generator`, `n8n-workflow-patterns`, `n8n-workflow-testing-fundamentals`.
 - Plugin registry verification: `npm run check` and `npm run verify:manual` pass. Local registry found Browser Use, Build macOS Apps, Build Web Apps, Computer Use, Documents, Figma, GitHub, Gmail, Notion, Presentations, Spreadsheets, Stripe, Teams, Vercel. Runtime log shows `telegram.commands.registered count=37`.
 - Template link verification: both files in `/Users/tamerlan/Documents/TamerMemoryDB/Tamerlan Memory DB/templates` contain `## Related` with operational wikilinks.
+- 2026-05-09 incident verification: `npm run check` passed; `pm2 status telegram-codex-bridge` showed `online`; `curl .../getMe` returned `ok:true` for `@codextamerbot`; `sendMessage` to the configured chat returned `ok:true` with message id `224`.
 
 ## Decisions
 - Keep Codex global configuration untouched; bridge only calls existing `codex exec`.
@@ -47,6 +49,7 @@
 - Real Telegram command flow still needs user verification from Telegram (`/start`, `/status`, `/ask ...`).
 - All plain text now routes to Codex without requiring `/ask`; do not add canned content replies unless explicitly requested. Bridge-only messages should be operational status only, e.g. task accepted/progress/error.
 - Full reboot autostart is not yet enabled: `pm2 startup` produced a sudo launchd command that must be run manually.
+- 2026-05-09: PM2 dump now includes `telegram-codex-bridge`, but if PM2 daemon itself is killed or the Mac reboots without launchd startup installed, the bridge may not recover automatically. Manual recovery is `cd /Users/tamerlan/telegram-codex-bridge && pm2 start ecosystem.config.cjs && pm2 save`.
 - Telegram-triggered Codex now runs with `danger-full-access` and no approval prompts. This is intentional per user request but high-risk if Telegram token/chat authorization is compromised.
 - Audio is now transcribed locally via `ffmpeg` + `whisper-cli` + `models/ggml-base.bin`. No external API is used. If the model or tools are missing, bridge should still pass file path and include transcription failure details.
 - Codex can still fail after transcription when subscription usage limit is reached; bridge now reports that clearly, but cannot bypass account usage limits.
@@ -60,3 +63,4 @@
 - For reboot autostart, run: `sudo env PATH=$PATH:/opt/homebrew/Cellar/node/25.8.0/bin /opt/homebrew/lib/node_modules/pm2/bin/pm2 startup launchd -u tamerlan --hp /Users/tamerlan`, then `pm2 save`.
 - If audit risk is unacceptable, replace `node-telegram-bot-api` with a maintained Telegram SDK, but that would deviate from the current master prompt.
 - Test a fresh Telegram voice message end-to-end; expected behavior: immediate “Принял. Готовлю данные для Codex.”, local transcription log `audio.transcription.finished`, then Codex output based on transcript.
+- If the bot is silent again, first check `pm2 status telegram-codex-bridge`; if PM2 is empty, run `cd /Users/tamerlan/telegram-codex-bridge && pm2 start ecosystem.config.cjs && pm2 save`. For true reboot resilience, enable the previously noted `pm2 startup` launchd command with sudo.
