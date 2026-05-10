@@ -6,6 +6,78 @@
 
 ---
 
+# Неделя 5–11 мая 2026
+
+---
+
+## 🤖 Пайплайны и автоматизация
+
+### Pipeline B — LinkedIn Pain Radar — Дедупликация ✔
+Исправлена главная проблема: пайплайн возвращал одних и тех же 5 лидов и спамил Telegram при каждом запуске. Добавлена Airtable-дедупликация, которая сохраняется между запусками (по Contact URL, LinkedIn URL и Unique key). Поиск расширен с 5 до 20+ результатов на запрос (до 80 кандидатов за запуск). Hotfix: исправлена невалидная формула в Airtable-узле.
+
+### Pipeline C — Website Audit Generator v2 ✔ → v2.1.3
+Подтверждён как операционно завершённый (запуск через Telegram: `/pipeline_c`, `/audit_sites`). Обновлён до v2.1: 24 рандомизированных запроса, 120 уникальных доменов, до 60 новых сайтов/запуск. Исправлены: rate-limit Airtable при больших батчах (→ batch dedupe), потеря кандидатов после `Parse Dedupe Result`, обрезанный JSON при 120 кандидатах. В холодные письма добавлены профильные ссылки (Website / LinkedIn / Upwork).
+
+### Pipeline C Praha — новый проект ✔ (проспектинг готов)
+Построен отдельный пайплайн для пражского рынка поверх архитектуры v2. Основные итерации: замена HTTP-метода Firecrawl (POST→GET hotfix), переход на официальный Firecrawl-узел, фикс Normalize-ноды (нет output → исправлено), добавлен Prague Locality Gate, убраны Google Sheets из основного потока (заменены на `Prepare Audit Queue Rows`). Добавлены Enrichment-ноды (Firecrawl + OpenAI). Локальный тест 30 items: Normalize → Locality → Dedupe → Rows — всё проходит.
+
+---
+
+## 📞 AI Caller — n8n (Vapi)
+
+Построены два n8n workflow для исходящих звонков:
+- **WF-01 Start Outbound Call** — Ручной запуск → Airtable (фильтр `Ready to call`) → Vapi HTTP вызов → статус-обновление записи.
+- **WF-02 Receive Call Result** — Vapi webhook → нормализация → rule-based классификация (interested / no answer / not interested) → Airtable lookup по Call ID → обновление.
+
+Hotfix: Vapi-ассистент `Alex` слал десятки webhook-событий на каждый звонок → исчерпывал n8n Cloud executions. Ограничено до `serverMessages: ["end-of-call-report"]`. Оба workflow валидны (`valid: true`, 0 ошибок).
+
+---
+
+## 🏥 FlowOps Стратегия — Healthcare Wedge
+
+Проведён анализ ниш через метод `unfairgaps`. Лучший near-term wedge: **HIPAA-Safe Intake + Follow-up Cleanup Sprint** для небольших US медицинских/wellness-практик (free audit → paid sprint $1.5–4K). Создан полный бэклог из 7 ниш (Med Spa, Lead Consent, ADA Website, OSHA Safety, Auto Dealer, AI Hiring, Subscription Cancellation). Для Med Spa готов: prompt spec (6-dimension scoring 0–20), 28 JSON-полей, email wrapper, Telegram review card, Airtable field mapping, GTM Strategy Tracker.
+
+---
+
+## 🛠️ FlowOps Opportunity Engine — Codex Skill
+
+Создан новый Codex skill `/Users/tamerlan/.codex/skills/flowops-opportunity-engine/` для trigger-based проспектинга. Включает: таксономию сигналов, scoring rubric, формат audit brief, паттерны outreach, compliance-гарды. Правило: не использовать Upwork и другие фриланс-платформы (для них отдельный Pipeline A).
+
+---
+
+## 🏷️ Griffes Vivienne — AI Label Generator
+
+| Задача | Результат |
+|---|---|
+| MOQ 500 → 1000 | Изменено в коде, тестах и UI |
+| 500 при генерации (R2 missing) | Hotfix: graceful fallback `inline://` вместо throw; re-download вернёт NOT_FOUND пока R2 не настроен |
+| Freemium gate → generic error | Исправлено: `GUEST_FREE_TRIAL_EXHAUSTED` → кнопка "Sign up" |
+| 25×25 генерировался горизонтально | Исправлен промпт — HD Cotton больше не форсирует long horizontal |
+
+Все тесты и билд: PASS ✅ Коммиты: `35faedc`, `ab9b86c`, `5e54191`, `a8a8e5a`.
+
+---
+
+## 📋 Linear / FLO-48 — Message-Match Audit
+
+Выполнен Week-1 UX audit выходящих outreach-вариантов. Найдены 3 failure: нечёткий CTA Day-1, смешанный sync/async intent, несогласованная метрика proof. Созданы child issues FLO-50 (CTO), FLO-51 (CMO), FLO-52 (UXDesigner) с explicit acceptance criteria.
+
+---
+
+## ⏳ Перенесено на следующую неделю
+
+- Pipeline C: импорт v2.1.3 в n8n, первый batch по Med Spa (Miami / Scottsdale / Austin)
+- Pipeline C Praha: добавить Google Sheets после подтверждения output rows
+- AI Caller: первый live-тест после сброса n8n Cloud quota
+- FLO-50/51/52: внедрение и повторный audit FLO-48
+- R2 credentials: добавить в Vercel production (блокирует persistent storage у Griffes Vivienne)
+
+---
+
+*Обновлено автоматически — воскресенье 11 мая 2026*
+
+---
+
 # Неделя 28 апреля — 4 мая 2026
 
 ---
