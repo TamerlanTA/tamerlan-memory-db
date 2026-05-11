@@ -6,6 +6,31 @@
 - [[flowops-agency-website]]
 
 ## Current status
+- Custom task type upgrade on 2026-05-11:
+  - Client upgraded ClickUp and asked to prioritize custom task types and field data.
+  - Backup before change: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-custom-task-types-upgrade.backup.json`.
+  - Updated active blueprint: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.updated.blueprint.json`.
+  - Saved copy: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.custom-task-types-enabled.blueprint.json`.
+  - Used existing intended IDs already embedded in the blueprint's bypass notes as `custom_item_id` values:
+    - Collection `1004`
+    - Item Set `1005`
+    - Design `1001`
+    - Costing `1003`
+    - Sampling `1002`
+  - Module `22` now exposes reusable variables: `collection_custom_item_id`, `item_set_custom_item_id`, `design_custom_item_id`, `costing_custom_item_id`, and `sampling_custom_item_id`.
+  - API task creation modules now include `custom_item_id` in the create body:
+    - `7`, `107` -> Collection
+    - `5` -> Item Set
+    - `9` -> Design
+    - `12` -> Sampling
+    - `13` -> Costing
+  - Native Unbranded task creation modules now set `custom_item_id` in their mapper:
+    - `105` -> Item Set
+    - `109` -> Design
+    - `112` -> Sampling
+    - `113` -> Costing
+  - No routing/hierarchy changes were made. Router flows match the pre-change backup. Submitted By and due-date update modules remain in place.
+  - Broad custom field mapping beyond Submitted By was not added because select/dropdown option IDs and task-type-specific field IDs still need verification from ClickUp; do not guess these.
 - Submitted By custom field update on 2026-05-07:
   - Client accepted workaround for ClickUp system `Created by`: a regular ClickUp email custom field named `Submitted By`.
   - Field ID: `c8de277b-6bf8-4891-aea2-fd2f87460051`.
