@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Completed-in-a-week.md",
+                "file": "My-tasks.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Completed-in-a-week"
+              "title": "My-tasks"
             }
           },
           {
@@ -236,6 +236,7 @@
   },
   "active": "8358a851115bd668",
   "lastOpenFiles": [
+    "Completed-in-a-week.md",
     "projects/AI-Powered Woven Label Generator/sessions/2026-05-11-moq-1000-branch-drift-hotfix.md",
     "projects/FlowOps Team/sessions/2026-05-11-almaty-prospect-batch.md",
     "knowledge/n8n-local-docker-mac.md",
@@ -270,7 +271,6 @@
     "projects/pipeline-C-praga",
     "projects/FlowOps Team/09 - Масштабирование/10 - Med Spa GTM Strategy Tracker.md",
     "projects/FlowOps Team/09 - Масштабирование/08 - Med Spa HIPAA Intake Launch Kit.md",
-    "projects/FlowOps Team/09 - Масштабирование/09 - Pipeline C Med Spa Audit Prompt Spec.md",
     "projects/FlowOps Team/09 - Масштабирование",
     "Linear/Linear Ops Automation System",
     "Linear",
