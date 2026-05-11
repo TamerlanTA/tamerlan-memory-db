@@ -302,3 +302,14 @@
   - iterator `value_json` is not the empty JSON string `""`
 - Patched modules: `201`, `231`, `302`, `312`, `322`, `332`, `342`, `352`.
 - Validation: JSON valid, 65 recursive modules, no duplicate IDs.
+
+## 2026-05-12 module 22 custom field value normalization
+- User tested empty-value-filtered import; scenario completed without crashing, but all generic custom field modules (`201`, `302`, `312`, `322`) still skipped, so ClickUp fields remained unchanged.
+- Diagnosis: iterator `field_id`/`task_id` passed, but iterator `value_json` from direct Jotform paths stayed blank. The compact BasicFeeder layer was not reliably carrying direct `1.request.q...` values.
+- Backup before fix: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-module22-cf-value-normalization.backup.json`.
+- Import copy after fix: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.custom-fields-module22-values-import-this.blueprint.json`.
+- Module `22` now normalizes custom field source values once as `cf_*` variables, including numeric/text/checkbox sources such as `cf_oz_fill`, `cf_moq`, `cf_num_skus`, `cf_lid_color`, `cf_samples_total`, `cf_target_cost`, etc.
+- Field map iterators `200`, `230`, `301`, `311`, `321`, `331`, `341`, and `351` now reference `22.cf_*` variables instead of direct `1.request.q...` paths.
+- Generic API modules keep value-present filtering to avoid `{"value": }` invalid JSON.
+- Validation: JSON valid, 65 recursive modules, no duplicate IDs.
+- Still intentionally not mapped: dropdown/status/label/select fields until ClickUp option IDs are available.
