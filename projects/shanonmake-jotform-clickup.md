@@ -6,6 +6,21 @@
 - [[flowops-agency-website]]
 
 ## Current status
+- Item Set custom field mapping on 2026-05-11:
+  - Client confirmed custom task types are working but custom fields are empty.
+  - Backup before change: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-item-set-custom-field-mapping.backup.json`.
+  - Updated active blueprint: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.updated.blueprint.json`.
+  - Saved copy: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.item-set-custom-fields-mapped.blueprint.json`.
+  - Added independent Item Set custom field fan-out routers after Item Set creation:
+    - General/dynamic branch router `199` after module `156`; child-task route remains `[19, 8]`.
+    - Unbranded branch router `229` after module `151`; child-task route remains `[119, 108]`.
+  - Added safe Set Custom Field API modules for Item Set fields:
+    - General/dynamic modules `200–216` target `{{5.body.id}}`.
+    - Unbranded modules `230–246` target `{{105.id}}`.
+  - Mapped only field types that can be set without dropdown/label option IDs: number, text, and boolean.
+  - Mapped Item Set fields include `# SKU's`, `# Wicks`, `oz Fill`, `MOQ`, `Fragrance %`, `Fragrance Cost/lb`, `Order Qty`, `Pack Qty`, `Target Cost`, `Lid Color`, `Lid Details`, `Labeling/ Packaging Direction`, `Customer Discount/ Allowance`, `New Item`, `New Lid`, `Colored Fill`, and `Fragranced Fill`.
+  - Dropdown/select/multi-select fields such as `Item Type`, `Lid Type`, `Lid Attachment`, `Gasket`, `Labeling`, `Printing Finishes`, and packaging select fields are intentionally not mapped yet because ClickUp requires option IDs from `type_config.options`.
+  - Verification: JSON valid, 77 modules, no duplicate IDs, no `toJSON`, routing and Design/Costing/Sampling child routers unchanged.
 - Custom task type upgrade on 2026-05-11:
   - Client upgraded ClickUp and asked to prioritize custom task types and field data.
   - Backup before change: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-custom-task-types-upgrade.backup.json`.
