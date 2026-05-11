@@ -6,6 +6,22 @@
 - [[flowops-agency-website]]
 
 ## Current status
+- Iterator filter fix on 2026-05-12:
+  - User ran the array-driven blueprint and every generic Set Custom Field module (`201`, `302`, `312`, `322`) was skipped by filter.
+  - Backup before fix: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-iterator-filter-fix.backup.json`.
+  - Updated active blueprint: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.updated.blueprint.json`.
+  - Saved copy: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.array-driven-custom-fields-filter-fixed.blueprint.json`.
+  - Root cause: generic API filters checked iterator `value_present`, but Make emitted it as empty in execution, so every bundle failed the filter.
+  - Patched generic API filters to check `field_id` instead:
+    - `201` checks `{{200.field_id}}`
+    - `231` checks `{{230.field_id}}`
+    - `302` checks `{{301.field_id}}`
+    - `312` checks `{{311.field_id}}`
+    - `322` checks `{{321.field_id}}`
+    - `332` checks `{{331.field_id}}`
+    - `342` checks `{{341.field_id}}`
+    - `352` checks `{{351.field_id}}`
+  - JSON still valid, 65 modules, no duplicate IDs.
 - Array-driven custom field refactor on 2026-05-12:
   - User rejected the one-route/module-per-field fan-out as non-maintainable and requested compact array + iterator + generic Set Custom Field architecture.
   - Backup before refactor: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-array-driven-field-refactor.backup.json`.
