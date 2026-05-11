@@ -6,6 +6,21 @@
 - [[flowops-agency-website]]
 
 ## Current status
+- Array-driven custom field refactor on 2026-05-12:
+  - User rejected the one-route/module-per-field fan-out as non-maintainable and requested compact array + iterator + generic Set Custom Field architecture.
+  - Backup before refactor: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-array-driven-field-refactor.backup.json`.
+  - Updated active blueprint: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.updated.blueprint.json`.
+  - Saved copy: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.array-driven-custom-fields.blueprint.json`.
+  - Module count changed from 77 to 65.
+  - Removed old per-field update modules from active flow: `202–216` and `232–246`; modules `200/201` and `230/231` were replaced by iterator + generic API pairs.
+  - Added compact field routers:
+    - Item Set: router `199` with iterator `200` + generic API `201`; Unbranded router `229` with iterator `230` + API `231`.
+    - Design: router `300` with iterator `301` + API `302`; Unbranded router `330` with iterator `331` + API `332`.
+    - Sampling: router `310` with iterator `311` + API `312`; Unbranded router `340` with iterator `341` + API `342`.
+    - Costing: router `320` with iterator `321` + API `322`; Unbranded router `350` with iterator `351` + API `352`.
+  - Each iterator uses `builtin:BasicFeeder` over an array of mappings with `task_id`, `field_id`, `value_json`, and `value_present`. Each generic API module calls `/v2/task/{{iterator.task_id}}/field/{{iterator.field_id}}` with body `{"value": {{iterator.value_json}}}` and filters out blank `value_present`.
+  - Existing routing, custom item IDs, Submitted By modules, due-date modules, and child task hierarchy were preserved.
+  - Dropdown/label/select fields remain excluded until ClickUp option IDs are available.
 - Item Set custom field mapping on 2026-05-11:
   - Client confirmed custom task types are working but custom fields are empty.
   - Backup before change: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-item-set-custom-field-mapping.backup.json`.
