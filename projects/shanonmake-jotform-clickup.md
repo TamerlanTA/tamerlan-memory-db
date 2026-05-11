@@ -290,3 +290,15 @@
   - `201 <- 200.field_id`, `231 <- 230.field_id`, `302 <- 301.field_id`, `312 <- 311.field_id`, `322 <- 321.field_id`, `332 <- 331.field_id`, `342 <- 341.field_id`, `352 <- 351.field_id`.
 - Validation: JSON valid, 65 recursive modules, no duplicate IDs.
 - Remaining known limitation: many desired ClickUp fields are dropdown/status/label/select fields and are intentionally unmapped until ClickUp option IDs are provided; the compact iterator system currently maps safe number/text/checkbox fields only.
+
+## 2026-05-12 empty value JSON fix
+- User tested the field filter fix; generic custom field module now executed but failed with ClickUp `[400] JSON_001` because body became `{"value": }` for a blank mapped value.
+- Root cause: filtering only by `field_id` lets blank field mappings through; blank numeric `value_json` creates invalid JSON.
+- Backup before fix: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-empty-custom-field-value-filter.backup.json`.
+- Import copy after fix: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.custom-fields-empty-values-filtered-import-this.blueprint.json`.
+- Patched generic custom field API filters to require all of:
+  - iterator `field_id` is not blank
+  - iterator `value_json` is not blank
+  - iterator `value_json` is not the empty JSON string `""`
+- Patched modules: `201`, `231`, `302`, `312`, `322`, `332`, `342`, `352`.
+- Validation: JSON valid, 65 recursive modules, no duplicate IDs.
