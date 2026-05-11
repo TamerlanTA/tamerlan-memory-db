@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "knowledge/n8n-local-docker-mac.md",
+                "file": "Completed-in-a-week.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "n8n-local-docker-mac"
+              "title": "Completed-in-a-week"
             }
           },
           {
@@ -236,6 +236,7 @@
   },
   "active": "8358a851115bd668",
   "lastOpenFiles": [
+    "knowledge/n8n-local-docker-mac.md",
     "knowledge/claude-code-32-hacks.md",
     "projects/FlowOps Team/sessions/2026-05-09-ai-caller-receive-call-result-workflow.md",
     "projects/FlowOps Team/sessions/2026-05-09-ai-caller-start-outbound-call-workflow.md",
@@ -270,7 +271,6 @@
     "projects/FlowOps Team/09 - Масштабирование/09 - Pipeline C Med Spa Audit Prompt Spec.md",
     "projects/FlowOps Team/09 - Масштабирование/01 - HIPAA-Safe Intake Cleanup Sprint.md",
     "projects/FlowOps Team/09 - Масштабирование/00 - Scaling Hub.md",
-    "projects/FlowOps Team/09 - Масштабирование/07 - Subscription Cancellation Flow Audit.md",
     "projects/FlowOps Team/09 - Масштабирование",
     "Linear/Linear Ops Automation System",
     "Linear",
