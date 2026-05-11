@@ -38,7 +38,15 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-28-sample-price-ui-visibility-fix|Sample price UI visibility fix]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-05-08-moq-1000-r2-hotfix-and-freemium-ux|MOQ 1000, R2 hotfix, and freemium gate UX]]
 
-Last updated: 2026-05-08
+Last updated: 2026-05-11
+
+## 2026-05-11 deltas
+
+- **MOQ 1000 regression hotfix implemented locally on `milestone4-auth-completion`** after Benjamin reported `500 pcs` visible again in the production quote flow. Root cause: branch/deployment drift. The earlier MOQ 1000 fix existed on `claude/magical-mendel-0ac677` at `35faedc`, but active branch `milestone4-auth-completion` at `a8a8e5a` did not contain it.
+- Re-applied canonical production minimum to the active branch: `client/src/domain/order.ts:PRODUCTION_MIN_QUANTITY = 1_000`; quick options no longer include 500; slider minimum clamps to 1000; EN/FR copy now says `1,000 – 10,000 pieces` / `1 000 – 10 000 pièces` and `Minimum 1,000 pcs` / `Minimum 1 000 pcs`.
+- Shared backend/order-intent validation now rejects production quote draft payloads below 1000 while keeping sample payloads accepted. Added focused regression tests for production 500 rejection, production 1000 acceptance, sample acceptance, option generation, and quantity clamping.
+- Verification: targeted order/domain and order-intent/preorder tests PASS, `pnpm check` PASS, `pnpm build` PASS. Remaining `500` search hits are either intentional tests, the 500-piece quantity step, HTTP 500/error fixtures, CSS/timing/font-weight classes, or unrelated image dimensions.
+- See session note: [[projects/AI-Powered Woven Label Generator/sessions/2026-05-11-moq-1000-branch-drift-hotfix|MOQ 1000 branch-drift hotfix]].
 
 ## 2026-05-08 deltas
 

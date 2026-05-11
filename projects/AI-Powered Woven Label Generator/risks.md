@@ -16,7 +16,13 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-28-handoff-sync-memory-source-and-local-state|Handoff sync: memory source and local state]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-28-sample-price-ui-visibility-fix|Sample price UI visibility fix]]
 
-Last updated: 2026-05-08
+Last updated: 2026-05-11
+
+## Resolved / newly identified (2026-05-11)
+
+- ~~**Production 500 pcs option returned** — Benjamin saw `500 pcs` visible again in production quote flow~~ — **FIXED LOCALLY**: active branch `milestone4-auth-completion` now has MOQ 1000 constants/copy/shared validation/tests. Root cause was branch/deployment drift: earlier fix was on `claude/magical-mendel-0ac677` (`35faedc`) and was missing from the active branch at `a8a8e5a`.
+- **Deployment risk remains until production commit is verified**: confirm the live Vercel deployment commit includes the 2026-05-11 MOQ hotfix before treating Benjamin's browser report as resolved in production.
+- **Branch drift risk remains**: `milestone4-auth-completion` and `claude/magical-mendel-0ac677` have carried overlapping hotfixes. Future urgent fixes must start by checking branch/commit/deployment target.
 
 ## Production blockers (2026-05-08)
 

@@ -16,7 +16,12 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-28-handoff-sync-memory-source-and-local-state|Handoff sync: memory source and local state]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-28-sample-price-ui-visibility-fix|Sample price UI visibility fix]]
 
-Last updated: 2026-05-08
+Last updated: 2026-05-11
+
+## Production hotfix follow-up (2026-05-11)
+
+- **Deploy/verify MOQ 1000 hotfix**: ensure the production deployment commit contains the 2026-05-11 active-branch fix, then hard-refresh and verify no production `500` option/chip is visible, `1,000` minimum copy is visible, slider starts/clamps at 1000, sample flow still works, and a crafted production payload with quantity `500` is rejected by backend/shared validation.
+- **Resolve branch policy before next deploy**: decide whether `milestone4-auth-completion` should absorb the `claude/magical-mendel-0ac677` stabilization chain or vice versa, because branch drift already reintroduced a production MOQ regression once.
 
 ## Production hotfix follow-up (2026-05-08)
 
