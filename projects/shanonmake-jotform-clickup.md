@@ -281,3 +281,12 @@
 - Later, implement existing-task-ID reuse as a separate safe pass:
   - if `q105_idcollection` is provided, skip Collection creation and create/attach Item Set under that ID
   - if `q106_iditemset` is provided, skip Item Set creation and create Design/Costing/Sampling under that ID
+
+## 2026-05-12 confirmation copy
+- User reported generic custom field modules still showed `bundle did not pass through the filter` for modules `201`, `302`, `312`, and `322`.
+- Reconfirmed active blueprint filters and saved a clear import copy: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.custom-fields-filter-fixed-import-this.blueprint.json`.
+- Backup before confirmation copy: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-field-filter-confirmation.backup.json`.
+- Generic custom field API filters now explicitly check iterator `field_id`:
+  - `201 <- 200.field_id`, `231 <- 230.field_id`, `302 <- 301.field_id`, `312 <- 311.field_id`, `322 <- 321.field_id`, `332 <- 331.field_id`, `342 <- 341.field_id`, `352 <- 351.field_id`.
+- Validation: JSON valid, 65 recursive modules, no duplicate IDs.
+- Remaining known limitation: many desired ClickUp fields are dropdown/status/label/select fields and are intentionally unmapped until ClickUp option IDs are provided; the compact iterator system currently maps safe number/text/checkbox fields only.
