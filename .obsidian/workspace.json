@@ -236,6 +236,7 @@
   },
   "active": "8358a851115bd668",
   "lastOpenFiles": [
+    "patterns/flowops-pdf-presentations.md",
     "templates/flowops-pitch-deck/build.sh",
     "templates/flowops-pitch-deck/README.md",
     "All about Agents/Orchestrator role (n8n).md",
@@ -276,7 +277,6 @@
     "Linear",
     "Без названия.canvas",
     "Без названия.base",
-    "projects/FlowOps Team/08 - Выполненные задачи",
     "Без названия 1.canvas"
   ]
 }
