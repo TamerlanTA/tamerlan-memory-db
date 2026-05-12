@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "My-tasks.md",
+                "file": "GPT project instructions.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "My-tasks"
+              "title": "GPT project instructions"
             }
           },
           {
@@ -236,6 +236,10 @@
   },
   "active": "8358a851115bd668",
   "lastOpenFiles": [
+    "templates/flowops-pitch-deck/build.sh",
+    "templates/flowops-pitch-deck/README.md",
+    "All about Agents/Orchestrator role (n8n).md",
+    "My-tasks.md",
     "Completed-in-a-week.md",
     "projects/AI-Powered Woven Label Generator/sessions/2026-05-11-moq-1000-branch-drift-hotfix.md",
     "projects/FlowOps Team/sessions/2026-05-11-almaty-prospect-batch.md",
@@ -265,12 +269,8 @@
     "projects/pipeline-C-praga/overview.md",
     "projects/pipeline-C-praga/next-steps.md",
     "projects/pipeline-C-praga/decisions.md",
-    "projects/night-runner-agent-orchestration.md",
-    "projects/pipeline-C-praga/sessions/2026-05-07-project-skeleton-and-runner-prompt.md",
     "projects/pipeline-C-praga/sessions",
     "projects/pipeline-C-praga",
-    "projects/FlowOps Team/09 - Масштабирование/10 - Med Spa GTM Strategy Tracker.md",
-    "projects/FlowOps Team/09 - Масштабирование/08 - Med Spa HIPAA Intake Launch Kit.md",
     "projects/FlowOps Team/09 - Масштабирование",
     "Linear/Linear Ops Automation System",
     "Linear",
