@@ -313,3 +313,19 @@
 - Generic API modules keep value-present filtering to avoid `{"value": }` invalid JSON.
 - Validation: JSON valid, 65 recursive modules, no duplicate IDs.
 - Still intentionally not mapped: dropdown/status/label/select fields until ClickUp option IDs are available.
+
+## 2026-05-12 canonical docs integration
+- Canonical docs added: `Custom Field ID's`, `Customer/Brand Shortcodes`, `Form Structure`, and `Task Structure & Naming` from `/Users/tamerlan/Downloads`.
+- Backup before integration: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-canonical-docs-integration.backup.json`.
+- Import file after integration: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.canonical-docs-integrated-import-this.blueprint.json`.
+- Module count changed from 65 to 116. Increase is from implementing Existing Collection and Existing Item Set mode branches, not from one-module-per-field custom field fan-out.
+- Router `23` now has four mode-aware branches:
+  - Existing Item Set mode gate `617` -> request router `608` creates requests under `q106_iditemset`.
+  - Existing Collection mode starts at module `405`, creates Item Set under `q105_idcollection`, then requests under new Item Set.
+  - Unbranded new collection route `107` only runs for new collection/blank mode and `target_list_id=901711595874`.
+  - Default new collection route `7` only runs for new collection/blank mode and non-Unbranded target list.
+- Module `22` updated from canonical shortcodes: examples include `McBride -> McB`, `Fortunes Without Cookies -> FWC`, `Magic Lights -> ML`, `Burnable Sensations -> HoV-BS`, `Aroma From Nature -> HoV-AFN`, `Apothecary -> HoV-Apoth`, `Core -> HoV-Core`, `Seasonal -> HoV-Seasonal`.
+- Existing known list IDs preserved; missing IDs for newly added shortcodes are not guessed and must be supplied from ClickUp URLs/API.
+- Task names updated to canonical pattern with `[OzFill]oz[ItemType]`; Costing name now starts `COSTING (for {{22.customer_display}}) | ...`.
+- Custom field arrays expanded using canonical field IDs and option IDs for safe number/text/checkbox/single dropdown/status fields. Label/multi-select fields (`Labeling`, `Substrates`, `Printing Finishes`) still need a safe Make array serialization strategy before activation.
+- Validation: JSON valid, 116 recursive modules, no duplicate IDs, no missing module references.
