@@ -1,0 +1,1159 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<title>Система захвата объектов — Промышленные альпинисты</title>
+<style>
+  /* ================= TOKENS ================= */
+  :root {
+    --bg: #ffffff;
+    --ink-900: #0F172A;
+    --ink-700: #334155;
+    --ink-500: #64748B;
+    --ink-300: #94A3B8;
+    --line: #E2E8F0;
+    --line-soft: #EEF2F7;
+    --soft: #F8FAFC;
+    --blue-50: #EFF6FF;
+    --blue-100: #E0F2FE;
+    --blue-200: #BAE6FD;
+    --blue-500: #0EA5E9;
+    --blue-600: #0284C7;
+    --blue-700: #0369A1;
+    --blue-900: #0C4A6E;
+    --navy: #0B2545;
+    --green-100: #DCFCE7;
+    --green-600: #16A34A;
+    --amber-100: #FEF3C7;
+    --amber-700: #B45309;
+    --rose-100: #FFE4E6;
+    --rose-600: #E11D48;
+    --violet-100: #EDE9FE;
+    --violet-700: #6D28D9;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --shadow: 0 1px 2px rgba(15,23,42,.04), 0 4px 16px rgba(15,23,42,.04);
+    --grad: linear-gradient(180deg, #0B2545 0%, #0369A1 35%, #38BDF8 80%, #ffffff 100%);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #E2E8F0; }
+  body {
+    font-family: "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    color: var(--ink-900);
+    font-size: 14px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  .page {
+    position: relative;
+    width: 794px;          /* A4 @ 96dpi */
+    height: 1123px;
+    margin: 24px auto;
+    background: var(--bg);
+    overflow: hidden;
+    page-break-after: always;
+    box-shadow: 0 4px 30px rgba(15,23,42,.06);
+  }
+  .page:last-child { page-break-after: auto; }
+  /* gradient top band like reference */
+  .page::before {
+    content: "";
+    position: absolute; inset: 0 0 auto 0;
+    height: 8px;
+    background: linear-gradient(90deg, #0B2545 0%, #0284C7 50%, #38BDF8 100%);
+  }
+  .frame { padding: 60px 64px 56px; height: 100%; display: flex; flex-direction: column; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--ink-900); letter-spacing: -.01em; }
+  .brand .dot { width: 22px; height: 22px; border-radius: 6px; background: linear-gradient(135deg,#0284C7,#38BDF8); display:inline-flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size: 13px; box-shadow: 0 2px 10px rgba(2,132,199,.25); }
+  .brand .name { font-size: 15px; }
+  .eyebrow {
+    margin-top: 28px;
+    color: var(--blue-700);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+  h1 {
+    font-size: 38px;
+    line-height: 1.12;
+    letter-spacing: -.02em;
+    margin: 12px 0 14px;
+    color: var(--ink-900);
+    font-weight: 700;
+  }
+  h1.huge { font-size: 46px; }
+  .lead {
+    font-size: 14.5px;
+    color: var(--ink-500);
+    max-width: 620px;
+    line-height: 1.55;
+    margin: 0 0 18px;
+  }
+  .pagenum {
+    position: absolute;
+    right: 64px;
+    bottom: 28px;
+    color: var(--ink-300);
+    font-size: 11px;
+    letter-spacing: .04em;
+  }
+  .footnote {
+    margin-top: auto;
+    color: var(--ink-300);
+    font-size: 11px;
+    border-top: 1px solid var(--line-soft);
+    padding-top: 14px;
+  }
+
+  /* GRID */
+  .grid { display: grid; gap: 14px; }
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+  .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+  /* CARDS */
+  .card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 18px 18px 18px;
+    box-shadow: var(--shadow);
+  }
+  .card.tinted { background: var(--blue-50); border-color: #DBEAFE; }
+  .card.soft { background: var(--soft); }
+  .card.accent-l {
+    border-left: 4px solid var(--blue-500);
+  }
+  .card.accent-l.green { border-left-color: var(--green-600); }
+  .card.accent-l.amber { border-left-color: var(--amber-700); }
+  .card.accent-l.rose  { border-left-color: var(--rose-600); }
+  .card.accent-l.violet{ border-left-color: var(--violet-700); }
+  .card .num {
+    width: 30px; height: 30px; border-radius: 8px;
+    background: #0F172A; color:#fff; font-weight:700; font-size: 13px;
+    display: inline-flex; align-items:center; justify-content:center;
+  }
+  .card .title {
+    font-weight: 700; font-size: 15.5px; color: var(--ink-900);
+    margin: 10px 0 6px;
+  }
+  .card .body { font-size: 13px; color: var(--ink-500); line-height: 1.55; }
+  .card ul { margin: 8px 0 0; padding-left: 18px; color: var(--ink-700); font-size: 13px; }
+  .card ul li { margin: 4px 0; }
+
+  /* STAT */
+  .stat {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--blue-500);
+    border-radius: 14px;
+    padding: 14px 16px;
+  }
+  .stat .num { font-size: 28px; font-weight: 800; letter-spacing: -.02em; color: var(--ink-900); line-height: 1.1; }
+  .stat .label { color: var(--ink-500); font-size: 12.5px; margin-top: 2px; }
+
+  /* PILL */
+  .pill {
+    display: inline-flex; align-items: center;
+    padding: 6px 12px;
+    border: 1px solid #BAE6FD;
+    background: #E0F2FE;
+    color: var(--blue-700);
+    border-radius: 999px;
+    font-size: 12.5px;
+    font-weight: 600;
+    margin: 4px 6px 4px 0;
+  }
+  .pill.gray { background: var(--soft); color: var(--ink-700); border-color: var(--line); }
+
+  /* PIPELINE */
+  .pipeline {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    gap: 10px;
+    align-items: stretch;
+  }
+  .stepbox {
+    background: #F1F5F9;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 14px 12px;
+    font-size: 12px;
+    color: var(--ink-700);
+    text-align: center;
+    line-height: 1.3;
+    font-weight: 600;
+    position: relative;
+  }
+  .stepbox.blue { background: #E0F2FE; border-color: #BAE6FD; color: var(--blue-700); }
+  .stepbox.dark { background: var(--navy); color: #fff; border-color: var(--navy); }
+
+  /* CALLOUT */
+  .callout {
+    background: #FFFBEB;
+    border: 1px solid #FDE68A;
+    color: var(--amber-700);
+    padding: 12px 14px;
+    border-radius: 12px;
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+  .callout.blue { background: var(--blue-50); border-color: #BFDBFE; color: var(--blue-700); }
+
+  /* BEFORE/AFTER */
+  .ba { display:grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .ba .col {
+    background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px;
+  }
+  .ba .col h4 { margin: 0 0 8px; font-size: 14.5px; }
+  .ba .col.before { border-left: 4px solid var(--ink-300); }
+  .ba .col.after { border-left: 4px solid var(--blue-500); }
+  .ba ul { margin: 0; padding-left: 18px; font-size: 13px; color: var(--ink-700); }
+  .ba ul li { margin: 4px 0; }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    height: 100%;
+    background: linear-gradient(160deg, #0B2545 0%, #0C4A6E 50%, #0EA5E9 100%);
+    color: #fff;
+    padding: 80px 64px 64px;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: "";
+    position: absolute; right: -100px; top: -120px;
+    width: 520px; height: 520px;
+    background: radial-gradient(closest-side, rgba(56,189,248,.45), transparent 70%);
+    pointer-events:none;
+  }
+  .hero .grid-overlay {
+    position: absolute; inset:0;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,.04) 1px, transparent 1px);
+    background-size: 38px 38px;
+    pointer-events:none;
+  }
+  .hero .brand { color:#fff; }
+  .hero .brand .dot { background: rgba(255,255,255,.12); color:#fff; backdrop-filter: blur(10px); }
+  .hero .eyebrow { color: #7DD3FC; margin-top: 60px; }
+  .hero h1 { color: #fff; font-size: 56px; line-height: 1.05; max-width: 640px; }
+  .hero h1 .accent { color: #7DD3FC; }
+  .hero .sub { color: rgba(255,255,255,.78); font-size: 16px; max-width: 580px; line-height: 1.55; }
+  .hero .pills { margin-top: 22px; }
+  .hero .pill { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.18); color:#fff; }
+  .hero .footer-strip {
+    position: absolute; left: 64px; right: 64px; bottom: 40px;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+    padding-top: 22px; border-top: 1px solid rgba(255,255,255,.14);
+  }
+  .hero .stat-h .num { color: #fff; font-size: 26px; font-weight: 800; }
+  .hero .stat-h .label { color: rgba(255,255,255,.7); font-size: 11.5px; text-transform: uppercase; letter-spacing: .12em; }
+
+  /* CHAT BUBBLES */
+  .chat { display: flex; flex-direction: column; gap: 10px; }
+  .bubble {
+    max-width: 82%;
+    padding: 9px 12px;
+    border-radius: 12px;
+    font-size: 12px; line-height: 1.45;
+  }
+  .bubble.ai { background: #E0F2FE; color: var(--blue-900); border: 1px solid #BAE6FD; border-bottom-left-radius: 4px; }
+  .bubble.client { background: var(--soft); color: var(--ink-900); border: 1px solid var(--line); align-self: flex-end; border-bottom-right-radius: 4px; }
+  .bubble .who { font-size: 11px; text-transform: uppercase; letter-spacing: .1em; opacity: .65; margin-bottom: 4px; font-weight: 700;}
+
+  /* TIMELINE */
+  .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .tl {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--blue-500);
+    border-radius: 12px;
+    padding: 14px 14px 16px;
+  }
+  .tl .wk { font-size: 11px; color: var(--blue-700); font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+  .tl .ti { font-weight: 700; font-size: 14.5px; margin: 6px 0 6px; color: var(--ink-900); }
+  .tl ul { margin: 0; padding-left: 16px; color: var(--ink-700); font-size: 12px; }
+  .tl ul li { margin: 3px 0; }
+
+  /* SECTION SUBHEAD */
+  .section-sub { color: var(--ink-500); font-size: 14px; max-width: 640px; margin: 4px 0 16px; }
+
+  /* WEBSITE WIREFRAME */
+  .wire {
+    border: 1px dashed #BFDBFE;
+    border-radius: 14px;
+    padding: 14px;
+    background: #F8FAFF;
+  }
+  .wire-row {
+    background: #fff; border: 1px solid var(--line); border-radius: 10px;
+    padding: 10px 14px; margin-bottom: 8px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 12.5px;
+  }
+  .wire-row .left { font-weight: 700; color: var(--ink-900); }
+  .wire-row .left .tag { color: var(--blue-700); font-size: 11px; text-transform: uppercase; letter-spacing: .1em; margin-right: 8px; }
+  .wire-row .right { color: var(--ink-500); font-size: 12px; }
+  .wire-row.hero-row { background: linear-gradient(90deg, #0C4A6E, #0EA5E9); color:#fff; border-color: transparent; }
+  .wire-row.hero-row .left, .wire-row.hero-row .right { color:#fff; }
+  .wire-row.hero-row .left .tag { color: #BAE6FD; }
+  .wire-row.cta { background: var(--ink-900); color: #fff; border-color: var(--ink-900); }
+  .wire-row.cta .left, .wire-row.cta .right { color: #fff; }
+  .wire-row.cta .left .tag { color: #7DD3FC; }
+
+  /* AD CREATIVE TILES */
+  .creatives { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .creative {
+    height: 138px;
+    border-radius: 14px;
+    color: #fff;
+    padding: 12px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    font-size: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .creative .tag {
+    display: inline-block;
+    background: rgba(255,255,255,.18);
+    border: 1px solid rgba(255,255,255,.25);
+    padding: 4px 8px; border-radius: 999px;
+    font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+    width: fit-content;
+  }
+  .creative .head { font-size: 15px; line-height: 1.2; font-weight: 700; }
+  .creative.c1 { background: linear-gradient(160deg, #0B2545, #1E3A8A); }
+  .creative.c2 { background: linear-gradient(160deg, #0F172A, #0EA5E9); }
+  .creative.c3 { background: linear-gradient(160deg, #1E293B, #475569); }
+  .creative.c4 { background: linear-gradient(160deg, #064E3B, #16A34A); }
+  .creative.c5 { background: linear-gradient(160deg, #7C2D12, #EA580C); }
+  .creative.c6 { background: linear-gradient(160deg, #312E81, #6D28D9); }
+
+  /* PHONE FRAME (Instagram preview) */
+  .phone {
+    width: 200px; height: 380px;
+    border: 8px solid #0F172A; border-radius: 28px;
+    background: #000;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+  }
+  .phone .scr {
+    background: linear-gradient(160deg, #0B2545, #0EA5E9);
+    color:#fff;
+    width: 100%; height: 100%;
+    padding: 18px 14px;
+    font-size: 11px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+
+  /* CHAT/TABLE */
+  table.simple { width: 100%; border-collapse: collapse; font-size: 12px; }
+  table.simple th, table.simple td {
+    text-align: left; padding: 7px 10px;
+    border-bottom: 1px solid var(--line-soft);
+    vertical-align: top;
+  }
+  table.simple th { color: var(--ink-500); font-weight: 600; font-size: 11.5px; text-transform: uppercase; letter-spacing: .08em; background: var(--soft); }
+  table.simple td.b { font-weight: 600; color: var(--ink-900); }
+
+  /* PROGRESS BARS */
+  .bar-row { display: grid; grid-template-columns: 130px 1fr 50px; align-items: center; gap: 10px; font-size: 12px; margin: 6px 0; }
+  .bar-row .lbl { color: var(--ink-700); }
+  .bar-row .bar { height: 10px; background: #EFF6FF; border-radius: 999px; overflow: hidden; }
+  .bar-row .bar > span { display: block; height: 100%; background: linear-gradient(90deg,#0284C7,#38BDF8); border-radius: 999px; }
+  .bar-row .v { color: var(--ink-900); font-weight: 700; text-align: right; }
+
+  /* CONTACTS */
+  .contact-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .contact-card { background: var(--soft); border: 1px solid var(--line); border-radius: 14px; padding: 16px; font-size: 13px; }
+  .contact-card h5 { margin: 0 0 6px; font-size: 12px; color: var(--blue-700); text-transform: uppercase; letter-spacing: .12em; }
+  .contact-card div { color: var(--ink-700); margin: 2px 0; }
+
+  /* PRINT */
+  @page { size: A4; margin: 0; }
+  @media print {
+    html, body { background: #fff; }
+    .page { box-shadow: none; margin: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============== PAGE 1 — HERO ============== -->
+<section class="page">
+  <div class="hero">
+    <div class="grid-overlay"></div>
+    <div class="brand">
+      <span class="dot">F</span>
+      <span class="name">FlowOps</span>
+    </div>
+
+    <div class="eyebrow">Алматы · Коммерческое предложение · 2026</div>
+    <h1>Система захвата <br/>объектов для команды <br/><span class="accent">промышленных альпинистов.</span></h1>
+    <p class="sub">Сайт, реклама и AI-обзвон, которые работают вместе — пока бригада на верёвке, машина продаж сама ловит и греет клиентов.</p>
+
+    <div class="pills">
+      <span class="pill">Сайт + квиз-воронка</span>
+      <span class="pill">Instagram + таргет</span>
+      <span class="pill">AI-обзвон за 30 секунд</span>
+      <span class="pill">CRM + follow-up</span>
+    </div>
+
+    <div class="footer-strip">
+      <div class="stat-h"><div class="num">3</div><div class="label">Уровня системы</div></div>
+      <div class="stat-h"><div class="num">30 сек</div><div class="label">До первого контакта</div></div>
+      <div class="stat-h"><div class="num">4 нед.</div><div class="label">Срок запуска</div></div>
+      <div class="stat-h"><div class="num">B2B + B2C</div><div class="label">Целевые сегменты</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== PAGE 2 — PROBLEM ============== -->
+<section class="page">
+  <div class="frame">
+    <div class="brand"><span class="dot">F</span><span class="name">FlowOps</span></div>
+    <div class="eyebrow">Где утекают клиенты</div>
+    <h1>Пока бригадир висит на верёвке —<br/>заказ уходит к конкурентам.</h1>
+    <p class="lead">Промышленный альпинизм — высокий чек и услуга на доверии. Но 78% клиентов выбирают того, кто ответил первым. А первым отвечать с высоты 20 этажа — невозможно.</p>
+
+    <div class="grid grid-2" style="margin-top: 10px;">
+      <div class="card accent-l rose">
+        <div class="title">Что происходит сейчас</div>
+        <ul>
+          <li>Заявка приходит в Instagram, WhatsApp или на сайт — никто не отвечает 2–4 часа.</li>
+          <li>Клиент звонит — попадает на занятый/недоступный номер.</li>
+          <li>Перезванивают вечером — клиент уже договорился с конкурентом.</li>
+          <li>Нет понятной воронки: «горячий» крупный объект теряется среди мелких.</li>
+          <li>Бригада не знает, кто звонил утром и кому нужно перезвонить сегодня.</li>
+        </ul>
+      </div>
+      <div class="card accent-l amber">
+        <div class="title">Сколько это стоит</div>
+        <ul>
+          <li>На каждом 10-м пропущенном звонке теряется один объект — это сотни тысяч тенге.</li>
+          <li>Реклама работает в минус: лиды приходят, но не обрабатываются.</li>
+          <li>B2B-клиенты (ЖК, ТРЦ, бизнес-центры) — самые ценные — уходят первыми, потому что они не ждут.</li>
+          <li>Команда выгорает на «перезвонах» вместо высотных работ.</li>
+          <li>Сезонность бьёт сильнее, потому что нет автоматизации между пиками.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top: 16px;">
+      Проблема не в количестве заявок. Проблема в скорости и дисциплине ответа. Один и тот же бюджет на рекламу может приносить в 2–3 раза больше закрытых объектов — если в основе стоит система, а не «перезвоним когда сможем».
+    </div>
+
+    <div class="footnote">Источник статистики: Harvard Business Review · InsideSales — отклик в первую минуту даёт в 7 раз больше конверсий.</div>
+    <div class="pagenum">02 / 14</div>
+  </div>
+</section>
+
+<!-- ============== PAGE 3 — SOLUTION 3 LEVELS ============== -->
+<section class="page">
+  <div class="frame">
+    <div class="brand"><span class="dot">F</span><span class="name">FlowOps</span></div>
+    <div class="eyebrow">Решение</div>
+    <h1>Три уровня системы,<br/>которые работают как один механизм.</h1>
+    <p class="lead">Мы не «делаем сайт» и не «настраиваем рекламу». Мы выстраиваем цепь, в которой каждое звено усиливает следующее — от первого касания в Instagram до подписанного акта.</p>
+
+    <div class="grid grid-3" style="margin-top: 14px;">
+      <div class="card accent-l">
+        <div class="num">1</div>
+        <div class="title">Привлечение</div>
+        <div class="body">Сайт с акцентом на безопасность, кейсы и расчёт за 5 минут. Instagram и таргет с реальными съёмками работ на высоте. Контент, которому верят даже консервативные заказчики из B2B.</div>
+        <div style="margin-top:10px;">
+          <span class="pill">Сайт + квиз</span>
+          <span class="pill">Таргет ЖК / ТРЦ</span>
+          <span class="pill">Instagram-контент</span>
+        </div>
+      </div>
+      <div class="card accent-l green">
+        <div class="num">2</div>
+        <div class="title">Скорость ответа</div>
+        <div class="body">AI-голосовой ассистент сам перезванивает каждой заявке за 30 секунд. Квалифицирует клиента, собирает данные по объекту и сразу присылает в Telegram бригадиру готовое ТЗ. WhatsApp follow-up с портфолио и лицензиями — на автомате.</div>
+        <div style="margin-top:10px;">
+          <span class="pill">AI-обзвон (Vapi)</span>
+          <span class="pill">WhatsApp авто</span>
+          <span class="pill">Telegram-алерты</span>
+        </div>
+      </div>
+      <div class="card accent-l violet">
+        <div class="num">3</div>
+        <div class="title">Удержание</div>
+        <div class="body">CRM на Airtable — каждая заявка от первого касания до закрытого акта. Loom-предложения для крупных объектов, follow-up-цепочки, повторные касания через 30/60/90 дней. Ничего не теряется и не забывается.</div>
+        <div style="margin-top:10px;">
+          <span class="pill">Airtable CRM</span>
+          <span class="pill">Loom-смета</span>
+          <span class="pill">Reactivation</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 18px;">
+      <div class="eyebrow" style="margin-top:6px;">Как это работает в цепочке</div>
+      <div class="pipeline" style="margin-top: 10px;">
+        <div class="stepbox blue">Instagram /<br/>Таргет</div>
+        <div class="stepbox blue">Заявка<br/>на сайте</div>
+        <div class="stepbox dark">AI-звонок<br/>за 30 сек</div>
+        <div class="stepbox">Квалификация<br/>+ CRM</div>
+        <div class="stepbox">WhatsApp<br/>follow-up</div>
+        <div class="stepbox">Замер /<br/>смета</div>
+        <div class="stepbox">Объект<br/>закрыт</div>
+      </div>
+    </div>
+
+    <div class="footnote">Каждый блок можно внедрить отдельно — но эффект ×3 даёт именно связка. В этой презентации фокус на блоках 1 (сайт + реклама) и 2 (AI-обзвон).</div>
+    <div class="pagenum">03 / 14</div>
+  </div>
+</section>
+
+<!-- ============== PAGE 4 — WEBSITE: WHY ============== -->
+<section class="page">
+  <div class="frame">
+    <div class="brand"><span class="dot">F</span><span class="name">FlowOps</span></div>
+    <div class="eyebrow">Сайт — основа доверия</div>
+    <h1>Сайт — это не каталог услуг.<br/>Это доказательство, что вам можно дать ключ от крыши.</h1>
+    <p class="lead">Заказчик в этой нише принимает решение по одному критерию — «не упадёт ли он и не сломает ли мне фасад». Сайт должен снимать этот страх за первые 8 секунд.</p>
+
+    <div class="grid grid-3" style="margin-top: 10px;">
+      <div class="card">
+        <div class="title">1. Видео с высоты на первом экране</div>
+        <div class="body">POV-съёмка с верёвок над городом. Не стоковая картинка — а ваша реальная команда на объекте. Это сразу убирает 70% сомнений.</div>
+      </div>
+      <div class="card">
+        <div class="title">2. Лицензии и допуски — на виду</div>
+        <div class="body">Допуск к высотным работам, страховка, удостоверения промальпа. Не в подвале «о компании», а отдельным блоком с печатями и сроками действия.</div>
+      </div>
+      <div class="card">
+        <div class="title">3. Кейсы по объектам, а не по услугам</div>
+        <div class="body">«Мытьё фасада ЖК на пр. Аль-Фараби», «Герметизация швов БЦ Esentai Tower». Фото до/после, сроки, бригада. Имена — не нужны, но конкретика — обязательна.</div>
+      </div>
+      <div class="card">
+        <div class="title">4. Расчёт за 5 минут</div>
+        <div class="body">Большая яркая кнопка «Получить расчёт» открывает короткий квиз. Никаких форм «оставьте телефон, мы свяжемся в течение дня».</div>
+      </div>
+      <div class="card">
+        <div class="title">5. Условия и безопасность</div>
+        <div class="body">Чёткий блок: как мы готовим объект, что согласовываем с КСК/управляющей, страховка работ. Это язык, которым говорят управляющие ЖК и ТРЦ.</div>
+      </div>
+      <div class="card">
+        <div class="title">6. Отзывы с лицами и должностями</div>
+        <div class="body">Не «Айдос Б., Алматы» — а «Управляющий ЖК «Жетысу», Айдос Болатов». Лучше — короткое видео на 30 секунд.</div>
+      </div>
+    </div>
+
+    <div class="callout blue" style="margin-top: 16px;">
+      Сайт работает не как «рассказ о вас». Он работает как фильтр: тёплый клиент сразу попадает в квиз → AI-обзвон → бригадир получает в Telegram «ВНИМАНИЕ! Крупный объект, ЖК на 12 этажей, бюджет ~ 1.5 млн ₸». Без сайта эта цепь не запускается.
+    </div>
+
+    <div class="pagenum">04 / 14</div>
+  </div>
+</section>
+
+<!-- ============== PAGE 5 — WEBSITE STRUCTURE / WIREFRAME ============== -->
+<section class="page">
+  <div class="frame">
+    <div class="brand"><span class="dot">F</span><span class="name">FlowOps</span></div>
+    <div class="eyebrow">Структура главной</div>
+    <h1>Как устроена главная страница.</h1>
+    <p class="lead">Каждый блок ведёт к одному действию — нажать «Получить расчёт» или оставить телефон. Ничего лишнего, ничего «о миссии и ценностях».</p>
+
+    <div class="wire" style="margin-top: 4px;">
+      <div class="wire-row hero-row">
+        <div class="left"><span class="tag">01 · Hero</span> Видео POV с высоты + «Получить расчёт за 5 минут»</div>
+        <div class="right">Первый экран · CTA</div>
+      </div>
+      <div class="wire-row">
+        <div class="left"><span class="tag">02 · Доверие</span> Лицензии, допуск ОТ, страховка, годы на рынке, объекты в год</div>
+        <div class="right">4 ключевых факта · цифры</div>
+      </div>
+      <div class="wire-row">
+        <div class="left"><span class="tag">03 · Услуги</span> Мытьё фасадов · Герметизация · Покраска · Ремонт швов · Утепление · Очистка крыш</div>
+        <div class="right">Сетка 3×2 · иконки</div>
+      </div>
+      <div class="wire-row">
+        <div class="left"><span class="tag">04 · Кейсы</span> 6–8 объектов: фото до/после, тип, площадь, сроки</div>
+        <div class="right">Карусель · отзыв заказчика</div>
+      </div>
+      <div class="wire-row">
+        <div class="left"><span class="tag">05 · Как работаем</span> 5 шагов: заявка → AI-звонок → выезд → договор → акт</div>
+        <div class="right">Горизонтальный таймлайн</div>
+      </div>
+      <div class="wire-row">
+        <div class="left"><span class="tag">06 · Безопасность</span> Допуск к работам, согласование с УК, страховка фасада и третьих лиц</div>
+        <div class="right">Язык B2B</div>
+      </div>
+      <div class="wire-row">
+        <div class="left"><span class="tag">07 · Калькулятор</span> Квиз: тип объекта → высота → площадь → срочность → контакт</div>
+        <div class="right">5 шагов · 60 секунд</div>
+      </div>
+      <div class="wire-row">
+        <div class="left"><span class="tag">08 · Отзывы</span> Видео и текстовые — управляющие ЖК, ТРЦ, частные заказчики</div>
+        <div class="right">Социальное доказательство</div>
+      </div>
+      <div class="wire-row">
+        <div class="left"><span class="tag">09 · FAQ</span> «А если погода?», «Кто отвечает за фасад?», «Как страхуется?», «Можно ли в выходной?»</div>
+        <div class="right">10 ключевых вопросов</div>
+      </div>
+      <div class="wire-row cta">
+        <div class="left"><span class="tag">10 · Финальный CTA</span> Получить расчёт + WhatsApp + телефон + Telegram</div>
+        <div class="right">Тёмный экран · контраст</div>
+      </div>
+    </div>
+
+    <div class="pagenum">05 / 14</div>
+  </div>
+</section>
+
+<!-- ============== PAGE 6 — QUIZ FUNNEL ============== -->
+<section class="page">
+  <div class="frame">
+    <div class="brand"><span class="dot">F</span><span class="name">FlowOps</span></div>
+    <div class="eyebrow">Квиз-воронка</div>
+    <h1>Умная форма, которая отсеивает<br/>«сколько стоит помыть окна?»</h1>
+    <p class="lead">Вместо одной кнопки «Оставить заявку» — последовательность из 5 вопросов. Клиент сам рассказывает всё, что нужно бригадиру для оценки. Заявки приходят уже «горячими» и квалифицированными.</p>
+
+    <div class="grid grid-2" style="margin-top: 10px;">
+      <div class="card">
+        <div class="title">Шаги квиза</div>
+        <table class="simple" style="margin-top: 6px;">
+          <tr><th>Шаг</th><th>Вопрос</th><th>Зачем</th></tr>
+          <tr><td class="b">1</td><td>Тип объекта: ЖК / БЦ / частный дом / промышленный</td><td>Сегментация</td></tr>
+          <tr><td class="b">2</td><td>Тип работ: мытьё / герметизация / покраска / другое</td><td>Маршрут к бригаде</td></tr>
+          <tr><td class="b">3</td><td>Высота и примерная площадь</td><td>Расчёт смены</td></tr>
+          <tr><td class="b">4</td><td>Срочность: в течение недели / месяца / планирую</td><td>Приоритизация</td></tr>
+          <tr><td class="b">5</td><td>Имя и WhatsApp / телефон</td><td>Контакт</td></tr>
+        </table>
+      </div>
+      <div class="card tinted">
+        <div class="title">Что это даёт</div>
+        <ul>
+          <li><b>Меньше «мусора»:</b> «помыть одно окно на 3 этаже» отсеиваются на 2-м шаге.</li>
+          <li><b>Готовое ТЗ:</b> бригадир получает в Telegram карточку с типом, высотой, площадью и сроками.</li>
+          <li><b>Быстрая квалификация:</b> AI сразу понимает, это «горячий B2B» или «частник на потом».</li>
+          <li><b>Конверсия выше в 2–3 раза:</b> человек, прошедший 5 шагов, уже психологически «свой».</li>
+          <li><b>Аналитика:</b> видно, где люди отваливаются — и можно править воронку.</li>
+        </ul>
+        <div class="callout blue" style="margin-top: 10px;">
+          После шага 5 заявка моментально уходит в AI-обзвон. Клиент ещё не закрыл сайт — а ему уже звонит ассистент.
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:16px;">
+      <div class="eyebrow" style="margin-top: 0;">Что бригадир получает в Telegram</div>
+      <div class="card" style="margin-top:8px; background: #F8FAFC;">
+        <div style="font-family: ui-monospace, Menlo, monospace; font-size: 12px; color: var(--ink-900); line-height: 1.7;">
+          <b>Новая заявка · ВЫСОКИЙ ПРИОРИТЕТ</b><br/>
+          Объект: ЖК «Жетысу», 12 этажей, фасад ~1800 м²<br/>
+          Работы: мытьё фасада + герметизация швов<br/>
+          Срочность: в течение 2 недель<br/>
+          Контакт: Айдос (управляющий) · +7 707 123-45-67<br/>
+          AI-квалификация: 9/10 · B2B · доступ к крыше есть<br/>
+          → <span style="color: var(--blue-700);">Перезвонить лично сегодня до 18:00</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pagenum">06 / 14</div>
+  </div>
+</section>
+
+<!-- ============== PAGE 7 — ADS OVERVIEW ============== -->
+<section class="page">
+  <div class="frame">
+    <div class="brand"><span class="dot">F</span><span class="name">FlowOps</span></div>
+    <div class="eyebrow">Реклама и Instagram</div>
+    <h1>Контент про процесс работы —<br/>а не «мы моем окна качественно».</h1>
+    <p class="lead">Главное оружие в этой нише — съёмка с высоты. Люди залипают на работу промальпов так же, как на работу сварщиков и каменщиков. Это и есть бесплатный охват в Reels — мы строим контент-машину вокруг этого.</p>
+
+    <div class="grid grid-2" style="margin-top: 8px;">
+      <div class="card accent-l">
+        <div class="title">Instagram (организика + Reels)</div>
+        <div class="body">Цель — собрать узнаваемость и доверие. Контент 3 типов:</div>
+        <ul>
+          <li><b>Process:</b> POV с верёвок, тайм-лапсы фасадов, утренние сборы бригады.</li>
+          <li><b>Case-story:</b> «Объект на этой неделе» — короткий разбор, что делали и сколько ушло.</li>
+          <li><b>Trust:</b> сертификаты, экзамены, обучение, страховка. Заказчик-управляющий смотрит именно это.</li>
+        </ul>
+        <div style="margin-top:10px;">
+          <span class="pill">3 поста / нед</span>
+          <span class="pill">4–6 Reels / нед</span>
+          <span class="pill">Сторис ежедневно</span>
+        </div>
+      </div>
+      <div class="card accent-l green">
+        <div class="title">Таргет (Meta + Direct)</div>
+        <div class="body">Цель — заявки на сайт и в директ. Два контура:</div>
+        <ul>
+          <li><b>B2C-широкий:</b> владельцы домов, дачники, ремонтники — на сезонные услуги.</li>
+          <li><b>B2B-точечный:</b> управляющие ЖК и ТРЦ, главные инженеры — по геолокациям и интересам.</li>
+          <li><b>Ретаргет:</b> кто посмотрел сайт, но не дошёл до квиза.</li>
+        </ul>
+        <div style="margin-top:10px;">
+          <span class="pill">3 аудитории</span>
+          <span class="pill">6 креативов / тест</span>
+          <span class="pill">Ретаргет 14 дней</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 14px;">
+      <div class="eyebrow" style="margin-top:0;">Контент-форматы, которые работают</div>
+      <div class="creatives" style="margin-top: 8px;">
+        <div class="creative c1"><span class="tag">Reels · POV</span><div class="head">Утро на 18-м этаже:<br/>один день из жизни</div></div>
+        <div class="creative c2"><span class="tag">Reels · Time-lapse</span><div class="head">Фасад в 2400 м²<br/>за 3 дня — таймлапс</div></div>
+        <div class="creative c3"><span class="tag">Case</span><div class="head">Как мы герметизировали<br/>швы зимой при −12°C</div></div>
+        <div class="creative c4"><span class="tag">Trust</span><div class="head">Сертификация бригады<br/>и допуск к работам</div></div>
+        <div class="creative c5"><span class="tag">Before / After</span><div class="head">Фасад БЦ:<br/>до и после</div></div>
+        <div class="creative c6"><span class="tag">B2B-офер</span><div class="head">Готовим ЖК<br/>к зиме · -15%</div></div>
+      </div>
+    </div>
+
+    <div class="pagenum">07 / 14</div>
+  </div>
+</section>
+
+<!-- ============== PAGE 8 — ADS: AUDIENCES + BUDGET ============== -->
+<section class="page">
+  <div class="frame">
+    <div class="brand"><span class="dot">F</span><span class="name">FlowOps</span></div>
+    <div class="eyebrow">Реклама · детали</div>
+    <h1>Кого мы ищем и за что платим.</h1>
+    <p class="lead">Без чёткой сегментации таргет в этой нише сливает бюджет в «всех владельцев квартир». Мы делим аудитории на 3 контура и крутим их параллельно.</p>
+
+    <div class="grid grid-3" style="margin-top: 10px;">
+      <div class="card accent-l">
+        <div class="title">B2B · Самый дорогой чек</div>
+        <ul>
+          <li>Управляющие компании ЖК</li>
+          <li>Управляющие ТРЦ и БЦ</li>
+          <li>Главные инженеры предприятий</li>
+          <li>Девелоперы и подрядчики</li>
+        </ul>
+        <div style="margin-top:8px;">
+          <span class="pill gray">LTV: высокий</span>
+          <span class="pill gray">Цикл: 2–6 нед</span>
+        </div>
+      </div>
+      <div class="card accent-l green">
+        <div class="title">B2C · Массовый сегмент</div>
+        <ul>
+          <li>Владельцы частных домов</li>
+          <li>Жильцы верхних этажей (кондиционеры, окна)</li>
+          <li>Управляющие гостиниц / хостелов</li>
+          <li>Сезон: весна и осень</li>
+        </ul>
+        <div style="margin-top:8px;">
+          <span class="pill gray">Чек: средний</span>
+          <span class="pill gray">Цикл: 1–7 дней</span>
+        </div>
+      </div>
+      <div class="card accent-l violet">
+        <div class="title">Ретаргет · Догрев</div>
+        <ul>
+          <li>Кто зашёл на сайт, не оставил заявку</li>
+          <li>Кто начал квиз, но бросил</li>
+          <li>Кто сохранил Reels / переписывался</li>
+          <li>Прошлогодние заказчики (reactivation)</li>
+        </ul>
+        <div style="margin-top:8px;">
+          <span class="pill gray">CPL: низкий</span>
+          <span class="pill gray">Окно: 14–30 дн</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 16px;">
+      <div class="eyebrow" style="margin-top: 0;">Распределение тестового бюджета · первый месяц</div>
+      <div class="card" style="margin-top: 8px;">
+        <div class="bar-row"><div class="lbl">B2B-точечно</div><div class="bar"><span style="width: 45%"></span></div><div class="v">45%</div></div>
+        <div class="bar-row"><div class="lbl">B2C-широкий</div><div class="bar"><span style="width: 30%"></span></div><div class="v">30%</div></div>
+        <div class="bar-row"><div class="lbl">Ретаргет</div><div class="bar"><span style="width: 15%"></span></div><div class="v">15%</div></div>
+        <div class="bar-row"><div class="lbl">Креатив-тесты</div><div class="bar"><span style="width: 10%"></span></div><div class="v">10%</div></div>
+      </div>
+    </div>
+
+    <div class="grid grid-2" style="margin-top: 14px;">
+      <div class="card tinted">
+        <div class="title">Что мы измеряем</div>
+        <ul>
+          <li>CPL — цена за заявку из квиза (целевой ориентир)</li>
+          <li>CR в квалифицированный лид (через AI-обзвон)</li>
+          <li>CR в выезд на замер</li>
+          <li>CR в подписанный договор</li>
+          <li>ROAS — на каждый ₸ рекламы сколько ₸ выручки</li>
+        </ul>
+      </div>
+      <div class="card tinted">
+        <div class="title">Когда запускаем — что меняется</div>
+        <ul>
+          <li>Неделя 1–2: тест 6 креативов на 3 аудиториях</li>
+          <li>Неделя 3: остаются 2 связки с лучшим CPL</li>
+          <li>Неделя 4+: масштабирование + ретаргет</li>
+          <li>Месяц 2: запуск B2B-офера в директ</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pagenum">08 / 14</div>
+  </div>
+</section>
+
+<!-- ============== PAGE 9 — SPEED-TO-LEAD ENGINE ============== -->
+<section class="page">
+  <div class="frame">
+    <div class="brand"><span class="dot">F</span><span class="name">FlowOps</span></div>
+    <div class="eyebrow">AI-обзвон · сердце системы</div>
+    <h1>Заявка → звонок AI за 30 секунд →<br/>готовое ТЗ в Telegram бригадиру.</h1>
+    <p class="lead">Это блок, который превращает рекламу в реальные деньги. Пока бригада на верёвках — AI-ассистент сам набирает каждого нового лида, квалифицирует и фиксирует в CRM.</p>
+
+    <div style="margin-top: 8px;">
+      <div class="pipeline">
+        <div class="stepbox blue">Лид с сайта<br/>(квиз)</div>
+        <div class="stepbox blue">Webhook<br/>в n8n</div>
+        <div class="stepbox dark">AI-звонок<br/>Vapi / Retell</div>
+        <div class="stepbox">Квалиф.<br/>+ score</div>
+        <div class="stepbox">CRM<br/>(Airtable)</div>
+        <div class="stepbox">WhatsApp<br/>follow-up</div>
+        <div class="stepbox">Telegram<br/>бригадиру</div>
+      </div>
+    </div>
+
+    <div class="grid grid-2" style="margin-top: 16px;">
+      <div class="card accent-l">
+        <div class="title">Что делает AI-ассистент</div>
+        <ul>
+          <li>Здоровается от имени вашей компании.</li>
+          <li>Подтверждает заявку и говорит, что мастер занят на объекте.</li>
+          <li>Уточняет детали: высота, доступ к крыше, тип фасада, срочность.</li>
+          <li>Если объект крупный или B2B — сразу алертит бригадира лично.</li>
+          <li>Если объект мелкий — записывает на расчёт по WhatsApp.</li>
+          <li>Заполняет CRM-карточку: имя, телефон, объект, бюджет, статус.</li>
+          <li>Отправляет клиенту WhatsApp с лицензиями и портфолио.</li>
+        </ul>
+      </div>
+      <div class="card accent-l green">
+        <div class="title">Что получает бригада</div>
+        <ul>
+          <li>Готовое ТЗ в Telegram через 2–3 минуты после заявки.</li>
+          <li>Понятный приоритет: 🚨 «горячий» / 🟢 «обычный» / 🟡 «холодный».</li>
+          <li>Транскрипт разговора — можно прослушать или прочитать.</li>
+          <li>Календарь замеров без дёрганий «когда сможете подъехать».</li>
+          <li>Уведомление, если клиент не ответил — AI попробует через 1 час и 24 часа.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout blue" style="margin-top: 14px;">
+      Стек: Vapi.ai (голос) + n8n (логика) + Airtable (CRM) + WhatsApp Business API + Telegram. Всё уже работает на других клиентах FlowOps — это не эксперимент, а готовый продукт под адаптацию.
+    </div>
+
+    <div class="pagenum">09 / 14</div>
+  </div>
+</section>
+
+<!-- ============== PAGE 10 — AI SCRIPT EXAMPLE ============== -->
+<section class="page">
+  <div class="frame">
+    <div class="brand"><span class="dot">F</span><span class="name">FlowOps</span></div>
+    <div class="eyebrow">Как звучит AI-агент</div>
+    <h1>Пример звонка через 30 секунд<br/>после заполнения квиза.</h1>
+    <p class="lead">Клиент только что закрыл сайт. Ему сразу звонит ассистент — спокойным, вежливым голосом, без «здравствуйте, это робот». Большинство клиентов даже не понимают, что говорят с AI.</p>
+
+    <div class="grid grid-2" style="margin-top: 8px;">
+      <div class="card">
+        <div class="title">Скрипт диалога</div>
+        <div class="chat" style="margin-top: 8px;">
+          <div class="bubble ai"><div class="who">AI · Команда</div>Айдос, здравствуйте! Алия, ассистент команды «[Название]». Вы оставили заявку на расчёт фасадных работ для ЖК «Жетысу». Удобно ответить на пару вопросов?</div>
+          <div class="bubble client"><div class="who">Клиент</div>Да, давайте.</div>
+          <div class="bubble ai"><div class="who">AI</div>Есть ли свободный доступ к крыше и можно ли работать днём? И какой ориентир по срокам?</div>
+          <div class="bubble client"><div class="who">Клиент</div>Доступ есть, нужно за 2–3 недели, до холодов.</div>
+          <div class="bubble ai"><div class="who">AI</div>Отлично. Передаю задачу бригадиру — он перезвонит до 18:00 для замера. В WhatsApp пришлю лицензии и портфолио по похожим объектам.</div>
+          <div class="bubble client"><div class="who">Клиент</div>Хорошо, спасибо.</div>
+        </div>
+      </div>
+
+      <div class="card soft">
+        <div class="title">Что произошло за этот разговор</div>
+        <table class="simple" style="margin-top: 6px;">
+          <tr><th>Поле CRM</th><th>Значение</th></tr>
+          <tr><td>Имя</td><td class="b">Айдос</td></tr>
+          <tr><td>Объект</td><td class="b">ЖК «Жетысу»</td></tr>
+          <tr><td>Тип</td><td>B2B / Управление</td></tr>
+          <tr><td>Доступ к крыше</td><td>Есть</td></tr>
+          <tr><td>Срочность</td><td class="b">2–3 недели</td></tr>
+          <tr><td>Score</td><td class="b">9 / 10 · Горячий</td></tr>
+          <tr><td>Назначено на</td><td>Сегодня до 18:00</td></tr>
+          <tr><td>Канал follow-up</td><td>WhatsApp · отправлено</td></tr>
+        </table>
+
+        <div class="callout" style="margin-top: 12px;">
+          Тон AI-агента, его имя, фразы и порядок вопросов — настраиваются и тестируются вместе с вами. Можно сделать «свою Алию» под голос команды.
+        </div>
+      </div>
+    </div>
+
+    <div class="pagenum">10 / 14</div>
+  </div>
+</section>
+
+<!-- ============== PAGE 11 — CRM + FOLLOW-UP ============== -->
+<section class="page">
+  <div class="frame">
+    <div class="brand"><span class="dot">F</span><span class="name">FlowOps</span></div>
+    <div class="eyebrow">CRM и follow-up</div>
+    <h1>Команда видит каждую заявку —<br/>даже когда вся бригада висит на верёвках.</h1>
+    <p class="lead">Никаких блокнотов, никаких «забыл перезвонить». Каждый лид становится карточкой в Airtable со статусом, приоритетом и следующим действием. Алерты в Telegram — только по важному.</p>
+
+    <div class="grid grid-2" style="margin-top: 10px;">
+      <div class="card">
+        <div class="title">CRM-карточка лида (Airtable)</div>
+        <table class="simple" style="margin-top: 4px;">
+          <tr><th>Поле</th><th>Пример</th></tr>
+          <tr><td>Объект</td><td class="b">ЖК «Жетысу», 12 этажей</td></tr>
+          <tr><td>Тип работ</td><td>Мытьё фасада + герметизация</td></tr>
+          <tr><td>Контактное лицо</td><td>Айдос Б. · Управляющий</td></tr>
+          <tr><td>Канал</td><td>Instagram → Сайт → Квиз</td></tr>
+          <tr><td>Score AI</td><td class="b">9 / 10 · Горячий</td></tr>
+          <tr><td>Статус</td><td class="b">AI квалифицировал</td></tr>
+          <tr><td>След. действие</td><td>Замер сегодня до 18:00</td></tr>
+          <tr><td>Follow-up</td><td>Авто WhatsApp + Loom-смета</td></tr>
+        </table>
+      </div>
+      <div class="card tinted">
+        <div class="title">Воронка статусов</div>
+        <ul>
+          <li><b>Новый</b> — только пришёл из квиза.</li>
+          <li><b>AI квалифицировал</b> — AI поговорил, собрал данные.</li>
+          <li><b>На замере</b> — выехала бригада.</li>
+          <li><b>Смета отправлена</b> — клиент получил Loom-видео.</li>
+          <li><b>Договор</b> — подписали.</li>
+          <li><b>В работе</b> — объект на исполнении.</li>
+          <li><b>Закрыт</b> — акт подписан.</li>
+          <li><b>Реактивация</b> — связаться через 30/60/90 дней.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid grid-2" style="margin-top: 14px;">
+      <div class="card accent-l green">
+        <div class="title">Follow-up — что уходит автоматически</div>
+        <ul>
+          <li>Сразу после AI-звонка: WhatsApp с лицензиями.</li>
+          <li>Через 24 часа без ответа: вежливое «всё ли удобно?».</li>
+          <li>После замера: Loom-смета на 2 минуты.</li>
+          <li>Через 30/60/90 дней: сезонная реактивация.</li>
+        </ul>
+      </div>
+      <div class="card accent-l violet">
+        <div class="title">Алерты в Telegram</div>
+        <ul>
+          <li>Крупный B2B-лид — бригадиру лично.</li>
+          <li>Лид без ответа AI 2 раза — менеджеру.</li>
+          <li>Сводка дня в 20:00 — заявки и закрытия.</li>
+          <li>Сбой автоматизации — мгновенно в чат.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pagenum">11 / 14</div>
+  </div>
+</section>
+
+<!-- ============== PAGE 12 — BEFORE / AFTER ============== -->
+<section class="page">
+  <div class="frame">
+    <div class="brand"><span class="dot">F</span><span class="name">FlowOps</span></div>
+    <div class="eyebrow">До и после</div>
+    <h1>Как меняется работа бригады.</h1>
+    <p class="lead">Ниже — иллюстративная модель. Реальный эффект зависит от объёма рекламы, сезона и качества бригады, но направление изменений мы видим на каждом клиенте.</p>
+
+    <div class="grid grid-4" style="margin-top: 8px;">
+      <div class="stat"><div class="num">30+</div><div class="label">Заявок в месяц после старта рекламы</div></div>
+      <div class="stat"><div class="num">30 сек</div><div class="label">До первого контакта с лидом</div></div>
+      <div class="stat"><div class="num">×2–3</div><div class="label">Рост конверсии в замер</div></div>
+      <div class="stat"><div class="num">0</div><div class="label">Пропущенных звонков</div></div>
+    </div>
+
+    <div class="ba" style="margin-top: 16px;">
+      <div class="col before">
+        <h4>Как было</h4>
+        <ul>
+          <li>Заявки приходят в Instagram и WhatsApp вперемешку.</li>
+          <li>Бригадир видит сообщения вечером — клиент ушёл.</li>
+          <li>На каждый лид уходит 10–20 минут «выяснить, что нужно».</li>
+          <li>Крупные объекты теряются среди мелких.</li>
+          <li>Нет понимания, что приносит рекламу, а что — нет.</li>
+          <li>Старые клиенты забываются — повторных продаж почти нет.</li>
+        </ul>
+      </div>
+      <div class="col after">
+        <h4>Как становится</h4>
+        <ul>
+          <li>Все заявки в одной CRM с приоритетом и статусом.</li>
+          <li>AI отвечает за 30 секунд и собирает ТЗ.</li>
+          <li>Бригадир получает готовую карточку — без расспросов.</li>
+          <li>«Горячие» лиды сразу выделены — личный алерт.</li>
+          <li>Видна вся аналитика: реклама → лид → замер → договор.</li>
+          <li>Прошлогодние клиенты возвращаются через автокасания.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top: 14px;">
+      Этот документ — не гарантия выручки, а иллюстративная модель. Конкретные цифры мы фиксируем на 2-й и 4-й неделе после запуска и совместно корректируем рекламу и скрипты под реальные данные вашей ниши и города.
+    </div>
+
+    <div class="pagenum">12 / 14</div>
+  </div>
+</section>
+
+<!-- ============== PAGE 13 — TIMELINE ============== -->
+<section class="page">
+  <div class="frame">
+    <div class="brand"><span class="dot">F</span><span class="name">FlowOps</span></div>
+    <div class="eyebrow">План внедрения</div>
+    <h1>Запуск системы за 4 недели.</h1>
+    <p class="lead">Работаем спринтами по неделе. В конце каждой недели — рабочий результат, который можно потрогать руками, а не «отчёт в PDF».</p>
+
+    <div class="timeline" style="margin-top: 8px;">
+      <div class="tl">
+        <div class="wk">Неделя 1</div>
+        <div class="ti">Фундамент</div>
+        <ul>
+          <li>Discovery-созвон с бригадой</li>
+          <li>Сбор кейсов и медиа</li>
+          <li>Прототип сайта и квиза</li>
+          <li>Архитектура AI-скрипта</li>
+          <li>Запуск CRM-шаблона в Airtable</li>
+        </ul>
+      </div>
+      <div class="tl">
+        <div class="wk">Неделя 2</div>
+        <div class="ti">Сайт + контент</div>
+        <ul>
+          <li>Финальная вёрстка сайта</li>
+          <li>Подключение домена + квиз</li>
+          <li>Съёмка POV-роликов на объекте</li>
+          <li>Подготовка 6 креативов под таргет</li>
+          <li>Настройка пикселя и аналитики</li>
+        </ul>
+      </div>
+      <div class="tl">
+        <div class="wk">Неделя 3</div>
+        <div class="ti">AI + автоматизация</div>
+        <ul>
+          <li>Сборка AI-ассистента (Vapi)</li>
+          <li>n8n: квиз → AI → CRM → Telegram</li>
+          <li>WhatsApp-шаблоны follow-up</li>
+          <li>Тесты на «фейк-лидах» команды</li>
+          <li>Запуск рекламы B2B-аудитории</li>
+        </ul>
+      </div>
+      <div class="tl">
+        <div class="wk">Неделя 4</div>
+        <div class="ti">Запуск и обучение</div>
+        <ul>
+          <li>Старт рекламы на все 3 аудитории</li>
+          <li>Обучение бригадира работе с CRM</li>
+          <li>Loom-инструкции для команды</li>
+          <li>Первые реальные лиды и замеры</li>
+          <li>Точка контроля и корректировка</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid grid-2" style="margin-top: 16px;">
+      <div class="card accent-l">
+        <div class="title">Что вы делаете со своей стороны</div>
+        <ul>
+          <li>Один созвон в неделю на 30–60 минут.</li>
+          <li>Доступ к Instagram и старому сайту (если есть).</li>
+          <li>Фото / видео с объектов — даже на телефон.</li>
+          <li>Голос бригадира для рекламных роликов (по желанию).</li>
+          <li>Решение по бюджету на рекламу.</li>
+        </ul>
+      </div>
+      <div class="card accent-l green">
+        <div class="title">Что делаем мы</div>
+        <ul>
+          <li>Стратегия, дизайн и вёрстка сайта.</li>
+          <li>Настройка AI-ассистента и автоматизаций.</li>
+          <li>Контент-план + продакшн креативов.</li>
+          <li>Запуск и ведение рекламы.</li>
+          <li>Поддержка после запуска и аналитика.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pagenum">13 / 14</div>
+  </div>
+</section>
+
+<!-- ============== PAGE 14 — NEXT STEP ============== -->
+<section class="page">
+  <div class="frame">
+    <div class="brand"><span class="dot">F</span><span class="name">FlowOps</span></div>
+    <div class="eyebrow">Что дальше</div>
+    <h1>Готов внедрить систему<br/>и взять рекламу на сопровождение.</h1>
+    <p class="lead">Это не «сделаем сайт и забудем». FlowOps остаётся в проекте — следит за рекламой, тюнингует AI-скрипты, чистит CRM и помогает команде расти.</p>
+
+    <div class="grid grid-2" style="margin-top: 10px;">
+      <div class="card accent-l">
+        <div class="title">Что мы внедряем сразу</div>
+        <ul>
+          <li>Сайт + квиз-воронка</li>
+          <li>Instagram-контент + 6 рекламных креативов</li>
+          <li>AI-голосовой ассистент за 30 секунд</li>
+          <li>CRM в Airtable + статусы и алерты</li>
+          <li>WhatsApp follow-up + Loom-смета</li>
+          <li>Telegram-уведомления бригадиру</li>
+          <li>Аналитика: реклама → лид → договор</li>
+        </ul>
+      </div>
+      <div class="card accent-l violet">
+        <div class="title">Что в ежемесячном сопровождении</div>
+        <ul>
+          <li>Ведение рекламы и оптимизация связок</li>
+          <li>Контент-план Instagram (Reels + сторис)</li>
+          <li>Тюнинг AI-скрипта по реальным звонкам</li>
+          <li>Чистка CRM, отчёт по воронке раз в неделю</li>
+          <li>Корректировка автоматизаций по сезону</li>
+          <li>Запуск reactivation-цепочек</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout blue" style="margin-top: 14px;">
+      <b>Следующий шаг:</b> 30-минутный созвон, на котором мы сразу набросаем AI-скрипт под вашу бригаду и покажем демо обзвона на тестовом номере. После созвона — фиксируем сроки и бюджет.
+    </div>
+
+    <div class="contact-cards" style="margin-top: 16px;">
+      <div class="contact-card">
+        <h5>FlowOps · Тамерлан Тогысбаев</h5>
+        <div>Сайт: flowops.agency</div>
+        <div>Email: tamertt931@gmail.com</div>
+        <div>Telegram: @tamerlandb</div>
+      </div>
+      <div class="contact-card">
+        <h5>Профиль и кейсы</h5>
+        <div>LinkedIn: linkedin.com/in/tamerlan-togysbayev-855a8526b</div>
+        <div>Upwork: upwork.com/freelancers/tamerlantog</div>
+        <div>Кейсы FlowOps — по запросу</div>
+      </div>
+    </div>
+
+    <div class="pagenum">14 / 14</div>
+  </div>
+</section>
+
+</body>
+</html>
