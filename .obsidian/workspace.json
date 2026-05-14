@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "projects/FlowOps Team/03 - Acquisition Pipelines/Pipeline C — Website Audit Generator.md",
+                "file": "templates/flowops-pitch-deck/README.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Pipeline C — Website Audit Generator"
+              "title": "README"
             }
           },
           {
@@ -236,13 +236,14 @@
   },
   "active": "8358a851115bd668",
   "lastOpenFiles": [
+    "templates/project-template.md",
+    "projects/FlowOps Team/03 - Acquisition Pipelines/Pipeline C — Website Audit Generator.md",
     "projects/FlowOps Team/sessions/2026-05-13-pipeline-c-v3-strict-airtable-throttle.md",
     "projects/FlowOps Team/sessions/2026-05-13-pipeline-c-v3-airtable-rate-limit-fix.md",
     "projects/FlowOps Team/sessions/2026-05-13-pipeline-c-v3-batch-gate.md",
     "projects/FlowOps Team/sessions/2026-05-12-pipeline-c-v3-auto-send-scale.md",
     "projects/FlowOps Team/03 - Acquisition Pipelines/Pipeline E — Retainer Conversion.md",
     "templates/flowops-pitch-deck/README.md",
-    "templates/project-template.md",
     "GPT project instructions.md",
     "patterns/flowops-pdf-presentations.md",
     "templates/flowops-pitch-deck/build.sh",
@@ -269,7 +270,6 @@
     "resume_update_2026_05",
     "projects/AI-Powered Woven Label Generator/sessions/2026-05-08-25x25-square-format-generation-hotfix.md",
     "knowledge/vercel-runtime-log-mcp-limits.md",
-    "projects/AI-Powered Woven Label Generator/sessions/2026-05-08-moq-1000-r2-hotfix-and-freemium-ux.md",
     "projects/pipeline-C-praga/sessions",
     "projects/pipeline-C-praga",
     "projects/FlowOps Team/09 - Масштабирование",
