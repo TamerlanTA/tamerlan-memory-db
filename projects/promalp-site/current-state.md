@@ -31,3 +31,10 @@
 - `npm install` отработал, `node_modules` создан.
 - Git не инициализирован, Vercel-проект не создан, домен не выбран.
 - Контент в секциях — реалистичные демо-формулировки на ru-RU, готов к замене на реальный материал после Discovery.
+
+## 2026-05-14 — Hero адаптив и UI polish
+- Исправлена светлая editorial-версия сайта `Vysota`: главный hero-заголовок больше не обрезается на широком desktop и mobile.
+- Hero переведён на более устойчивый fluid type scale: меньше mobile-size, меньше desktop max-size, спокойнее горизонтальные отступы строк, CTA стали якорями на `#quiz` и `#cases`.
+- Добавлены недостающие Tailwind/UI токены и утилиты, которые уже использовались компонентами (`bg-deep`, `bg-elev`, `line-strong`, `ink-dim`, `ink-muted`, `cyan`, `.mono`, `.grid-overlay`, `.gradient-text`).
+- Добавлен `#contact` на финальный CTA, чтобы nav/footer inquiry links не вели в пустой якорь.
+- Проверка: `npm run build` проходит; Playwright screenshots сняты на 2048×1242, 390×844 и секцию services.
