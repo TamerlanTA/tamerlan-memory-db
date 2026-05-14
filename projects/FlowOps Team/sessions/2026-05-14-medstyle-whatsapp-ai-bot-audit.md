@@ -14,6 +14,11 @@
 - Output files:
   - `/Users/tamerlan/Desktop/Medstyle-FlowOps-КП/index.html`
   - `/Users/tamerlan/Desktop/Medstyle-FlowOps-КП/Medstyle-WhatsApp-AI-Assistant-FlowOps.pdf`
+- Revised pricing slide per user request:
+  - one-time MVP launch price changed to `300 000 ₸`
+  - removed the generic `$500/month support and improvements` package
+  - added estimated monthly bot operating costs: `45–85 тыс. ₸/мес`
+  - monthly breakdown: WhatsApp API number, Meta message fees, AI model usage, hosting/automation
 
 ## Key findings
 - Medstyle has strong trust assets: long operating history, multiple specialist/procedure pages, certified equipment positioning, promotions, WhatsApp, callback forms, and mobile app.
@@ -24,7 +29,7 @@
 ## Blockers
 - No private CRM/WhatsApp response-time data. Any claim about missed leads must be framed as a hypothesis until tested.
 - Medical/esthetic context requires strict guardrails: no diagnosis, no treatment promises, escalation to doctor/admin for contraindications and clinical questions.
-- Pricing in the PDF is an orientation (`from $1,500` setup, `from $500/month` support); should be confirmed or adjusted before sending if a different pricing strategy is chosen.
+- Monthly bot operating costs are estimates and should be rechecked after selecting WhatsApp provider and estimating actual Medstyle message volume.
 
 ## Next steps
 - Use the PDF commercial proposal for outreach or revise pricing/contacts before sending.
