@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "templates/flowops-pitch-deck/README.md",
+                "file": "projects/importcar-kz-mvp.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "README"
+              "title": "importcar-kz-mvp"
             }
           },
           {
@@ -236,6 +236,7 @@
   },
   "active": "8358a851115bd668",
   "lastOpenFiles": [
+    "templates/flowops-pitch-deck/README.md",
     "templates/project-template.md",
     "projects/FlowOps Team/03 - Acquisition Pipelines/Pipeline C — Website Audit Generator.md",
     "projects/FlowOps Team/sessions/2026-05-13-pipeline-c-v3-strict-airtable-throttle.md",
@@ -243,7 +244,6 @@
     "projects/FlowOps Team/sessions/2026-05-13-pipeline-c-v3-batch-gate.md",
     "projects/FlowOps Team/sessions/2026-05-12-pipeline-c-v3-auto-send-scale.md",
     "projects/FlowOps Team/03 - Acquisition Pipelines/Pipeline E — Retainer Conversion.md",
-    "templates/flowops-pitch-deck/README.md",
     "GPT project instructions.md",
     "patterns/flowops-pdf-presentations.md",
     "templates/flowops-pitch-deck/build.sh",
