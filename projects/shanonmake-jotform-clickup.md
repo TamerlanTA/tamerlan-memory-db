@@ -6,6 +6,65 @@
 - [[flowops-agency-website]]
 
 ## Current status
+- Final missing field patch on 2026-05-14:
+  - Client reported the workflow is nearly complete, with only four missing custom fields: `Pre-Ticket Required`, `Sample Tags Required`, `Labeling`, and `Printing Finishes`.
+  - Backup before patch: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-final-missing-fields-fix.backup.json`.
+  - New import file: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.final-missing-fields-fixed-import-this.blueprint.json`.
+  - Exact Jotform keys confirmed in the current blueprint:
+    - `Labeling` -> `q110_labelinggoes`
+    - `Printing Finishes` -> `q133_printingfinishes`
+    - `Sample Tags Required` -> `q147_sampletagtemplate`
+    - `Pre-Ticket Required` -> parsed from checkbox-array field `q166_typeA`
+  - Important finding: `q166_typeA` is an unlabeled Jotform array field used for checkbox-style costing flags; previous logic incorrectly treated it as a generic truthy field for `Special Box Impression` and left `Pre-Ticket Required` disconnected.
+  - Module `22` updates:
+    - `cf_special_box_impression` now checks whether `q166_typeA` contains `Special Box Impression`
+    - `cf_pre_ticket_required` now checks whether `q166_typeA` contains `Pre-Ticket Required`
+    - `cf_labeling_option_ids_json` added to convert selected Jotform label values into a JSON array of ClickUp option IDs
+    - `cf_printing_finishes_option_ids_json` added to convert selected Jotform printing-finish values into a JSON array of ClickUp option IDs
+  - Compact array updates:
+    - Item Set feeders `200` and `230` now include `Labeling` and `Printing Finishes`
+    - Sampling feeders `311` and `341` keep `Sample Tags` mapped through `cf_sample_tags_bool`
+    - Costing feeders `321` and `351` now point `Pre-Ticket Required` at `q166_typeA`
+  - Payload shape chosen for ClickUp label fields follows ClickUp API docs:
+    - `{"value": ["option_id_1", "option_id_2"]}`
+  - Architecture preserved:
+    - no giant routing tree
+    - no one-module-per-option fanout
+    - arrays + iterators + generic Set Custom Field API calls remain intact
+- Import-safe follow-up on 2026-05-14:
+  - User hit Make import errors in `module 22` after the first final-missing-fields patch. Make interpreted fragments of label option UUIDs as fake module references because the JSON-array-building expressions inside `Set multiple variables` were too aggressively escaped.
+  - New import-safe file: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.final-missing-fields-fixed-IMPORT-SAFE.blueprint.json`.
+  - Fix approach:
+    - `module 22` now stores pipe-delimited option ID strings instead of prebuilt JSON arrays:
+      - `cf_labeling_option_ids_pipe`
+      - `cf_printing_finishes_option_ids_pipe`
+    - Item Set feeder entries in `200` and `230` build the final label payload inline as:
+      - `["{{replace(pipe_ids; "|"; "\",\"")}}"]`
+  - This keeps the same compact architecture while avoiding import-time parser confusion inside `module 22`.
+- IML balance fix on 2026-05-14:
+  - User then hit `Invalid IML` errors on the long `cf_labeling_option_ids_pipe` expression: `Unexpected argument separator` / `Unexpected function close`.
+  - Cause: the nested `replace(...)` chain in `module 22` had mismatched closing parentheses after manual assembly.
+  - New corrected file: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.final-missing-fields-fixed-IMPORT-SAFE-v2.blueprint.json`.
+  - Fix method:
+    - regenerated the `Labeling` and `Printing Finishes` expressions programmatically so every nested `replace(...)` call is balanced
+    - preserved the import-safe architecture from the previous step
+- Label array runtime JSON fix on 2026-05-14:
+  - User then got runtime error on generic custom field update: `JSON_001: Bad escaped character in JSON`, after the rest of the Item Set field writes were already succeeding.
+  - Root cause: manual quote-escaping for label arrays produced a string that could reach ClickUp as `["id1\\",\\"id2"]` instead of a clean JSON array.
+  - New candidate file: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.final-missing-fields-fixed-IMPORT-SAFE-v4.blueprint.json`.
+  - Fix approach:
+    - stopped manually building the label-array JSON string
+    - `Labeling` and `Printing Finishes` Item Set feeder entries now use:
+      - `{{split(22.cf_labeling_option_ids_pipe; "|")}}`
+      - `{{split(22.cf_printing_finishes_option_ids_pipe; "|")}}`
+    - this lets Make hand off an actual array instead of an escaped pseudo-JSON string
+- Label array JSON-body serialization follow-up on 2026-05-14:
+  - User then got runtime error `JSON_001: Expected ',' or '}' after property value in JSON at position 11`, indicating `split(...)` was not serializing into valid raw JSON inside the ClickUp API body.
+  - New candidate file: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.final-missing-fields-fixed-IMPORT-SAFE-v5.blueprint.json`.
+  - Updated label payload strategy:
+    - `Labeling` -> `["{{join(split(22.cf_labeling_option_ids_pipe; "|"); """,""")}}"]`
+    - `Printing Finishes` -> `["{{join(split(22.cf_printing_finishes_option_ids_pipe; "|"); """,""")}}"]`
+  - This follows the common Make pattern for emitting a string-array literal inside a raw JSON body.
 - Iterator filter fix on 2026-05-12:
   - User ran the array-driven blueprint and every generic Set Custom Field module (`201`, `302`, `312`, `322`) was skipped by filter.
   - Backup before fix: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-iterator-filter-fix.backup.json`.

@@ -17,8 +17,14 @@
 - Revised pricing slide per user request:
   - one-time MVP launch price changed to `300 000 ₸`
   - removed the generic `$500/month support and improvements` package
-  - added estimated monthly bot operating costs: `45–85 тыс. ₸/мес`
+  - added estimated monthly bot operating costs; later tightened from `45–85 тыс. ₸/мес` to `45–60 тыс. ₸/мес`
   - monthly breakdown: WhatsApp API number, Meta message fees, AI model usage, hosting/automation
+- Follow-up deck edits:
+  - cover page now removes Fit Score and test-question count
+  - launch timing changed from 4 weeks to `1-2 weeks`
+  - recommended system slide pipeline fixed to wrap cleanly instead of overflowing
+  - launch plan changed from 4 weekly stages to 3 fast stages: Day 1-2, Day 3-7, Day 8-14
+  - final "next step/video audit" slide removed; deck is now 11 pages
 
 ## Key findings
 - Medstyle has strong trust assets: long operating history, multiple specialist/procedure pages, certified equipment positioning, promotions, WhatsApp, callback forms, and mobile app.
@@ -29,7 +35,7 @@
 ## Blockers
 - No private CRM/WhatsApp response-time data. Any claim about missed leads must be framed as a hypothesis until tested.
 - Medical/esthetic context requires strict guardrails: no diagnosis, no treatment promises, escalation to doctor/admin for contraindications and clinical questions.
-- Monthly bot operating costs are estimates and should be rechecked after selecting WhatsApp provider and estimating actual Medstyle message volume.
+- Monthly bot operating costs are estimates and should be rechecked after selecting WhatsApp provider and estimating actual Medstyle message volume; current PDF intentionally keeps the visible monthly range lower (`45–60 тыс. ₸/мес`) to avoid scaring the prospect.
 
 ## Next steps
 - Use the PDF commercial proposal for outreach or revise pricing/contacts before sending.
