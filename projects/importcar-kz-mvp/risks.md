@@ -16,6 +16,11 @@
 
 ## Mitigated / reduced risks
 - Anonymous lead select/update access is not exposed in public schema.
-- Dead UI buttons from the supervisor audit were converted into working interactions.
-- Phone capture now has basic validation before submit.
-- Smoke tests now exist as a repeatable verification path.
+- Smoke tests now exist as a repeatable verification path (`npm run smoke:test`).
+
+## Open risks from supervisor audit (2026-05-16)
+- Admin `updateStatus` will return RLS error until authenticated admin session exists.
+- Two dead buttons (ImporterCard "Details", AuctionSheetPreview "View sample report") — no `onClick`.
+- DealProofSection purchase price is hardcoded, not driven by data.
+- Phone validation is `required`-only — no format check.
+- `Car.sourceCountry` field is redundant noise in the type until multi-source inventory is introduced.
