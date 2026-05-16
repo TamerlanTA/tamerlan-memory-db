@@ -25,14 +25,10 @@
             "id": "8358a851115bd668",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "projects/importcar-kz-mvp.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "importcar-kz-mvp"
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Граф"
             }
           },
           {
@@ -236,6 +232,16 @@
   },
   "active": "8358a851115bd668",
   "lastOpenFiles": [
+    "projects/importcar-kz-mvp/overview.md",
+    "projects/importcar-kz-mvp/decisions.md",
+    "projects/importcar-kz-mvp/next-steps.md",
+    "projects/importcar-kz-mvp/current-state.md",
+    "projects/importcar-kz-mvp/sessions/2026-05-16-project-memory-promotion-and-demo-hardening.md",
+    "projects/importcar-kz-mvp.md",
+    "projects/importcar-kz-mvp/prompts.md",
+    "projects/importcar-kz-mvp/risks.md",
+    "projects/importcar-kz-mvp/sessions",
+    "projects/importcar-kz-mvp",
     "templates/flowops-pitch-deck/README.md",
     "templates/project-template.md",
     "projects/FlowOps Team/03 - Acquisition Pipelines/Pipeline C — Website Audit Generator.md",
@@ -255,28 +261,18 @@
     "knowledge/n8n-local-docker-mac.md",
     "knowledge/claude-code-32-hacks.md",
     "projects/FlowOps Team/sessions/2026-05-09-ai-caller-receive-call-result-workflow.md",
-    "projects/FlowOps Team/sessions/2026-05-09-ai-caller-start-outbound-call-workflow.md",
-    "knowledge/codex-local-plugins.md",
-    "projects/FlowOps Team/08 - Выполненные задачи/Completed.md",
-    "projects/FlowOps Team/sessions/2026-04-29-youtube-shorts-sales-deck.md",
-    "projects/pipeline-C-praga/current-state.md",
     "resume_update_2026_05/rendered/page-4.png",
     "resume_update_2026_05/rendered/page-3.png",
     "resume_update_2026_05/rendered/page-2.png",
     "resume_update_2026_05/rendered/page-1.png",
     "resume_update_2026_05/rendered",
-    "resume_update_2026_05/Tamerlan_Togysbayev_Resume_2026-05-Updated.md",
     "resume_update_2026_05/build_resume.py",
     "resume_update_2026_05",
-    "projects/AI-Powered Woven Label Generator/sessions/2026-05-08-25x25-square-format-generation-hotfix.md",
-    "knowledge/vercel-runtime-log-mcp-limits.md",
     "projects/pipeline-C-praga/sessions",
     "projects/pipeline-C-praga",
     "projects/FlowOps Team/09 - Масштабирование",
     "Linear/Linear Ops Automation System",
-    "Linear",
     "Без названия.canvas",
-    "Без названия.base",
     "Без названия 1.canvas"
   ]
 }
