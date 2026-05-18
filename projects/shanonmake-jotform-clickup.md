@@ -65,6 +65,33 @@
     - `Labeling` -> `["{{join(split(22.cf_labeling_option_ids_pipe; "|"); """,""")}}"]`
     - `Printing Finishes` -> `["{{join(split(22.cf_printing_finishes_option_ids_pipe; "|"); """,""")}}"]`
   - This follows the common Make pattern for emitting a string-array literal inside a raw JSON body.
+- Targeted client-test fixes on 2026-05-18:
+  - Client feedback after latest test:
+    - one HoV submission routed to fallback instead of the correct list
+    - `Vessel Finish` did not populate
+    - `Sample Tags` did not populate
+    - attachments still not working
+  - Backup before patch: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-2026-05-18-targeted-fixes.backup.json`.
+  - New patched blueprint: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-05-18-targeted-fixes.blueprint.json`.
+  - Confirmed routing source logic in `module 22` is correct for HoV:
+    - `Brand Type = House of Velas` already routes from `q20_hovbrand`
+    - `Summer Lights` already maps to shortcode `HoV-SummerLights`
+    - but `Summer Lights` has no `target_list_id` entry in current blueprint, so fallback behavior is expected until a real list ID is provided
+  - Routing coverage finding:
+    - `MISSING_LIST_ID: Summer Lights / HoV-SummerLights`
+    - other canonical shortcode rows are also still missing list IDs in the current mapping table, especially several Private Label and House of Velas brands
+  - `Vessel Finish` fix:
+    - `cf_vessel_finish_option` expanded to recognize full labels, not just abbreviations
+    - important explicit support added for `OST - Outside Shiny Translucent` -> `3d3d7151-d1b0-4441-8735-34c04e307906`
+    - Item Set field array entries `200` and `230` already included `Vessel Finish`, so only normalization needed patching
+  - `Sample Tags` finding:
+    - current webhook schema still exposes only `q147_sampletagtemplate` (`Attach Sample Tag Template`) as a visible sampling-related source
+    - a dedicated `Sample Tags Required` checkbox key is not present in the current blueprint metadata
+    - current patch makes `cf_sample_tags_bool` output a boolean token from `q147_sampletagtemplate` presence, but true checkbox-only support needs a refreshed webhook schema or a real sample bundle showing the hidden key
+  - Attachment implementation blocker:
+    - current Jotform upload fields (`q80_fragquote`, `q93_designattachments`, `q98_dielines`, `q147_sampletagtemplate`) arrive as `text` in the webhook schema, not file objects
+    - ClickUp attachment upload requires `multipart/form-data`, and official docs state cloud-stored files cannot be used directly in that API request
+    - current blueprint module set (`jotform`, `util`, `clickup`, `builtin`) has no HTTP/file-download/upload module in use, so safe attachment transfer was not added in this targeted patch
 - Iterator filter fix on 2026-05-12:
   - User ran the array-driven blueprint and every generic Set Custom Field module (`201`, `302`, `312`, `322`) was skipped by filter.
   - Backup before fix: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-iterator-filter-fix.backup.json`.
