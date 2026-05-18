@@ -23,6 +23,10 @@
   - `/Users/tamerlan/Desktop/FlowOps-Offer-English/FlowOps-AI-Sales-Operating-Systems-EN.pdf`
   - `/Users/tamerlan/Desktop/FlowOps-Offer-Russian/FlowOps-AI-Sales-Operating-Systems-RU.pdf`
 - Fixed PDF-only shadow artifacts by keeping the original soft HTML shadows but disabling card shadows entirely inside `@media print` for both decks and the shared FlowOps deck template.
+- Added direct contact details to the final CTA slide in both decks:
+  - phone: `+7 706 400 71 20`
+  - email: `tamertt931@gmail.com`
+  - Upwork: `upwork.com/freelancers/tamerlantog`
 
 ## Key findings
 - For premium B2B positioning, FlowOps should lead with predictability, speed, system control, and reduced chaos before talking about ROI.
