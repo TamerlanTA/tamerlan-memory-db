@@ -25,7 +25,6 @@
 | 2026-05-18 | AyatTransTrade | ayattranstrade.kz | Logistics | WhatsApp freight contact path | website | 76 | Medium | contact page / WhatsApp | new | Almaty net-new batch |
 | 2026-05-18 | AG Accounting Group | agag.kz | Accounting | WhatsApp-led accounting services intake | website | 77 | Medium | website / WhatsApp | new | Almaty net-new batch |
 | 2026-05-18 | Global Account | globalacc.kz | Legal/accounting | Public WhatsApp/contact flow | website | 72 | Medium | contact page | new | Almaty net-new batch |
-| 2026-05-18 | Prof Service | profser.kz | Accounting/audit | WhatsApp + appointment-based service | website | 70 | Medium | contact page / WhatsApp | new | Almaty net-new batch |
 | 2026-05-18 | Vogue Travel | atk-travel.kz | Travel | WhatsApp booking contact | website | 76 | Medium | contact page / WhatsApp | new | Almaty net-new batch |
 | 2026-05-18 | goTUR | gotur.kz | Travel | WhatsApp contact + broad tour catalog | website | 75 | Medium | contact page / WhatsApp | new | Almaty net-new batch |
 | 2026-05-18 | Yurkonsul.kz | yurkonsul.kz | Legal | Urgent legal help CTA + WhatsApp | website | 81 | Medium | website / WhatsApp | new | Almaty net-new batch |

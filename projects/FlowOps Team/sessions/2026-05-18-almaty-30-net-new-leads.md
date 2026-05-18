@@ -9,7 +9,7 @@
 ## What was done
 - Ran a fresh Almaty prospecting batch with the updated `flowops-opportunity-engine`.
 - Checked the canonical `Leads/flowops-opportunity-registry.md` before research and returned only net-new prospects relative to that registry.
-- Added 31 fresh Almaty prospects across logistics, accounting, legal, travel, interior design, printing, security, hospitality, fitness, transport, marketing, education, and dental.
+- Added 30 fresh Almaty prospects across logistics, accounting, legal, travel, interior design, printing, security, hospitality, fitness, transport, marketing, education, and dental.
 - Persisted the batch in `Leads/almaty-30-net-new-2026-05-18.md` and appended all returned leads to the canonical registry.
 
 ## Key findings
