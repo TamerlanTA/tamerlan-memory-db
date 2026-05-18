@@ -11,6 +11,7 @@
 - Checked the canonical `Leads/flowops-opportunity-registry.md` before research and returned only net-new prospects relative to that registry.
 - Added 30 fresh Almaty prospects across logistics, accounting, legal, travel, interior design, printing, security, hospitality, fitness, transport, marketing, education, and dental.
 - Persisted the batch in `Leads/almaty-30-net-new-2026-05-18.md` and appended all returned leads to the canonical registry.
+- Added the 30 leads into Google Sheet `Leads to call` (`Лист1`) with columns for company, niche, website, contact, signal, pain hypothesis, offer angle, score, status, and first-seen date.
 
 ## Key findings
 - Strongest public triggers in this batch: fast-response promises, WhatsApp-led intake, long qualification forms, direct booking, and named admissions/sales contacts.
