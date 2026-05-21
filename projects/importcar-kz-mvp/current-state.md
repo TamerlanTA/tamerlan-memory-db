@@ -6,7 +6,7 @@
 - [[risks]]
 - [[next-steps]]
 
-## Status as of 2026-05-21 — Production Calculator v1 Complete (v0.1 milestone)
+## Status as of 2026-05-21 — Production Calculator v1 + QA Hardening Complete
 
 ### Architecture
 - **App shell**: `div.appShell` → `div.appContent` container; bottom nav fixed at bottom on mobile
@@ -23,7 +23,10 @@
 - **PWA**: manifest.json, viewport-fit=cover, apple-mobile-web-app meta tags, theme-color #16c784
 - **Lead form (catalog)**: preserved; Supabase + mock fallback work
 - **Lead form (calculator)**: inserts with metadata JSONB containing calc_snapshot; requires schema migration
-- **Admin view**: shows calculator context (country, year, volume, rule version, car URL) from metadata
+- **Admin view**: shows calculator context (source_country, year, volume, fuel_type, rule version, car URL) from metadata; CalcSnapshot type aligned to CalculatorScreen output field names
+- **UI fully Russian**: ImporterCard, ImporterList, LeadForm, AdminLeads all Russified (no English user-facing copy remaining)
+- **Pricing sanity tests**: `scripts/calc-sanity.mjs` — 5 Playwright scenarios with expected totals computed from v2026.05 rules; run with `npm run calc:sanity`
+- **Smoke test**: `scripts/smoke-test.mjs` updated for Russian calculator-first UI; run with `npm run smoke:test`
 
 ### Schema (Supabase)
 - `leads` table: migration needed in Supabase dashboard — make car_id/importer_id nullable, add metadata JSONB + source text
