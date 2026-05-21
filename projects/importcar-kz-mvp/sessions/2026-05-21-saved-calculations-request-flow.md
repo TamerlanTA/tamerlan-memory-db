@@ -36,6 +36,14 @@
 ## Verification
 - `npm run lint` — passed.
 - `npm run build` — passed, output JS bundle about 470.06 kB.
+- Playwright headless check against `http://127.0.0.1:5173/` passed:
+  - save calculation
+  - reload persistence
+  - show saved calculation on "Заявка"
+  - remove saved calculation
+  - submit calculator request in mock mode
+  - show latest request on "Заявка"
+  - final localStorage counts: 1 saved calculation, 1 local request.
 
 ## Next steps
 - Complete remaining launch blockers in [[next-steps]]: Supabase migration, real WhatsApp number, deploy/test on iPhone.
