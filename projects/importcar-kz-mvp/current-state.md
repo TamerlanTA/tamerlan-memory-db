@@ -6,7 +6,7 @@
 - [[risks]]
 - [[next-steps]]
 
-## Status as of 2026-05-21 — Production Calculator v1 + Phase 2 Request Flow Complete
+## Status as of 2026-05-21 — Production Calculator v1 + Phase 3A Backend Activation Prep Complete
 
 ### Architecture
 - **App shell**: `div.appShell` → `div.appContent` container; bottom nav fixed at bottom on mobile
@@ -19,9 +19,10 @@
 - **Saved calculations (Phase 2)**: localStorage hook with resilient parsing, max 10 records, duplicate replacement, remove/clear/latest helpers; calculator result has "Сохранить расчёт" action and success feedback
 - **Local request mirror (Phase 2)**: successful calculator lead submissions are mirrored locally after Supabase/mock success so the "Заявка" tab can show latest request pre-auth
 - **Request screen (Phase 2)**: no longer placeholder; shows latest request, latest saved calculation fallback, recent saved calculations list with remove buttons, WhatsApp support CTA, and "Получить точный расчёт" action back to calculator
+- **Production backend activation prep (Phase 3A)**: dedicated Supabase migration file exists, WhatsApp CTAs use env-based config, `.env.example` and production activation checklist added, calculator/catalog lead payloads set top-level `source`
 - **Catalog screen**: full existing listing + filter logic; car cards have favorite heart button
 - **Favorites screen**: localStorage persistence (key: `importcar_favorites`); empty state; count badge on nav
-- **Request screen (Заявка)**: заявки placeholder + WhatsApp CTA + 4 trust notes
+- **Request screen (Заявка)**: latest request, latest saved calculation fallback, saved calculations list, remove actions, WhatsApp CTA
 - **Car detail**: price summary card (mobile), favorite button, sticky CTA with WhatsApp + "Запросить расчёт"
 - **PWA**: manifest.json, viewport-fit=cover, apple-mobile-web-app meta tags, theme-color #16c784
 - **Lead form (catalog)**: preserved; Supabase + mock fallback work
@@ -32,8 +33,9 @@
 - **Smoke test**: `scripts/smoke-test.mjs` updated for Russian calculator-first UI; run with `npm run smoke:test`
 
 ### Schema (Supabase)
-- `leads` table: migration needed in Supabase dashboard — make car_id/importer_id nullable, add metadata JSONB + source text
-- Migration SQL at end of `supabase/schema.sql`
+- `leads` table: production migration file exists at `supabase/migrations/20260521_calculator_leads_metadata.sql`
+- Manual migration still must be run in Supabase dashboard before production calculator lead use
+- RLS posture reviewed: anonymous insert only for `leads`; no anonymous lead read/update/delete policy added
 
 ### Design system (current code)
 - Font: 'Avenir Next', 'Segoe UI', Arial (system sans-serif)
@@ -48,10 +50,10 @@
 
 ### Build status
 - `npm run lint` — ✅ 0 errors
-- `npm run build` — ✅ clean, 470.06 kB JS bundle after Phase 2
+- `npm run build` — ✅ clean, 469.75 kB JS bundle after Phase 3A
 - TypeScript — 0 errors
 
 ### Placeholders that need updating before launch
-- WhatsApp number in `StickyCta.tsx`, `RequestScreen.tsx`, `CalculatorScreen.tsx`: `77071234567` — replace with real number
+- Set `VITE_WHATSAPP_PHONE` in Vercel before real traffic
 - App icons: only `favicon.svg` referenced in manifest — real PNG icons needed
 - Run schema migration in Supabase dashboard before using calculator lead form in production

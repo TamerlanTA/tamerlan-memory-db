@@ -32,35 +32,37 @@
 - "Заявка" tab now shows latest request, latest saved calculation fallback, saved calculations list, remove buttons, and WhatsApp support CTA
 - `npm run lint` ✅ `npm run build` ✅ 470.06 kB
 
+### Phase 3A — Production Backend Activation Prep (2026-05-21)
+- Dedicated migration created: `supabase/migrations/20260521_calculator_leads_metadata.sql`
+- RLS reviewed and not weakened: anon insert only for `leads`, no anon read/update/delete
+- WhatsApp CTAs moved to env-based helper via `VITE_WHATSAPP_PHONE`
+- Calculator leads insert top-level `source: 'calculator'`; catalog leads insert `source: 'catalog'`
+- `.env.example`, README, and `docs/production-activation-checklist.md` updated
+- `npm run lint` ✅ `npm run build` ✅ 469.75 kB
+- `npm run smoke:test` ✅
+
 ---
 
-## СЛЕДУЮЩИЙ БЛОК: Immediate Fixes (блокируют деплой)
+## СЛЕДУЮЩИЙ БЛОК: Production Activation (блокирует деплой)
 
 Обязательны до первого реального пользователя. В порядке приоритета:
 
-### 1. Supabase schema migration ⚠️ КРИТИЧНО
-Run in Supabase dashboard SQL editor:
-```sql
-alter table public.leads
-  alter column car_id drop not null,
-  alter column importer_id drop not null;
-alter table public.leads
-  add column if not exists metadata jsonb,
-  add column if not exists source text not null default 'catalog';
-```
-Without this, calculator lead form insert will fail in production.
-Migration SQL is also at the bottom of `supabase/schema.sql`.
+### 1. Run Supabase migration ⚠️ КРИТИЧНО
+Run `supabase/migrations/20260521_calculator_leads_metadata.sql` in Supabase dashboard SQL editor.
+Without this, calculator lead form insert can fail in production.
 
-### 2. Заменить placeholder WhatsApp номер
-File: `src/components/StickyCta.tsx`, `src/components/RequestScreen.tsx`, `src/components/CalculatorScreen.tsx`
-Search: `77071234567` → replace with real number.
+### 2. Set production env vars in Vercel
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_ANON_KEY`
+- `VITE_ENABLE_ADMIN_VIEW=false`
+- `VITE_WHATSAPP_PHONE`
+- optional: `VITE_WHATSAPP_DEFAULT_MESSAGE`
 
-### 3. Desktop top-nav
-Bottom nav is hidden at ≥ 720px (`display: none`). Tabs are inaccessible from desktop.
-Need a top nav bar showing Calculator / Каталог / Избранное / Заявка tabs for desktop users.
+### 3. Deploy to Vercel
+After 1–2 are done: deploy and follow `docs/production-activation-checklist.md`.
 
-### 4. Деплой на Vercel
-After 1–3 are done: deploy and test on real iPhone.
+### 4. Real iPhone test
+Test calculator, saved calculation persistence, request submit, "Заявка" screen, bottom nav, and WhatsApp CTA handoff.
 
 ---
 
