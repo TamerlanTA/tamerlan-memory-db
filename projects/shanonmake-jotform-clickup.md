@@ -6,6 +6,76 @@
 - [[flowops-agency-website]]
 
 ## Current status
+- Static routing recheck on 2026-05-21 after user reported a record still landed on the wrong ClickUp page/list:
+  - Rechecked `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-05-21-routing-table-updated.blueprint.json`.
+  - Confirmed `module 22` still uses the correct source logic:
+    - `Private Label` -> `q11_customer`
+    - `House Brand` -> `q10_housebrand`
+    - `House of Velas` -> `q20_hovbrand`
+  - Confirmed dynamic general parent module `7` still creates the parent task to `/v2/list/{{22.target_list_id}}/task`.
+  - Confirmed Unbranded module `107` still points only to `901711595874`.
+  - Confirmed the patched blueprint text includes:
+    - `summer lights -> HoV-SummerLights -> 901713679080`
+    - `cracker barrel -> CB -> 901713674269`
+    - `ecommerce -> ECOM -> 901712725600`
+    - `magic lights -> ML -> 901712753235`
+    - `fortunes without cookies -> FWC -> 901712753222`
+    - `burnable sensations -> HoV-BS -> 901712753336`
+    - `18oz apothecary -> HoV-18ozApoth -> 901713679241`
+  - Current conclusion: the saved patched blueprint is statically correct for these mappings. If a live Make run still routes incorrectly, the next most likely causes are:
+    - an older blueprint file was imported instead of the 2026-05-21 routing-table-updated copy
+    - the incoming Jotform runtime value differs from the canonical label expected by `module 22`
+    - the user is looking at a different ClickUp page/view than the actual target list
+- Runtime routing mismatch fix on 2026-05-21:
+  - User provided an actual `module 22` output for a Summer Lights test:
+    - `brand_type = House of Velas`
+    - `routing_display = Summer Lights`
+    - `customer_code = HoV-SummerLights`
+    - `target_list_id = 901711596089` (wrong fallback)
+  - This proved:
+    - source logic is correct
+    - customer_code mapping is correct
+    - only `target_list_id` evaluation was failing at runtime
+  - Root cause is still uncertain, but the most likely issue is the previous single giant flat `switch(...)` for `target_list_id`.
+  - Safe targeted fix created:
+    - backup: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-2026-05-21-target-list-runtime-fix.backup.json`
+    - new file: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-05-21-target-list-runtime-fixed.blueprint.json`
+  - Fix approach:
+    - left routing architecture unchanged
+    - left task creation, custom fields, task types, due dates, attachments unchanged
+    - rewrote only `module 22` `target_list_id` to use brand-type-specific switches:
+      - `Private Label` -> `switch(q11_customer)`
+      - `House Brand` -> `switch(q10_housebrand)`
+      - `House of Velas` -> `switch(q20_hovbrand)`
+      - `Unbranded` -> `901711595874`
+      - `Potential/New Customer` and unknown -> `901711596089`
+  - Intended effect:
+    - if `customer_code` already resolves as `HoV-SummerLights`, `target_list_id` should now independently resolve from the much smaller HoV switch to `901713679080`.
+- Routing table update on 2026-05-21:
+  - User provided a canonical full customer/brand -> shortcode -> ClickUp list ID mapping and asked for a targeted routing-table patch only.
+  - Source blueprint before patch: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-05-18-targeted-fixes.blueprint.json`.
+  - Backup before patch: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-2026-05-21-routing-table-update.backup.json`.
+  - Updated blueprint saved as: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-05-21-routing-table-updated.blueprint.json`.
+  - Updated coverage report saved as: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-05-21-routing-coverage-report.md`.
+  - Scope preserved exactly as requested:
+    - only `module 22` routing-table values were patched
+    - no task creation, custom fields, task types, due dates, attachments, or router architecture changes
+    - fallback remains `901711596089` only for blank/unknown/unmapped values
+  - Preserved source logic:
+    - `Private Label` -> `q11_customer`
+    - `House Brand` -> `q10_housebrand`
+    - `House of Velas` -> `q20_hovbrand`
+    - `Unbranded` -> explicit `Unbranded`
+    - `Potential/New Customer` -> explicit `Potential/New Customer`
+  - Confirmed important new mappings now present in the patched file:
+    - `Summer Lights -> HoV-SummerLights -> 901713679080`
+    - `Cracker Barrel -> CB -> 901713674269`
+    - `Ecommerce -> ECOM -> 901712725600`
+    - `Magic Lights -> ML -> 901712753235`
+    - `Fortunes Without Cookies -> FWC -> 901712753222`
+    - `Burnable Sensations -> HoV-BS -> 901712753336`
+    - `18oz Apothecary -> HoV-18ozApoth -> 901713679241`
+    - `Unknown -> UNKNOWN -> 901711596089`
 - Project sync on 2026-05-21:
   - Workspace checked: `/Users/tamerlan/Desktop/shanonmake`.
   - This remains a small single-file project memory, not a large project folder.

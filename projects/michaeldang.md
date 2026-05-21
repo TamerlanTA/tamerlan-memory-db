@@ -17,18 +17,24 @@ Define the product clearly, choose the implementation stack, and turn the empty 
 - Added two importable workflow drafts, review-table schema, sample calendar CSV, architecture notes, testing plan, and client handover docs.
 - 2026-05-18: Performed local workflow inspection and smoke-test pass; hardened error handling and Buffer fallback behavior, added setup checklist and smoke-test report.
 - 2026-05-18: Prepared last-mile implementation package: credential map, live test plan, client access request, and final delivery status.
+- 2026-05-21: Updated project for Bastion & Mews real client materials: final CSV/XLSX content calendar template with 6 starter rows, brand-specific content prompt, official n8n OpenAI node in Workflow 1, LinkedIn optional/pending behavior in Workflow 2, and revised setup/test/handover docs.
+- 2026-05-21: Added image-generation MVP path: expanded schema to 35 columns, Workflow 1 now outputs `image_prompt` and moves rows to `Needs Image`, new Workflow 3 generates one OpenAI image per row and stores it in Google Drive, Workflow 2 attaches `image_url` to Buffer posts where supported.
 
 ## Stack
 - n8n
 - Google Sheets
+- Google Drive
 - OpenAI API
 - Buffer GraphQL API
 
 ## Important Context
 - Client: Michael Dang.
-- Niche: premium Malta-focused advisory / luxury property / business tourism / investor relocation.
+- Brand: Bastion & Mews.
+- Niche: refined 5-star boutique stays, luxury property management in Malta, business/luxury stays, owner/investor advisory, concierge operations.
 - MVP must stay simple and reliable because budget is $200.
 - Buffer is the required publishing layer; avoid direct platform APIs.
+- OpenAI API key was shared insecurely and must be rotated before live use; never hardcode it.
+- Buffer channels: Facebook/Instagram/X connected; LinkedIn pending verification.
 
 ## Decisions
 - 2026-05-18: Use Google Sheets rather than Airtable for the MVP review queue.
@@ -37,16 +43,19 @@ Define the product clearly, choose the implementation stack, and turn the empty 
 - Why: avoids direct social APIs and keeps operations inside the client's Buffer account.
 
 ## Open Tasks
-- [ ] Import both workflows into the authenticated target n8n account
-- [ ] Bind real Google Sheets, OpenAI, and Buffer credentials
-- [ ] Paste real Buffer channel IDs into `Set Buffer Config`
-- [ ] Validate Google Sheets node mappings against the live sheet
-- [ ] Run live smoke tests for queue mode, custom schedule mode, and manual fallback
+- [ ] Rotate OpenAI key and create/bind n8n OpenAI credential
+- [ ] Create Google Sheet from `docs/bastion-mews-content-calendar-template.csv` or `.xlsx`
+- [ ] Create Google Drive folder for generated images and capture folder ID
+- [ ] Import workflows 1, 2, and 3 into the authenticated target n8n account
+- [ ] Bind real Google Sheets, Google Drive, OpenAI, and Buffer credentials
+- [ ] Paste real Facebook/Instagram/X Buffer channel IDs into `Set Buffer Config`; leave LinkedIn blank until verified
+- [ ] Run first live test: 1 row through content -> image -> review -> Buffer, then expand to 3 generated rows
 
 ## Blockers
 - Local n8n instance is reachable, but authenticated API access was unavailable during the 2026-05-18 pass (`/api/v1/workflows` returned 401 without `X-N8N-API-KEY`).
-- Real Google Sheet ID and n8n credentials are not connected yet.
+- Real Google Sheet ID, Google Drive folder ID, and n8n credentials are not connected yet.
 - Buffer API access / API key availability must be confirmed with the client organization owner.
+- Live import/execution remains untested because authenticated target n8n access and real service credentials are still missing.
 
 ## Next Steps
 - Get client access and credentials.
