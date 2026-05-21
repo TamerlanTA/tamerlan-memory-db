@@ -39,10 +39,14 @@
             "id": "ec9ab926abd6a078",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Граф"
+              "type": "markdown",
+              "state": {
+                "file": "projects/importcar-kz-mvp/roadmap.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "roadmap"
             }
           },
           {
@@ -246,6 +250,8 @@
   },
   "active": "ec9ab926abd6a078",
   "lastOpenFiles": [
+    "projects/importcar-kz-mvp/sessions/2026-05-21-full-product-roadmap-saved.md",
+    "projects/importcar-kz-mvp/roadmap.md",
     "Shannon list id.md",
     "Leads/almaty-30-net-new-2026-05-18.md",
     "Leads/flowops-opportunity-registry.md",
@@ -273,8 +279,6 @@
     "projects/FlowOps Team/sessions/2026-05-13-pipeline-c-v3-batch-gate.md",
     "projects/FlowOps Team/sessions/2026-05-12-pipeline-c-v3-auto-send-scale.md",
     "projects/FlowOps Team/03 - Acquisition Pipelines/Pipeline E — Retainer Conversion.md",
-    "GPT project instructions.md",
-    "patterns/flowops-pdf-presentations.md",
     "templates/flowops-pitch-deck/build.sh",
     "resume_update_2026_05/rendered/page-4.png",
     "resume_update_2026_05/rendered/page-3.png",

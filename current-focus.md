@@ -6,6 +6,18 @@
 - [[projects/FlowOps Team/00 - Overview|FlowOps Team — overview]]
 - [[Linear/Linear Ops Automation System/overview|Linear Ops Automation System]]
 - [[projects/AI-Powered Woven Label Generator/current-state|AI-Powered Woven Label Generator — current state]]
+- [[projects/importcar-kz-mvp/overview|ImportCar.kz — overview]]
+- [[projects/importcar-kz-mvp/roadmap|ImportCar.kz — roadmap]]
+
+---
+
+## ImportCar.kz / imcar.kz (добавлен 2026-05-21)
+
+**Статус**: Полный продуктовый план зафиксирован. PWA v0.2 готов. Следующий блок: v0.1 Production Calculator.
+
+**Следующее действие**: CalculatorScreen v2 — итог в тенге главным числом, полная разбивка, explainability, CTA, calculation snapshot в заявке.
+
+Детали: [[projects/importcar-kz-mvp/next-steps]]
 
 ---
 

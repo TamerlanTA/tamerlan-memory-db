@@ -5,26 +5,46 @@
 - [[decisions]]
 - [[risks]]
 - [[next-steps]]
+- [[roadmap]]
 - [[prompts]]
 
-## Content
-ImportCar.kz is a multi-session MVP for a Kazakhstan-focused premium car-import experience. The product began as a Kolesa-like marketplace flow and has evolved into a cinematic private-showroom prototype for importing premium cars from Korea.
+## Продукт
 
-Core user flow:
-1. browse premium demo listings
-2. open a car detail view
-3. inspect the import estimate and trust/proof layer
-4. compare importer partners
-5. submit a lead request
+ImportCar.kz (целевой домен: imcar.kz) — Kazakhstan-focused premium car-import платформа.
 
-Current implementation lives in `~/Desktop/importcar-kz-mvp` and uses React + TypeScript + Vite, optional Supabase lead capture, and Vercel deployment.
+**Главный принцип**: Калькулятор полной стоимости авто под ключ — ядро продукта. Каталог, заявки, импортёры, аккаунт и подписки строятся вокруг него.
 
-## Product shape
-- Premium-only demo inventory inspired by Korean marketplace-style listings
-- Versioned pricing-rules engine with explainability and warnings
-- Trust/proof layer: auction preview, verification stages, recent proof case
-- Importer comparison as concierge-partner selection
-- Lead capture modal with mock fallback and optional Supabase persistence
+**Траектория**: PWA → App Store (Capacitor) → React Native при наличии traction
+
+## Что пользователь получает
+
+1. Рассчитать полную стоимость авто из-за рубежа в Казахстан
+2. Найти реальные примеры авто из Кореи/Японии/ОАЭ/США
+3. Сохранить авто в избранное
+4. Отправить ссылку на авто и получить точный расчёт
+5. Сравнить импортёров/сервисные пакеты
+6. Отслеживать заявку на импорт
+7. Получать документы, статусы, уведомления
+8. Использовать premium-функции: больше расчётов, проверка VIN, подбор авто
+
+## Что бизнес получает
+
+1. Лиды и заявки на точный расчёт
+2. Пользователи возвращаются (сохранённые расчёты, статусы)
+3. Данные о спросе: какие авто считают, какие бюджеты, какие страны
+4. Канал для импортёров/партнёров
+5. Монетизация: подписки, платные проверки, комиссии, партнёрские пакеты
+
+## Центральная воронка
+
+```
+Открыл → Рассчитал → Увидел стоимость → Отправил ссылку/VIN → Точный расчёт → Заявка
+```
+
+## Текущая реализация
+
+`~/Desktop/importcar-kz-mvp` — React + TypeScript + Vite + Supabase (опционально) + Vercel
 
 ## Live surface
-- Production alias: `https://importcar-kz-mvp.vercel.app`
+- Production: `https://importcar-kz-mvp.vercel.app`
+- Целевой домен: imcar.kz / importcar.kz
