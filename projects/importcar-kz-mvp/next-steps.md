@@ -41,6 +41,13 @@
 - `npm run lint` ✅ `npm run build` ✅ 469.75 kB
 - `npm run smoke:test` ✅
 
+### Phase 3B — Production Deploy & Live Acceptance Prep (2026-05-21)
+- `docs/production-activation-checklist.md` expanded with exact SQL verification, RLS checks, env recommendations, expected lead row shape, and rollback notes
+- `docs/live-acceptance-runbook.md` created for manual deploy/live acceptance execution
+- Confirmed no hardcoded WhatsApp placeholder remains
+- Confirmed public production should use `VITE_ENABLE_ADMIN_VIEW=false`
+- `npm run lint` ✅ `npm run build` ✅ 469.75 kB
+
 ---
 
 ## СЛЕДУЮЩИЙ БЛОК: Production Activation (блокирует деплой)
@@ -59,7 +66,7 @@ Without this, calculator lead form insert can fail in production.
 - optional: `VITE_WHATSAPP_DEFAULT_MESSAGE`
 
 ### 3. Deploy to Vercel
-After 1–2 are done: deploy and follow `docs/production-activation-checklist.md`.
+After 1–2 are done: deploy and follow `docs/live-acceptance-runbook.md`.
 
 ### 4. Real iPhone test
 Test calculator, saved calculation persistence, request submit, "Заявка" screen, bottom nav, and WhatsApp CTA handoff.

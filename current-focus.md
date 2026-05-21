@@ -13,12 +13,12 @@
 
 ## ImportCar.kz / imcar.kz (добавлен 2026-05-21)
 
-**Статус**: v0.1 + QA Hardening + Phase 2 + Phase 3A Production Backend Activation Prep завершены. Build clean (lint ✅ build ✅ 469.75 kB, smoke ✅). Следующий блок: manual Supabase migration + Vercel env vars + deploy/iPhone test.
+**Статус**: v0.1 + QA Hardening + Phase 2 + Phase 3A + Phase 3B deploy prep завершены. Build clean (lint ✅ build ✅ 469.75 kB). Следующий блок: manual Supabase migration + Vercel env vars + deploy/live acceptance.
 
 **Следующие действия** (в порядке приоритета):
 1. Запустить `supabase/migrations/20260521_calculator_leads_metadata.sql` в Supabase dashboard
 2. Set Vercel env vars: Supabase URL/key, `VITE_ENABLE_ADMIN_VIEW=false`, `VITE_WHATSAPP_PHONE`
-3. Деплой на Vercel + тест на реальном iPhone по `docs/production-activation-checklist.md`
+3. Деплой на Vercel + live acceptance по `docs/live-acceptance-runbook.md`
 Затем v0.3: Phone OTP + Google Auth.
 
 Handoff: [[projects/importcar-kz-mvp/sessions/2026-05-21-handoff]]

@@ -6,7 +6,7 @@
 - [[risks]]
 - [[next-steps]]
 
-## Status as of 2026-05-21 — Production Calculator v1 + Phase 3A Backend Activation Prep Complete
+## Status as of 2026-05-21 — Production Calculator v1 + Phase 3B Deploy Prep Complete
 
 ### Architecture
 - **App shell**: `div.appShell` → `div.appContent` container; bottom nav fixed at bottom on mobile
@@ -20,6 +20,7 @@
 - **Local request mirror (Phase 2)**: successful calculator lead submissions are mirrored locally after Supabase/mock success so the "Заявка" tab can show latest request pre-auth
 - **Request screen (Phase 2)**: no longer placeholder; shows latest request, latest saved calculation fallback, recent saved calculations list with remove buttons, WhatsApp support CTA, and "Получить точный расчёт" action back to calculator
 - **Production backend activation prep (Phase 3A)**: dedicated Supabase migration file exists, WhatsApp CTAs use env-based config, `.env.example` and production activation checklist added, calculator/catalog lead payloads set top-level `source`
+- **Live acceptance prep (Phase 3B)**: production checklist expanded and `docs/live-acceptance-runbook.md` added for deploy, Supabase verification, live tests, pass/fail criteria, and rollback
 - **Catalog screen**: full existing listing + filter logic; car cards have favorite heart button
 - **Favorites screen**: localStorage persistence (key: `importcar_favorites`); empty state; count badge on nav
 - **Request screen (Заявка)**: latest request, latest saved calculation fallback, saved calculations list, remove actions, WhatsApp CTA
@@ -50,7 +51,7 @@
 
 ### Build status
 - `npm run lint` — ✅ 0 errors
-- `npm run build` — ✅ clean, 469.75 kB JS bundle after Phase 3A
+- `npm run build` — ✅ clean, 469.75 kB JS bundle after Phase 3B docs
 - TypeScript — 0 errors
 
 ### Placeholders that need updating before launch
