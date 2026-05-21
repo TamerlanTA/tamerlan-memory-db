@@ -13,7 +13,7 @@
 
 ## ImportCar.kz / imcar.kz (добавлен 2026-05-21)
 
-**Статус**: v0.1 + QA Hardening завершены. Build clean (lint ✅ build ✅ 460.99 kB). Следующий блок: 3 immediate fixes блокируют деплой.
+**Статус**: v0.1 + QA Hardening + Phase 2 Saved Calculations/Request Flow завершены. Build clean (lint ✅ build ✅ 470.06 kB). Следующий блок: 3 immediate fixes блокируют деплой.
 
 **Следующие действия** (в порядке приоритета):
 1. Запустить schema migration в Supabase dashboard (иначе calculator lead form упадёт в prod)

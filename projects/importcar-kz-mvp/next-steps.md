@@ -24,6 +24,14 @@
 - `scripts/calc-sanity.mjs` created: 5 Playwright pricing sanity cases with exact expected totals
 - `npm run lint` ✅ `npm run build` ✅ 460.99 kB
 
+### Phase 2 — Saved Calculations + Request Flow (2026-05-21)
+- `useSavedCalculations` localStorage hook added with max 10 saved calculations, invalid JSON protection, duplicate replacement, remove/clear/latest helpers
+- `useLocalRequests` localStorage hook added with max 10 local request mirrors and invalid JSON protection
+- Calculator result now supports "Сохранить расчёт"
+- Successful exact-calculation lead submission now saves local request state after Supabase/mock success
+- "Заявка" tab now shows latest request, latest saved calculation fallback, saved calculations list, remove buttons, and WhatsApp support CTA
+- `npm run lint` ✅ `npm run build` ✅ 470.06 kB
+
 ---
 
 ## СЛЕДУЮЩИЙ БЛОК: Immediate Fixes (блокируют деплой)

@@ -6,7 +6,7 @@
 - [[risks]]
 - [[next-steps]]
 
-## Status as of 2026-05-21 — Production Calculator v1 + QA Hardening Complete
+## Status as of 2026-05-21 — Production Calculator v1 + Phase 2 Request Flow Complete
 
 ### Architecture
 - **App shell**: `div.appShell` → `div.appContent` container; bottom nav fixed at bottom on mobile
@@ -16,6 +16,9 @@
 
 ### Features complete
 - **Calculator screen (v1)**: hero header, trust strip, 6-field form (country, price, currency, year, volume, engine type, delivery city), CTA button → result card with large KZT + approx USD, 7-line breakdown, explainability accordion (age/volume/type/customs band/rule version/warnings), disclaimer, lead capture form with calculation snapshot
+- **Saved calculations (Phase 2)**: localStorage hook with resilient parsing, max 10 records, duplicate replacement, remove/clear/latest helpers; calculator result has "Сохранить расчёт" action and success feedback
+- **Local request mirror (Phase 2)**: successful calculator lead submissions are mirrored locally after Supabase/mock success so the "Заявка" tab can show latest request pre-auth
+- **Request screen (Phase 2)**: no longer placeholder; shows latest request, latest saved calculation fallback, recent saved calculations list with remove buttons, WhatsApp support CTA, and "Получить точный расчёт" action back to calculator
 - **Catalog screen**: full existing listing + filter logic; car cards have favorite heart button
 - **Favorites screen**: localStorage persistence (key: `importcar_favorites`); empty state; count badge on nav
 - **Request screen (Заявка)**: заявки placeholder + WhatsApp CTA + 4 trust notes
@@ -45,7 +48,7 @@
 
 ### Build status
 - `npm run lint` — ✅ 0 errors
-- `npm run build` — ✅ clean, 460 kB JS bundle
+- `npm run build` — ✅ clean, 470.06 kB JS bundle after Phase 2
 - TypeScript — 0 errors
 
 ### Placeholders that need updating before launch
