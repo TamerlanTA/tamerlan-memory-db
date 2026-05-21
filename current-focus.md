@@ -13,10 +13,16 @@
 
 ## ImportCar.kz / imcar.kz (добавлен 2026-05-21)
 
-**Статус**: v0.1 Production Calculator завершён. Следующий блок: immediate fixes + v0.3 Auth.
+**Статус**: v0.1 + QA Hardening завершены. Build clean (lint ✅ build ✅ 460.99 kB). Следующий блок: 3 immediate fixes блокируют деплой.
 
-**Следующее действие**: Заменить placeholder WhatsApp `77071234567`, добавить desktop top-nav, запустить schema migration в Supabase. Затем v0.3 Phone OTP + Google Auth.
+**Следующие действия** (в порядке приоритета):
+1. Запустить schema migration в Supabase dashboard (иначе calculator lead form упадёт в prod)
+2. Заменить placeholder WhatsApp `77071234567` в `StickyCta.tsx`, `RequestScreen.tsx`, `CalculatorScreen.tsx`
+3. Добавить desktop top-nav (bottom nav скрыт при ≥ 720px — табы недоступны с десктопа)
+4. Деплой на Vercel + тест на реальном iPhone
+Затем v0.3: Phone OTP + Google Auth.
 
+Handoff: [[projects/importcar-kz-mvp/sessions/2026-05-21-handoff]]
 Детали: [[projects/importcar-kz-mvp/next-steps]]
 
 ---

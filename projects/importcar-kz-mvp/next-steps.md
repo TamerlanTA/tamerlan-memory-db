@@ -9,55 +9,54 @@
 
 ---
 
-## ЗАВЕРШЕНО: v0.1 — Production Calculator ✅
+## ЗАВЕРШЕНО ✅
 
-Все 8 задач выполнены. Калькулятор работает в production-режиме с полным UI.
-**Требует**: запустить schema migration в Supabase dashboard перед production-использованием calculator lead form.
+### v0.1 — Production Calculator
+Все 8 задач: calculator screen, explainability, lead form with snapshot, admin view, lint/build clean.
 
----
-
-## СЛЕДУЮЩИЙ БЛОК: Immediate fixes + v0.3
-
-Это следующий обязательный этап. До него не строим подписки, аккаунты, App Store.
-
-### Задачи (в порядке приоритета)
-
-1. **CalculatorScreen v2** — перестроить как главный экран приложения
-   - Итог в тенге = главное число (крупно, сверху)
-   - Ниже: ≈ USD
-   - Полная разбивка: авто / доставка / таможня / утильсбор / регистрация / комиссия / резерв расходов
-   - Trust-индикатор точности + disclaimer ("расчёт предварительный, не оферта")
-
-2. **Explainability блок** — блок "Как рассчитана стоимость"
-   - Возраст авто, объём двигателя, таможенная категория
-   - Версия правил, курс валют, дата обновления
-   - Предупреждения
-
-3. **CTA после каждого расчёта**
-   - Получить точный расчёт
-   - Проверить авто по ссылке
-   - Написать в WhatsApp
-   - Сохранить расчёт
-
-4. **Lead form с calculation snapshot**
-   - Поля: имя / телефон / город / ссылка на авто / комментарий
-   - В заявку сохраняется весь snapshot: страна, цена, год, двигатель, топливо, город, итог, разбивка, версия правил, дата расчёта
-   - Менеджер видит контекст без уточнений у клиента
-
-5. **Таблица `calculations` в Supabase**
-   - Схема: см. roadmap.md
-   - Сохранять каждый расчёт (анонимный — user_id NULL)
-
-6. **Admin leads view** — показывать snapshot расчёта рядом с контактами
-
-7. **Analytics events**
-   - `calculator_opened`, `calculation_completed`, `lead_submitted`, `whatsapp_clicked`
-
-8. **Legal disclaimers** — на экране калькулятора и в форме заявки
+### QA Hardening (2026-05-21)
+- Race condition fix in `handleLeadSubmit` (captured `currentCost` before async)
+- Snapshot field names aligned: `source_country`, `fuel_type`, `calculated_at`, `result_total_usd`
+- `AdminLeads.tsx` `CalcSnapshot` type updated to match
+- All English UI copy Russified: `ImporterCard`, `ImporterList`, `LeadForm`
+- CSS: `.calcInputHint`, overflow protection on `.calcResultV2Total` and `.adminCarLink`
+- `scripts/smoke-test.mjs` rewritten for Russian calculator-first UI
+- `scripts/calc-sanity.mjs` created: 5 Playwright pricing sanity cases with exact expected totals
+- `npm run lint` ✅ `npm run build` ✅ 460.99 kB
 
 ---
 
-## После v0.1 (следующие блоки по roadmap)
+## СЛЕДУЮЩИЙ БЛОК: Immediate Fixes (блокируют деплой)
+
+Обязательны до первого реального пользователя. В порядке приоритета:
+
+### 1. Supabase schema migration ⚠️ КРИТИЧНО
+Run in Supabase dashboard SQL editor:
+```sql
+alter table public.leads
+  alter column car_id drop not null,
+  alter column importer_id drop not null;
+alter table public.leads
+  add column if not exists metadata jsonb,
+  add column if not exists source text not null default 'catalog';
+```
+Without this, calculator lead form insert will fail in production.
+Migration SQL is also at the bottom of `supabase/schema.sql`.
+
+### 2. Заменить placeholder WhatsApp номер
+File: `src/components/StickyCta.tsx`, `src/components/RequestScreen.tsx`, `src/components/CalculatorScreen.tsx`
+Search: `77071234567` → replace with real number.
+
+### 3. Desktop top-nav
+Bottom nav is hidden at ≥ 720px (`display: none`). Tabs are inaccessible from desktop.
+Need a top nav bar showing Calculator / Каталог / Избранное / Заявка tabs for desktop users.
+
+### 4. Деплой на Vercel
+After 1–3 are done: deploy and test on real iPhone.
+
+---
+
+## ПОСЛЕ Immediate Fixes — Следующие этапы
 
 - **v0.3** — Supabase Auth: Phone OTP + Google + Apple. Аккаунт запрашивать только при сохранении / заявке
 - **v0.4** — Real Inventory: 30 качественных реальных листингов, честные лейблы
@@ -68,11 +67,3 @@
 - **v1.0** — App Store / Google Play публичный релиз
 
 Детали каждого этапа — в [[roadmap]].
-
----
-
-## Immediate fixes (не зависят от этапа)
-
-- Заменить placeholder WhatsApp `77071234567` в `StickyCta.tsx` и `ProfileScreen.tsx` на реальный номер
-- Добавить desktop top-nav для табов (Calculator/Favorites/Profile недоступны с десктопа)
-- Деплой на Vercel после финального теста на реальном iPhone
