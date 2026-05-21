@@ -6,6 +6,14 @@
 - [[flowops-agency-website]]
 
 ## Current status
+- Project sync on 2026-05-21:
+  - Workspace checked: `/Users/tamerlan/Desktop/shanonmake`.
+  - This remains a small single-file project memory, not a large project folder.
+  - Latest local blueprint by timestamp is `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-05-18-targeted-fixes.blueprint.json`.
+  - JSON validation check passed for the latest file: 116 recursive modules, 116 unique module IDs.
+  - Important newer source file: `/Users/tamerlan/Documents/TamerMemoryDB/Tamerlan Memory DB/Shannon list id.md` contains many ClickUp list IDs gathered on 2026-05-21.
+  - Current latest blueprint does **not** yet contain several IDs from `Shannon list id.md`, including Ace Hardware `901713674355`, Cracker Barrel `901713674269`, Summer Lights `901713679080`, Decora `901713679243`, Dupe Luxe `901713679245`, Elevate `901713679059`, Odor Eliminating `901713679256`, Scent Expedition `901713674435`, Serenity `901713674814`, Upcycle `901713679238`, Wellness `901713679239`, and Zodiac `901713679240`.
+  - Next likely safe task: patch `module 22` `customer_code` / `target_list_id` mappings in the latest 116-module blueprint using `Shannon list id.md`, then save a new import copy and validation report.
 - Final missing field patch on 2026-05-14:
   - Client reported the workflow is nearly complete, with only four missing custom fields: `Pre-Ticket Required`, `Sample Tags Required`, `Labeling`, and `Printing Finishes`.
   - Backup before patch: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-final-missing-fields-fix.backup.json`.
