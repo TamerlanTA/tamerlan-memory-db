@@ -6,41 +6,46 @@
 - [[risks]]
 - [[next-steps]]
 
-## Status as of 2026-05-21 — Mobile-First PWA Refactor Complete
+## Status as of 2026-05-21 — Production Calculator v1 Complete (v0.1 milestone)
 
 ### Architecture
 - **App shell**: `div.appShell` → `div.appContent` container; bottom nav fixed at bottom on mobile
 - **Routing**: state-based (no React Router); `activeTab` + `detailSource` for back-navigation
-- **4 tabs**: Каталог / Калькулятор / Избранное / Профиль
+- **4 tabs**: Калькулятор (default) / Каталог / Избранное / Заявка
 - **Bottom nav**: mobile-only (`display: none` at ≥ 720px); active tab shown with emerald accent; badge count on Избранное
 
 ### Features complete
+- **Calculator screen (v1)**: hero header, trust strip, 6-field form (country, price, currency, year, volume, engine type, delivery city), CTA button → result card with large KZT + approx USD, 7-line breakdown, explainability accordion (age/volume/type/customs band/rule version/warnings), disclaimer, lead capture form with calculation snapshot
 - **Catalog screen**: full existing listing + filter logic; car cards have favorite heart button
-- **Calculator screen**: standalone form → live `calculateCost()` breakdown; preserves pricingRuleVersion + warnings
 - **Favorites screen**: localStorage persistence (key: `importcar_favorites`); empty state; count badge on nav
-- **Profile screen**: заявки placeholder + WhatsApp CTA + 4 trust notes
+- **Request screen (Заявка)**: заявки placeholder + WhatsApp CTA + 4 trust notes
 - **Car detail**: price summary card (mobile), favorite button, sticky CTA with WhatsApp + "Запросить расчёт"
 - **PWA**: manifest.json, viewport-fit=cover, apple-mobile-web-app meta tags, theme-color #16c784
-- **Lead form**: preserved; Supabase integration + mock fallback mode both work
-- **Admin view**: preserved behind `VITE_ENABLE_ADMIN_VIEW` env var
+- **Lead form (catalog)**: preserved; Supabase + mock fallback work
+- **Lead form (calculator)**: inserts with metadata JSONB containing calc_snapshot; requires schema migration
+- **Admin view**: shows calculator context (country, year, volume, rule version, car URL) from metadata
+
+### Schema (Supabase)
+- `leads` table: migration needed in Supabase dashboard — make car_id/importer_id nullable, add metadata JSONB + source text
+- Migration SQL at end of `supabase/schema.sql`
 
 ### Design system (current code)
 - Font: 'Avenir Next', 'Segoe UI', Arial (system sans-serif)
 - Accent: emerald #16c784 (--showroom-accent)
 - Background: #f4f5f7 light / #090b0e dark hero
 - Cards: white, subtle borders, 30px border-radius
-- Note: previous session memory mentions gold (#C9A84C) overhaul but actual code has green — green system is what's deployed
 
 ### Data
 - 15 real Encar listings with local images at `public/cars/encar-*.jpg`
 - 5 mock importers
-- Versioned pricing rules engine
+- Versioned pricing rules engine (v2026.05, USD_TO_KZT=525, KRW_TO_KZT=0.39)
 
 ### Build status
 - `npm run lint` — ✅ 0 errors
-- `npm run build` — ✅ clean, 451 kB JS bundle
+- `npm run build` — ✅ clean, 460 kB JS bundle
 - TypeScript — 0 errors
 
 ### Placeholders that need updating before launch
-- WhatsApp number in `StickyCta.tsx` and `ProfileScreen.tsx`: `77071234567` — replace with real number
+- WhatsApp number in `StickyCta.tsx`, `RequestScreen.tsx`, `CalculatorScreen.tsx`: `77071234567` — replace with real number
 - App icons: only `favicon.svg` referenced in manifest — real PNG icons needed
+- Run schema migration in Supabase dashboard before using calculator lead form in production

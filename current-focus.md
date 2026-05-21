@@ -13,9 +13,9 @@
 
 ## ImportCar.kz / imcar.kz (добавлен 2026-05-21)
 
-**Статус**: Полный продуктовый план зафиксирован. PWA v0.2 готов. Следующий блок: v0.1 Production Calculator.
+**Статус**: v0.1 Production Calculator завершён. Следующий блок: immediate fixes + v0.3 Auth.
 
-**Следующее действие**: CalculatorScreen v2 — итог в тенге главным числом, полная разбивка, explainability, CTA, calculation snapshot в заявке.
+**Следующее действие**: Заменить placeholder WhatsApp `77071234567`, добавить desktop top-nav, запустить schema migration в Supabase. Затем v0.3 Phone OTP + Google Auth.
 
 Детали: [[projects/importcar-kz-mvp/next-steps]]
 

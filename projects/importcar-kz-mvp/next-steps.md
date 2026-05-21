@@ -9,7 +9,14 @@
 
 ---
 
-## ТЕКУЩИЙ БЛОК: v0.1 — Production Calculator
+## ЗАВЕРШЕНО: v0.1 — Production Calculator ✅
+
+Все 8 задач выполнены. Калькулятор работает в production-режиме с полным UI.
+**Требует**: запустить schema migration в Supabase dashboard перед production-использованием calculator lead form.
+
+---
+
+## СЛЕДУЮЩИЙ БЛОК: Immediate fixes + v0.3
 
 Это следующий обязательный этап. До него не строим подписки, аккаунты, App Store.
 
