@@ -13,6 +13,8 @@
 - Current imagery is still demo imagery and should be validated for rights and exact listing fit before real launch.
 - Supabase admin workflows are not production-ready without auth and role-based access.
 - Proof artifacts are mock trust devices and must eventually be tied to real importer operations.
+- **WhatsApp number is a placeholder** (`77071234567`) in `StickyCta.tsx` and `ProfileScreen.tsx` — real users could contact a wrong number if not updated before launch.
+- **Desktop tab access gap**: Calculator/Favorites/Profile tabs are only reachable via the mobile bottom nav; desktop users (≥ 720px) have no way to navigate to them until a desktop tab bar is added.
 
 ## Mitigated / reduced risks
 - Anonymous lead select/update access is not exposed in public schema.

@@ -19,6 +19,9 @@ Define the product clearly, choose the implementation stack, and turn the empty 
 - 2026-05-18: Prepared last-mile implementation package: credential map, live test plan, client access request, and final delivery status.
 - 2026-05-21: Updated project for Bastion & Mews real client materials: final CSV/XLSX content calendar template with 6 starter rows, brand-specific content prompt, official n8n OpenAI node in Workflow 1, LinkedIn optional/pending behavior in Workflow 2, and revised setup/test/handover docs.
 - 2026-05-21: Added image-generation MVP path: expanded schema to 35 columns, Workflow 1 now outputs `image_prompt` and moves rows to `Needs Image`, new Workflow 3 generates one OpenAI image per row and stores it in Google Drive, Workflow 2 attaches `image_url` to Buffer posts where supported.
+- 2026-05-21: Hardened Google Drive image URL -> Buffer asset flow: Workflow 3 now writes direct Drive download URLs, docs require incognito/public fetch test, Workflow 2 writes `buffer_instagram_status = Missing Image` when Instagram lacks `image_url`, and Buffer/media failures route to manual scheduling.
+- 2026-05-21: Final live acceptance prep completed. Could not import/run workflows because local n8n API requires `X-N8N-API-KEY` and no service credentials were present. Updated smoke report, final delivery status, and handover to state blocked/not handover-ready until positive + negative live tests pass.
+- 2026-05-21: Added `docs/operator-live-setup-runbook.md`, a step-by-step manual n8n setup/testing checklist covering imports, credentials, placeholders, expected red warnings, test row, run order, screenshots, and Michael delivery/support message templates.
 
 ## Stack
 - n8n
