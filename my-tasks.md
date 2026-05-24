@@ -12,7 +12,7 @@
 ## Active Now
 
 ### FlowOps / Linear
-- [ ] Спроектировать и внедрить [[Linear/Linear Ops Automation System/overview|Linear Ops Automation System]]: Daily Command Center, Blocked Decision Bot, Team Assignment Notifier, Stale Issue Reminder, Linear -> Obsidian Memory Sync, Weekly FlowOps Review.
+- [x] Спроектировать и внедрить [[Linear/Linear Ops Automation System/overview|Linear Ops Automation System]]: Daily Command Center, Blocked Decision Bot, Team Assignment Notifier, Stale Issue Reminder, Linear -> Obsidian Memory Sync, Weekly FlowOps Review.
 - [ ] Провести CRM QA / automation-readiness review для FlowOps CRM: поля, связи, статусы, тестовые записи, ручной путь проверки, готовность к n8n/Make.
 - [ ] Собрать первые 5 демо для Demo Library: Real Estate Speed-to-Lead, Clinic Lead Qualification Chatbot, Agency Onboarding, Jotform -> CRM + Slack, Appointment + Reminder System.
 - [x] Довести Upwork Radar до операционного состояния: импорт clean workflow, reconnect credentials, Firecrawl node check/replacement, тест с Gmail alert, первая очередь proposal.

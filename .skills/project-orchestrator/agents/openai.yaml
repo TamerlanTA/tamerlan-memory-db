@@ -1,0 +1,6 @@
+interface:
+  display_name: "Project Orchestrator"
+  short_description: "Plan, delegate, review, and sync projects"
+  default_prompt: "Use $project-orchestrator to load project context, identify the active stage, control scope, create a batch implementation prompt, review outputs critically, and sync memory."
+policy:
+  allow_implicit_invocation: true
