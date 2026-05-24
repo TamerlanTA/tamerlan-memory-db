@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "projects/importcar-kz-mvp/roadmap.md",
+                "file": "My-tasks.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "roadmap"
+              "title": "My-tasks"
             }
           },
           {
@@ -250,6 +250,7 @@
   },
   "active": "ec9ab926abd6a078",
   "lastOpenFiles": [
+    "projects/importcar-kz-mvp/roadmap.md",
     "projects/importcar-kz-mvp/sessions/2026-05-21-live-acceptance-runbook.md",
     "projects/importcar-kz-mvp/sessions/2026-05-21-production-backend-activation-prep.md",
     "projects/importcar-kz-mvp/sessions/2026-05-21-saved-calculations-request-flow.md",
@@ -257,7 +258,6 @@
     "projects/importcar-kz-mvp/sessions/2026-05-21-calculator-qa-hardening.md",
     "projects/importcar-kz-mvp/sessions/2026-05-21-production-calculator-v1.md",
     "projects/importcar-kz-mvp/sessions/2026-05-21-full-product-roadmap-saved.md",
-    "projects/importcar-kz-mvp/roadmap.md",
     "Shannon list id.md",
     "Leads/almaty-30-net-new-2026-05-18.md",
     "Leads/flowops-opportunity-registry.md",

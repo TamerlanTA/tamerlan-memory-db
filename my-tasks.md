@@ -13,12 +13,12 @@
 
 ### FlowOps / Linear
 - [x] Спроектировать и внедрить [[Linear/Linear Ops Automation System/overview|Linear Ops Automation System]]: Daily Command Center, Blocked Decision Bot, Team Assignment Notifier, Stale Issue Reminder, Linear -> Obsidian Memory Sync, Weekly FlowOps Review.
-- [ ] Провести CRM QA / automation-readiness review для FlowOps CRM: поля, связи, статусы, тестовые записи, ручной путь проверки, готовность к n8n/Make.
+- [x] Провести CRM QA / automation-readiness review для FlowOps CRM: поля, связи, статусы, тестовые записи, ручной путь проверки, готовность к n8n/Make.
 - [ ] Собрать первые 5 демо для Demo Library: Real Estate Speed-to-Lead, Clinic Lead Qualification Chatbot, Agency Onboarding, Jotform -> CRM + Slack, Appointment + Reminder System.
 - [x] Довести Upwork Radar до операционного состояния: импорт clean workflow, reconnect credentials, Firecrawl node check/replacement, тест с Gmail alert, первая очередь proposal.
 - [x] Подготовить Website Audit Generator: выбрать 2-3 ниши, сделать audit template, записать первые 10 Loom-аудитов.
-- [ ] Прописать и упаковать retainer offer: tiers, pitch, follow-up sequence, delivery boundaries.
-- [ ] Прописать sales process по шагам в актуальной рабочей версии: signal -> opener -> pre-call research -> discovery call -> proposal -> objections -> close/onboarding.
+- [x] Прописать и упаковать retainer offer: tiers, pitch, follow-up sequence, delivery boundaries.
+- [x] Прописать sales process по шагам в актуальной рабочей версии: signal -> opener -> pre-call research -> discovery call -> proposal -> objections -> close/onboarding.
 - [ ] Закрыть первого Sprint-клиента через Upwork или LinkedIn и после результата предложить retainer через 7-14 дней.
 - [x] Изменить pipeline C на поиск всех чатов именно в Праге 
 - [x] Настроить команикайию между ии агентами 
