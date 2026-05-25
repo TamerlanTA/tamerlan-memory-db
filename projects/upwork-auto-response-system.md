@@ -12,57 +12,61 @@ Build a highly automated Upwork job response pipeline that detects matching job 
 
 ## Current Status
 
-- 2026-05-24: Project planning started from screenshots of Gmail Upwork job alerts and Upwork proposal flow.
-- Existing related memory found: [[projects/FlowOps Team/Pipeline A — Upwork Radar]], with a prior n8n workflow at `/Users/tamerlan/Desktop/flowopsteamPipelines/upwork-radar-workflow.clean-import.json`.
-- The old workflow appears to cover radar/import/reconnect steps, not full proposal generation/submission.
-- 2026-05-25: Claude Code created `Pipeline A v2 - Upwork Auto Response` in n8n with workflow ID `AukneuPwvXK7xVaw` and local artifacts under `/Users/tamerlan/Desktop/upwork proposals/`.
-- Local artifacts include `pipeline-a-v2.workflow.js`, `upwork-browser-server.py`, `google-sheets-schema.md`, `setup-runbook.md`, `test-plan.md`, `risk-rollback-notes.md`, and `setup-sheets.gs`.
-- Reported tests passed so far are mostly pinned/synthetic n8n tests: duplicate prevention, reject filter, low score, and high-score dry-run. They are not yet full real Gmail -> full Upwork scrape -> Sheets -> Telegram -> browser submit E2E validation.
+- 2026-05-24: Project planning started.
+- 2026-05-25 (session 1): Claude Code created `Pipeline A v2 - Upwork Auto Response` in n8n, workflow ID `AukneuPwvXK7xVaw`. Local artifacts under `/Users/tamerlan/Desktop/upwork proposals/`. Pinned synthetic tests 1-4 passed.
+- 2026-05-25 (session 2): All P0/P1 gaps closed (see Key Decisions). Workflow re-deployed at 31 nodes. Browser server rewritten with auth, React-aware fill, profile highlights, CDP attachments, pre-submit verify. Daily reset workflow created at `zuidpv2R4fErdB0X`.
+- **Blocker**: Sheets tabs not yet created (user must run `setup-sheets.gs`), n8n credentials + workflow variables not yet configured, tunnel URL not set.
+- **auto_submit_enabled = false. Must stay false until Test 10 controlled live submit passes.**
 
 ## Key Decisions
 
 - Treat fully automatic proposal submission as high-risk until compliance and account-safety implications are accepted.
 - 2026-05-24: Tamerlan explicitly accepted the risk for full auto-submit, but requires Telegram notification after every submitted proposal.
-- Source of truth: Google Sheets.
-- Initial implementation should use available stack only: n8n + browser/MCP + Gmail + Google Sheets + Telegram + LLMs. Do not use paid UpHunt/GigRadar yet.
+- Source of truth: Google Sheets (sheet ID `1L7qL5L8210jCxkHUOLiLyCjuZDpA-XUgZs-FYTInOCA`).
+- Initial implementation: n8n + browser-harness + Gmail + Google Sheets + Telegram + LLMs. No paid UpHunt/GigRadar yet.
 - Target jobs: n8n, Make, AI agents, full-stack, SaaS, CRM, automation/integrations.
-- Reject jobs: design, WordPress, generic low-fit website/design tasks, and similar unrelated work.
-- Daily Connects cap: 50.
-- Proposal boost: 0 Connects initially.
-- Fixed-price strategy: only apply from $300+ unless manually overridden.
-- Proposal must include both overview video links:
-  - `https://vimeo.com/1182418384?fl=ip&fe=ec`
-  - `https://vimeo.com/1184948875?fl=ip&fe=ec`
-- Proposal attachment source folders:
-  - `/Users/tamerlan/Desktop/TamerlanTAresume/TamerlanCases`
-  - `/Users/tamerlan/Desktop/TamerlanTAresume/TamerlanPortfolio`
-- Telegram notification chat ID: `405182031`.
-- Telegram bot token was provided in chat on 2026-05-24; do not store it in memory or source files. Configure it as an n8n credential or env var `TELEGRAM_BOT_TOKEN`.
-- Proposal style must follow Tamerlan's core template: client problem first, real challenge, systems thinking, one controlled-confidence line, video slot, timeline + estimate, short close.
-- Proposal must be English only, max 1 emoji, no long walls, no excessive bullets, no generic AI enthusiasm, no "I'm perfect for this" fluff, no em dash symbol.
-- Profile highlights should be selected from relevant completed/in-progress Upwork jobs and portfolio proof, especially AI Automation Expert for Research & Lead Pipeline, AI-Powered Woven Label Design Tool, Jotform/Zapier/ClickUp Automation, WhatsApp AI Bot, FlowOps Client Acquisition OS, Pipeline C, and AI automation portfolio examples.
+- Reject jobs: design, WordPress, Wix, Squarespace, logo, branding, Figma-only, generic redesign.
+- Daily Connects cap: 50. Proposal boost: 0 Connects initially.
+- Fixed-price minimum: $300 (enforced in `Check Auto-Submit Gate`).
+- Both Vimeo video links must be in every proposal: `https://vimeo.com/1182418384?fl=ip&fe=ec` and `https://vimeo.com/1184948875?fl=ip&fe=ec`.
+- Attachment files: `~/Desktop/TamerlanTAresume/TamerlanCases.png` and `TamerlanPortfolio.png` (PNG only — no PDFs, no contact info).
+- Telegram notification chat ID: `405182031`. Bot token: n8n credential only (never in source/memory).
+- Proposal: English only, max 1 emoji, no em dash, no generic fluff, Tamerlan template strictly.
+- Browser submit URL is configurable via settings sheet key `browser_submit_url` (supports tunnel).
+- `BROWSER_SERVER_TOKEN` and `FIRECRAWL_API_KEY` stored only as n8n workflow variables (`$vars.*`).
 
-## Risks
+## Resolved Risks (session 2)
 
-- Upwork TOS/API restrictions: scraping, browser plugins, and unauthorized automation can create account risk.
-- Connects are paid/limited; bad scoring could burn budget fast.
-- Generic AI proposals can lower reply rate; proposal engine must use Tamerlan-specific proof, case studies, and job-specific hooks.
-- Proposal form structure may change; browser automation requires monitoring and fallback.
-- Full job details and screening questions may require authenticated Upwork access.
-- Full auto-submit requires strict guardrails: daily Connects budget, duplicate prevention, scoring threshold, reject categories, Telegram notification, and emergency kill switch.
-- Telegram bot token was exposed in chat; consider rotating it after setup if this chat or logs may be shared.
-- Critical implementation gap: n8n cloud cannot call `http://localhost:8765` on Tamerlan's Mac. Auto-submit requires either local n8n, a secure tunnel to the browser server, or a browser automation host reachable from n8n.
-- Critical guardrail gap: current workflow does not appear to update `connects_used_today` after successful submission, so the daily 50 Connects cap can drift.
-- Critical guardrail gap: current auto-submit gate checks score/connects but does not appear to enforce fixed-price budget >= $300.
-- Browser server currently fills cover letter, bid, and some screening textareas, but does not yet implement attachments, profile highlights, duration/milestones, or robust Upwork React-controlled field verification.
-- If a tunnel is used for browser server, it must require an auth header/token; otherwise a public endpoint could submit proposals.
+- ~~n8n cloud cannot call localhost:8765~~ → `browser_submit_url` setting in Sheets; tunnel URL goes there; `Trigger Browser Submit` uses `$json.submit_url` + `Authorization: Bearer $vars.BROWSER_SERVER_TOKEN`.
+- ~~connects_used_today not updated after submit~~ → `Compute New Connects` + `Update Connects Counter` nodes added; daily reset workflow `zuidpv2R4fErdB0X` runs at 00:00 Almaty (19:00 UTC).
+- ~~no fixed-price budget check~~ → `Check Auto-Submit Gate` now blocks fixed-price jobs below `min_fixed_budget` ($300 default).
+- ~~browser server no auth~~ → `_check_auth()` enforces `Authorization: Bearer <token>`; 401 on mismatch; `/health` stays open.
+- ~~browser server no attachments/highlights/React verify~~ → All implemented: React native setter + event dispatch, CDP `DOM.setFileInputFiles`, profile highlight checkbox selector, pre-submit cover-letter length check, screenshots at all key steps.
 
-## Next Steps
+## Active Risks
 
-0. 2026-05-25 focus: finish implementation for Tamerlan's own use by closing P0 guardrails, proving a real dry-run E2E path, and preparing one controlled live submit only after evidence is reviewed.
-1. Do not enable live `auto_submit_enabled=true` until P0 gaps are fixed and one controlled live test passes.
-2. Fix n8n cloud -> browser server connectivity: use local n8n or a secure tunnel URL with auth header, not raw `localhost`.
-3. Add guardrails to workflow: enforce `min_fixed_budget >= 300`, update `connects_used_today` after success, add reset workflow or daily reset schedule.
-4. Extend browser server to handle profile highlights, attachments, duration/milestones/project terms, and verify React field values before submit.
-5. Run real dry-run E2E using a real Gmail Upwork alert and real Sheets/Telegram writes.
-6. Run one controlled live submit only after dry-run evidence is reviewed.
+- Upwork TOS: scraping and browser automation can create account risk.
+- Proposal form structure may change; browser automation requires monitoring.
+- Full job details may require authenticated Upwork session; Firecrawl may return incomplete data.
+- `connects_used_today` tracking requires the daily reset workflow to actually be active (must publish `zuidpv2R4fErdB0X`).
+- Tunnel endpoint must be kept private; `BROWSER_SERVER_TOKEN` must be rotated if exposed.
+- Profile highlights click logic is best-effort (looks for text match); Upwork form may not always expose this section.
+- Telegram bot token was briefly exposed in session 1 chat — consider rotating.
+
+## Next Steps (as of 2026-05-25 session 2)
+
+**User actions needed before any live test:**
+1. Run `setup-sheets.gs` in Google Apps Script (Tools → Apps Script → Run `setup()`) to create 5 Sheets tabs.
+2. Set n8n credentials: Gmail OAuth2 API, Google Sheets account, OpenAI account, Telegram account.
+3. Set n8n workflow variables: `FIRECRAWL_API_KEY` and `BROWSER_SERVER_TOKEN` (Settings → Variables).
+4. Set up Cloudflare Tunnel (`cloudflared tunnel --url http://localhost:8765`) or ngrok; update `browser_submit_url` in the settings sheet with the public URL.
+5. Restart browser server with token: `export BROWSER_SERVER_TOKEN=<same-token-as-n8n-var> && python3 upwork-browser-server.py`.
+6. Publish the daily reset workflow `zuidpv2R4fErdB0X` in n8n.
+
+**Tests to run:**
+7. Test 7: `curl http://localhost:8765/health` → confirm `"auth": "token_set"` and both attachments listed.
+8. Test 7b: `curl -X POST http://localhost:8765/submit-proposal -d '{}'` → confirm 401.
+9. Test 9: Full dry-run E2E — let a real Gmail Upwork alert trigger the workflow with `auto_submit_enabled=false`. Verify Telegram "PROPOSAL READY" message, jobs sheet row, proposal text.
+10. Test 10: Controlled live submit — only after Test 9 passes. Set `auto_submit_enabled=true`, let one real high-scoring job submit. Verify Telegram "SUBMITTED", submissions sheet row, screenshot, Upwork "Submitted Proposals" page.
+
+**Do not enable auto_submit_enabled=true until Test 9 passes and Test 10 is intentional.**
