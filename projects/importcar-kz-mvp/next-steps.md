@@ -75,8 +75,20 @@ Test calculator, saved calculation persistence, request submit, "Заявка" s
 
 ## ПОСЛЕ Immediate Fixes — Следующие этапы
 
-- **2026-05-25 — AI-assisted calculator improvement**: интегрировать нейросеть в калькулятор для более точного подсчёта импорта автомобилей. Сохранять deterministic pricing engine как baseline/source of truth, добавить AI только как объясняющий/уточняющий слой или confidence/adjustment layer, и не ломать `npm run calc:sanity`.
-- **v0.3** — Supabase Auth: Phone OTP + Google + Apple. Аккаунт запрашивать только при сохранении / заявке
+- **Phase AI-0 — Roadmap and architecture update** ✅ 2026-05-25: зафиксировать стратегию AI-assisted calculator и явно указать, что AI не является authority для финальной цены.
+- **Phase AI-1 — AI contracts and schemas** ← следующий strategic implementation block после production activation:
+  - `VehicleExtractionResult` type
+  - Zod validation schema
+  - AI snapshot extension types
+  - confidence logic design
+  - no real AI API yet
+  - no frontend AI secrets
+- **Phase AI-2 — Secure AI Link Extraction MVP**: Supabase Edge Function или secure backend endpoint, provider abstraction, strict JSON extraction, validation, fallback if URL unreadable.
+- **Phase AI-3 — User Confirmation + AI-assisted Calculation**: режимы "Быстрый расчёт" / "По ссылке", extracted vehicle card, edit/confirm, normalized data into deterministic pricing engine.
+- **Phase AI-4 — Risk Reviewer + Explanation Layer**: AI warnings, grounded explanations, confidence labels; AI does not overwrite deterministic total.
+- **Phase AI-5 — Accuracy Calibration**: store estimate vs final manager total, difference percent, reason, actual logistics, exchange rate used, final outcome.
+- **Phase AI-6 — Verified Calculation Workflow**: manager confirmation, verified quote status, high-confidence calculation path.
+- **v0.3** — Supabase Auth: Phone OTP + Google + Apple. Аккаунт запрашивать только при сохранении / заявке. Перенесено после AI-assisted calculator contracts.
 - **v0.4** — Real Inventory: 30 качественных реальных листингов, честные лейблы
 - **v0.5** — Payments: Kaspi/Halyk, платный точный расчёт от 1 990 ₸, VIN-проверка
 - **v0.6** — Subscriptions: Free / Plus план

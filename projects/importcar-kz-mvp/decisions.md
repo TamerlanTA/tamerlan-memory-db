@@ -12,9 +12,10 @@
 ## Стратегические решения
 
 - **Продукт**: Калькулятор — ядро. Всё остальное строится вокруг него
-- **Траектория**: MVP → Production Calculator → Lead Capture → Auth → Real Inventory → Payments → Subscriptions → Partner Layer → PWA polish → App Store
+- **Траектория**: MVP → Production Calculator → Lead Capture → AI-assisted calculator contracts → Secure AI link extraction → User confirmation + deterministic calculation → Auth → Real Inventory → Payments → Subscriptions → Partner Layer → PWA polish → App Store
 - **App path**: PWA → Capacitor (быстро в App Store) → React Native / Expo при наличии traction
 - **Монетизация порядок**: сначала бесплатный калькулятор + WhatsApp-конверсия → платные разовые проверки → подписка Plus → B2B для импортёров
+- **AI direction**: ImportCar.kz becomes an AI-assisted calculator, not an AI-only calculator. AI extracts/normalizes/explains/flags risks; deterministic pricing engine calculates final totals.
 
 ## Архитектура
 
@@ -29,6 +30,11 @@
 - Калькулятор — инструмент оценки, не юридический/налоговый совет
 - Версионирование правил расчёта обязательно; explainability открыта пользователю
 - Каждый расчёт сохраняется как snapshot вместе с заявкой (менеджер не спрашивает заново)
+- AI не является authority для финальной цены и не должен "придумывать" итоговую стоимость.
+- AI output для link extraction должен быть strict JSON only и проходить schema validation (предпочтительно Zod) до передачи в pricing engine.
+- Пользователь должен подтвердить/отредактировать распознанные AI данные перед расчётом.
+- Confidence уровни: быстрый расчёт — ориентировочный; по ссылке — точнее; по VIN/документам — высокий уровень; проверенный менеджером — максимально точный.
+- Публично не обещать "5-7% accuracy" до накопления реальной статистики estimate vs final.
 
 ## Дизайн
 
@@ -48,6 +54,8 @@
 - Supabase RLS не ослаблять
 - Admin status controls read-only до появления authenticated admin access
 - calculations таблица: user_id может быть NULL (анонимные расчёты)
+- Будущие AI API calls нельзя делать из frontend. Использовать Supabase Edge Function или secure backend endpoint с server-side provider key.
+- Будущий AI extraction должен иметь audit trail, strict input/output validation и позже rate limiting.
 
 ## Избранное
 

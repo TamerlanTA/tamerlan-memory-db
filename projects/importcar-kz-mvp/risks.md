@@ -15,6 +15,11 @@
 - Proof artifacts are mock trust devices and must eventually be tied to real importer operations.
 - **Production WhatsApp env required**: WhatsApp CTAs now read `VITE_WHATSAPP_PHONE`; production deploy must set it in Vercel before real traffic.
 - **Production migration required**: `supabase/migrations/20260521_calculator_leads_metadata.sql` exists, but must be run in Supabase dashboard before calculator leads are used in production.
+- **AI authority risk**: product copy and implementation must not imply that AI calculates final price by itself. Deterministic pricing engine remains source of truth.
+- **AI extraction risk**: listing pages such as Encar may be dynamic, blocked, or unreadable from backend contexts; fallback paths must include pasted text, later screenshot upload, manual edit, and manager verification.
+- **AI validation risk**: invalid/missing extracted fields must not silently enter pricing engine. Strict schema validation is required before any calculation.
+- **Frontend secret risk**: AI provider keys must never be exposed in frontend env vars; future AI calls must go through Supabase Edge Function or secure backend.
+- **Accuracy promise risk**: do not publicly promise 5-7% accuracy until enough real estimate-vs-final data exists.
 
 ## Mitigated / reduced risks
 - Anonymous lead select/update access is not exposed in public schema.

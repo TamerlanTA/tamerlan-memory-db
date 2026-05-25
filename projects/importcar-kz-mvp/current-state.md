@@ -6,7 +6,15 @@
 - [[risks]]
 - [[next-steps]]
 
-## Status as of 2026-05-21 — Production Calculator v1 + Phase 3B Deploy Prep Complete
+## Status as of 2026-05-25 — Production Calculator v1 Complete + AI-Assisted Direction Planned
+
+### Strategic direction
+- Project direction changed from a basic deterministic import calculator to an **AI-assisted import calculator with deterministic pricing engine**.
+- AI must extract, normalize, enrich, explain, and flag risks; AI must not be the source of truth for final price.
+- The deterministic pricing engine remains responsible for final totals using versioned rules, exchange rates, logistics rates, customs rules, service fee rules, and buffers.
+- Internal long-term target after verified link/VIN/manager confirmation: aim toward 5-7% estimate error, but do not publicly promise this until validated by real data.
+- Public language should stay conservative: "максимально приближенный расчёт", "предварительный расчёт", "точный расчёт после проверки ссылки/VIN", and "финальная стоимость зависит от курса, документов, логистики и актуальных ставок".
+- Planning docs only were updated on 2026-05-25; no app code, calculator logic, AI API, Edge Function, auth, payments, subscriptions, or UI sections were implemented.
 
 ### Architecture
 - **App shell**: `div.appShell` → `div.appContent` container; bottom nav fixed at bottom on mobile
@@ -37,6 +45,13 @@
 - `leads` table: production migration file exists at `supabase/migrations/20260521_calculator_leads_metadata.sql`
 - Manual migration still must be run in Supabase dashboard before production calculator lead use
 - RLS posture reviewed: anonymous insert only for `leads`; no anonymous lead read/update/delete policy added
+
+### Future AI-assisted architecture state
+- Next strategic implementation block: AI-1 contracts and schemas, before Auth/Payments/App Store.
+- Future extraction result should be strict JSON and validated, preferably with Zod, before entering pricing logic.
+- Future AI calls must run through Supabase Edge Function or another secure backend endpoint, never directly from the frontend.
+- Future user flow requires confirmation/editing of AI-extracted vehicle data before deterministic calculation.
+- Future snapshots should support `inputSource`, `aiExtraction`, and `normalizedVehicle` metadata.
 
 ### Design system (current code)
 - Font: 'Avenir Next', 'Segoe UI', Arial (system sans-serif)
