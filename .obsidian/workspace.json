@@ -250,6 +250,7 @@
   },
   "active": "ec9ab926abd6a078",
   "lastOpenFiles": [
+    "projects/importcar-kz-mvp/sessions/2026-05-25-ai-3-user-confirmation-flow.md",
     "projects/importcar-kz-mvp/sessions/2026-05-25-ai-2-secure-link-extraction.md",
     "projects/importcar-kz-mvp/sessions/2026-05-25-ai-1-contracts-schemas.md",
     "projects/importcar-kz-mvp/sessions/2026-05-25-ai-assisted-calculator-roadmap.md",
@@ -277,7 +278,6 @@
     "projects/importcar-kz-mvp/overview.md",
     "projects/importcar-kz-mvp/decisions.md",
     "projects/importcar-kz-mvp/next-steps.md",
-    "projects/importcar-kz-mvp/current-state.md",
     "projects/importcar-kz-mvp/sessions",
     "projects/importcar-kz-mvp",
     "templates/flowops-pitch-deck/build.sh",

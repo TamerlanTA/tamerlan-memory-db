@@ -6,7 +6,7 @@
 - [[risks]]
 - [[next-steps]]
 
-## Status as of 2026-05-25 — Production Calculator v1 Complete + AI-2 Backend Infrastructure Complete
+## Status as of 2026-05-25 — Production Calculator v1 Complete + AI-3 Link Mode Complete
 
 ### Strategic direction
 - Project direction changed from a basic deterministic import calculator to an **AI-assisted import calculator with deterministic pricing engine**.
@@ -57,9 +57,15 @@
 - Added OpenAI-compatible provider abstraction, strict extraction prompt, request validation, safe listing fetch/text fallback, AI output validation, normalization, confidence scoring, and controlled JSON error responses.
 - Added `docs/ai-link-extraction-endpoint.md` and `npm run ai:edge`.
 - AI provider secrets are documented as Supabase Edge Function secrets only, not frontend `VITE_` variables.
-- Frontend calculator behavior remains unchanged; no UI, auth, payments, subscriptions, or App Store work was added.
+- Manual frontend calculator behavior remains unchanged; no auth, payments, subscriptions, or App Store work was added.
 - Supabase CLI/Deno are not installed locally, so Edge runtime verification/deploy still needs manual Supabase CLI check.
-- Next strategic implementation block: AI-3 User Confirmation + AI-assisted Calculation.
+- AI-3 frontend flow is implemented in `CalculatorScreen`.
+- Calculator now has two modes: "Быстрый расчёт" (default manual flow) and "По ссылке".
+- Link mode lets the user enter URL/listing text, invokes `analyze-car-link` through Supabase Functions, shows loading/error states, then renders an extracted vehicle confirmation/edit card.
+- Confirmed AI-extracted data is mapped into the existing deterministic `calculateCost()` path; AI does not calculate final totals.
+- Saved calculation and lead metadata include additive `inputSource`, `aiExtraction`, and `normalizedVehicle` extension data for link mode; manual mode includes `inputSource: manual`.
+- AdminLeads minimally shows link input source, confidence, and brand/model when present.
+- Next strategic implementation block: AI-4 Risk Reviewer + Explanation Layer, after manual Edge Function deploy/config verification.
 
 ### Design system (current code)
 - Font: 'Avenir Next', 'Segoe UI', Arial (system sans-serif)

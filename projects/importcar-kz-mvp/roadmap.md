@@ -151,7 +151,7 @@ Implementation notes:
 - The endpoint does not calculate final import price.
 - Supabase CLI/Deno verification remains a manual deploy step because neither tool is installed in the local workspace.
 
-### Phase AI-3 — User Confirmation + AI-Assisted Calculation ← СЛЕДУЮЩИЙ STRATEGIC IMPLEMENTATION BLOCK
+### Phase AI-3 — User Confirmation + AI-Assisted Calculation ✅ ВЫПОЛНЕНО (2026-05-25)
 Цель: AI помогает заполнить данные, но пользователь подтверждает, а deterministic engine считает.
 
 ```
@@ -172,7 +172,17 @@ Genesis GV70, 2021, 2.5 бензин, ₩42,000,000, 47,000 км.
 Проверьте данные перед расчётом.
 ```
 
-### Phase AI-4 — Risk Reviewer + Explanation Layer
+Implementation notes:
+- Added calculator mode switch: "Быстрый расчёт" / "По ссылке".
+- Manual quick calculator remains the default.
+- Added frontend Supabase Functions client for `analyze-car-link`.
+- Added URL/listing text inputs, loading/error/success states, and extracted data confirmation/edit card.
+- Confirmed fields are mapped into existing deterministic pricing inputs.
+- Saved calculations and lead metadata carry AI-assisted snapshot extension.
+- AdminLeads shows minimal AI link context when present.
+- Link analysis requires deployed/configured Edge Function; manual flow remains available when AI is unavailable.
+
+### Phase AI-4 — Risk Reviewer + Explanation Layer ← СЛЕДУЮЩИЙ STRATEGIC IMPLEMENTATION BLOCK
 Цель: AI добавляет полезный контекст поверх уже рассчитанного результата.
 
 ```
