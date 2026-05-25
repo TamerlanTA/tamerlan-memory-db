@@ -6,7 +6,7 @@
 - [[risks]]
 - [[next-steps]]
 
-## Status as of 2026-05-25 — Production Calculator v1 Complete + AI-Assisted Direction Planned
+## Status as of 2026-05-25 — Production Calculator v1 Complete + AI-1 Infrastructure Complete
 
 ### Strategic direction
 - Project direction changed from a basic deterministic import calculator to an **AI-assisted import calculator with deterministic pricing engine**.
@@ -46,12 +46,15 @@
 - Manual migration still must be run in Supabase dashboard before production calculator lead use
 - RLS posture reviewed: anonymous insert only for `leads`; no anonymous lead read/update/delete policy added
 
-### Future AI-assisted architecture state
-- Next strategic implementation block: AI-1 contracts and schemas, before Auth/Payments/App Store.
-- Future extraction result should be strict JSON and validated, preferably with Zod, before entering pricing logic.
-- Future AI calls must run through Supabase Edge Function or another secure backend endpoint, never directly from the frontend.
-- Future user flow requires confirmation/editing of AI-extracted vehicle data before deterministic calculation.
-- Future snapshots should support `inputSource`, `aiExtraction`, and `normalizedVehicle` metadata.
+### AI-assisted architecture state
+- AI-1 contracts/schemas infrastructure is implemented under `src/domain/aiCalculator/`.
+- Added `VehicleExtractionResult`, `NormalizedVehicleInput`, `AiExtractionMetadata`, `CalculatorInputSource`, and additive snapshot extension types.
+- Added Zod schemas and safe `parseVehicleExtraction(input)` validation.
+- Added normalization helpers for engine volume, fuel type, currency, and money parsing.
+- Added confidence scoring with `low`, `medium`, `high`, and `requires_review` levels plus Russian labels.
+- Added `npm run ai:contracts` sanity script.
+- No AI API calls, provider keys, Edge Functions, UI changes, auth, payments, subscriptions, or calculator behavior changes were added.
+- Next strategic implementation block: AI-2 secure backend extraction endpoint.
 
 ### Design system (current code)
 - Font: 'Avenir Next', 'Segoe UI', Arial (system sans-serif)

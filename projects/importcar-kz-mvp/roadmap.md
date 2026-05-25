@@ -80,7 +80,7 @@ StickyCta с WhatsApp ✅
 Не добавлять AI API, Edge Functions, auth, payments, subscriptions, App Store packaging
 ```
 
-### Phase AI-1 — AI Contracts and Schemas ← СЛЕДУЮЩИЙ STRATEGIC IMPLEMENTATION BLOCK
+### Phase AI-1 — AI Contracts and Schemas ✅ ВЫПОЛНЕНО (2026-05-25)
 Цель: подготовить типы и контракты до реального AI API.
 
 ```
@@ -96,7 +96,15 @@ No frontend secrets
 Keep deterministic pricing sanity tests intact
 ```
 
-### Phase AI-2 — Secure AI Link Extraction MVP
+Implementation notes:
+- Added isolated domain module `src/domain/aiCalculator/`.
+- Added Zod runtime validation and safe `parseVehicleExtraction(input)`.
+- Added normalization helpers for engine volume, fuel type, currency, and money parsing.
+- Added confidence scoring and additive snapshot extension schema.
+- Added `npm run ai:contracts`.
+- No AI provider, Edge Function, UI, auth, payments, subscriptions, or calculator behavior changes.
+
+### Phase AI-2 — Secure AI Link Extraction MVP ← СЛЕДУЮЩИЙ STRATEGIC IMPLEMENTATION BLOCK
 Цель: безопасно распознавать авто по ссылке без утечки секретов.
 
 ```

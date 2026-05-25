@@ -76,14 +76,14 @@ Test calculator, saved calculation persistence, request submit, "Заявка" s
 ## ПОСЛЕ Immediate Fixes — Следующие этапы
 
 - **Phase AI-0 — Roadmap and architecture update** ✅ 2026-05-25: зафиксировать стратегию AI-assisted calculator и явно указать, что AI не является authority для финальной цены.
-- **Phase AI-1 — AI contracts and schemas** ← следующий strategic implementation block после production activation:
+- **Phase AI-1 — AI contracts and schemas** ✅ 2026-05-25:
   - `VehicleExtractionResult` type
   - Zod validation schema
   - AI snapshot extension types
   - confidence logic design
   - no real AI API yet
   - no frontend AI secrets
-- **Phase AI-2 — Secure AI Link Extraction MVP**: Supabase Edge Function или secure backend endpoint, provider abstraction, strict JSON extraction, validation, fallback if URL unreadable.
+- **Phase AI-2 — Secure AI Link Extraction MVP** ← следующий strategic implementation block: Supabase Edge Function или secure backend endpoint, provider abstraction, strict JSON extraction, validation, fallback if URL unreadable.
 - **Phase AI-3 — User Confirmation + AI-assisted Calculation**: режимы "Быстрый расчёт" / "По ссылке", extracted vehicle card, edit/confirm, normalized data into deterministic pricing engine.
 - **Phase AI-4 — Risk Reviewer + Explanation Layer**: AI warnings, grounded explanations, confidence labels; AI does not overwrite deterministic total.
 - **Phase AI-5 — Accuracy Calibration**: store estimate vs final manager total, difference percent, reason, actual logistics, exchange rate used, final outcome.
