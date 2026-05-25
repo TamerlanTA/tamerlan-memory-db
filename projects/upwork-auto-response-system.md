@@ -17,6 +17,8 @@ Build a highly automated Upwork job response pipeline that detects matching job 
 - 2026-05-25 (session 2): All P0/P1 gaps closed (see Key Decisions). Workflow re-deployed at 31 nodes. Browser server rewritten with auth, React-aware fill, profile highlights, CDP attachments, pre-submit verify. Daily reset workflow created at `zuidpv2R4fErdB0X`.
 - **Blocker**: Sheets tabs not yet created (user must run `setup-sheets.gs`), n8n credentials + workflow variables not yet configured, tunnel URL not set.
 - **auto_submit_enabled = false. Must stay false until Test 10 controlled live submit passes.**
+- 2026-05-25 (Codex follow-up): Browser server was restarted in Terminal with a generated `BROWSER_SERVER_TOKEN`; Cloudflare quick tunnel health works at `https://september-recommendations-loans-else.trycloudflare.com/health`; unauthenticated submit returns 401; authenticated empty submit returns 400 after adding required-field validation.
+- 2026-05-25 (Codex follow-up): n8n workflow `AukneuPwvXK7xVaw` was patched via n8n MCP and now validates with `valid: true`, `errorCount: 0`. Applied fixes: Telegram `sendMessage` operations, IF unary `singleValue`, Firecrawl/browser `onError`, and `Update Connects Counter` operation `appendOrUpdate`.
 
 ## Key Decisions
 
@@ -32,8 +34,9 @@ Build a highly automated Upwork job response pipeline that detects matching job 
 - Attachment files: `~/Desktop/TamerlanTAresume/TamerlanCases.png` and `TamerlanPortfolio.png` (PNG only — no PDFs, no contact info).
 - Telegram notification chat ID: `405182031`. Bot token: n8n credential only (never in source/memory).
 - Proposal: English only, max 1 emoji, no em dash, no generic fluff, Tamerlan template strictly.
-- Browser submit URL is configurable via settings sheet key `browser_submit_url` (supports tunnel).
+- Browser submit URL is configurable via settings sheet key `browser_submit_url` (supports tunnel). Current quick tunnel submit URL: `https://september-recommendations-loans-else.trycloudflare.com/submit-proposal`.
 - `BROWSER_SERVER_TOKEN` and `FIRECRAWL_API_KEY` stored only as n8n workflow variables (`$vars.*`).
+- `setup-sheets.gs` was updated so default `browser_submit_url` is the current quick tunnel URL.
 
 ## Resolved Risks (session 2)
 
@@ -50,6 +53,8 @@ Build a highly automated Upwork job response pipeline that detects matching job 
 - Full job details may require authenticated Upwork session; Firecrawl may return incomplete data.
 - `connects_used_today` tracking requires the daily reset workflow to actually be active (must publish `zuidpv2R4fErdB0X`).
 - Tunnel endpoint must be kept private; `BROWSER_SERVER_TOKEN` must be rotated if exposed.
+- Current Cloudflare tunnel is a quick trycloudflare tunnel with no uptime guarantee; if it restarts, the URL will change and the Sheets `browser_submit_url` must be updated.
+- Browser server token is currently stored locally at `/tmp/upwork_browser_server_token` and copied to clipboard for manual paste into n8n variable. Do not commit it.
 - Profile highlights click logic is best-effort (looks for text match); Upwork form may not always expose this section.
 - Telegram bot token was briefly exposed in session 1 chat — consider rotating.
 
@@ -58,9 +63,9 @@ Build a highly automated Upwork job response pipeline that detects matching job 
 **User actions needed before any live test:**
 1. Run `setup-sheets.gs` in Google Apps Script (Tools → Apps Script → Run `setup()`) to create 5 Sheets tabs.
 2. Set n8n credentials: Gmail OAuth2 API, Google Sheets account, OpenAI account, Telegram account.
-3. Set n8n workflow variables: `FIRECRAWL_API_KEY` and `BROWSER_SERVER_TOKEN` (Settings → Variables).
-4. Set up Cloudflare Tunnel (`cloudflared tunnel --url http://localhost:8765`) or ngrok; update `browser_submit_url` in the settings sheet with the public URL.
-5. Restart browser server with token: `export BROWSER_SERVER_TOKEN=<same-token-as-n8n-var> && python3 upwork-browser-server.py`.
+3. Set n8n workflow variables: `FIRECRAWL_API_KEY` and `BROWSER_SERVER_TOKEN` (Settings → Variables). The current browser token is in the Mac clipboard and `/tmp/upwork_browser_server_token`.
+4. Cloudflare Tunnel is currently running. Use `browser_submit_url=https://september-recommendations-loans-else.trycloudflare.com/submit-proposal` unless the tunnel restarts and gives a new URL.
+5. Browser server is currently running in Terminal with token; if restarted, run: `export BROWSER_SERVER_TOKEN=$(cat /tmp/upwork_browser_server_token) && python3 "/Users/tamerlan/Desktop/upwork proposals/upwork-browser-server.py"`.
 6. Publish the daily reset workflow `zuidpv2R4fErdB0X` in n8n.
 
 **Tests to run:**
