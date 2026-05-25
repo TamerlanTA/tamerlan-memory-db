@@ -31,6 +31,7 @@ Define the product clearly, choose the implementation stack, and turn the empty 
 
 
 - 2026-05-25: Patched live Workflow 3 after user switched image generation to Gemini. Latest execution `8792` failed at Google Drive upload because Gemini produced binary output under an empty binary field while Drive expected `data`. Fixed live WF3: Gemini binary output now `data`, Drive upload reads `data`, Gemini node has `operation=generate` plus `aspectRatio=1:1`, image prompt explicitly requires square 1024x1024 / no horizontal composition, Drive share uses public `reader:anyone` with `allowFileDiscovery=false`, and Sheet writes direct Drive download URL. Live WF3 validates with zero errors; next manual run must verify Drive upload, public incognito URL, and actual square output.
+- 2026-05-25: Local lead-generation quality pass after `bm-0062` output was polished but commercially weak. Updated `docs/content-generation-prompt.md`, both Workflow 1 exports, and Workflow 3 image prompt prep so content must include buyer triggers, Bastion & Mews credibility, soft CTA/next step, stricter 140–190 word LinkedIn target, 35–70 word Instagram enforcement, and stronger premium editorial social-ad image prompts. Parser now flags weak commercial relevance and generic trust phrasing; Workflow 3 image prompt avoids brown/generic still-life outputs and requires a clearer readiness/inspection/arrival focal point. Local JSON and code syntax checks pass; live n8n must still be updated/imported/pasted.
 
 ## Stack
 - n8n
@@ -56,6 +57,7 @@ Define the product clearly, choose the implementation stack, and turn the empty 
 
 ## Open Tasks
 - [ ] 2026-05-25: Finish and improve image generation automation: run one real `Needs Image` row through Workflow 3, verify OpenAI image -> Drive upload -> public direct URL -> Sheet update, then tune image prompt / quality gate if output is still generic.
+- [ ] 2026-05-25: Import/paste the latest local Workflow 1 and Workflow 3 changes into live n8n, then rerun `bm-0062` or a fresh row to verify improved lead-oriented copy and stronger image output.
 - [ ] Rotate OpenAI key and create/bind n8n OpenAI credential
 - [ ] Create Google Sheet from `docs/bastion-mews-content-calendar-template.csv` or `.xlsx`
 - [ ] Create Google Drive folder for generated images and capture folder ID
