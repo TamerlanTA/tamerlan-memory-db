@@ -13,13 +13,13 @@
 
 ## ImportCar.kz / imcar.kz (добавлен 2026-05-21)
 
-**Статус**: v0.1 + QA Hardening + Phase 2 + Phase 3A + Phase 3B deploy prep завершены. Build clean (lint ✅ build ✅ 469.75 kB). 2026-05-25 стратегия обновлена: продукт движется к AI-assisted import calculator, где AI извлекает/нормализует/объясняет/флагует риски, а deterministic pricing engine остаётся source of truth для финальной цены.
+**Статус**: v0.1 + QA Hardening + Phase 2 + Phase 3A + Phase 3B deploy prep завершены. AI-1 contracts/schemas ✅ и AI-2 secure link extraction backend structure ✅ выполнены 2026-05-25. Build clean (lint ✅ build ✅ 469.75 kB). Продукт движется к AI-assisted import calculator, где AI извлекает/нормализует/объясняет/флагует риски, а deterministic pricing engine остаётся source of truth для финальной цены.
 
 **Следующие действия** (в порядке приоритета):
 1. Запустить `supabase/migrations/20260521_calculator_leads_metadata.sql` в Supabase dashboard
 2. Set Vercel env vars: Supabase URL/key, `VITE_ENABLE_ADMIN_VIEW=false`, `VITE_WHATSAPP_PHONE`
 3. Деплой на Vercel + live acceptance по `docs/live-acceptance-runbook.md`
-Затем новый приоритет перед Auth/Payments/App Store: **AI-1 — AI contracts and schemas** (VehicleExtractionResult, Zod validation, snapshot extension, confidence logic; без реального AI API).
+Затем новый приоритет перед Auth/Payments/App Store: **AI-3 — User Confirmation + AI-assisted Calculation**. Перед deploy AI-2 вручную проверить Supabase Edge Function через Supabase CLI/Deno и выставить Supabase secrets (`AI_PROVIDER`, `OPENAI_API_KEY`, `AI_MODEL`).
 
 Handoff: [[projects/importcar-kz-mvp/sessions/2026-05-21-handoff]]
 Детали: [[projects/importcar-kz-mvp/next-steps]]

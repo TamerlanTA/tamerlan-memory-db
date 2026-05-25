@@ -104,7 +104,7 @@ Implementation notes:
 - Added `npm run ai:contracts`.
 - No AI provider, Edge Function, UI, auth, payments, subscriptions, or calculator behavior changes.
 
-### Phase AI-2 — Secure AI Link Extraction MVP ← СЛЕДУЮЩИЙ STRATEGIC IMPLEMENTATION BLOCK
+### Phase AI-2 — Secure AI Link Extraction MVP ✅ ВЫПОЛНЕНО (2026-05-25)
 Цель: безопасно распознавать авто по ссылке без утечки секретов.
 
 ```
@@ -138,7 +138,20 @@ Output:
 }
 ```
 
-### Phase AI-3 — User Confirmation + AI-Assisted Calculation
+Implementation notes:
+- Added Supabase Edge Function structure `supabase/functions/analyze-car-link/`.
+- Added `index.ts`, `provider.ts`, `prompt.ts`, and `validation.ts`.
+- Provider secrets are read server-side from Supabase Edge Function env only.
+- No `VITE_` AI secrets are used.
+- Missing provider config returns `AI_PROVIDER_NOT_CONFIGURED`.
+- Listing fetch failures fall back to `listingText`.
+- If no usable content exists, endpoint returns `LISTING_CONTENT_UNAVAILABLE`.
+- AI output is validated before response.
+- Minimal validation/normalization logic is mirrored in the function folder for Deno deploy reliability; unify with `src/domain/aiCalculator` later if shared packaging is introduced.
+- The endpoint does not calculate final import price.
+- Supabase CLI/Deno verification remains a manual deploy step because neither tool is installed in the local workspace.
+
+### Phase AI-3 — User Confirmation + AI-Assisted Calculation ← СЛЕДУЮЩИЙ STRATEGIC IMPLEMENTATION BLOCK
 Цель: AI помогает заполнить данные, но пользователь подтверждает, а deterministic engine считает.
 
 ```

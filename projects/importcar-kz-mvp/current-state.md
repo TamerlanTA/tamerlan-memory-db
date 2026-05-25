@@ -6,7 +6,7 @@
 - [[risks]]
 - [[next-steps]]
 
-## Status as of 2026-05-25 — Production Calculator v1 Complete + AI-1 Infrastructure Complete
+## Status as of 2026-05-25 — Production Calculator v1 Complete + AI-2 Backend Infrastructure Complete
 
 ### Strategic direction
 - Project direction changed from a basic deterministic import calculator to an **AI-assisted import calculator with deterministic pricing engine**.
@@ -53,8 +53,13 @@
 - Added normalization helpers for engine volume, fuel type, currency, and money parsing.
 - Added confidence scoring with `low`, `medium`, `high`, and `requires_review` levels plus Russian labels.
 - Added `npm run ai:contracts` sanity script.
-- No AI API calls, provider keys, Edge Functions, UI changes, auth, payments, subscriptions, or calculator behavior changes were added.
-- Next strategic implementation block: AI-2 secure backend extraction endpoint.
+- AI-2 secure backend extraction endpoint structure is implemented under `supabase/functions/analyze-car-link/`.
+- Added OpenAI-compatible provider abstraction, strict extraction prompt, request validation, safe listing fetch/text fallback, AI output validation, normalization, confidence scoring, and controlled JSON error responses.
+- Added `docs/ai-link-extraction-endpoint.md` and `npm run ai:edge`.
+- AI provider secrets are documented as Supabase Edge Function secrets only, not frontend `VITE_` variables.
+- Frontend calculator behavior remains unchanged; no UI, auth, payments, subscriptions, or App Store work was added.
+- Supabase CLI/Deno are not installed locally, so Edge runtime verification/deploy still needs manual Supabase CLI check.
+- Next strategic implementation block: AI-3 User Confirmation + AI-assisted Calculation.
 
 ### Design system (current code)
 - Font: 'Avenir Next', 'Segoe UI', Arial (system sans-serif)

@@ -83,8 +83,8 @@ Test calculator, saved calculation persistence, request submit, "Заявка" s
   - confidence logic design
   - no real AI API yet
   - no frontend AI secrets
-- **Phase AI-2 — Secure AI Link Extraction MVP** ← следующий strategic implementation block: Supabase Edge Function или secure backend endpoint, provider abstraction, strict JSON extraction, validation, fallback if URL unreadable.
-- **Phase AI-3 — User Confirmation + AI-assisted Calculation**: режимы "Быстрый расчёт" / "По ссылке", extracted vehicle card, edit/confirm, normalized data into deterministic pricing engine.
+- **Phase AI-2 — Secure AI Link Extraction MVP** ✅ 2026-05-25: Supabase Edge Function structure `analyze-car-link`, provider abstraction, strict JSON extraction prompt, validation, fallback if URL unreadable, docs, and no-key sanity script. Manual Supabase CLI/Deno verification still needed before deploy because local CLI is unavailable.
+- **Phase AI-3 — User Confirmation + AI-assisted Calculation** ← следующий strategic implementation block: режимы "Быстрый расчёт" / "По ссылке", extracted vehicle card, edit/confirm, normalized data into deterministic pricing engine.
 - **Phase AI-4 — Risk Reviewer + Explanation Layer**: AI warnings, grounded explanations, confidence labels; AI does not overwrite deterministic total.
 - **Phase AI-5 — Accuracy Calibration**: store estimate vs final manager total, difference percent, reason, actual logistics, exchange rate used, final outcome.
 - **Phase AI-6 — Verified Calculation Workflow**: manager confirmation, verified quote status, high-confidence calculation path.
