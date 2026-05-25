@@ -29,6 +29,9 @@ Define the product clearly, choose the implementation stack, and turn the empty 
 - 2026-05-23: OpenAI now succeeds and returns nested `output[0].content[0].text` containing fenced JSON. Patched `Parse and Validate JSON` locally to extract that nested path and strip ```json fences before parsing. User must paste this parser code into the live n8n node.
 - 2026-05-23: Full Workflow 1 recheck with n8n testing lens found remaining fragility: OpenAI can return valid-looking JSON missing `image_prompt` / arrays as strings, causing parser to mark row `Error`. Replaced parser locally with tolerant normalizer: extracts nested OpenAI output, strips fences, recovers JSON inside extra text, converts arrays/objects to Sheet-safe strings, creates fallback `image_prompt`, only hard-fails if core copy fields are missing. Local micro-test against screenshot-like output passes to `Needs Image`.
 
+
+- 2026-05-25: Patched live Workflow 3 after user switched image generation to Gemini. Latest execution `8792` failed at Google Drive upload because Gemini produced binary output under an empty binary field while Drive expected `data`. Fixed live WF3: Gemini binary output now `data`, Drive upload reads `data`, Gemini node has `operation=generate` plus `aspectRatio=1:1`, image prompt explicitly requires square 1024x1024 / no horizontal composition, Drive share uses public `reader:anyone` with `allowFileDiscovery=false`, and Sheet writes direct Drive download URL. Live WF3 validates with zero errors; next manual run must verify Drive upload, public incognito URL, and actual square output.
+
 ## Stack
 - n8n
 - Google Sheets
