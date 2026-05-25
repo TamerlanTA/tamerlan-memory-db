@@ -12,6 +12,8 @@
 - Task add/complete flows write markdown through constrained server functions. MVP write target is `My-tasks.md`.
 - 2026-05-24 late: UI/UX reworked into a clearer morning command center after user rejected the first MVP layout as confusing. The dashboard now prioritizes a Codex morning brief, next execution task, project curator, activity summary, and recommendations.
 - Codex automation `Memory Dashboard Morning Brief` is active and scheduled for 09:00 daily. It updates `dashboard/ai-brief.md`, which the UI reads as the main morning briefing source.
+- 2026-05-25: Morning brief refreshed from current vault state. Brief now prioritizes ImportCar production activation, a single FlowOps revenue move, and dashboard-first morning triage instead of generic summary text.
+- 2026-05-25 morning refresh: brief now also pulls weekly activity context from `Completed-in-a-week.md` and explicitly flags stale-risk for projects without fresh session notes, especially FlowOps follow-through after 2026-05-20.
 
 ## Implementation notes
 - Safe filesystem rules are implemented in `server/vault.ts`: writes must stay inside the vault and target `.md` files.
@@ -46,3 +48,4 @@
 - Add richer markdown extraction for project folders with non-canonical FlowOps structures.
 - Consider a dedicated session-note writer once the user wants dashboard-driven memory sync, not only task writes.
 - Add a manual "run scan / refresh AI brief" flow if Codex exposes a callable automation trigger from the app or CLI.
+- Consider surfacing a visible stale-note signal in the UI when a priority project has no recent session note even if tasks remain open.

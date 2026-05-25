@@ -15,6 +15,9 @@ Build a highly automated Upwork job response pipeline that detects matching job 
 - 2026-05-24: Project planning started from screenshots of Gmail Upwork job alerts and Upwork proposal flow.
 - Existing related memory found: [[projects/FlowOps Team/Pipeline A — Upwork Radar]], with a prior n8n workflow at `/Users/tamerlan/Desktop/flowopsteamPipelines/upwork-radar-workflow.clean-import.json`.
 - The old workflow appears to cover radar/import/reconnect steps, not full proposal generation/submission.
+- 2026-05-25: Claude Code created `Pipeline A v2 - Upwork Auto Response` in n8n with workflow ID `AukneuPwvXK7xVaw` and local artifacts under `/Users/tamerlan/Desktop/upwork proposals/`.
+- Local artifacts include `pipeline-a-v2.workflow.js`, `upwork-browser-server.py`, `google-sheets-schema.md`, `setup-runbook.md`, `test-plan.md`, `risk-rollback-notes.md`, and `setup-sheets.gs`.
+- Reported tests passed so far are mostly pinned/synthetic n8n tests: duplicate prevention, reject filter, low score, and high-score dry-run. They are not yet full real Gmail -> full Upwork scrape -> Sheets -> Telegram -> browser submit E2E validation.
 
 ## Key Decisions
 
@@ -48,12 +51,18 @@ Build a highly automated Upwork job response pipeline that detects matching job 
 - Full job details and screening questions may require authenticated Upwork access.
 - Full auto-submit requires strict guardrails: daily Connects budget, duplicate prevention, scoring threshold, reject categories, Telegram notification, and emergency kill switch.
 - Telegram bot token was exposed in chat; consider rotating it after setup if this chat or logs may be shared.
+- Critical implementation gap: n8n cloud cannot call `http://localhost:8765` on Tamerlan's Mac. Auto-submit requires either local n8n, a secure tunnel to the browser server, or a browser automation host reachable from n8n.
+- Critical guardrail gap: current workflow does not appear to update `connects_used_today` after successful submission, so the daily 50 Connects cap can drift.
+- Critical guardrail gap: current auto-submit gate checks score/connects but does not appear to enforce fixed-price budget >= $300.
+- Browser server currently fills cover letter, bid, and some screening textareas, but does not yet implement attachments, profile highlights, duration/milestones, or robust Upwork React-controlled field verification.
+- If a tunnel is used for browser server, it must require an auth header/token; otherwise a public endpoint could submit proposals.
 
 ## Next Steps
 
-1. Audit/import the existing Upwork Radar n8n workflow and decide whether to extend or rebuild.
-2. Build Google Sheets schema for jobs, scoring, generated proposals, submissions, profile highlights, errors, and settings.
-3. Implement Gmail alert ingestion, full job detail retrieval, screening question extraction, scoring, proposal generation, and Telegram notification.
-4. Implement browser/MCP proposal submission with strict safeguards: score >=85, target category match, reject category absence, daily Connects <=50, no duplicates, required fields present.
-5. Add monitoring, runbook, manual kill switch, and failure notifications.
-6. Configure Telegram credential securely in n8n; do not commit or paste bot token into workflow JSON.
+0. 2026-05-25 focus: finish implementation for Tamerlan's own use by closing P0 guardrails, proving a real dry-run E2E path, and preparing one controlled live submit only after evidence is reviewed.
+1. Do not enable live `auto_submit_enabled=true` until P0 gaps are fixed and one controlled live test passes.
+2. Fix n8n cloud -> browser server connectivity: use local n8n or a secure tunnel URL with auth header, not raw `localhost`.
+3. Add guardrails to workflow: enforce `min_fixed_budget >= 300`, update `connects_used_today` after success, add reset workflow or daily reset schedule.
+4. Extend browser server to handle profile highlights, attachments, duration/milestones/project terms, and verify React field values before submit.
+5. Run real dry-run E2E using a real Gmail Upwork alert and real Sheets/Telegram writes.
+6. Run one controlled live submit only after dry-run evidence is reviewed.

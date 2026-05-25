@@ -11,6 +11,11 @@
 
 ## Active Now
 
+### Today — 2026-05-25
+- [ ] Закончить и улучшить генерацию изображений в автоматизации [[projects/michaeldang|Michael Dang]]: проверить Workflow 3 на одной реальной строке `Needs Image`, убедиться что Drive URL публично открывается, и улучшить image prompt / quality gate при необходимости.
+- [ ] Закончить реализацию [[projects/upwork-auto-response-system|Upwork Auto Response System]] для себя: закрыть P0 gaps, провести real dry-run E2E и подготовить controlled live submit только после проверки guardrails.
+- [ ] Интегрировать нейросеть в калькулятор [[projects/importcar-kz-mvp/overview|ImportCar.kz / EMcar]] для более точного подсчёта импорта автомобилей, не ломая текущий deterministic pricing engine и sanity tests.
+
 ### FlowOps / Linear
 - [x] Спроектировать и внедрить [[Linear/Linear Ops Automation System/overview|Linear Ops Automation System]]: Daily Command Center, Blocked Decision Bot, Team Assignment Notifier, Stale Issue Reminder, Linear -> Obsidian Memory Sync, Weekly FlowOps Review.
 - [x] Провести CRM QA / automation-readiness review для FlowOps CRM: поля, связи, статусы, тестовые записи, ручной путь проверки, готовность к n8n/Make.

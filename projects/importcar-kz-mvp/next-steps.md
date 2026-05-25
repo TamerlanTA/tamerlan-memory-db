@@ -75,6 +75,7 @@ Test calculator, saved calculation persistence, request submit, "Заявка" s
 
 ## ПОСЛЕ Immediate Fixes — Следующие этапы
 
+- **2026-05-25 — AI-assisted calculator improvement**: интегрировать нейросеть в калькулятор для более точного подсчёта импорта автомобилей. Сохранять deterministic pricing engine как baseline/source of truth, добавить AI только как объясняющий/уточняющий слой или confidence/adjustment layer, и не ломать `npm run calc:sanity`.
 - **v0.3** — Supabase Auth: Phone OTP + Google + Apple. Аккаунт запрашивать только при сохранении / заявке
 - **v0.4** — Real Inventory: 30 качественных реальных листингов, честные лейблы
 - **v0.5** — Payments: Kaspi/Halyk, платный точный расчёт от 1 990 ₸, VIN-проверка

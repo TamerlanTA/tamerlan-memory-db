@@ -52,6 +52,7 @@ Define the product clearly, choose the implementation stack, and turn the empty 
 - Why: avoids direct social APIs and keeps operations inside the client's Buffer account.
 
 ## Open Tasks
+- [ ] 2026-05-25: Finish and improve image generation automation: run one real `Needs Image` row through Workflow 3, verify OpenAI image -> Drive upload -> public direct URL -> Sheet update, then tune image prompt / quality gate if output is still generic.
 - [ ] Rotate OpenAI key and create/bind n8n OpenAI credential
 - [ ] Create Google Sheet from `docs/bastion-mews-content-calendar-template.csv` or `.xlsx`
 - [ ] Create Google Drive folder for generated images and capture folder ID
