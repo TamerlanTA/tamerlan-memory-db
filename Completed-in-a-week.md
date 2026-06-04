@@ -6,6 +6,63 @@
 
 ---
 
+# Неделя 26 мая — 1 июня 2026
+
+---
+
+## 🚗 ImportCar.kz MVP — AI-калькулятор
+Неделя была почти полностью посвящена этому проекту. Последовательно закрыты все этапы AI-интеграции:
+
+- **AI-2 / AI-3** — безопасная извлечение данных по ссылке, hardening link-mode, edge acceptance
+- **AI-4** — review объяснения рисков, UX-тайтлинг preview-режима
+- **AI-5A / 5B / 5C** — надёжность link extraction, browser-render fallback, валидация AI-вывода, quality gate
+- **AI-6 / 6.5 / 6.6** — accuracy calibration foundation, secure admin-calibrations backend, live-check скрипт + acceptance checklist
+- **Vercel preview deploy** — MVP задеплоен, build чистый
+
+> Следующий шаг: Supabase migration + deploy `admin-calibrations` Edge Function → real acceptance run.
+
+---
+
+## 🏷️ Woven Label Generator (Griffes Vivienne)
+- Аудит live Stripe credit-pack реализации
+- Hardening: кредиты выдаются только при `payment_status === "paid"` (fail-closed)
+- Написаны тесты (raw-body verification, unpaid fail-closed, credit grant) — все проходят ✅
+- MOQ-регрессия (1000 ед.) подтверждена исправленной в активной ветке
+
+> Следующий шаг: деплой, один реальный live-платёж для верификации.
+
+---
+
+## 📬 Upwork Auto Response System
+- Задеплоен Pipeline A v2 (31 нода) в n8n
+- P0 исправлены: tunnel connectivity, fixed-price budget gate (<$300 блок), connects tracking
+- P1 исправлен: browser server переписан — token auth, React-aware fill, CDP file upload, скриншоты на каждом шаге
+- Создан daily reset workflow (00:00 Almaty)
+
+> Нужна ручная настройка (Sheets, credentials, tunnel) перед live-запуском.
+
+---
+
+## 🔍 FlowOps — Лиды и аутрич
+- **Senso Beauty Studio (Алматы)** — prospect audit: score 86/100, оффер Beauty Booking & Retention System, следующий шаг — Loom + первое сообщение
+- **Lidya Farag (Upwork)** — PDF-бриф для Make.com автоматизации академического расписания, клиент запросил 30-мин call
+
+---
+
+## ⚙️ FlowOps система
+Закрыты из бэклога:
+- Linear Ops Automation System — спроектирован и внедрён ✅
+- Pipeline C переключён на Прагу ✅
+- Настроена коммуникация между AI-агентами ✅
+- CRM QA / automation-readiness review выполнен ✅
+- Upwork Radar доведён до операционного состояния ✅
+
+---
+
+*Сгенерировано автоматически · воскресенье 1 июня 2026*
+
+---
+
 # Неделя 19–25 мая 2026
 
 ---

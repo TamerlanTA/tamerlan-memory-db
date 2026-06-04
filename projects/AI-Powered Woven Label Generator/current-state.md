@@ -37,8 +37,59 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-28-handoff-sync-memory-source-and-local-state|Handoff sync: memory source and local state]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-28-sample-price-ui-visibility-fix|Sample price UI visibility fix]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-05-08-moq-1000-r2-hotfix-and-freemium-ux|MOQ 1000, R2 hotfix, and freemium gate UX]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-memory-read-and-repo-sync|Memory read and repo sync]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-payment-confirmation-stabilization|Payment confirmation stabilization]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-payment-round-2-lifecycle-and-validation|Payment Round 2 lifecycle and validation]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-launch-analytics-foundation|Launch analytics foundation]]
 
-Last updated: 2026-05-11
+Last updated: 2026-06-03
+
+## 2026-06-03 launch analytics foundation
+
+- Implemented lightweight launch analytics using the existing `trackConversionEvent` helper.
+- Added first-touch and session UTM persistence (`gv_first_touch_attribution`, `gv_session_attribution`) and automatic attribution enrichment for all tracked events.
+- Optional analytics scripts now load dynamically from env: `VITE_GA4_MEASUREMENT_ID`, `VITE_LINKEDIN_PARTNER_ID`, `VITE_LINKEDIN_PREORDER_CONVERSION_ID`, `VITE_ANALYTICS_ENDPOINT`, `VITE_ANALYTICS_WEBSITE_ID`.
+- Removed static Umami placeholder from `client/index.html`, clearing the previous missing analytics env build warnings.
+- Added launch funnel events for landing, upload, configuration, generation, freemium, paywall, checkout/payment, and preorder conversion.
+- Added attribution to signed order intent drafts/shared schema so preorder/quote submissions retain campaign context without DB migration.
+- Verification: focused analytics/order-intent tests PASS, `pnpm check` PASS, `pnpm build` PASS. Full `pnpm test` still fails only on pre-existing generation/texture tests.
+
+## 2026-06-03 payment Round 2 lifecycle and validation
+
+- Hardened `/credits` success confirmation lifecycle: persisted confirmation now includes `userKey`, `confirmedAt`, and `expiresAt`; it survives refresh for the matching authenticated user only and expires after 24 hours.
+- Added `client/src/domain/creditsSuccessLifecycle.ts` and focused tests for TTL, user binding, legacy/malformed storage rejection, and mismatched-user hiding.
+- Updated GV payment confirmation email wording to confirm credits availability and explicitly defer official payment receipt responsibility to Stripe receipts.
+- Analytics audit completed without implementation: Umami placeholder and best-effort `dataLayer` pushes exist for order/preorder events; no code-level GA4/GTM loader, UTM persistence, LinkedIn attribution, or payment funnel events found.
+- Verification: lifecycle/email/billing tests PASS, `pnpm check` PASS, `pnpm build` PASS. Full `pnpm test` still fails only on pre-existing generation/texture tests.
+
+## 2026-06-03 payment confirmation stabilization
+
+- Implemented launch-safe post-payment reassurance on `/credits`: successful reconciled checkouts persist a local confirmation summary and show a visible success panel with credits added, amount, and Stripe Checkout Session reference after redirect/refresh.
+- Added `server/paymentConfirmationEmail.ts`: a simple Resend payment confirmation email sent after a new credit grant is created from `checkout.session.completed`.
+- Payment email is best-effort and does not affect webhook success or credit fulfillment; duplicate webhooks with an existing grant do not resend the app confirmation email.
+- Stripe Checkout Sessions now set `payment_intent_data.description` for clearer Stripe receipt context.
+- Added docs at `docs/payment-confirmation.md` covering webhook endpoint, required events, Stripe receipt configuration, and Resend payment email behavior.
+- Verification: focused payment/email tests PASS, broader payment/order/credit safety tests PASS, `pnpm check` PASS, `pnpm build` PASS. Full `pnpm test` still fails only on pre-existing generation/texture expectation tests, not payment flow.
+
+## 2026-06-03 sync
+
+- Project memory was reread and matched to workspace `/Users/tamerlan/Desktop/griffes-vivienne-studio-claude-r2-storage-integration-pU2tu`.
+- Active branch/remote verified by Git plumbing: `milestone4-auth-completion` at `04c0bc4` / `origin/milestone4-auth-completion`, commit `Add payment_status guard and billing webhook tests`.
+- `04c0bc4` contains the Stripe hardening from the 2026-05-28 readiness audit: `server/billing.ts` payment-status guard plus `server/billing.test.ts`.
+- `main` remains far behind at `f51482c`; branch/deployment target must stay explicit before production work.
+- `git status` and `git diff HEAD` still fail with stale worktree metadata pointing at `/Users/tamerlan/.git/worktrees/elated-engelbart`; use `git rev-parse`, `git log`, `git show`, and remote checks until repaired.
+- No implementation work was done in this sync; this was a memory/readiness alignment pass.
+
+## 2026-05-28 deltas
+
+- **Live Stripe readiness audit completed locally** on real workspace `/Users/tamerlan/Desktop/griffes-vivienne-studio-claude-r2-storage-integration-pU2tu`.
+- Active branch/commit verified despite broken `git status` during that session: `milestone4-auth-completion` at `ed3fd26` / `origin/milestone4-auth-completion` (`Fix production MOQ regression`). As of the 2026-06-03 sync, branch/remote are now at `04c0bc4`.
+- Latest production-fix content confirmed in code: MOQ 1000 is present in `client/src/domain/order.ts`, `shared/orderIntentBridge.ts`, `OrderLabelsPanel`, and EN/FR copy; focused MOQ/order-intent tests pass.
+- Stripe implementation audited: Checkout Session creation, raw-body webhook verification, billing router, env loading, Credits success/cancel UX, and checkout/payment schema are coherent for a card-only Stripe Checkout credit-pack flow.
+- Minimal Stripe hardening added: `server/billing.ts` now grants credits from `checkout.session.completed` only when Stripe reports `payment_status === "paid"`.
+- Focused Stripe tests added in `server/billing.test.ts` for raw body verification, unpaid no-grant fail-closed behavior, and paid payment/credit grant persistence.
+- Verification: `pnpm check` PASS, `pnpm build` PASS, `pnpm vitest run server/billing.test.ts` PASS, and `pnpm vitest run client/src/domain/order.test.ts server/orderIntentBridge.test.ts server/orderIntent.router.test.ts` PASS.
+- Live payment remains **unverified** until one real payment is completed and checked in Stripe + app + DB/admin. See session note: [[projects/AI-Powered Woven Label Generator/sessions/2026-05-28-live-stripe-readiness-audit|Live Stripe readiness audit]].
 
 ## 2026-05-11 deltas
 

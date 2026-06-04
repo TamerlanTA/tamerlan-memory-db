@@ -6,6 +6,101 @@
 - [[flowops-agency-website]]
 
 ## Current status
+- Multi-select option whitelist fix on 2026-05-26:
+  - User shared the exact failed `module 201` input for the Item Set field write:
+    - URL: `/v2/task/86e1hr8gx/field/32070f0c-6bd5-4ef5-bfde-d1ddbdd4615a`
+    - Body: `{"value": ["6f12024e-448b-4aef-ae2e-36db53316479","55"]}`
+  - This confirmed the failing field is `Printing Finishes`, not a general ClickUp/API issue.
+  - Diagnosis:
+    - `6f12024e-448b-4aef-ae2e-36db53316479` is valid (`Matte`)
+    - `55` is an invalid raw leftover value leaking from Jotform into the multi-select payload
+  - Source reference used to validate correct option IDs:
+    - `/Users/tamerlan/Downloads/Custom Field ID's-20260512120357.md`
+  - Safe fix created:
+    - backup: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-2026-05-26-label-option-fix.backup.json`
+    - new file: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-05-26-label-option-fix.blueprint.json`
+  - Fix approach:
+    - stopped building `Labeling` and `Printing Finishes` payloads from `join(...)->replace(...)` pipe strings that could preserve unknown values
+    - rewrote:
+      - `cf_labeling_option_ids_json`
+      - `cf_printing_finishes_option_ids_json`
+    - these now build JSON arrays only from known whitelisted labels -> known ClickUp option IDs
+    - unknown values are silently dropped instead of being forwarded to ClickUp
+    - `200` and `230` Item Set feeder entries now use the new `*_json` variables directly
+    - `201` and `231` filters now also skip `[]`
+  - Intent:
+    - preserve the compact array-driven architecture
+    - eliminate invalid mixed payloads like `["valid-option-id","55"]`
+- Import-safe follow-up for the label-option whitelist fix on 2026-05-26:
+  - User reported Make import validation errors again on `module 22`, with many fake references like `module ID 9598643` and `module ID 7831973`.
+  - Cause: even after the runtime whitelist fix, the long UUID-heavy expressions still lived inside `util:SetVariables` `module 22`, and Make's import parser misread numeric UUID fragments as module references.
+  - Safe import file created:
+    - backup: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-2026-05-26-label-option-fix-import-safe.backup.json`
+    - new file: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-05-26-label-option-fix-IMPORT-SAFE.blueprint.json`
+  - Fix approach:
+    - cleared the four import-breaking `module 22` variables:
+      - `cf_labeling_option_ids_json`
+      - `cf_printing_finishes_option_ids_json`
+      - `cf_labeling_option_ids_pipe`
+      - `cf_printing_finishes_option_ids_pipe`
+    - embedded the whitelist JSON-array expressions directly into the `Labeling` and `Printing Finishes` entries inside Item Set feeders `200` and `230`
+    - preserved the 2026-05-26 runtime fix behavior:
+      - only known label values are converted to valid ClickUp option IDs
+      - stray values like `55` are dropped
+      - filters still skip `[]`
+- Unicode import-safe refinement on 2026-05-26:
+  - User then reported Make import errors moved from `module 22` to iterators `200` and `230`, which proved the import parser was still choking on raw UUID fragments inside the embedded label-field IML expressions.
+  - Additional safe file created:
+    - backup: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-2026-05-26-label-option-fix-unicode-import-safe.backup.json`
+    - new file: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-05-26-label-option-fix-UNICODE-IMPORT-SAFE.blueprint.json`
+  - Fix approach:
+    - kept the whitelist-only `Labeling` / `Printing Finishes` logic in iterators `200` and `230`
+    - rewrote the embedded option IDs using unicode escapes for digits and hyphens (for example raw `6f12024e-...` no longer appears literally in the file)
+    - goal is to stop Make import validation from tokenizing UUID fragments as fake module references while still letting JSON decode to the original valid ClickUp option IDs at runtime
+- Stability fallback on 2026-05-26:
+  - User reported the scenario still fails at runtime with the same error after import-safe variants:
+    - `RuntimeError [400] FIELD_158: Values must each be a valid option id`
+  - Since the run otherwise succeeds and only the `Printing Finishes` Item Set field is failing, a production-safe fallback file was created to stop the workflow from failing while preserving the rest of the automation:
+    - backup: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-2026-05-26-disable-printing-finishes.backup.json`
+    - new file: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-05-26-disable-printing-finishes-stability-fix.blueprint.json`
+  - Fix approach:
+    - disabled only the `Printing Finishes` entries in Item Set iterators `200` and `230`
+    - left all other routing, parent creation, Item Set creation, request task creation, task types, due dates, Submitted By, and other custom fields untouched
+  - Rationale:
+    - stop burning credits and failing whole runs on one field
+    - preserve production stability while the exact live Jotform value shape for `q133_printingfinishes` is still being verified
+- Full Item Set multi-select stability fallback on 2026-05-26:
+  - User reported the run still failed after the `Printing Finishes`-only stability patch, with:
+    - `RuntimeError [400] JSON_001: Unexpected token '\\', "{\"value\": [\\,\\]}" is not valid JSON`
+  - This indicates the remaining `Labeling` multi-select field was still capable of generating malformed JSON when its payload resolved badly.
+  - New stability file created:
+    - backup: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-2026-05-26-disable-labeling-and-printing.backup.json`
+    - new file: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-05-26-disable-labeling-and-printing-stability-fix.blueprint.json`
+  - Fix approach:
+    - disabled both Item Set multi-select fields in iterators `200` and `230`:
+      - `Labeling`
+      - `Printing Finishes`
+    - left the rest of the scenario untouched so all other working fields continue to populate
+  - Practical goal:
+    - stop all Item Set multi-select JSON failures
+    - restore stable scenario runs while the exact Make/Jotform/ClickUp payload handling for those two fields is isolated separately
+- Runtime custom-field error on 2026-05-26:
+  - User shared a Make execution where the scenario mostly completed successfully, but one final Item Set custom field update failed with:
+    - `RuntimeError [400] FIELD_158: Values must each be a valid option id`
+  - Execution path confirms:
+    - parent task creation succeeded
+    - Item Set creation succeeded
+    - most `Iterator 200 -> Generic Set Custom Field Value 201` updates succeeded
+    - only one final Item Set custom field write failed
+  - Current Item Set array order in the active 2026-05-21 files shows entries `23` and `24` are the label-array fields:
+    - `23` = `Labeling` (`7ef3834f-67f5-4398-bdfa-64b918058ee6`)
+    - `24` = `Printing Finishes` (`32070f0c-6bd5-4ef5-bfde-d1ddbdd4615a`)
+  - Based on the log order (`16 completed -> 4 skipped -> 4 completed -> final failure`), the failure is most likely the last array entry:
+    - `Printing Finishes`
+  - Current payload shape is still:
+    - `{"value": ["option_id_1", "option_id_2"]}`
+  - Most likely root cause:
+    - one or more option IDs for `Printing Finishes` in `cf_printing_finishes_option_ids_pipe` do not match the current live ClickUp field options for that field, even though the overall array architecture is working.
 - Static routing recheck on 2026-05-21 after user reported a record still landed on the wrong ClickUp page/list:
   - Rechecked `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-05-21-routing-table-updated.blueprint.json`.
   - Confirmed `module 22` still uses the correct source logic:
@@ -493,3 +588,438 @@
 - Task names updated to canonical pattern with `[OzFill]oz[ItemType]`; Costing name now starts `COSTING (for {{22.customer_display}}) | ...`.
 - Custom field arrays expanded using canonical field IDs and option IDs for safe number/text/checkbox/single dropdown/status fields. Label/multi-select fields (`Labeling`, `Substrates`, `Printing Finishes`) still need a safe Make array serialization strategy before activation.
 - Validation: JSON valid, 116 recursive modules, no duplicate IDs, no missing module references.
+
+---
+
+## 2026-05-29 Final stabilization pass (beta-ready)
+
+### Fixes applied
+
+**Base**: `Integration Jotform.2026-05-26-label-option-fix-UNICODE-IMPORT-SAFE.blueprint.json`
+**Output**: `Integration Jotform.2026-05-29-final-stabilization.blueprint.json`
+**Backup before**: `Integration Jotform.pre-2026-05-29-final-stabilization.backup.json`
+**Total modules**: 124 (was 116)
+
+#### A. Sample Tags Required
+- **Bug**: `cf_sample_tags_bool` was proxying off `q147_sampletagtemplate` (attachment field) — WRONG
+- **Fix**: Changed to `q146_sampleTagsRequired` (best-guess key; MUST verify from Make execution log)
+- **Why best-guess**: The real checkbox key is not referenced anywhere in the blueprint. `q146` is the gap immediately before `q147` (the attachment). Could also be `q89_sampleTagsRequired` or similar.
+- **How to verify**: In Make, run one test submission with "Sample Tags Required" checked. Open execution log, expand the Jotform trigger bundle, find the field labeled "Sample Tags Required", note its `q{N}_name`. Update `cf_sample_tags_bool` formula if different.
+- **Formula used**: `{{if(length(1.request.q146_sampleTagsRequired) > 0; true; "")}}` (IML boolean true, not string "true")
+
+#### B. Labeling (Item Set)
+- Already implemented in UNICODE-IMPORT-SAFE base
+- Jotform key: `q110_labelinggoes` (confirmed from blueprint)
+- Feeder 200 entry + API module 201 with whitelist formula using `contains(join(...); "Label Name")` → UUID mapping
+- Unicode-escaped UUIDs to prevent Make import issues
+- Filter on 201: skips if value_json = "" or "[]"
+
+#### C. Printing Finishes (Item Set)
+- Already implemented in UNICODE-IMPORT-SAFE base
+- Jotform key: `q133_printingfinishes` (confirmed from blueprint)
+- Same pattern as Labeling
+
+#### D. Attachments (Default New Collection route only)
+New modules added (all with filter = skip if blank):
+| Module | Type | Field | Task |
+|--------|------|-------|------|
+| 800 | http:ActionGetFile | q93_designattachments | download |
+| 801 | clickup:makeApiCall | multipart POST | Design task (9.body.id) |
+| 802 | http:ActionGetFile | q98_dielines | download |
+| 803 | clickup:makeApiCall | multipart POST | Design task (9.body.id) |
+| 804 | http:ActionGetFile | q80_fragquote | download |
+| 805 | clickup:makeApiCall | multipart POST | Costing task (13.body.id) |
+| 806 | http:ActionGetFile | q147_sampletagtemplate | download |
+| 807 | clickup:makeApiCall | multipart POST | Sampling task (12.body.id) |
+
+- Attachment modules only added to Default New Collection route (modules 9/12/13)
+- Unbranded (109/112/113), Existing Collection (409/412/413), Existing Item Set (609/612/613) routes need manual replication after beta test
+- Jotform attachment URL handling: `{{if(isArray(1.request.q..); first(1.request.q..).url; 1.request.q..)}}`
+- ClickUp connection ID: 7869406 (same as all other ClickUp modules)
+
+#### E. Credit optimization (report only, no changes)
+- Current: ~70 credits per full submission
+- After Labeling/Printing addition: ~70-75 credits
+- After attachments (when files attached): ~78-83 credits
+- **Quick win**: Remove 18 no-op `util:SetVariable2` modules (IDs: 16,18,19,20,21,116,118,119,120,121,416,419,420,421,616,617,620,621) → saves ~18 credits → ~50-57 credits. Hold until confirmed safe.
+
+### Testing checklist
+- [ ] Sample Tags Required checked → Sampling task "Sample Tags" checkbox = true
+  - **FIRST**: verify q146_sampleTagsRequired is the correct Jotform key from Make execution log
+- [ ] Labeling "Front Label" + "Back Label" → Item Set Labeling field populated with correct option IDs
+- [ ] Printing Finishes "Matte" → Item Set Printing Finishes = Matte option ID
+- [ ] Design attachment uploaded to Design task attachment tab
+- [ ] Dielines uploaded to Design task attachment tab
+- [ ] Fragrance Quote uploaded to Costing task attachment tab
+- [ ] Sample Tag Template uploaded to Sampling task attachment tab (non-blank)
+- [ ] Routing still works (unchanged)
+- [ ] All previously working fields still work
+
+### Next steps
+1. Import `Integration Jotform.2026-05-29-final-stabilization.blueprint.json` into Make
+2. Reconnect Jotform + ClickUp connections when prompted
+3. Test attachment upload — if `bodyType: multipart_form_data` not recognized by Make UI, switch to `http:ActionSendData` approach manually
+4. Verify `q146_sampleTagsRequired` key from test execution log
+5. Replicate attachment modules to other 3 routes after beta validation
+6. Optional: remove no-op SetVariable2 modules for credit savings
+
+
+## 2026-06-03 Shannon beta stabilization patch
+- User resumed Shannon Kiefer Jotform → Make → ClickUp beta-readiness work from `/Users/tamerlan/Desktop/shanonmake`.
+- Source file used: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-05-29-final-stabilization.blueprint.json`.
+- Backup created: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-2026-06-03-shannon-beta-fixes.backup.json`.
+- New import file created: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-03-shannon-beta-fixes-IMPORT-THIS.blueprint.json`.
+- Report created: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-03-shannon-beta-fixes-report.md`.
+- Changes made:
+  - `Sample Tags Required`: module `22` `cf_sample_tags_bool` now uses `q146_sampleTagsRequired` plus `rawRequest` fallback because the old Jotform webhook metadata still does not expose q146. Sampling feeders `311`, `341`, `511`, `711` now document q146 instead of q147.
+  - `Labeling`: modules `200`, `230` got simplified import-safer whitelist expressions; module `500` now also has Labeling for Existing Collection Item Set mode. Payload remains ClickUp labels array.
+  - `Printing Finishes`: modules `200`, `230` got simplified import-safer whitelist expressions; module `500` now also has Printing Finishes. Unknown/raw Jotform leftovers are dropped.
+  - Attachments: modules `800`, `802`, `804`, `806` now accept Jotform upload as array-of-objects, array-of-url-strings, or raw URL; modules `801`, `803`, `805`, `807` only upload after download data and filename are present.
+- Static validation passed:
+  - JSON reload OK.
+  - 124 modules, 124 unique IDs.
+  - No references to non-existing `{{N...}}` module IDs.
+  - Labeling/Printing IML values contain no raw UUIDs, reducing Make import false-reference failures.
+- Remaining risks:
+  - Need runtime test in Make; static validation cannot guarantee ClickUp accepts every live option ID.
+  - Sample Tags depends on Make/Jotform rawRequest containing the new q146 field if webhook metadata is stale; best manual follow-up is re-detect/reselect Jotform trigger data structure.
+  - Attachment upload currently handles first file in each upload field, not full multi-file iteration.
+  - Major credit reduction likely requires a larger architecture change because ClickUp custom fields require per-field API calls.
+
+## 2026-06-03 Module Not Found attachment follow-up
+- User reported the imported scenario still shows `Module Not Found` after HTTP attachment download modules.
+- Diagnosis: upload modules `801`, `803`, `805`, `807` used `clickup:makeApiCall` with `multipart_form_data`, which Make imports as unknown/missing in the UI even though normal ClickUp API calls work.
+- New import-safe file created:
+  - `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-03-shannon-beta-fixes-NO-MODULE-NOT-FOUND-IMPORT-THIS.blueprint.json`
+- Backup created:
+  - `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-2026-06-03-remove-module-not-found-attachments.backup.json`
+- Fix:
+  - Replaced `801`, `803`, `805`, `807` with `util:SetVariable2` placeholders named `ATTACHMENT_UPLOAD_TODO_*`.
+  - This removes red `Module Not Found` nodes and keeps the scenario importable/non-red.
+  - Attachment download modules `800`, `802`, `804`, `806` remain, but upload is intentionally inactive until replaced manually with a valid HTTP multipart upload module using ClickUp API token/header.
+- Static validation: JSON OK, 124 modules, 0 missing `{{N...}}` references.
+- Important limitation: this file does not solve attachment uploading; it stabilizes the import. Active attachment upload requires manual HTTP multipart setup or a known valid Make blueprint schema for HTTP upload.
+
+- Submitted By hierarchy guard on 2026-06-03:
+  - User reported a live Make run failed immediately after parent task creation at module `155` with ClickUp error:
+    - `FIELD_115: Custom field does not exist in the task location hierarchy`
+    - failing URL: `/v2/task/86e1pwhcr/field/c8de277b-6bf8-4891-aea2-fd2f87460051`
+  - Diagnosis:
+    - `Submitted By` field ID exists, but is not available in the ClickUp location/list hierarchy for the created task (example current run appears to be a newly added customer/list such as BG).
+    - The blueprint had `Submitted By` writes both as direct post-create API modules and as entries in custom-field iterator arrays, so one unavailable field could stop the whole scenario.
+  - Safe stabilization file created:
+    - backup: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-2026-06-03-submitted-by-hierarchy-guard.backup.json`
+    - import file: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-03-submitted-by-hierarchy-guard-IMPORT-THIS.blueprint.json`
+  - Fix approach:
+    - Replaced direct Submitted By ClickUp API modules with pass-through `util:SetVariable2` no-ops while preserving chain continuity: `456`, `457`, `458`, `459`, `657`, `658`, `659`, `150`, `151`, `152`, `153`, `154`, `155`, `156`, `157`, `158`, `159`.
+    - Removed `Submitted By` custom-field entries from feeder arrays: `500`, `491`, `511`, `521`, `691`, `711`, `721`, `230`, `331`, `341`, `351`, `200`, `301`, `311`, `321`.
+    - Kept `submitted_by_email` variable in module `22`; email remains visible in task descriptions where descriptions include it.
+  - Validation:
+    - JSON parses.
+    - 124 recursive modules / 124 unique IDs.
+    - No missing `{{module.field}}` references.
+    - No active ClickUp API calls or feeder entries remain targeting field `c8de277b-6bf8-4891-aea2-fd2f87460051`.
+  - Manual follow-up:
+    - To re-enable Submitted By as a true ClickUp custom field, add the field to every relevant ClickUp list/folder/space hierarchy first, especially newly added customer/brand lists, then restore/re-enable the field-write modules or array entries.
+
+- Item Set multi-select stability guard on 2026-06-03:
+  - User replayed the run after the Submitted By hierarchy guard and the workflow progressed further, then failed at Item Set generic custom field module `201` with:
+    - `JSON_001: Unexpected token '\', "{"value": [\,\]}" is not valid JSON`
+    - failing field: `Labeling` (`7ef3834f-67f5-4398-bdfa-64b918058ee6`)
+    - failing body: `{"value": [\,\]}`
+  - Diagnosis:
+    - The inline Make IML serializer for ClickUp label/multi-select arrays is still unreliable and can generate malformed JSON.
+    - This is isolated to Item Set multi-select fields, not routing/task creation/custom task types generally.
+  - Safe stabilization file created:
+    - backup: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-2026-06-03-disable-itemset-multiselects.backup.json`
+    - import file: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-03-stable-no-itemset-multiselects-IMPORT-THIS.blueprint.json`
+  - Fix approach:
+    - Removed only `Labeling` and `Printing Finishes` entries from Item Set feeder arrays `200`, `230`, and `500`.
+    - Left all other fields, routing, due dates, task types, hierarchy, and other custom-field arrays intact.
+    - Added `itemset_multiselect_status` informational variable in module `22` marking these two fields bypassed for stability.
+  - Validation:
+    - JSON parses.
+    - 124 recursive modules / 124 unique IDs.
+    - No missing `{{module.field}}` references.
+    - No active feeder entries remain for `Labeling` or `Printing Finishes` field IDs.
+  - Tradeoff:
+    - `Labeling` and `Printing Finishes` will not populate until a safer serializer/module approach is implemented, but the scenario should no longer fail on malformed multi-select JSON.
+
+- Hard guard for Item Set multi-select fields on 2026-06-03:
+  - User reported the exact same `Labeling` JSON error persisted after importing the no-multiselect file:
+    - module `201`
+    - field `7ef3834f-67f5-4398-bdfa-64b918058ee6`
+    - body `{"value": [\,\]}`
+  - This implies Make may still be emitting/caching the old BasicFeeder bundle or the imported scenario still has stale iterator output despite the local blueprint arrays having those entries removed.
+  - New stronger import file created:
+    - backup: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-2026-06-03-hard-skip-itemset-multiselects.backup.json`
+    - import file: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-03-HARD-SKIP-itemset-multiselects-IMPORT-THIS.blueprint.json`
+  - Fix approach:
+    - Retains the previous removal of `Labeling` and `Printing Finishes` from Item Set feeder arrays.
+    - Adds hard field-id filters to generic Item Set Set Custom Field modules `201`, `231`, and `501`:
+      - skip `7ef3834f-67f5-4398-bdfa-64b918058ee6` (`Labeling`)
+      - skip `32070f0c-6bd5-4ef5-bfde-d1ddbdd4615a` (`Printing Finishes`)
+  - Validation:
+    - JSON parses.
+    - 124 recursive modules / 124 unique IDs.
+    - No missing `{{module.field}}` references.
+    - No remaining blocked field entries in local feeder arrays.
+
+- Attachment runtime key fix on 2026-06-04:
+  - User inspected the actual Jotform module output and confirmed uploaded files arrive as top-level arrays, not under old `1.request.q*` keys:
+    - `designattachments`
+    - `dielines`
+    - `fragquote`
+    - `sampletagtemplate`
+  - Backup created:
+    - `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-2026-06-04-attachment-runtime-keys.backup.json`
+  - Import file created:
+    - `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-04-attachment-runtime-keys-IMPORT-THIS.blueprint.json`
+  - Fix:
+    - Module `800` now downloads from `1.designattachments`.
+    - Module `802` now downloads from `1.dielines`.
+    - Module `804` now downloads from `1.fragquote`.
+    - Module `806` now downloads from `1.sampletagtemplate`.
+    - Updated the attachment-present filters to use the same runtime keys.
+    - Updated reference-only task description lines to use the same runtime keys.
+  - Validation:
+    - JSON parses.
+    - 124 recursive modules / 124 unique IDs.
+    - No missing `{{module.field}}` references.
+    - No old runtime attachment references remain to `1.request.q93_designattachments`, `1.request.q98_dielines`, `1.request.q80_fragquote`, or `1.request.q147_sampletagtemplate`.
+  - Limitation:
+    - Upload modules `801`, `803`, `805`, `807` remain intentional `util:SetVariable2` placeholders from the previous Module Not Found stabilization. This patch should make download branches pass when files exist, but ClickUp attachment upload still requires replacing those placeholders with valid HTTP multipart upload modules.
+
+- Native ClickUp attachment upload patch on 2026-06-04:
+  - User shared a screenshot of Make's native `ClickUp -> Upload Task Attachment` module, confirming the available fields:
+    - `Task ID`
+    - `File Name`
+    - `File Data`
+  - Backup created:
+    - `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-2026-06-04-native-clickup-attachment-upload.backup.json`
+  - Import candidate created:
+    - `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-04-native-clickup-attachment-upload-IMPORT-THIS.blueprint.json`
+  - Fix:
+    - Replaced placeholder module `801` with native ClickUp upload mapping:
+      - task `{{9.body.id}}`
+      - file name `{{800.fileName}}`
+      - file data `{{800.data}}`
+    - Replaced placeholder module `803`:
+      - task `{{9.body.id}}`
+      - file name `{{802.fileName}}`
+      - file data `{{802.data}}`
+    - Replaced placeholder module `805`:
+      - task `{{13.body.id}}`
+      - file name `{{804.fileName}}`
+      - file data `{{804.data}}`
+    - Replaced placeholder module `807`:
+      - task `{{12.body.id}}`
+      - file name `{{806.fileName}}`
+      - file data `{{806.data}}`
+  - Validation:
+    - JSON parses.
+    - 124 recursive modules / 124 unique IDs.
+    - No missing `{{module.field}}` references.
+    - No `ATTACHMENT_UPLOAD_TODO` placeholders remain.
+    - No old runtime attachment refs remain to the stale `1.request.q*` file fields.
+  - Import risk:
+    - The local file uses module key `clickup:uploadTaskAttachment`, inferred from the native module label. If Make still imports these as `Module Not Found`, export a tiny scenario containing only the working upload module so the exact internal module key/metadata can be copied.
+
+- Attachment array-index patch on 2026-06-04:
+  - User showed Make runtime output where each Jotform upload field is a top-level array with item `1`.
+  - New backup:
+    - `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-2026-06-04-attachment-array-index.backup.json`
+  - New import candidate:
+    - `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-04-attachment-array-index-IMPORT-THIS.blueprint.json`
+  - Fix:
+    - Module `800` URL/filter now uses `get(1.designattachments; 1)`.
+    - Module `802` URL/filter now uses `get(1.dielines; 1)`.
+    - Module `804` URL/filter now uses `get(1.fragquote; 1)`.
+    - Module `806` URL/filter now uses `get(1.sampletagtemplate; 1)`.
+    - URL expressions use `ifempty(get(...; 1).url; get(...; 1))` to support either object-with-url or raw URL string array items.
+  - Validation:
+    - JSON parses.
+    - 124 recursive modules / 124 unique IDs.
+    - No missing `{{module.field}}` references.
+    - No attachment TODO placeholders remain.
+
+- Attachment array-join patch on 2026-06-04:
+  - User tested the array-index file and Make still cut off module `800`; filter inspector showed `get(1.designattachments; 1) !=` evaluating as empty.
+  - New backup:
+    - `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-2026-06-04-attachment-array-join.backup.json`
+  - New import candidate:
+    - `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-04-attachment-array-join-IMPORT-THIS.blueprint.json`
+  - Fix:
+    - Download URL/filter expressions now use `join(array; "")` instead of `get(array; 1)`:
+      - `join(1.designattachments; "")`
+      - `join(1.dielines; "")`
+      - `join(1.fragquote; "")`
+      - `join(1.sampletagtemplate; "")`
+    - This targets Make's runtime behavior where Jotform upload fields are arrays of URL strings.
+  - Validation:
+    - JSON parses.
+    - 124 recursive modules / 124 unique IDs.
+    - No missing `{{module.field}}` references.
+    - No attachment TODO placeholders remain.
+  - Next fallback if this still fails:
+    - Rebuild the attachment download/upload branches manually in Make using mapped tokens from the Jotform output, then export the scenario to capture the exact expression/module schema.
+
+- Attachment length-filter patch on 2026-06-04:
+  - User had not tested the `join(...) != empty` file yet and was concerned it may still fail because the filter UI looked fragile.
+  - New backup:
+    - `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-2026-06-04-attachment-length-filter.backup.json`
+  - New import candidate:
+    - `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-04-attachment-length-filter-IMPORT-THIS.blueprint.json`
+  - Fix:
+    - Keep HTTP Get file URL expressions as `join(uploadArray; "")`.
+    - Change download route filters to `length(uploadArray) > 0`, using numeric greater-than:
+      - `length(1.designattachments) > 0`
+      - `length(1.dielines) > 0`
+      - `length(1.fragquote) > 0`
+      - `length(1.sampletagtemplate) > 0`
+  - Reason:
+    - The filter should test the array itself instead of comparing a joined URL string to blank.
+  - Validation:
+    - JSON parses.
+    - 124 recursive modules / 124 unique IDs.
+    - No missing `{{module.field}}` references.
+    - No attachment TODO placeholders remain.
+
+- Attachment request-path correction on 2026-06-04:
+  - User shared the full first Jotform module bundle JSON from `/Users/tamerlan/.codex/attachments/019fa07c-89fc-412e-9bb3-8378631766f1/pasted-text.txt`.
+  - Definitive finding:
+    - The upload arrays are not available to filters as top-level `1.designattachments` / `1.dielines` / `1.fragquote` / `1.sampletagtemplate`.
+    - They live under `1.request.*`:
+      - `1.request.designattachments`
+      - `1.request.dielines`
+      - `1.request.fragquote`
+      - `1.request.sampletagtemplate`
+  - New backup:
+    - `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-2026-06-04-attachment-request-path.backup.json`
+  - New import candidate:
+    - `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-04-attachment-request-path-IMPORT-THIS.blueprint.json`
+  - Fix:
+    - Module `800`: URL `join(1.request.designattachments; "")`, filter `length(1.request.designattachments) > 0`.
+    - Module `802`: URL `join(1.request.dielines; "")`, filter `length(1.request.dielines) > 0`.
+    - Module `804`: URL `join(1.request.fragquote; "")`, filter `length(1.request.fragquote) > 0`.
+    - Module `806`: URL `join(1.request.sampletagtemplate; "")`, filter `length(1.request.sampletagtemplate) > 0`.
+  - Validation:
+    - JSON parses.
+    - 124 recursive modules / 124 unique IDs.
+    - No missing `{{module.field}}` references.
+    - No attachment TODO placeholders remain.
+    - No wrong top-level attachment refs remain.
+
+- HTTP required params patch on 2026-06-04:
+  - User tested the request-path file. Result:
+    - Attachment filter passed for module `800`, confirming `1.request.designattachments` is the correct runtime path.
+    - Module `800` failed inside HTTP Get file with:
+      - missing required parameter `serializeUrl`
+      - missing required parameter `shareCookies`
+  - New backup:
+    - `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-2026-06-04-http-required-params.backup.json`
+  - New import candidate:
+    - `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-04-http-required-params-IMPORT-THIS.blueprint.json`
+  - Fix:
+    - Added to HTTP Get file modules `800`, `802`, `804`, `806`:
+      - `serializeUrl: false`
+      - `shareCookies: false`
+  - Reason:
+    - Jotform file URLs are already encoded and do not require shared cookies between HTTP modules.
+  - Validation:
+    - JSON parses.
+    - 124 recursive modules / 124 unique IDs.
+    - No missing `{{module.field}}` references.
+    - No attachment TODO placeholders remain.
+    - No wrong top-level attachment refs remain.
+
+- Number normalization patch on 2026-06-04:
+  - User tested the HTTP params file and the run failed before attachments at Item Set custom field update module `201`.
+  - Error:
+    - `JSON_001: Unexpected number in JSON at position 11`
+    - body: `{"value": 00}`
+    - field: `# SKU's` (`babe00cf-cf90-4e3e-9e21-aa1cd9a1224e`)
+  - Cause:
+    - Module `22` numeric variables were passing raw trimmed strings such as `00` into JSON number positions. JSON does not allow leading-zero numbers.
+  - New backup:
+    - `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-2026-06-04-number-normalization.backup.json`
+  - New import candidate:
+    - `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-04-number-normalization-IMPORT-THIS.blueprint.json`
+  - Fix:
+    - Updated numeric `cf_*` variables in module `22` to parse non-empty values with `parseNumber(trim(...))`; blanks remain `""` so existing filters skip them.
+    - Patched:
+      - `cf_num_skus`
+      - `cf_num_wicks`
+      - `cf_oz_fill`
+      - `cf_moq`
+      - `cf_fragrance_percent`
+      - `cf_fragrance_cost`
+      - `cf_order_qty`
+      - `cf_pack_qty`
+      - `cf_target_cost`
+      - `cf_customer_discount`
+      - `cf_samples_total`
+  - Validation:
+    - JSON parses.
+    - 124 recursive modules / 124 unique IDs.
+    - No missing `{{module.field}}` references.
+    - Attachment request-path and HTTP required-param fixes preserved.
+
+- Number JSON stability fix on 2026-06-04:
+  - User's latest Make run still failed before attachments at generic custom field module `201` with:
+    - `RuntimeError [400] JSON_001: Unexpected number in JSON at position 11`
+    - body: `{"value": 00}`
+    - failing field: `# SKU's` / `babe00cf-cf90-4e3e-9e21-aa1cd9a1224e`
+  - Root cause: a Jotform numeric-looking value with leading zeros was emitted into raw JSON as an unquoted number. JSON does not allow numbers like `00`, so the request body was invalid before ClickUp could process it.
+  - New import file created:
+    - backup: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-2026-06-04-quote-number-values.backup.json`
+    - new file: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-04-quote-number-values-IMPORT-THIS.blueprint.json`
+  - Fix approach:
+    - kept the generic API body architecture unchanged (`{"value": {{iterator.value_json}}}`)
+    - patched all `value_type = number` entries in compact feeder arrays to emit JSON strings, e.g. `"{{22.cf_num_skus}}"`, so `00` becomes `{"value": "00"}` instead of invalid `{"value": 00}`
+    - patched 38 number entries across Item Set / existing Item Set / design / sampling / costing feeders
+  - Validation:
+    - JSON parse passed
+    - 124 recursive modules / 124 unique module IDs
+    - real route/module reference scan showed no missing route links
+  - Remaining risk:
+    - ClickUp may coerce numeric strings correctly; if it rejects numeric strings, the next error should be a ClickUp field validation error rather than Make `JSON_001`. In that case, switch to a more explicit last-mile numeric sanitizer, but this patch should stop the immediate invalid JSON/leading-zero failure.
+
+- Attachment login-page diagnosis and guard on 2026-06-04:
+  - User showed ClickUp attachments uploading as `file.html` with visible content `Jotform Login Page`.
+  - Local inspection of `/Users/tamerlan/Downloads/file.html` confirmed it is a Jotform login HTML page, not the uploaded image/file.
+  - Root cause: Make HTTP Get a file is fetching the Jotform upload URL without an authenticated browser session; Jotform redirects/serves login HTML when `Require Login to View Uploaded Files` is enabled.
+  - Jotform support/docs indicate API key/header download is not a supported workaround for upload URLs when login is required; the practical fixes are disabling that privacy setting or routing files through an authenticated storage/integration handoff.
+  - New guard import file created:
+    - backup: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-2026-06-04-block-jotform-login-html.backup.json`
+    - new file: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-04-block-jotform-login-html-IMPORT-THIS.blueprint.json`
+  - Fix approach:
+    - preserved the previous number-value and attachment module patches
+    - added `fileName != file.html` to ClickUp upload filters `801`, `803`, `805`, `807`
+    - this prevents fake Jotform login pages from being attached to ClickUp tasks
+  - Validation:
+    - JSON parse passed
+    - 124 modules / 124 unique IDs
+  - Required external action for real attachment transfer:
+    - In Jotform account settings, Security tab, Privacy section, uncheck `Require Login to View Uploaded Files`; then Jotform upload URLs should return the actual binary files to Make HTTP.
+    - If public file URLs are not acceptable, use a separate storage handoff (Jotform integration to Drive/Dropbox/S3/etc.) and have Make upload from that authenticated/public storage URL instead.
+
+- Upload-ready blueprint after user agreed to change Jotform privacy setting on 2026-06-04:
+  - User correctly objected that the prior `fileName != file.html` guard was only a stop-gap and prevented upload modules from running instead of solving file access.
+  - New import file created:
+    - backup: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-2026-06-04-jotform-public-upload-ready.backup.json`
+    - new file: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-04-jotform-public-upload-ready-IMPORT-THIS.blueprint.json`
+  - Fix approach:
+    - based on `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-04-quote-number-values-IMPORT-THIS.blueprint.json`
+    - removed the temporary `file.html` blocker from ClickUp upload modules `801`, `803`, `805`, `807`
+    - preserved number JSON fixes and native ClickUp upload attachment modules
+    - upload filters now only require data, filename, and target task id to be present
+  - Required external action before another Make run:
+    - In Jotform, disable `Require Login to View Uploaded Files` so URLs like `/uploads/ShayRae/.../*.png` return binary image data rather than `text/html` login page.
+  - Validation:
+    - JSON parse passed
+    - 124 modules / 124 unique IDs
+    - upload mappings verified:
+      - `800 -> 801` and `802 -> 803` upload to design task `{{9.body.id}}`
+      - `806 -> 807` uploads to sampling task `{{12.body.id}}`
+      - `804 -> 805` uploads to costing task `{{13.body.id}}`

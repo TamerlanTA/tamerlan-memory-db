@@ -6,7 +6,7 @@
 - [[risks]]
 - [[next-steps]]
 
-## Status as of 2026-05-25 — Production Calculator v1 Complete + AI-3 Link Mode Complete
+## Status as of 2026-05-27 — Preview Deploy Acceptance Prepared
 
 ### Strategic direction
 - Project direction changed from a basic deterministic import calculator to an **AI-assisted import calculator with deterministic pricing engine**.
@@ -65,7 +65,116 @@
 - Confirmed AI-extracted data is mapped into the existing deterministic `calculateCost()` path; AI does not calculate final totals.
 - Saved calculation and lead metadata include additive `inputSource`, `aiExtraction`, and `normalizedVehicle` extension data for link mode; manual mode includes `inputSource: manual`.
 - AdminLeads minimally shows link input source, confidence, and brand/model when present.
-- Next strategic implementation block: AI-4 Risk Reviewer + Explanation Layer, after manual Edge Function deploy/config verification.
+- AI-3.5 link-mode QA/hardening is complete.
+- Added explicit AI extraction to pricing-engine mapping helper: `src/domain/aiCalculator/pricingMapping.ts`.
+- Added `npm run ai:link-ui` sanity checks for link-mode mapping and snapshot JSON safety without real AI credentials.
+- Link mode now validates malformed URLs in the frontend before invoking the Edge Function.
+- AI-assisted saved/lead snapshots are cleaned of `undefined` nested values before JSON/localStorage/Supabase use.
+- Manual quick mode was rechecked as default; manual save and mock/local request flow still work.
+- Mocked link-mode success path was checked with Playwright: extracted card renders, editable price/engine fields calculate through deterministic `calculateCost()`, and saved snapshot stores `inputSource: ai_link`.
+- Link failure paths were checked: empty URL/text, invalid URL, missing Supabase/AI configuration, retry/switch back to manual.
+- Build now passes without the previous Vite chunk-size warning; main JS chunk is about 481.77 kB.
+- AI-3.6 live Edge Function acceptance prep is complete.
+- Added `docs/ai-edge-live-acceptance-runbook.md` with Supabase CLI login/link, secrets setup, deploy, local serve, curl tests, frontend test, pass/fail criteria, and rollback.
+- Added example request/response payloads under `docs/examples/ai-link-*.json`.
+- Added `npm run ai:edge:live` script for live `analyze-car-link` checks; dry-run mode works without endpoint or credentials.
+- Verified AI secrets are documented only as Supabase Edge Function secrets (`AI_PROVIDER`, `OPENAI_API_KEY`, `AI_MODEL`) and not as frontend `VITE_` variables.
+- AI-3.6 live Edge Function acceptance passed in the real Supabase environment. Reported `npm run ai:edge:live` result: HTTP 200, `ok: true`, confidence `medium`, missing fields `productionDate` and `vin`, warnings `[]`.
+- 2026-05-27 preview deployment to Vercel succeeded with deployment id `dpl_7W5Nkr2DGNqZNEk6dsJtkNUaY9E5`.
+- Preview URL: `https://importcar-kz-92phlsa2k-tamertt931-8560s-projects.vercel.app`.
+- Vercel inspect URL: `https://vercel.com/tamertt931-8560s-projects/importcar-kz-mvp/7W5Nkr2DGNqZNEk6dsJtkNUaY9E5`.
+- AI-4 deterministic Risk Reviewer + Grounded Explanation Layer is implemented.
+- Added `src/domain/aiCalculator/riskReview.ts` and `src/domain/aiCalculator/explanation.ts`.
+- Calculator result now shows "Надёжность расчёта" and "Пояснение к расчёту" sections for manual and AI-link calculations.
+- Risk/explanation are grounded in confirmed inputs, AI extraction metadata, pricing warnings, and deterministic calculation result only.
+- AI-4 does not call AI APIs and does not calculate or change final totals.
+- Saved calculation and lead metadata snapshots include JSON-safe `riskReview` / `groundedExplanation` when available.
+- AdminLeads shows minimal risk context and remains compatible with old leads.
+- Added `npm run ai:risk`.
+- AI-4.5 preview QA/UX tightening is complete.
+- Calculator result order remains: total, breakdown, reliability, grounded explanation, deterministic explainability, disclaimer, save, lead form.
+- "Пояснение к расчёту" is now collapsible to reduce result-page overload.
+- Visible risk list is capped to the top 3 risks, sorted by severity; full risk snapshot is still stored.
+- Added `docs/ai-4-preview-qa-checklist.md`.
+- Added `docs/vercel-preview-acceptance-checklist.md` for preview deploy and real-device acceptance.
+- README now has a current release candidate section covering what works, required configuration, and what is not production-complete.
+- Environment documentation now separates Vercel frontend env vars, Supabase Edge Function secrets, and Supabase DB migration requirements.
+- Mobile Playwright checks passed at 375px, 390px, and 412px; manual and mocked link-mode flows passed.
+- Old saved calculation/local request snapshots without AI-4 fields still render.
+- Latest build passes; main JS chunk is about 494.35 kB and remains under Vite's default warning threshold.
+- AI-5A Link Extraction Reliability Layer is implemented.
+- Edge Function now detects listing sources as `encar`, `youcar_encar`, `mobile_de`, `copart`, or `unknown` via `sourceDetection.ts`.
+- Edge extraction pipeline now tracks `extractionMethod`: `site_adapter`, `simple_fetch`, `listing_text`, or `unavailable`.
+- Added isolated extractor modules for generic fetch, pasted listing text, and a conservative Encar/YouCar adapter shell.
+- `analyze-car-link` success/error responses now include safe source/method context when available; frontend preserves `sourceType` and `extractionMethod` in AI snapshot metadata.
+- Link confirmation UI subtly shows source and analysis method.
+- Added `docs/supported-listing-sources.md` and `npm run ai:pipeline`.
+- Latest local validation for AI-5A passes: lint, build, AI contracts, Edge contract, link UI, risk, pipeline, smoke, and calc sanity.
+- AI-5A live acceptance verification prep is ready.
+- `scripts/ai-edge-live-check.mjs` now prints `httpStatus`, `ok`, `sourceType`, `extractionMethod`, `confidenceLevel`, `missingFields`, `warnings`, and failed `errorCode` without printing secrets.
+- `npm run ai:edge:live -- --payload docs/examples/ai-link-url-only-request.json --allow-controlled-error` supports URL-only acceptance where dynamic/blocked pages may return a controlled failure.
+- AI-5A is live accepted in Supabase Edge runtime.
+- Reported AI-5A listingText acceptance: HTTP 200, `ok: true`, `extractionMethod: listing_text`.
+- Reported AI-5A URL-only acceptance: source detection works (`sourceType: encar`), but simple fetch fails in a controlled way with HTTP 422, `ok: false`, `extractionMethod: simple_fetch`, `errorCode: URL_FETCH_FAILED`.
+- AI-5B Browser Rendering Fallback is implemented and deployed.
+- Added optional `browser_render` extractor using Browserless REST `/content` via server-side Supabase Edge Function secrets only.
+- Updated Edge pipeline order: source adapter -> generic fetch -> optional browser render -> listingText -> controlled error.
+- Added Browserless config secrets documentation: `BROWSER_RENDER_PROVIDER`, `BROWSERLESS_API_KEY`, `BROWSERLESS_ENDPOINT`.
+- Missing Browserless config skips browser rendering safely and does not break listingText fallback.
+- Frontend preserves `browser_render` as extraction method and shows Russian label "страница открыта в браузере".
+- AI-5B local validation passes: lint, build, AI contracts, Edge contract, link UI, pipeline, smoke, and calc sanity.
+- AI-5B live URL-only test reached browser rendering: HTTP 200, `ok: true`, `sourceType: encar`, `extractionMethod: browser_render`.
+- AI-5B exposed a content-quality issue: Browserless opened the page, but rendered text had no useful vehicle fields, causing `requires_review` and warning "Listing text is unreadable or contains no vehicle data."
+- AI-5C Browser Render Deep Extraction is implemented locally.
+- Browser rendering now uses Browserless `/function` to collect structured page context: final URL, title, visible body text, meta tags, JSON-LD, selected script snippets, and diagnostic flags.
+- Browser-rendered content is sent to AI only when enough vehicle-like signals exist; otherwise the endpoint returns controlled errors with diagnostics instead of letting AI infer from empty text.
+- Added controlled errors: `BROWSER_RENDER_NO_VEHICLE_TEXT`, `BROWSER_RENDER_BLOCKED_OR_EMPTY`, `BROWSER_RENDER_DYNAMIC_DATA_UNAVAILABLE`.
+- Live check script now prints safe diagnostics for controlled failures.
+- AI-5C local validation passes: lint, build, AI contracts, Edge contract, link UI, pipeline, smoke, and calc sanity.
+- AI-5C live URL-only test reached `browser_render` and AI provider, but returned `AI_OUTPUT_INVALID`, meaning provider JSON failed strict schema validation.
+- AI-5C.1 AI Output Validation Debug & Repair is implemented locally.
+- `AI_OUTPUT_INVALID` now returns HTTP 422 with safe `validationIssues` diagnostics instead of misleading 502.
+- Edge pre-validation now conservatively normalizes harmless provider variations: currency symbols/names, Korean/Russian fuel labels, numeric strings for year/price/mileage/engine, and missing `missingFields`/`warnings`.
+- Invalid confidence labels such as `"medium"` remain validation errors with diagnostics; they are not silently accepted.
+- Extraction prompt is stricter about JSON-only output, enum values, numeric confidence, numeric fields, and no import-cost calculation.
+- Live check script now prints validation issue summaries without raw provider output or secrets.
+- AI-5C.1 local validation passes: lint, build, AI contracts, Edge contract, link UI, pipeline, smoke, and calc sanity.
+- AI-5C.1 live URL-only test returned HTTP 200 `ok: true` but with `confidenceLevel: requires_review` and all key vehicle fields missing, showing that schema-valid AI JSON can still be product-invalid.
+- AI-5C.2 Post-Extraction Quality Gate is implemented locally.
+- After schema validation, `analyze-car-link` now checks required calculator handoff fields: `year`, `price`, `currency`, `engineVolumeCc`, and `fuelType`.
+- If required fields are missing, the endpoint returns HTTP 422 with `EXTRACTION_INSUFFICIENT_DATA`, safe `missingRequiredFields` / `missingRecommendedFields`, warnings, source/method context, and optional small `partialVehiclePreview`.
+- Frontend link mode maps `EXTRACTION_INSUFFICIENT_DATA` to Russian fallback guidance and can show missing key fields instead of opening the confirmation card.
+- Live check script now prints missing required/recommended fields and warnings for insufficient extraction failures.
+- AI-5C.2 local validation passes: lint, build, AI contracts, Edge contract, link UI, pipeline, smoke, and calc sanity.
+- AI-5C.2 has not yet been deployed/live-accepted; deploy updated `analyze-car-link` and rerun URL-only live acceptance.
+- AI-6 Accuracy Calibration Foundation is implemented locally.
+- Added `calculation_calibrations` migration with RLS enabled, no public anon/authenticated policies, and service-role access only.
+- Added calibration domain helper for estimate-vs-verified difference in KZT/percent, direction, target label, and invalid input handling.
+- Added compact AdminLeads calibration panel for manager verified totals, final totals, reason category/text, actual logistics/customs/service fee, exchange rate, and notes.
+- Added calibration service layer with controlled errors for missing migration, Supabase not configured, or RLS/access denial.
+- Added `docs/accuracy-calibration.md` and `npm run calibration:sanity`.
+- Pricing formulas remain unchanged; calibration data is stored separately for future analysis.
+- Browser-side calibration save will need secure admin access/service backend before production use because the table is intentionally not public-readable.
+- Latest build passes but main JS is about 504.64 kB and Vite reports a chunk-size warning; later admin/calibration code-splitting is recommended.
+- AI-6.5 Secure Calibration Admin Backend is implemented locally.
+- Added Supabase Edge Function `admin-calibrations` for `create`, `update`, and `getByLeadId` calibration actions.
+- `admin-calibrations` uses `ADMIN_API_KEY` and `SUPABASE_SERVICE_ROLE_KEY` as Supabase Edge Function secrets only; service role is not referenced in frontend code.
+- Frontend calibration service now calls `supabase.functions.invoke('admin-calibrations')` with `x-admin-key`; it no longer writes `calculation_calibrations` directly.
+- Edge Function validates UUIDs, positive numeric totals, reason categories, and calibration status; it computes `difference_kzt` and `difference_percent` server-side.
+- AdminLeads loads existing calibration by `lead_id` and saves/updates via the Edge Function with controlled errors when function/env is missing.
+- RLS remains strict: no public calibration policies were added.
+- AdminLeads is now lazy-loaded into a separate `AdminLeads` chunk; main JS dropped to about 494.75 kB and Vite chunk warning is gone.
+- Added `npm run admin:calibration` sanity script.
+- AI-6.6 Internal Calibration Acceptance Test prep is complete.
+- Added `docs/internal-calibration-acceptance-checklist.md` with migration/RLS/secrets/deploy/internal Vercel/AdminLeads/database row/error/rollback checks.
+- Added `npm run admin:calibration:live` dry/live script for synthetic `admin-calibrations` create checks using `ADMIN_CALIBRATIONS_FUNCTION_URL` and `ADMIN_API_KEY`.
+- Live-check script prints only safe summaries and does not require local service role.
+- AI-6.6 local validation passes: lint, build, admin calibration contract, calibration sanity, and admin live-check dry-run.
+- Vercel preview deploy completed on 2026-05-29.
+- Preview URL: `https://importcar-kz-lvrvupbns-tamertt931-8560s-projects.vercel.app`.
+- Vercel inspect URL: `https://vercel.com/tamertt931-8560s-projects/importcar-kz-mvp/9iMLct51fZZX6umGDgH2FBosBSYh`.
+- Deployment id: `dpl_9iMLct51fZZX6umGDgH2FBosBSYh`.
+- Next strategic implementation block: deploy/apply AI-5C.2, AI-6, and AI-6.5 backend changes, then plan secure verified-calculation workflow.
 
 ### Design system (current code)
 - Font: 'Avenir Next', 'Segoe UI', Arial (system sans-serif)
@@ -80,7 +189,8 @@
 
 ### Build status
 - `npm run lint` — ✅ 0 errors
-- `npm run build` — ✅ clean, 469.75 kB JS bundle after Phase 3B docs
+- `npm run build` — ✅ TypeScript/build clean, 494.75 kB main JS bundle after AI-6.5
+- AdminLeads/calibration is lazy-loaded as a separate 11.01 kB chunk; no Vite chunk-size warning
 - TypeScript — 0 errors
 
 ### Placeholders that need updating before launch

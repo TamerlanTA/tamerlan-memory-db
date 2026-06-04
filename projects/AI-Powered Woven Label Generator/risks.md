@@ -15,8 +15,38 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-18-post-m5-order-flow-polish|Post-M5 order-flow polish]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-28-handoff-sync-memory-source-and-local-state|Handoff sync: memory source and local state]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-28-sample-price-ui-visibility-fix|Sample price UI visibility fix]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-memory-read-and-repo-sync|Memory read and repo sync]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-payment-confirmation-stabilization|Payment confirmation stabilization]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-payment-round-2-lifecycle-and-validation|Payment Round 2 lifecycle and validation]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-launch-analytics-foundation|Launch analytics foundation]]
 
-Last updated: 2026-05-11
+Last updated: 2026-06-03
+
+## Payment confirmation risks (2026-06-03)
+
+- App payment confirmation emails depend on existing Resend production env (`RESEND_API_KEY`, `RESEND_FROM_EMAIL`). If not configured, credits still reconcile and webhook returns success, but only Stripe-native receipts / UI confirmation are available.
+- Stripe-native receipts are controlled in Stripe Dashboard Customer emails settings; app code passes a Customer with email and receipt description context, but the Dashboard setting must be enabled for Stripe to send automatic receipts.
+- Current payment flow remains card-only (`payment_method_types: ["card"]`). If delayed payment methods are enabled later, add `checkout.session.async_payment_succeeded` handling before relying on delayed fulfillment.
+- `/credits` success confirmation is intentionally same-browser/same-device only. It now expires after 24 hours and is user-bound, but cross-device reassurance depends on durable account balance/purchase history and email.
+- Browser smoke was verified locally with dummy analytics + dummy-format Clerk key; the UI rendered and persistent confirmation worked, but real authenticated live browser QA with the production Clerk key remains the final proof.
+
+## Analytics risks (2026-06-03)
+
+- ~~Analytics was not launch-complete for attribution: no code-level GA4/GTM loader, no UTM persistence, no LinkedIn attribution, and no payment funnel events were found~~ — **FOUNDATION IMPLEMENTED LOCALLY**: GA4 dynamic loader, optional LinkedIn/Umami loaders, UTM first-touch/session persistence, payment funnel events, and order-intent attribution were added.
+- Production analytics remains unverified until `VITE_GA4_MEASUREMENT_ID` and any LinkedIn env vars are configured and checked in GA4 Realtime / LinkedIn Campaign Manager.
+- LinkedIn preorder conversion tracking needs a real `VITE_LINKEDIN_PREORDER_CONVERSION_ID`; the base Insight tag alone does not prove campaign conversion mapping.
+
+## Sync risks (2026-06-03)
+
+- **Local git-status reliability issue remains open**: `git status` and `git diff HEAD` still fail with `fatal: not a git repository: /Users/tamerlan/.git/worktrees/elated-engelbart`, even though `git rev-parse`, `git log`, `git show`, and `git ls-remote` work.
+- **Stripe hardening is now on remote branch but still needs production/live verification**: `milestone4-auth-completion` and `origin/milestone4-auth-completion` point to `04c0bc4`, but do not treat live Stripe as verified until production is confirmed on that commit and one real payment/webhook/idempotency pass succeeds.
+
+## Live Stripe risks (2026-05-28)
+
+- **Live-payment verification still pending**: code audit/build/tests pass, but production cannot be called live-payment verified until one real Stripe live payment is completed and checked in Stripe Dashboard, app UI, and DB/admin.
+- **Env configuration is user-reported, not independently read from Vercel in this session**: expected production vars are `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, and `APP_BASE_URL=https://methode.griffesvivienne.com`; no secrets were printed or committed.
+- **Webhook fail-closed hardening added locally**: `checkout.session.completed` now grants credits only when `payment_status === "paid"`. This reduces accidental grant risk, but the new change still needs deployment before it protects production.
+- **Local git-status reliability issue remains**: branch/commit can be verified with plumbing/remote commands, but `git status` still errors against stale `/Users/tamerlan/.git/worktrees/elated-engelbart` metadata.
 
 ## Resolved / newly identified (2026-05-11)
 

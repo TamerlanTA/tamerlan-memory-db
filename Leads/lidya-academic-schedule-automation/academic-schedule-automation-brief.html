@@ -1,0 +1,821 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Academic Schedule Automation Brief — Make.com + Excel + Email</title>
+<style>
+  :root {
+    --ink-900: #102033;
+    --ink-700: #33465c;
+    --ink-500: #66788d;
+    --ink-300: #9aa8b7;
+    --line: #dfe7ef;
+    --soft: #f7fafc;
+    --blue-50: #eef7ff;
+    --blue-100: #d9efff;
+    --blue-500: #0f8fd8;
+    --blue-700: #0566a0;
+    --navy: #08233f;
+    --green: #11946a;
+    --amber: #b26b00;
+    --rose: #c2415d;
+    --violet: #6a4bb8;
+    --radius: 8px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #d8e2eb;
+    color: var(--ink-900);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    font-size: 13.5px;
+    line-height: 1.48;
+  }
+
+  @page { size: A4; margin: 0; }
+
+  .page {
+    position: relative;
+    width: 794px;
+    height: 1123px;
+    margin: 24px auto;
+    background: #fff;
+    overflow: hidden;
+    page-break-after: always;
+    box-shadow: 0 8px 30px rgba(15, 23, 42, .08);
+  }
+
+  .page:last-child { page-break-after: auto; }
+
+  .page:before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 8px;
+    background: linear-gradient(90deg, #08233f 0%, #0f8fd8 55%, #74c7f3 100%);
+  }
+
+  .frame {
+    height: 100%;
+    padding: 54px 60px 48px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero {
+    color: #fff;
+    background:
+      linear-gradient(150deg, rgba(8,35,63,.98), rgba(5,102,160,.92) 54%, rgba(116,199,243,.78)),
+      radial-gradient(circle at 78% 12%, rgba(255,255,255,.22), transparent 30%);
+  }
+
+  .hero:before { display: none; }
+
+  .hero .frame { padding: 62px 62px 54px; }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+  }
+
+  .mark {
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
+    background: rgba(255,255,255,.18);
+    border: 1px solid rgba(255,255,255,.28);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+  }
+
+  .eyebrow {
+    margin-top: 28px;
+    color: var(--blue-700);
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: 10.5px;
+    letter-spacing: .12em;
+  }
+
+  .hero .eyebrow { color: #d8f0ff; }
+
+  h1 {
+    margin: 12px 0 14px;
+    font-size: 35px;
+    line-height: 1.11;
+    font-weight: 750;
+    letter-spacing: 0;
+  }
+
+  .hero h1 {
+    margin-top: 84px;
+    font-size: 47px;
+    max-width: 610px;
+  }
+
+  h2 {
+    margin: 0 0 10px;
+    font-size: 20px;
+    line-height: 1.2;
+  }
+
+  h3 {
+    margin: 0 0 7px;
+    font-size: 14px;
+    line-height: 1.25;
+  }
+
+  p { margin: 0 0 10px; }
+
+  .lead {
+    color: var(--ink-500);
+    font-size: 14.5px;
+    max-width: 628px;
+  }
+
+  .hero .lead {
+    color: rgba(255,255,255,.84);
+    font-size: 16px;
+    max-width: 610px;
+  }
+
+  .muted { color: var(--ink-500); }
+  .small { font-size: 12px; }
+  .tight { margin-bottom: 6px; }
+
+  .grid { display: grid; gap: 12px; }
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+
+  .card {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: #fff;
+    padding: 15px 16px;
+  }
+
+  .soft { background: var(--soft); }
+  .blue { background: var(--blue-50); border-color: var(--blue-100); }
+
+  .accent {
+    border-left: 5px solid var(--blue-500);
+    padding-left: 14px;
+  }
+
+  .accent.green { border-left-color: var(--green); }
+  .accent.amber { border-left-color: var(--amber); }
+  .accent.rose { border-left-color: var(--rose); }
+  .accent.violet { border-left-color: var(--violet); }
+
+  ul {
+    margin: 8px 0 0;
+    padding-left: 18px;
+  }
+
+  li { margin: 4px 0; }
+
+  .pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid rgba(255,255,255,.26);
+    background: rgba(255,255,255,.12);
+    color: #fff;
+    border-radius: 999px;
+    padding: 7px 10px;
+    font-size: 12px;
+    font-weight: 650;
+  }
+
+  .pill.light {
+    color: var(--blue-700);
+    border-color: var(--blue-100);
+    background: var(--blue-50);
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: auto;
+  }
+
+  .stat {
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: var(--radius);
+    padding: 13px 12px;
+  }
+
+  .stat .num {
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .stat .label {
+    margin-top: 4px;
+    font-size: 11px;
+    color: rgba(255,255,255,.76);
+  }
+
+  .flow {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .step {
+    min-height: 74px;
+    border-radius: var(--radius);
+    background: #f8fbff;
+    border: 1px solid var(--line);
+    padding: 11px 10px;
+    font-size: 12px;
+  }
+
+  .step strong {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--ink-900);
+    font-size: 12.5px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+
+  th {
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    font-size: 10px;
+    color: var(--ink-500);
+    padding: 9px 8px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  td {
+    vertical-align: top;
+    padding: 9px 8px;
+    border-bottom: 1px solid #edf2f7;
+  }
+
+  .decision {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 10px;
+    padding: 11px 0;
+    border-bottom: 1px solid #edf2f7;
+  }
+
+  .decision:last-child { border-bottom: 0; }
+
+  .decision .label {
+    color: var(--ink-500);
+    font-weight: 750;
+    font-size: 12px;
+  }
+
+  .checklist li { margin: 5px 0; }
+
+  .quote {
+    border-left: 4px solid var(--blue-500);
+    background: var(--blue-50);
+    padding: 13px 15px;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    color: var(--ink-700);
+  }
+
+  .footer {
+    margin-top: auto;
+    padding-top: 13px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    color: var(--ink-300);
+    font-size: 10.5px;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: var(--blue-700);
+    background: var(--blue-50);
+    border: 1px solid var(--blue-100);
+    border-radius: 999px;
+    padding: 4px 8px;
+    margin-bottom: 7px;
+  }
+
+  .two-col-list {
+    columns: 2;
+    column-gap: 28px;
+  }
+
+  .callout {
+    margin-top: 14px;
+    border: 1px solid #f0d597;
+    background: #fff8e7;
+    border-radius: var(--radius);
+    padding: 13px 15px;
+    color: #5f3b00;
+  }
+
+  @media print {
+    html, body { background: #fff; }
+    .page { margin: 0; box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+
+<section class="page hero">
+  <div class="frame">
+    <div class="brand"><span class="mark">FT</span><span>FlowOps / Tamerlan Togysbayev</span></div>
+    <h1>Academic Schedule Automation Brief</h1>
+    <p class="lead">A client-ready overview for automating schedule extraction, rendering, reminders, and email delivery from a live Excel workbook on Google Drive using Make.com.</p>
+    <div class="pills">
+      <span class="pill">Make.com architecture</span>
+      <span class="pill">Excel range rendering</span>
+      <span class="pill">Email reliability</span>
+      <span class="pill">Operational support</span>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="num">4</div><div class="label">modular scenarios</div></div>
+      <div class="stat"><div class="num">2-5 days</div><div class="label">estimated delivery</div></div>
+      <div class="stat"><div class="num">10-20 h</div><div class="label">implementation range</div></div>
+      <div class="stat"><div class="num">0</div><div class="label">silent failures tolerated</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="frame">
+    <div class="brand"><span class="mark">FT</span><span>Client Context</span></div>
+    <div class="eyebrow">Project Summary</div>
+    <h1>What the client needs automated.</h1>
+    <p class="lead">The client maintains a live academic schedule in Excel on Google Drive and currently sends weekly, monthly, and tutor-specific schedule emails manually.</p>
+
+    <div class="grid grid-2">
+      <div class="card accent">
+        <h3>Current process</h3>
+        <ul>
+          <li>Live Excel schedule stored on Google Drive.</li>
+          <li>Manual weekly and monthly resident/tutor emails.</li>
+          <li>Manual reminders based on teaching dates.</li>
+          <li>High risk of missed updates and repetitive admin work.</li>
+        </ul>
+      </div>
+      <div class="card accent green">
+        <h3>Desired outcome</h3>
+        <ul>
+          <li>Read the continuously updated workbook.</li>
+          <li>Identify upcoming dates and relevant sections automatically.</li>
+          <li>Preserve formatting exactly: colors, fonts, merged cells, layout.</li>
+          <li>Send scheduled emails and reminders with minimal manual effort.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card blue" style="margin-top:14px;">
+      <h2>The real technical challenge</h2>
+      <p class="tight">Sending email is not the hard part. The difficult part is preserving a heavily formatted, merged-cell academic schedule while keeping the workflow reliable over time.</p>
+      <p class="muted">The screenshot showed side-by-side groups, merged cells, section headers, color-coded blocks, tutor/location fields, and grouped week layouts. HTML email tables are risky because Outlook, Gmail, desktop, web, and mobile clients render complex tables differently.</p>
+    </div>
+
+    <div class="callout">
+      Recommended framing for the call: this is an operations and rendering reliability project, not a simple email automation.
+    </div>
+
+    <div class="footer"><span>Academic Schedule Automation Brief</span><span>02 / 10</span></div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="frame">
+    <div class="brand"><span class="mark">FT</span><span>Architecture</span></div>
+    <div class="eyebrow">Recommended System Design</div>
+    <h1>Make.com should orchestrate, not redraw the schedule.</h1>
+    <p class="lead">The safest architecture is to use Make.com as the control layer while rendering the schedule from the spreadsheet source into stable image/PDF output.</p>
+
+    <div class="flow">
+      <div class="step"><strong>1. Trigger</strong>Scheduled weekly, monthly, reminder, or correction check.</div>
+      <div class="step"><strong>2. Read</strong>Workbook and helper/control sheet from Google Drive.</div>
+      <div class="step"><strong>3. Select</strong>Correct week, month, tutor session, or changed section.</div>
+      <div class="step"><strong>4. Render</strong>Excel range to image/PDF using the most reliable renderer.</div>
+      <div class="step"><strong>5. Deliver</strong>Email via Outlook/Gmail, log status, alert on failure.</div>
+    </div>
+
+    <div class="grid grid-2" style="margin-top:16px;">
+      <div class="card accent">
+        <h3>Control layer</h3>
+        <p class="muted">Make.com handles scheduling, branching, recipient resolution, deduplication, logging, retry paths, and admin alerts.</p>
+      </div>
+      <div class="card accent violet">
+        <h3>Rendering layer</h3>
+        <p class="muted">Excel-compatible rendering generates a stable visual artifact so the schedule looks the same in Outlook, Gmail, and on mobile devices.</p>
+      </div>
+      <div class="card accent green">
+        <h3>Data layer</h3>
+        <p class="muted">A helper sheet or lightweight database stores week IDs, range references, tutor mappings, recipient groups, send status, and correction state.</p>
+      </div>
+      <div class="card accent amber">
+        <h3>Operational layer</h3>
+        <p class="muted">Logs, unique send keys, rendered file links, source fingerprints, and failure alerts make the system maintainable by an administrator later.</p>
+      </div>
+    </div>
+
+    <div class="quote" style="margin-top:16px;">
+      Core position: prioritize formatting fidelity and operational clarity over clever HTML reconstruction. The schedule is the communication product.
+    </div>
+
+    <div class="footer"><span>Academic Schedule Automation Brief</span><span>03 / 10</span></div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="frame">
+    <div class="brand"><span class="mark">FT</span><span>Tooling Decisions</span></div>
+    <div class="eyebrow">Preferred Stack</div>
+    <h1>Exact tools to test and why.</h1>
+    <p class="lead">The final stack should be selected after testing against the real workbook, but the tool sequence should favor Excel-compatible rendering first.</p>
+
+    <table>
+      <thead>
+        <tr><th>Layer</th><th>Preferred option</th><th>Reason</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Rendering</strong></td>
+          <td>Microsoft Excel / OneDrive / Graph export, then PDF.co or CloudConvert</td>
+          <td>Best chance of preserving merged cells, colors, widths, fonts, and page layout without rebuilding the schedule manually.</td>
+        </tr>
+        <tr>
+          <td><strong>Fallback render</strong></td>
+          <td>Google Drive export only as fallback</td>
+          <td>Google Sheets can shift Excel formatting; useful if validated, risky if assumed.</td>
+        </tr>
+        <tr>
+          <td><strong>Extraction</strong></td>
+          <td>Anchor-based ranges plus helper/control sheet</td>
+          <td>Survives inserted rows better than hardcoded cell positions and keeps Make logic readable.</td>
+        </tr>
+        <tr>
+          <td><strong>State tracking</strong></td>
+          <td>Google Sheets, Airtable, Make Data Store, or Supabase for larger scope</td>
+          <td>Tracks what was rendered, sent, skipped, failed, or flagged for correction.</td>
+        </tr>
+        <tr>
+          <td><strong>Corrections</strong></td>
+          <td>Version/hash fingerprints per schedule section</td>
+          <td>Detects meaningful post-send changes and routes them to admin review first.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="grid grid-2" style="margin-top:16px;">
+      <div class="card blue">
+        <span class="tag">Recommended output</span>
+        <h3>Embedded image plus PDF attachment</h3>
+        <p class="muted">The image makes the email easy to scan immediately. The PDF gives residents and tutors a reliable download/print version.</p>
+      </div>
+      <div class="card soft">
+        <span class="tag">Avoid first</span>
+        <h3>Raw HTML table reconstruction</h3>
+        <p class="muted">HTML can be flexible, but exact Excel-like rendering across Outlook desktop, Outlook web, Gmail, and mobile is unreliable for complex merged layouts.</p>
+      </div>
+    </div>
+
+    <div class="footer"><span>Academic Schedule Automation Brief</span><span>04 / 10</span></div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="frame">
+    <div class="brand"><span class="mark">FT</span><span>Make.com Scenarios</span></div>
+    <div class="eyebrow">Modular Workflow Plan</div>
+    <h1>Split the system into focused scenarios.</h1>
+    <p class="lead">Smaller Make scenarios reduce operational blast radius. If one workflow fails, the others can continue or fail clearly.</p>
+
+    <div class="grid grid-2">
+      <div class="card accent">
+        <h3>Weekly resident schedule</h3>
+        <ul>
+          <li>Find next target week.</li>
+          <li>Render the full weekly section.</li>
+          <li>Send to resident groups.</li>
+          <li>Write send log and rendered file link.</li>
+        </ul>
+      </div>
+      <div class="card accent green">
+        <h3>Monthly schedule</h3>
+        <ul>
+          <li>Find upcoming month sections.</li>
+          <li>Render month bundle as PDF.</li>
+          <li>Send on configured schedule.</li>
+          <li>Keep monthly send key separate from weekly keys.</li>
+        </ul>
+      </div>
+      <div class="card accent violet">
+        <h3>Tutor reminders</h3>
+        <ul>
+          <li>Resolve tutor sessions from mapping data.</li>
+          <li>Send reminder based on teaching date.</li>
+          <li>Use plain text details unless visual schedule is required.</li>
+          <li>Alert if tutor name or email is unmapped.</li>
+        </ul>
+      </div>
+      <div class="card accent amber">
+        <h3>Correction detection</h3>
+        <ul>
+          <li>Compare schedule fingerprints after sends.</li>
+          <li>Flag meaningful changes.</li>
+          <li>Route to admin review before auto-correction.</li>
+          <li>Prevent unnecessary correction emails for cosmetic edits.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card blue" style="margin-top:15px;">
+      <h2>Why modular scenarios matter</h2>
+      <ul class="two-col-list">
+        <li>Failures are easier to locate.</li>
+        <li>Retry logic is simpler.</li>
+        <li>Tutor reminders do not block weekly sends.</li>
+        <li>Monthly rendering can fail without stopping corrections.</li>
+        <li>Administrators can understand logs faster.</li>
+        <li>Future changes can be isolated by scenario.</li>
+      </ul>
+    </div>
+
+    <div class="footer"><span>Academic Schedule Automation Brief</span><span>05 / 10</span></div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="frame">
+    <div class="brand"><span class="mark">FT</span><span>Extraction Logic</span></div>
+    <div class="eyebrow">Handling Workbook Changes</div>
+    <h1>Use anchors and configuration, not fragile fixed ranges.</h1>
+    <p class="lead">The workbook will evolve. The extraction design should expect inserted rows, wider schedules, additional resident groups, and new tutor logic.</p>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <span class="tag">Anchor strategy</span>
+        <h3>Identify sections by structure</h3>
+        <ul>
+          <li>Week headers</li>
+          <li>Date labels</li>
+          <li>Block boundaries</li>
+          <li>Group labels such as PGY1/PGY2</li>
+          <li>Control-sheet range references where possible</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="tag">Control sheet</span>
+        <h3>Give Make clean data</h3>
+        <ul>
+          <li>Week start and week end</li>
+          <li>Range reference</li>
+          <li>Resident group</li>
+          <li>Tutor mapping</li>
+          <li>Send/correction status</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="decision">
+      <div class="label">Weekly email</div>
+      <div>Extract and render the full relevant week section, from one structural marker to the next.</div>
+    </div>
+    <div class="decision">
+      <div class="label">Monthly email</div>
+      <div>Bundle all upcoming month sections into a PDF attachment, optionally with preview images in the email body.</div>
+    </div>
+    <div class="decision">
+      <div class="label">Tutor reminder</div>
+      <div>Resolve tutor sessions from structured rows/control sheet, then send only the relevant teaching date, time, topic, location, and group.</div>
+    </div>
+    <div class="decision">
+      <div class="label">Correction</div>
+      <div>Compare current fingerprints against already-sent fingerprints and flag changes for admin review.</div>
+    </div>
+
+    <div class="callout">
+      The extraction layer is the part most likely to require redesign if the workbook grows significantly. Rendering and email delivery usually adapt if the selected range is correct.
+    </div>
+
+    <div class="footer"><span>Academic Schedule Automation Brief</span><span>06 / 10</span></div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="frame">
+    <div class="brand"><span class="mark">FT</span><span>Reliability</span></div>
+    <div class="eyebrow">Operational Controls</div>
+    <h1>Prevent duplicates, outdated reminders, and silent errors.</h1>
+    <p class="lead">The system should prefer stopping and alerting an admin over silently sending the wrong schedule.</p>
+
+    <div class="grid grid-2">
+      <div class="card accent rose">
+        <h3>Duplicate prevention</h3>
+        <p class="muted">Before each send, Make checks a unique key: email type, target week/month/session, recipient group, and schedule version. If the key exists, skip.</p>
+      </div>
+      <div class="card accent amber">
+        <h3>Outdated reminder prevention</h3>
+        <p class="muted">Each reminder checks the latest workbook/control-sheet state before sending. Changed or cancelled sessions are skipped or flagged.</p>
+      </div>
+      <div class="card accent">
+        <h3>Rendering failure detection</h3>
+        <p class="muted">After rendering, verify that the file exists, is not empty, and has the expected file type before any email goes out.</p>
+      </div>
+      <div class="card accent green">
+        <h3>Admin visibility</h3>
+        <p class="muted">Every run writes a log entry with source version, render link, recipient, send key, status, and error status.</p>
+      </div>
+    </div>
+
+    <table style="margin-top:16px;">
+      <thead>
+        <tr><th>State field</th><th>Purpose</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>send_key</td><td>Prevents duplicate sends during reruns or repeated triggers.</td></tr>
+        <tr><td>source_version / fingerprint</td><td>Connects the sent email to the exact schedule version.</td></tr>
+        <tr><td>render_file_link</td><td>Allows admin review of what recipients received.</td></tr>
+        <tr><td>recipient_group / recipient_email</td><td>Makes delivery traceable and auditable.</td></tr>
+        <tr><td>status / error_message</td><td>Separates sent, skipped, failed, retrying, and needs-review states.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="footer"><span>Academic Schedule Automation Brief</span><span>07 / 10</span></div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="frame">
+    <div class="brand"><span class="mark">FT</span><span>Testing</span></div>
+    <div class="eyebrow">Quality Assurance Plan</div>
+    <h1>Test rendering first, then delivery behavior.</h1>
+    <p class="lead">Because formatting is the highest-risk part, the testing strategy should start with visual fidelity before recurring triggers are enabled.</p>
+
+    <div class="grid grid-2">
+      <div class="card blue">
+        <h3>Round 1: Render validation</h3>
+        <ul>
+          <li>Render several different weekly sections.</li>
+          <li>Compare against the Excel source.</li>
+          <li>Check merged cells, colors, fonts, column widths, row heights, spacing, and page cropping.</li>
+          <li>Confirm output is readable on mobile.</li>
+        </ul>
+      </div>
+      <div class="card soft">
+        <h3>Round 2: Email client validation</h3>
+        <ul>
+          <li>Outlook desktop</li>
+          <li>Outlook web</li>
+          <li>Gmail desktop</li>
+          <li>Gmail mobile</li>
+          <li>PDF download/print check</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:15px;">
+      <h2>Go-live checklist</h2>
+      <ul class="checklist two-col-list">
+        <li>Test mode completed with sample weeks.</li>
+        <li>Recipient mapping table reviewed.</li>
+        <li>Tutor names matched to email addresses.</li>
+        <li>Duplicate send keys verified.</li>
+        <li>Render files stored and accessible.</li>
+        <li>Failure branches send admin alerts.</li>
+        <li>Correction detection starts as review-only.</li>
+        <li>Short admin documentation created.</li>
+      </ul>
+    </div>
+
+    <div class="quote" style="margin-top:15px;">
+      Recommended go-live posture: run in test mode first, then enable recurring sends only after both visual comparison and email-client tests pass.
+    </div>
+
+    <div class="footer"><span>Academic Schedule Automation Brief</span><span>08 / 10</span></div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="frame">
+    <div class="brand"><span class="mark">FT</span><span>Risks</span></div>
+    <div class="eyebrow">Risk Register</div>
+    <h1>Biggest risks and prevention plan.</h1>
+    <p class="lead">Most long-term issues will come from operational changes: file moves, renamed columns, new row types, date format changes, or unmapped tutors.</p>
+
+    <table>
+      <thead>
+        <tr><th>Risk</th><th>Prevention</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Formatting shifts during rendering</strong></td>
+          <td>Use Excel-compatible renderer first; validate image/PDF output against real workbook before launch.</td>
+        </tr>
+        <tr>
+          <td><strong>Wrong tutor reminders</strong></td>
+          <td>Use explicit tutor mapping table, not free-form name inference from formatted cells.</td>
+        </tr>
+        <tr>
+          <td><strong>Duplicate sends</strong></td>
+          <td>Unique send keys and pre-send log lookup for every scenario.</td>
+        </tr>
+        <tr>
+          <td><strong>Workbook edits break extraction</strong></td>
+          <td>Anchor-based selection plus helper/control sheet; avoid fixed row numbers as the only logic.</td>
+        </tr>
+        <tr>
+          <td><strong>Automated correction spam</strong></td>
+          <td>Start with admin review instead of automatic correction emails.</td>
+        </tr>
+        <tr>
+          <td><strong>Silent failures</strong></td>
+          <td>Failure branches, admin alerts, retry handling, and explicit status logs.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="grid grid-2" style="margin-top:15px;">
+      <div class="card accent">
+        <h3>Easiest to maintain</h3>
+        <p class="muted">Recipient lists, email templates, scheduled triggers, tutor mappings, send logs, and reminder timing.</p>
+      </div>
+      <div class="card accent rose">
+        <h3>Hardest to maintain</h3>
+        <p class="muted">Range detection, rendering fidelity, meaningful correction detection, inconsistent manual edits, and major workbook redesigns.</p>
+      </div>
+    </div>
+
+    <div class="footer"><span>Academic Schedule Automation Brief</span><span>09 / 10</span></div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="frame">
+    <div class="brand"><span class="mark">FT</span><span>Call Prep</span></div>
+    <div class="eyebrow">Next Conversation</div>
+    <h1>Plain-English talking points for the 30-minute call.</h1>
+    <p class="lead">The client is evaluating long-term operational stability and maintainability. The call should demonstrate structured thinking, not overpromise perfect automation on day one.</p>
+
+    <div class="card blue">
+      <h2>Positioning statement</h2>
+      <p>This workflow should be designed as a reliable operating system around the schedule: Make.com handles orchestration, a helper/control sheet provides clean logic, a renderer preserves visual fidelity, and a log/state layer prevents duplicate or incorrect sends.</p>
+    </div>
+
+    <div class="grid grid-2" style="margin-top:14px;">
+      <div class="card">
+        <h3>Recommended answer on fidelity vs simplicity</h3>
+        <p class="muted">For this use case, prioritize fidelity. If the schedule is visually wrong, the automation can create confusion even if it technically sends on time.</p>
+      </div>
+      <div class="card">
+        <h3>Recommended answer on corrections</h3>
+        <p class="muted">Begin with admin review for changed schedules. Once the detection rules prove reliable, selected correction emails can be automated.</p>
+      </div>
+      <div class="card">
+        <h3>Recommended answer on future expansion</h3>
+        <p class="muted">Wider schedules and new groups mostly affect extraction/configuration first. The rendering and email layers can usually stay stable.</p>
+      </div>
+      <div class="card">
+        <h3>Recommended answer on maintenance</h3>
+        <p class="muted">The workflow should include visible logs, test mode, admin alerts, retry logic, unique send keys, and short documentation.</p>
+      </div>
+    </div>
+
+    <div class="card soft" style="margin-top:14px;">
+      <h2>Meeting detail to confirm</h2>
+      <p class="tight"><strong>Requested:</strong> Friday around 11:00 AM EST for a 30-minute call.</p>
+      <p class="muted">Suggested reply: confirm if available, or propose 2-3 alternative windows. Avoid vague availability if possible.</p>
+    </div>
+
+    <div class="footer"><span>Academic Schedule Automation Brief</span><span>10 / 10</span></div>
+  </div>
+</section>
+
+</body>
+</html>

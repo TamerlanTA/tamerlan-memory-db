@@ -3,6 +3,7 @@
 ## Related
 - [[agent-memory]]
 - [[routing-rules]]
+- [[projects/PromAlp/overview|PromAlp — overview]]
 - [[projects/FlowOps Team/00 - Overview|FlowOps Team — overview]]
 - [[Linear/Linear Ops Automation System/overview|Linear Ops Automation System]]
 - [[projects/AI-Powered Woven Label Generator/current-state|AI-Powered Woven Label Generator — current state]]
@@ -11,15 +12,27 @@
 
 ---
 
+## PromAlp (добавлен 2026-06-02)
+
+**Статус**: Инициализация. Зонтичный проект (сайт + видео + маркетинг) для бригады промышленных альпинистов в Алматы.
+- Сайт: в разработке → [[projects/promalp-site/overview|promalp-site]]
+- Видео: сырьё собрано (37 iPhone + 67 DJI), монтаж не начат → [[projects/PromAlp/video-tz|ТЗ на видео]]
+- Маркетинг: не начат
+- Видеопапка: `/Users/tamerlan/Desktop/видео альпинисты/`
+
+**Следующее**: разложить файлы по папкам → отбор → монтаж Reels 30–45 сек.
+
+---
+
 ## ImportCar.kz / imcar.kz (добавлен 2026-05-21)
 
-**Статус**: v0.1 + QA Hardening + Phase 2 + Phase 3A + Phase 3B deploy prep завершены. AI-1 contracts/schemas ✅, AI-2 secure link extraction backend structure ✅, AI-3 user confirmation/link mode ✅ выполнены 2026-05-25. Build clean (lint ✅ build ✅; current JS bundle ~546.97 kB with chunk-size warning). Продукт движется к AI-assisted import calculator, где AI извлекает/нормализует/объясняет/флагует риски, а deterministic pricing engine остаётся source of truth для финальной цены.
+**Статус**: v0.1 + QA Hardening + Phase 2 + Phase 3A + Phase 3B deploy prep завершены. AI-1 contracts/schemas ✅, AI-2 secure link extraction backend ✅, AI-3 user confirmation/link mode ✅, AI-4 risk/explanation ✅, AI-4.5 preview QA ✅, AI-5A link extraction reliability layer + live acceptance ✅, AI-5B browser rendering fallback deployed/live tested ✅, AI-5C browser render deep extraction ✅ locally. Build clean (lint ✅ build ✅; current JS bundle ~496.41 kB, no Vite chunk warning). Продукт движется к AI-assisted import calculator, где AI извлекает/нормализует/объясняет/флагует риски, а deterministic pricing engine остаётся source of truth для финальной цены.
 
 **Следующие действия** (в порядке приоритета):
 1. Запустить `supabase/migrations/20260521_calculator_leads_metadata.sql` в Supabase dashboard
 2. Set Vercel env vars: Supabase URL/key, `VITE_ENABLE_ADMIN_VIEW=false`, `VITE_WHATSAPP_PHONE`
 3. Деплой на Vercel + live acceptance по `docs/live-acceptance-runbook.md`
-Затем новый приоритет перед Auth/Payments/App Store: **AI-4 — Risk Reviewer + Explanation Layer**. Перед live AI-link mode нужно вручную проверить/deploy Supabase Edge Function через Supabase CLI/Deno и выставить Supabase secrets (`AI_PROVIDER`, `OPENAI_API_KEY`, `AI_MODEL`).
+Затем новый приоритет перед Auth/Payments/App Store: deploy/live-acceptance AI-5C `analyze-car-link`, затем **AI-5 — Accuracy Calibration**. Supabase secrets остаются только Edge Function secrets (`AI_PROVIDER`, `OPENAI_API_KEY`, `AI_MODEL`, `BROWSER_RENDER_PROVIDER`, `BROWSERLESS_API_KEY`, `BROWSERLESS_ENDPOINT`), не Vercel frontend vars.
 
 Handoff: [[projects/importcar-kz-mvp/sessions/2026-05-21-handoff]]
 Детали: [[projects/importcar-kz-mvp/next-steps]]

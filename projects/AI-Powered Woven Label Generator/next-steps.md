@@ -15,8 +15,32 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-20-white-logo-fix-and-admin-metrics|White logo fix + admin metrics fix]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-28-handoff-sync-memory-source-and-local-state|Handoff sync: memory source and local state]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-04-28-sample-price-ui-visibility-fix|Sample price UI visibility fix]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-memory-read-and-repo-sync|Memory read and repo sync]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-payment-round-2-lifecycle-and-validation|Payment Round 2 lifecycle and validation]]
+- [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-launch-analytics-foundation|Launch analytics foundation]]
 
-Last updated: 2026-05-11
+Last updated: 2026-06-03
+
+## Payment launch follow-up (2026-06-03)
+
+- Deploy the payment confirmation stabilization + Round 2 lifecycle batch.
+- In Stripe Dashboard, confirm the live webhook endpoint is `https://methode.griffesvivienne.com/api/stripe/webhook` and subscribed to at least `checkout.session.completed`, `checkout.session.expired`, and `checkout.session.async_payment_failed`.
+- Enable Stripe automatic successful-payment receipts in Customer emails settings if Stripe-native receipts are desired; app-side Resend confirmation is a product reassurance email, not a tax invoice.
+- Confirm production has `RESEND_API_KEY` and `RESEND_FROM_EMAIL` if app-side payment confirmation emails should send.
+- Run one live credit purchase after deploy and verify: `/credits` success panel, refresh persistence for the matching user, no stale panel after logout/different user, credit balance, Account purchase history, Stripe webhook 2xx, Stripe receipt if enabled, and GV Resend credits-availability email if configured.
+- Repeat Stripe webhook delivery once and confirm credits are not duplicated and app confirmation email is not resent from the duplicate grant path.
+- Configure launch analytics env after deploy: `VITE_GA4_MEASUREMENT_ID`; optionally `VITE_LINKEDIN_PARTNER_ID`, `VITE_LINKEDIN_PREORDER_CONVERSION_ID`, `VITE_ANALYTICS_ENDPOINT`, and `VITE_ANALYTICS_WEBSITE_ID`.
+- Verify a real campaign URL through the funnel: `/?utm_source=linkedin&utm_medium=paid&utm_campaign=launch&utm_content=hero&utm_term=woven_labels`; confirm attribution storage, GA4 Realtime events, payment/preorder conversion events, and signed order intent attribution.
+- Mark `preorder_submit_succeeded` and `payment_succeeded` as GA4 conversions once events appear in production.
+
+## Live Stripe acceptance (2026-05-28)
+
+- Confirm production is deployed/redeployed from `milestone4-auth-completion` at `04c0bc4`, which includes the Stripe hardening change (`server/billing.ts`) and focused test file (`server/billing.test.ts`).
+- Run one real live payment on `https://methode.griffesvivienne.com/credits` while logged in as a known test/customer account; buy the smallest credit pack to minimize cost.
+- In Stripe Dashboard, verify the Checkout Session is live mode, paid, linked to the expected Customer, and the webhook endpoint `https://methode.griffesvivienne.com/api/stripe/webhook` received `checkout.session.completed` with a 2xx response.
+- In the app/admin/database, verify `checkout_sessions.status = reconciled`, one `payments` row with the Stripe PaymentIntent, one `credit_ledger_entries` row with `entryType = purchase_grant` and idempotency key `payment:<pi_...>:grant`, and `users.creditBalance` increased by the pack credits.
+- Repeat webhook delivery from Stripe Dashboard once after the first success and confirm credits are not granted twice.
+- Confirm cancel path separately by starting Checkout, canceling, returning to `/credits?checkout=cancel`, and verifying the checkout row becomes `canceled` without payment or credit ledger rows.
 
 ## Production hotfix follow-up (2026-05-11)
 
@@ -34,8 +58,8 @@ Last updated: 2026-05-11
 
 ## Immediate
 
+- **Repair or bypass local git-status issue before edits/commits/deploys**: workspace still has stale worktree metadata causing `git status` and `git diff HEAD` to fail against `/Users/tamerlan/.git/worktrees/elated-engelbart`; rely on Git plumbing only for read-only verification until fixed.
 - **25x25 live generation QA**: after deploying the square-format hotfix, generate `25x25` HD beige/black and `25x25` HD Cotton beige/black; confirm the visible label body is square/1:1, not long horizontal.
-- **Fix local git-status issue before further implementation**: current workspace `git status` fails with stale/conflicting worktree metadata pointing at `/Users/tamerlan/.git/worktrees/elated-engelbart`; verify clean/dirty state before editing, committing, or deploying.
 - **Browser QA before client review**: upload an actual white PNG logo and verify Home upload preview + Prepare preview remain visible on white/off-white backgrounds.
 - **Generation QA before client review**: live-generate one symbol-only logo and one text-containing logo to confirm the safer `symbol_only` default does not reintroduce hallucinated text and still preserves intentionally uploaded text where appropriate.
 - **Product-photo generation QA before client review**: upload a garment/product photo with a small chest logo, an image with centered visible branding, and a tiny/low-contrast branded detail; confirm the result uses the localized brand mark instead of weaving the whole photo scene.
