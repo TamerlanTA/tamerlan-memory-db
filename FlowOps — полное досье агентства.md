@@ -1,13 +1,3 @@
-# FlowOps — полное досье агентства
-
-## Related
-- [[00 - Overview]]
-- [[01 - Strategy/Positioning]]
-- [[01 - Strategy/Main Offer]]
-- [[01 - Strategy/Product Ladder]]
-- [[02 - Offers/Long-Term Partner Retainer]]
-- [[07 - System Map/Full System Architecture]]
-- [[08 - Выполненные задачи/Completed]]
 
 ## О нас
 
