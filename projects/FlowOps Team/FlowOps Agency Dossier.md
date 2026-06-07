@@ -265,8 +265,6 @@ Website / WhatsApp / voice assistant, knowledge base, qualification, booking, es
 
 ## Специализированные офферы
 
-Эти пакеты разработаны как масштабируемые стратегические офферы. Их нельзя выдавать за массово подтверждённые кейсы до первых продаж.
-
 - **HIPAA-Safe Intake Cleanup:** sprint $1,500–$4,000; support $500–$1,500/month.
 - **Lead Consent Evidence Chain:** audit $500–$1,000; sprint $2,000–$6,000; monitoring $750–$2,000/month.
 - **ADA Website Defense Prep:** audit $300–$750; sprint $1,000–$3,000; monitoring $200–$800/month.
@@ -328,13 +326,4 @@ Website / WhatsApp / voice assistant, knowledge base, qualification, booking, es
 - GitHub: `github.com/TamerlanTA`
 - Upwork: `upwork.com/freelancers/tamerlantog`
 - Location: Алматы, Казахстан; remote delivery.
-
-## Что пока нельзя заявлять без оговорок
-
-- Нельзя обещать конкретный рост выручки или число дополнительных сделок без данных клиента.
-- Нельзя называть все стратегические нишевые офферы реализованными кейсами.
-- Нельзя заявлять полноценный клиентский портал FlowOps как live product: в памяти зафиксирован preview/internal workspace, но не завершённый multi-client portal.
-- Нельзя заявлять 24/7 человеческую поддержку; premium retainer описан как 24/5 priority support.
-- Нельзя представлять Alexey как production-ready специалиста до уточнения роли.
-- Нельзя смешивать цену самого FlowOps с ценами продуктов клиентов, например прайсом Griffes Vivienne.
 
