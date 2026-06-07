@@ -20,7 +20,22 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-payment-round-2-lifecycle-and-validation|Payment Round 2 lifecycle and validation]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-launch-analytics-foundation|Launch analytics foundation]]
 
-Last updated: 2026-06-03
+Last updated: 2026-06-05
+
+## Post-payment success UI risk (2026-06-05)
+
+- ~~Production showed no post-payment confirmation when the protected checkout-status query was delayed or unavailable after Stripe redirect.~~ Fixed and deployed in production commit `52912db`, deployment `dpl_GByXwqThgCLEaQQ4X6VgmZV8kb7J`.
+- Live bundle verification confirms the pending/confirmed copy and persistent lifecycle code are present on `methode.griffesvivienne.com`.
+- Real live purchase validation is still required after deploy to prove the pending panel transitions to confirmed summary and persists for the authenticated user.
+
+## Final launch validation risks (2026-06-04)
+
+- ~~**Critical production drift**: Vercel production is on commit `04c0bc4`, while accepted local payment lifecycle/email and analytics foundation work is not deployed. Live HTML still contains the old `analytics.local/umami` placeholder.~~ Resolved for RC deploy: production now shows `02d255a` READY and live HTML no longer contains `analytics.local/umami`.
+- **Critical validation gap**: real post-deploy live payment, Stripe webhook replay/idempotency, Resend email receipt, analytics Realtime/campaign attribution, quote/preorder, and cross-device/auth checks are not yet complete on the final deployed build.
+- **High generation confidence risk**: full test suite fails 10 tests in generation configuration/fidelity and texture preset expectations. Focused payment/analytics tests pass, but generation remains a launch confidence blocker.
+- **High env risk**: production env values were not readable through the available Vercel tool in this audit. Required production vars must be verified manually/through Vercel settings before launch; prior memory says R2 production credentials were missing and persistent download behavior depends on them.
+- **Payment communication config risk**: Stripe successful-payment receipt setting and Vercel `RESEND_API_KEY` / `RESEND_FROM_EMAIL` presence remain unverified from available tools; both must be checked directly in Dashboard/Vercel before declaring payment communication ready.
+- **Medium deployment risk**: latest Vercel production build logs include `Warning: Failed to fetch one or more git submodules`; no immediate runtime failure was observed, but this should be cleared or explicitly accepted before final launch.
 
 ## Payment confirmation risks (2026-06-03)
 

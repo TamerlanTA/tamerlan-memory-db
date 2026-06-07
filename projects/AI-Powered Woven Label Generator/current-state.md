@@ -42,7 +42,42 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-payment-round-2-lifecycle-and-validation|Payment Round 2 lifecycle and validation]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-launch-analytics-foundation|Launch analytics foundation]]
 
-Last updated: 2026-06-03
+Last updated: 2026-06-05
+
+## 2026-06-05 post-payment success UI bugfix
+
+- Root cause confirmed in `Credits.tsx`: the success panel was gated on `getCheckoutStatus` already returning data, so a Stripe success return displayed no reassurance while auth/status polling was delayed or unavailable. The persisted confirmation was also only created inside the exact `status === "reconciled"` branch.
+- Implemented immediate pending reassurance for `/credits?checkout=success&session_id=...`, before the protected status query resolves.
+- Added fallback to the checkout session id persisted before redirect when `session_id` is missing from the return URL.
+- Confirmation now accepts either checkout `status === "reconciled"` or payment `paymentStatus === "succeeded"` as authoritative.
+- Existing 24-hour, same-user lifecycle remains intact; persisted confirmation is not cleared during transient unauthenticated state on an active success return.
+- Files changed: `client/src/pages/Credits.tsx`, `client/src/domain/creditsSuccessLifecycle.ts`, `client/src/domain/creditsSuccessLifecycle.test.ts`.
+- Verification: 14 focused lifecycle/billing/email tests PASS, `pnpm check` PASS, `pnpm build` PASS, Prettier PASS. Browser simulation at `http://localhost:3007/credits?checkout=success&session_id=cs_test_simulated` rendered the pending panel immediately and kept it visible after refresh.
+- Fix committed and pushed as `52912db` (`Fix post-payment confirmation race`) on `milestone4-auth-completion`.
+- Vercel production deployment `dpl_GByXwqThgCLEaQQ4X6VgmZV8kb7J` is READY on commit `52912db`; aliases include `https://methode.griffesvivienne.com`.
+- Live production bundle `assets/index-D2O9Z2Iu.js` contains the pending/confirmed UI copy and `gv_last_confirmed_purchase` lifecycle key.
+- Final proof still requires one owner-authorized live purchase to validate the real pending-to-confirmed transition, Stripe receipt, and GV email delivery.
+
+## 2026-06-04 final launch validation
+
+- Final launch readiness audit completed without feature changes.
+- Current Vercel production for `griffes-vivienne-studio-3vop` is READY but still built from GitHub branch `milestone4-auth-completion` commit `04c0bc4` (`Add payment_status guard and billing webhook tests`), deployment `dpl_CnzyuYB3q1uKSMAek2tFF79niXKL`.
+- Live domain `https://methode.griffesvivienne.com` returns HTTP 200, but production HTML still contains the old static `analytics.local/umami` placeholder and asset `index-6WiJmhUx.js`; this confirms the accepted local payment lifecycle/email copy and analytics foundation are not deployed to production yet.
+- Local candidate verification: focused payment/analytics/preorder/order-intent/credit-safety tests PASS (62 tests), `pnpm check` PASS, `pnpm build` PASS.
+- Full `pnpm test` still fails 10 tests in generation/texture/fidelity expectations across `label.domain`, `label.productionBatch`, `nanoBanana`, `nanoBananaService.pipeline`, and `texturePresets`.
+- Launch recommendation from audit: **not launch-ready for public launch** until latest accepted local changes are deployed, production env is verified, full/live validation runbook passes, and the generation test failures are resolved or explicitly accepted by owner as non-blocking.
+
+## 2026-06-04 production release candidate preparation
+
+- Verified production drift: local `HEAD` and production are the same commit, `04c0bc4`; there are no committed changes missing from production.
+- Accepted local candidate exists as uncommitted working-tree delta over `04c0bc4`, so a release-candidate commit must be created before Vercel can deploy the accepted payment/analytics stabilization work.
+- Tracked modified files: `client/index.html`, `client/public/favicon.png`, `client/src/contexts/LanguageContext.tsx`, `client/src/domain/orderIntent.ts`, `client/src/lib/analytics.ts`, `client/src/main.tsx`, `client/src/pages/Credits.tsx`, `client/src/pages/Home.tsx`, `client/src/pages/Prepare.tsx`, `client/src/pages/Result.tsx`, `server/billing.test.ts`, `server/billing.ts`, `shared/orderIntentBridge.ts`.
+- New candidate files: `client/src/domain/creditsSuccessLifecycle.ts`, `client/src/domain/creditsSuccessLifecycle.test.ts`, `client/src/lib/analytics.test.ts`, `server/paymentConfirmationEmail.ts`, `server/paymentConfirmationEmail.test.ts`, `docs/payment-confirmation.md`, `docs/analytics-foundation.md`.
+- Local `.claude/worktrees/*` directories are untracked local noise and should not be included in the RC package.
+- RC commit created and pushed: `02d255a` (`Prepare production launch stabilization candidate`) on `origin/milestone4-auth-completion`.
+- Verification before commit: `pnpm check` PASS; focused RC tests PASS (47 tests across analytics, credits success lifecycle, payment confirmation email, billing, order intent, preorder).
+- Vercel production later showed `02d255a` promoted and READY as deployment `dpl_995BnbLbCCkhAaxVBf83uPJDdfgs`; live HTML no longer contains the old `analytics.local/umami` placeholder.
+- Payment communication live verification: code path is reachable in production build after `checkout.session.completed` creates a new `purchase_grant`, but Stripe receipt Dashboard status and Vercel `RESEND_API_KEY` / `RESEND_FROM_EMAIL` presence could not be read through available tools and must be verified in Stripe/Vercel dashboards.
 
 ## 2026-06-03 launch analytics foundation
 

@@ -19,7 +19,23 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-payment-round-2-lifecycle-and-validation|Payment Round 2 lifecycle and validation]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-launch-analytics-foundation|Launch analytics foundation]]
 
-Last updated: 2026-06-03
+Last updated: 2026-06-05
+
+## Payment success UI hotfix follow-up (2026-06-05)
+
+- ~~Commit and push the three-file post-payment UI fix.~~ Done as `52912db`.
+- ~~Deploy the resulting commit to Vercel production.~~ Done as `dpl_GByXwqThgCLEaQQ4X6VgmZV8kb7J` (READY).
+- Run one live purchase and verify: immediate pending reassurance after Stripe return, confirmed credits/amount/reference after reconciliation, 24-hour refresh persistence, and no stale panel for logout/different user.
+- Confirm the Stripe receipt and GV confirmation email arrive for that same purchase.
+
+## Final launch gate follow-up (2026-06-04)
+
+- Do not public-launch the current production deployment. It is READY but stale: `dpl_CnzyuYB3q1uKSMAek2tFF79niXKL` / commit `04c0bc4` lacks the accepted local payment lifecycle/email and analytics foundation batches.
+- ~~Create a release-candidate commit from the accepted working-tree delta over `04c0bc4`; there are no new commits to deploy yet.~~ Done: `02d255a` pushed to `origin/milestone4-auth-completion`.
+- Deploy/promote commit `02d255a`, then verify the live HTML no longer contains `analytics.local/umami` and exposes the new bundle.
+- Before promotion or immediately after deploy, verify production env in Vercel: `APP_BASE_URL`, `DATABASE_URL`, `JWT_SECRET`, `ORDER_INTENT_SIGNING_SECRET`, Clerk keys, live Stripe keys/webhook secret, Google generation key, R2 credentials, Resend sender/API key, and analytics env.
+- Resolve or explicitly owner-waive the 10 failing full-suite generation/texture tests before final launch sign-off.
+- Run the final live validation runbook end to end: payment purchase + webhook replay, analytics campaign path, quote/preorder email, cross-device/auth sanity, and generation/download persistence.
 
 ## Payment launch follow-up (2026-06-03)
 

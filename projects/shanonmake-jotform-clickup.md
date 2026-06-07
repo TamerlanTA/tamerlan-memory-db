@@ -1023,3 +1023,214 @@ New modules added (all with filter = skip if blank):
       - `800 -> 801` and `802 -> 803` upload to design task `{{9.body.id}}`
       - `806 -> 807` uploads to sampling task `{{12.body.id}}`
       - `804 -> 805` uploads to costing task `{{13.body.id}}`
+
+- Final four-field targeted fix on 2026-06-04:
+  - User provided client feedback that latest workflow was almost correct but still missed:
+    - `Labeling`
+    - `Substrates`
+    - `Printing Finishes`
+    - `Submitted By`
+    - plus Inactive `Onward` routed to `Potential/New Customer`.
+  - New import file created:
+    - backup: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-2026-06-04-final-four-field-routing-fix.backup.json`
+    - new file: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-04-final-four-field-routing-fix-IMPORT-THIS.blueprint.json`
+    - validation report: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-04-final-four-field-routing-fix-report.md`
+  - Jotform keys confirmed from pasted payload / active blueprint:
+    - Submitted By / VH ClickUp Email: `q6_submitteremail`
+    - Labeling: `q110_labelinggoes`
+    - Substrates: `q115_substratesgoes`
+    - Printing Finishes: `q133_printingfinishes`
+  - Fix approach:
+    - added an `Inactive` source branch in module `22` using `q20_hovbrand`
+    - added `Onward` / `ON` inactive route to list `901712752562`
+    - added Item Set field entries for Submitted By, Labeling, Substrates, and Printing Finishes in feeders `200`, `230`, `500`
+    - added Submitted By entries to all Design/Sampling/Costing feeders: `301`, `311`, `321`, `331`, `341`, `351`, `491`, `511`, `521`, `691`, `711`, `721`
+    - re-enabled collection parent Submitted By modules `150` and `155` as ClickUp API calls with filters for non-blank email/task id
+    - removed old hard-skip conditions for Labeling and Printing Finishes from generic Item Set API modules `201`, `231`, `501`
+    - used whitelist-only option ID array expressions for Labeling/Substrates/Printing Finishes; unknown raw values such as `44` are dropped and filter-skipped instead of forwarded to ClickUp
+    - used unicode-escaped option IDs inside IML expressions to avoid Make import parser treating UUID fragments as fake module references
+  - Payload shape:
+    - text field: `{"value": "email@example.com"}`
+    - ClickUp label/multi-select fields: `{"value": ["clickup-option-id-1","clickup-option-id-2"]}`
+  - Static validation:
+    - JSON parse passed
+    - 124 recursive modules / 124 unique IDs
+    - no missing `{{module.field}}` references
+    - `200`, `230`, `500` each include all four Item Set-level fields exactly once
+    - child task feeders each include Submitted By exactly once
+    - `201`, `231`, `501` still skip blank and `[]` values but no longer skip the multi-select field IDs
+  - Residual risk:
+    - Parent Submitted By writes previously produced `FIELD_115` when the field was not available in the task location hierarchy. The user now explicitly needs Submitted By and screenshots show the column, so parent writes were re-enabled; if `FIELD_115` returns, add the Submitted By custom field to the affected ClickUp parent list/folder hierarchy or bypass only the parent-level modules again.
+
+- Target list IML balance fix on 2026-06-04:
+  - User reported Make import failed on the prior final-four-field file with `Invalid IML` / `Unclosed function` for module `22` variable `target_list_id`.
+  - Root cause: the prior patch inserted an additional `inactive` branch into an already long nested `if(...)` expression, which Make's IML parser rejected.
+  - New import file created:
+    - backup: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-2026-06-04-target-list-iml-balance-fix.backup.json`
+    - new file: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-04-target-list-iml-balanced-IMPORT-THIS.blueprint.json`
+    - report: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-04-target-list-iml-balanced-report.md`
+  - Fix approach:
+    - replaced only `target_list_id` with a flatter brand-type `switch(...)` expression
+    - preserved task creation, fields, attachments, due dates, and previous four-field additions
+    - added `Onward` / `ON` -> `901712752562` for both `Private Label` and `Inactive` because the reference shortcodes list `ON` and Shannon list IDs has Inactive Onward
+  - Static validation:
+    - JSON parse passed
+    - 124 recursive modules / 124 unique IDs
+    - no missing `{{module.field}}` refs
+    - target expression parenthesis balance passed
+    - Item Set additions for Submitted By, Labeling, Substrates, Printing Finishes preserved
+
+- Stable Item Set multi-select crash-stop on 2026-06-04:
+  - User tested `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-04-target-list-iml-balanced-IMPORT-THIS.blueprint.json`; import/routing worked, but runtime failed in module `201` on Item Set `Labeling`.
+  - Runtime error:
+    - `[400] JSON_001: Unexpected token '\\', "{"value": [\\,\\]}" is not valid JSON`
+    - failing field id: `7ef3834f-67f5-4398-bdfa-64b918058ee6` (`Labeling`)
+  - Root cause:
+    - the generic raw JSON body `{"value": {{200.value_json}}}` cannot safely consume the hand-built Make IML JSON-array text for Item Set multi-select fields; it emits malformed escaped array fragments like `[\\,\\]`.
+    - this is the same multi-select serialization class of issue previously seen with Labeling / Printing Finishes.
+  - Stability file created:
+    - backup: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-2026-06-04-stop-itemset-multiselect-json-crash.backup.json`
+    - new import file: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-04-stable-no-itemset-multiselect-json-crash-IMPORT-THIS.blueprint.json`
+    - report: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-04-stable-no-itemset-multiselect-json-crash-report.md`
+  - Fix approach:
+    - removed Item Set `Labeling`, `Substrates`, and `Printing Finishes` entries from iterators `200`, `230`, and `500`
+    - added defensive skip filters for those three field IDs to generic writer modules `201`, `231`, and `501`
+    - preserved target-list routing, Onward routing, Submitted By, leading-zero number fixes, and attachment upload modules
+  - Validation:
+    - JSON parse passed
+    - 124 recursive modules / 124 unique IDs
+    - no missing `{{module.field}}` references
+    - no remaining problematic Item Set multi-select entries in `200`, `230`, or `500`
+  - Residual limitation:
+    - stable file intentionally does not populate Item Set `Labeling`, `Substrates`, or `Printing Finishes`.
+    - Do not re-enable those in the generic writer until a separate isolated serializer or native ClickUp Set Custom Field module is proven with one low-credit test.
+
+- Item Set multi-select dedicated `toJSON` module candidate on 2026-06-04:
+  - User confirmed `Submitted By` now works, but `Labeling`, `Substrates`, and `Printing Finishes` are empty because the prior stable file intentionally bypassed those fields to stop the `201` JSON crash.
+  - Official ClickUp docs confirm labels custom fields require payload shape `{ "value": ["label_option_id_1", "label_option_id_2"] }`; the bug is Make serialization in the generic writer, not the ClickUp API schema.
+  - New candidate import file created:
+    - backup: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-2026-06-04-itemset-multiselect-tojson-modules.backup.json`
+    - new import file: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-04-itemset-multiselect-tojson-modules-IMPORT-THIS.blueprint.json`
+    - report: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-04-itemset-multiselect-tojson-modules-report.md`
+  - Fix approach:
+    - left the generic Item Set custom field writers `201`, `231`, and `501` protected from the three labels field IDs
+    - added module `22` whitelist pipe variables:
+      - `cf_labeling_option_ids_pipe`
+      - `cf_substrates_option_ids_pipe`
+      - `cf_printing_finishes_option_ids_pipe`
+    - added dedicated ClickUp API modules that use `toJSON({"value": split(pipe; "|")})` so Make serializes an actual JSON array instead of raw `value_json` text:
+      - Default route: `901` Labeling, `902` Substrates, `903` Printing Finishes on `{{5.body.id}}`
+      - Unbranded route: `904`, `905`, `906` on `{{105.id}}`
+      - Existing Collection route: `907`, `908`, `909` on `{{405.body.id}}`
+    - UUIDs inside module `22` expressions are unicode-escaped for digits/hyphens to reduce Make import parser false module-reference errors.
+    - Unknown non-empty multi-select values map to each field's `Other` option; this handles bad test values such as `Printing Finishes = 44`, because `44` is not a valid ClickUp labels option.
+  - Static validation:
+    - JSON parse passed
+    - 133 recursive modules / 133 unique IDs
+    - no missing `{{module.field}}` references
+    - local order verified: `201 -> 901 -> 902 -> 903`, `231 -> 904 -> 905 -> 906`, `501 -> 907 -> 908 -> 909`
+  - Residual risk:
+    - This is a runtime/import candidate; Make still needs to accept the `toJSON({"value": split(...)})` array expression. It should be tested with a single replay/queued record, not broad repeated tests.
+
+- Direct-array Item Set multi-select candidate after `toJSON` runtime failure on 2026-06-04:
+  - User tested the dedicated module candidate and module `901` failed immediately with `DataError: Failed to map 'body': Function 'toJSON' not found!`.
+  - New import file created:
+    - backup: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-2026-06-04-itemset-multiselect-direct-array-body.backup.json`
+    - new import file: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-04-itemset-multiselect-direct-array-body-IMPORT-THIS.blueprint.json`
+    - report: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-04-itemset-multiselect-direct-array-body-report.md`
+  - Fix approach:
+    - kept modules `901-909` and module `22` pipe variables from the previous candidate
+    - replaced every `toJSON({"value": split(...)})` body with direct JSON array text:
+      - `{"value": ["{{replace(22.cf_labeling_option_ids_pipe; "|"; "\" , \"")}}"]}` conceptually, implemented with proper escaped `","`
+    - generic modules `201/231/501` still bypass the three labels field IDs, so only dedicated modules write them.
+  - Static validation:
+    - JSON parse passed
+    - 133 recursive modules / 133 unique IDs
+    - no missing `{{module.field}}` references
+    - no dedicated module body contains `toJSON`
+  - Residual risk:
+    - This still needs one runtime check. It removes the unavailable function and avoids `value_json` indirection, but Make must emit the direct replacement string as raw JSON correctly.
+
+- ParseJSON payload candidate after direct-array concatenation failure on 2026-06-05:
+  - User tested the direct-array candidate and module `901` failed with `FIELD_158` because the body sent one concatenated option id string instead of separate IDs:
+    - `{"value": ["id1id2"]}`
+  - New import file created:
+    - backup: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-2026-06-05-itemset-multiselect-parsejson-payload.backup.json`
+    - new import file: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-05-itemset-multiselect-parsejson-payload-IMPORT-THIS.blueprint.json`
+    - report: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-05-itemset-multiselect-parsejson-payload-report.md`
+  - Fix approach:
+    - module `22` now builds full JSON payload strings: `cf_labeling_payload_json`, `cf_substrates_payload_json`, `cf_printing_finishes_payload_json`
+    - dedicated modules `901-909` now use `{{parseJSON(22.<payload_json>)}}` as the body, avoiding raw array interpolation and unavailable `toJSON`
+  - Static validation:
+    - JSON parse passed
+    - 133 recursive modules / 133 unique IDs
+    - no missing `{{module.field}}` references
+    - dedicated module bodies contain no `replace(...)` or `toJSON(...)`
+  - Residual risk:
+    - Depends on Make accepting `parseJSON(...)` in the ClickUp API Call body field.
+
+- Item Set multi-select array-writer candidate after `parseJSON` runtime failure on 2026-06-05:
+  - User tested the parseJSON candidate and module `901` failed with `DataError: Function 'parseJSON' not found!`.
+  - Important failed approaches now confirmed:
+    - `toJSON(...)` is unavailable in Make's mapping context.
+    - `parseJSON(...)` is unavailable in Make's mapping context.
+    - body-level `replace(pipe; "|"; "\",\"")` can concatenate multiple option IDs into a single invalid ClickUp label option string.
+  - Exact runtime/source Jotform keys for the remaining Item Set multi-select fields:
+    - `Labeling` -> `q110_labelinggoes`
+    - `Substrates` -> `q115_substratesgoes`
+    - `Printing Finishes` -> `q133_printingfinishes`
+  - New import file created:
+    - backup: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-2026-06-05-itemset-multiselect-array-writer.backup.json`
+    - new import file: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-05-itemset-multiselect-array-writer-IMPORT-THIS.blueprint.json`
+    - report: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-05-itemset-multiselect-array-writer-report.md`
+  - Fix approach:
+    - module `22` builds complete JSON body strings for the three fields:
+      - `cf_labeling_payload_json`
+      - `cf_substrates_payload_json`
+      - `cf_printing_finishes_payload_json`
+    - ClickUp payload shape is `{ "value": ["option-id-1", "option-id-2"] }`.
+    - existing generic Item Set writers `201`, `231`, and `501` still bypass these three field IDs.
+    - added compact array-driven mini-writers:
+      - Default Item Set: `901` iterator -> `902` generic writer
+      - Unbranded Item Set: `903` iterator -> `904` generic writer
+      - Existing Collection Item Set: `905` iterator -> `906` generic writer
+    - writer body is the iterator's full payload string (`{{901.payload_json}}`, `{{903.payload_json}}`, `{{905.payload_json}}`) without `toJSON`, `parseJSON`, `split`, or body-level `replace`.
+    - invalid values such as `Printing Finishes = 44` produce a blank payload and warning variable (`cf_printing_finishes_mapping_warning`), so the writer filter skips the ClickUp call instead of sending bad data.
+  - Static validation:
+    - JSON parse passed
+    - 130 recursive modules / 130 unique IDs
+    - no missing `{{module.field}}` references
+    - old dedicated modules `907-909` removed
+  - Residual risk:
+    - Runtime still needs one low-credit replay/import confirmation because Make must send the full JSON string in the API Call body field as raw JSON. This candidate preserves the array-driven architecture better than the earlier dedicated-module attempts.
+
+- Item Set multi-select API body serialization fix after escaped payload failure on 2026-06-05:
+  - User tested the array-writer candidate and module `902` (`Generic Set Item Set Multiselect Value - Default`) failed with:
+    - `[400] JSON_001: Expected property name or '}' in JSON at position 1`
+    - Make input body looked like `{\[\,\,\]}`.
+  - Root cause:
+    - passing `{{901.payload_json}}` as a prebuilt JSON string caused Make to escape/break the JSON body before ClickUp received it.
+  - New import file created:
+    - backup: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.pre-2026-06-05-itemset-multiselect-array-body.backup.json`
+    - new import file: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-05-itemset-multiselect-array-body-IMPORT-THIS.blueprint.json`
+    - report: `/Users/tamerlan/Desktop/shanonmake/Integration Jotform.2026-06-05-itemset-multiselect-array-body-report.md`
+  - Fix approach:
+    - changed only modules `901/902`, `903/904`, and `905/906`.
+    - iterators now store `value_ids` arrays from existing module `22` pipe variables:
+      - `{{split(22.cf_labeling_option_ids_pipe; "|")}}`
+      - `{{split(22.cf_substrates_option_ids_pipe; "|")}}`
+      - `{{split(22.cf_printing_finishes_option_ids_pipe; "|")}}`
+    - writer bodies now build raw JSON literals:
+      - `902`: `{"value":["{{join(901.value_ids; """,""")}}"]}`
+      - `904`: `{"value":["{{join(903.value_ids; """,""")}}"]}`
+      - `906`: `{"value":["{{join(905.value_ids; """,""")}}"]}`
+    - writer filters skip empty arrays by checking `join(<iterator>.value_ids; "|")` is non-empty.
+  - Static validation:
+    - JSON parse passed
+    - 130 recursive modules / 130 unique IDs
+    - no missing `{{module.field}}` references
+    - writer body strings contain no `{\[`, `\,`, or `\]` broken JSON fragments.
+  - Expected rendered bodies:
+    - Labeling Top Lid Label + Warning Label -> `{"value":["c5252e79-8e44-43d2-a014-d79276bf26e7","7b77b08d-f4c0-4a7a-8050-259f285bf73f"]}`
+    - Substrates Acetate -> `{"value":["f9fcd3ec-37a0-430b-a87c-641fa6425042"]}`
+    - Printing Finishes Matte -> `{"value":["6f12024e-448b-4aef-ae2e-36db53316479"]}`

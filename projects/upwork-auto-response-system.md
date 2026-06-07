@@ -19,6 +19,8 @@ Build a highly automated Upwork job response pipeline that detects matching job 
 - **auto_submit_enabled = false. Must stay false until Test 10 controlled live submit passes.**
 - 2026-05-25 (Codex follow-up): Browser server was restarted in Terminal with a generated `BROWSER_SERVER_TOKEN`; Cloudflare quick tunnel health works at `https://september-recommendations-loans-else.trycloudflare.com/health`; unauthenticated submit returns 401; authenticated empty submit returns 400 after adding required-field validation.
 - 2026-05-25 (Codex follow-up): n8n workflow `AukneuPwvXK7xVaw` was patched via n8n MCP and now validates with `valid: true`, `errorCount: 0`. Applied fixes: Telegram `sendMessage` operations, IF unary `singleValue`, Firecrawl/browser `onError`, and `Update Connects Counter` operation `appendOrUpdate`.
+- 2026-06-04: User asked how to launch Pipeline A v2. Local browser server was down while an old `cloudflared` process was still running. Restarted browser server in macOS Terminal with a fresh token at `/tmp/upwork_browser_server_token`; restarted Cloudflare quick tunnel. Verified local `/health`, public `/health`, unauthenticated submit `401`, and authenticated empty submit `400`. Current quick tunnel base URL: `https://alive-commented-investor-plaza.trycloudflare.com`; Sheets `settings.browser_submit_url` must be `https://alive-commented-investor-plaza.trycloudflare.com/submit-proposal`. n8n variable `BROWSER_SERVER_TOKEN` must match `/tmp/upwork_browser_server_token`.
+- 2026-06-04 later: Investigated failed n8n execution `12686` via n8n MCP. Failure was at `Check Auto-Submit Gate`: `get(...).toLowerCase is not a function`, caused by Sheets settings returning non-string values. Also found `Score >= 80?` was actually comparing against `8`, allowing score `50` jobs into proposal generation, and `Trigger Browser Submit` still had a hardcoded old Bearer token. Fixed active workflow `AukneuPwvXK7xVaw`: Gate now string-coerces settings, score threshold is `80`, browser submit header uses `$vars.BROWSER_SERVER_TOKEN`, and Telegram nodes now set `operation=sendMessage`. n8n validation passes with `errorCount: 0`.
 
 ## Key Decisions
 
@@ -57,6 +59,7 @@ Build a highly automated Upwork job response pipeline that detects matching job 
 - Browser server token is currently stored locally at `/tmp/upwork_browser_server_token` and copied to clipboard for manual paste into n8n variable. Do not commit it.
 - Profile highlights click logic is best-effort (looks for text match); Upwork form may not always expose this section.
 - Telegram bot token was briefly exposed in session 1 chat — consider rotating.
+- 2026-06-04: launchd/LaunchAgent auto-start failed because macOS privacy blocked LaunchAgent access to Desktop-hosted server/assets (`Operation not permitted`). Use an interactive Terminal window unless the server/assets are moved outside Desktop/Documents or permissions are explicitly granted.
 
 ## Next Steps (as of 2026-05-25 session 2)
 
@@ -67,6 +70,12 @@ Build a highly automated Upwork job response pipeline that detects matching job 
 4. Cloudflare Tunnel is currently running. Use `browser_submit_url=https://september-recommendations-loans-else.trycloudflare.com/submit-proposal` unless the tunnel restarts and gives a new URL.
 5. Browser server is currently running in Terminal with token; if restarted, run: `export BROWSER_SERVER_TOKEN=$(cat /tmp/upwork_browser_server_token) && python3 "/Users/tamerlan/Desktop/upwork proposals/upwork-browser-server.py"`.
 6. Publish the daily reset workflow `zuidpv2R4fErdB0X` in n8n.
+
+**2026-06-04 quick launch commands:**
+1. Browser server: `export BROWSER_SERVER_TOKEN=$(cat /tmp/upwork_browser_server_token) && python3 "/Users/tamerlan/Desktop/upwork proposals/upwork-browser-server.py"`
+2. Cloudflare tunnel in a second Terminal window: `cloudflared tunnel --url http://localhost:8765`
+3. Copy the printed `https://*.trycloudflare.com/submit-proposal` URL into the Google Sheets `settings` tab under `browser_submit_url`.
+4. Copy the token from `/tmp/upwork_browser_server_token` into n8n Variables as `BROWSER_SERVER_TOKEN`.
 
 **Tests to run:**
 7. Test 7: `curl http://localhost:8765/health` → confirm `"auth": "token_set"` and both attachments listed.

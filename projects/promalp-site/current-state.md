@@ -38,3 +38,11 @@
 - Добавлены недостающие Tailwind/UI токены и утилиты, которые уже использовались компонентами (`bg-deep`, `bg-elev`, `line-strong`, `ink-dim`, `ink-muted`, `cyan`, `.mono`, `.grid-overlay`, `.gradient-text`).
 - Добавлен `#contact` на финальный CTA, чтобы nav/footer inquiry links не вели в пустой якорь.
 - Проверка: `npm run build` проходит; Playwright screenshots сняты на 2048×1242, 390×844 и секцию services.
+
+## 2026-06-06 — GitHub publication
+- Локальный Git-репозиторий инициализирован с веткой `main`.
+- Исходники сайта опубликованы в публичном репозитории `TamerlanTA/SummitSolutions`.
+- Первый коммит: `1ed9fb6` (`Initial website release`).
+- `origin`: `https://github.com/TamerlanTA/SummitSolutions.git`.
+- Проверка перед публикацией: `npm run build` проходит.
+- Локальные/генерируемые данные исключены: `node_modules`, `.next`, env-файлы, `.vercel`, `.claude/settings.local.json`.
