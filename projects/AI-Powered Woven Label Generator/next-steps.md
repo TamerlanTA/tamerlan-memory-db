@@ -21,6 +21,13 @@
 
 Last updated: 2026-06-05
 
+## Success moment polish follow-up (2026-06-08)
+
+- ~~Review and commit the three-file success-moment UI batch.~~ Done as `a2828ab`.
+- ~~Deploy to Vercel production.~~ Done as `dpl_Cg7nmpbUSUMTPukLJydqMeUN2zjk` (READY).
+- Verify the confirmed panel after one real purchase on desktop/mobile.
+- Confirm the updated balance has refreshed before the customer reaches the confirmed state; existing query invalidation remains unchanged.
+
 ## Payment success UI hotfix follow-up (2026-06-05)
 
 - ~~Commit and push the three-file post-payment UI fix.~~ Done as `52912db`.

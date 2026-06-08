@@ -9,16 +9,20 @@
 ---
 
 ## Приоритет 1 — Видео
-1. Разложить сырьё по папкам: iPhone → `00_raw_iphone/`, DJI → `00_raw_dji/`
-2. Просмотр и отбор лучших клипов → `01_selected/`
-3. Монтаж по ТЗ [[video-tz]]: вертикальная версия (Reels) + горизонтальная (сайт)
-4. Добавить музыку (royalty-free), текстовые вставки, лого
-5. Экспорт → `03_export/`
+1. Провести QA пяти готовых Remotion-композиций.
+2. Проверить blur детей в OC-01.
+3. Добавить royalty-free музыку.
+4. Получить от Айдоса реальный номер CTA и подтверждение текстов.
+5. Экспортировать три основных рекламных ролика первыми.
 
 ## Приоритет 2 — Сайт
 - Продолжить по [[../promalp-site/next-steps]]
-- Встроить финальное видео в hero-секцию после монтажа
+- Получить реальные контакты, документы, pricing matrix, кейсы and media permissions.
+- Реализовать `/api/lead` → Airtable + Telegram alert.
+- Подключить WhatsApp CTA, UTM/analytics, Vercel and domain.
+- Провести пять end-to-end тестовых заявок before paid traffic.
 
 ## Приоритет 3 — Маркетинг
-- Запустить таргет в Instagram после выхода сайта + видео
-- WhatsApp/Telegram рассылка по базе КСК/УК Алматы
+- Подготовить минимальный Instagram launch pack after site/video readiness.
+- Запустить тестовую WhatsApp campaign only after lead pipeline and media QA.
+- Treat expanded CRM, reminders, daily reports and full 15-post plan as post-MVP improvements.

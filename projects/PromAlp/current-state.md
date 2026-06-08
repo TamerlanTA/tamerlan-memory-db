@@ -33,3 +33,14 @@
 ## Маркетинг
 - Статус: не начат
 - Зависит от: готового видео + запущенного сайта
+
+## Notion Office (обновлено 2026-06-08)
+- Зонтичный проект добавлен в Notion Office:
+  - https://app.notion.com/p/3793e026e92f8188ab77f0b511aa78b6
+- Статус: Active; health: Yellow; priority: P1.
+- Зафиксированы 8 фаз:
+  - site MVP foundation and video analysis completed;
+  - discovery blocked by client inputs;
+  - video production and site activation in progress;
+  - Instagram, ads, and optimization not started.
+- Добавлены только подтверждённые задачи и blockers from memory; speculative 15-post and expanded CRM plans are not treated as immediate launch blockers.

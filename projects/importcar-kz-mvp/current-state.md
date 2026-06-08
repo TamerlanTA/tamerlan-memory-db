@@ -6,6 +6,12 @@
 - [[risks]]
 - [[next-steps]]
 
+## Notion Office
+- Project page: https://app.notion.com/p/3793e026e92f81418d0ed4f05bb8eaf1
+- Added to Office on 2026-06-08 with status Active, health Yellow, priority P0.
+- Notion contains 12 roadmap phases, 14 current operational tasks, 6 decision/risk records, and the production activation weekly review.
+- Current Office frontier matches memory: production activation, AI-5C.2 deployment/live acceptance, and calibration backend deployment.
+
 ## Status as of 2026-05-27 — Preview Deploy Acceptance Prepared
 
 ### Strategic direction

@@ -44,6 +44,18 @@
 
 Last updated: 2026-06-05
 
+## 2026-06-08 success moment conversion polish
+
+- Improved only the existing `/credits` post-payment panel; Stripe, billing, webhook, analytics, email, and confirmation lifecycle logic were not changed.
+- Confirmed state now uses the approved "Your atelier is ready" hierarchy: animated checkmark, `+X credits`, updated balance, create-label CTA, account CTA, and compact amount/reference footer.
+- Pending state now says payment was received and credits are being prepared, with no Stripe/webhook technical wording.
+- Added one-shot premium motion with `prefers-reduced-motion` support; no looping celebration effects.
+- Files changed: `client/src/pages/Credits.tsx`, `client/src/contexts/LanguageContext.tsx`, `client/src/styles/credits-success-moment.css`.
+- QA: desktop/mobile and FR/EN visual checks completed; primary CTA navigation passed; focused lifecycle tests, `pnpm check`, and `pnpm build` pass.
+- Committed and pushed as `a2828ab` (`Polish post-payment success moment`) on `milestone4-auth-completion`.
+- Vercel production deployment `dpl_Cg7nmpbUSUMTPukLJydqMeUN2zjk` is READY on commit `a2828ab`; `https://methode.griffesvivienne.com` serves the new JS/CSS bundles.
+- Production smoke: `/credits` HTTP 200, live bundle contains the new FR/EN copy and success animation classes, no production-origin console errors, and 390px viewport has no horizontal overflow.
+
 ## 2026-06-05 post-payment success UI bugfix
 
 - Root cause confirmed in `Credits.tsx`: the success panel was gated on `getCheckoutStatus` already returning data, so a Stripe success return displayed no reassurance while auth/status polling was delayed or unavailable. The persisted confirmation was also only created inside the exact `status === "reconciled"` branch.
