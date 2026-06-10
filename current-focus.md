@@ -3,12 +3,34 @@
 ## Related
 - [[agent-memory]]
 - [[routing-rules]]
+- [[projects/flowops-saas/overview|FlowOps SaaS — overview]]
+- [[projects/flowops-saas/roadmap|FlowOps SaaS — roadmap]]
 - [[projects/PromAlp/overview|PromAlp — overview]]
 - [[projects/FlowOps Team/00 - Overview|FlowOps Team — overview]]
 - [[Linear/Linear Ops Automation System/overview|Linear Ops Automation System]]
 - [[projects/AI-Powered Woven Label Generator/current-state|AI-Powered Woven Label Generator — current state]]
 - [[projects/importcar-kz-mvp/overview|ImportCar.kz — overview]]
 - [[projects/importcar-kz-mvp/roadmap|ImportCar.kz — roadmap]]
+
+---
+
+## FlowOps SaaS — AI Operations Platform (добавлен 2026-06-10)
+
+**Статус**: PLANNING — стратегический роадмап создан. Готов к Phase 1 разработке.
+
+**Что это**: SaaS/Platform с marketplace из 40 готовых AI/automation pipeline-систем для бизнеса. Гибридная модель: setup fee + monthly subscription. Premium B2B positioning (Linear/Vercel quality).
+
+**Phase 1 цель (4 недели)**:
+- Supabase: pipeline_categories + pipelines + pipeline_orders таблицы
+- `/os` marketplace + `/os/[slug]` detail pages
+- Order request form + Telegram notifications
+- `/pricing` страница
+- `/internal/orders` workspace
+- Seed: 12–15 pipeline-систем
+
+**Следующий шаг**: Аудит существующего кода → создать DB схему → начать `/os` страницу
+
+**Память**: [[projects/flowops-saas/overview]] | [[projects/flowops-saas/roadmap]] | [[projects/flowops-saas/pipeline-catalog]] | [[projects/flowops-saas/pricing]]
 
 ---
 
