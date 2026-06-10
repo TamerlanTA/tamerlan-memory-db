@@ -264,6 +264,8 @@
   },
   "active": "a7e3df8f6bd81cee",
   "lastOpenFiles": [
+    "projects/flowops-saas/technical-architecture.md",
+    "projects/flowops-saas/pipeline-catalog.md",
     "projects/flowops-saas/pricing.md",
     "projects/flowops-saas/next-steps.md",
     "projects/flowops-saas/risks.md",
@@ -291,8 +293,6 @@
     "projects/sessions/2026-05-25-upwork-p0-p1-fixes-deployed.md",
     "dashboard/ai-brief.md",
     "dashboard",
-    "projects/importcar-kz-mvp/sessions/2026-05-21-live-acceptance-runbook.md",
-    "projects/importcar-kz-mvp/sessions/2026-05-21-production-backend-activation-prep.md",
     "Leads",
     "projects/importcar-kz-mvp/sessions",
     "projects/importcar-kz-mvp",
