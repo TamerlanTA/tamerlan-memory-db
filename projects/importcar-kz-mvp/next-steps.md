@@ -50,32 +50,16 @@
 
 ---
 
-## СЛЕДУЮЩИЙ БЛОК: Production Activation (блокирует деплой)
+## ЗАВЕРШЕНО ✅ — Production Activation (2026-06-08)
 
-Обязательны до первого реального пользователя. В порядке приоритета:
-
-### 1. Run Supabase migration ⚠️ КРИТИЧНО
-Run `supabase/migrations/20260521_calculator_leads_metadata.sql` in Supabase dashboard SQL editor.
-Without this, calculator lead form insert can fail in production.
-
-### 2. Set production env vars in Vercel
-- `VITE_SUPABASE_URL`
-- `VITE_SUPABASE_ANON_KEY`
-- `VITE_ENABLE_ADMIN_VIEW=false`
-- `VITE_WHATSAPP_PHONE`
-- optional: `VITE_WHATSAPP_DEFAULT_MESSAGE`
-
-### 3. Deploy to Vercel
-Preview deploy completed on 2026-05-27:
-- `https://importcar-kz-92phlsa2k-tamertt931-8560s-projects.vercel.app`
-
-For production deploy, promote/deploy with:
-- `vercel deploy --prod`
-
-Then follow `docs/live-acceptance-runbook.md`.
-
-### 4. Real iPhone test
-Test calculator, saved calculation persistence, request submit, "Заявка" screen, bottom nav, and WhatsApp CTA handoff.
+Все блокеры деплоя сняты:
+- Supabase миграции применены: `20260521_calculator_leads_metadata.sql` + `20260528_accuracy_calibration.sql`
+- Edge Function `analyze-car-link` (AI-5C.2) задеплоен + secrets + live acceptance ✅
+- Edge Function `admin-calibrations` (AI-6.5) задеплоен + secrets + live acceptance ✅
+- Vercel env vars выставлены (SUPABASE URL/KEY, VITE_ENABLE_ADMIN_VIEW=false, VITE_WHATSAPP_PHONE)
+- `vercel deploy --prod` выполнен
+- Live acceptance runbook пройден
+- Real iPhone test пройден
 
 ---
 
@@ -106,11 +90,13 @@ Test calculator, saved calculation persistence, request submit, "Заявка" s
 - **Phase AI-5C — Browser Render Deep Extraction** ✅ 2026-05-28 local implementation: Browserless `/function` strategy, structured page context, vehicle-like signal gate, diagnostics, and controlled no-vehicle-data errors.
 - **Phase AI-5C.1 — AI Output Validation Debug & Repair** ✅ 2026-05-28 local implementation: safe `validationIssues` diagnostics for `AI_OUTPUT_INVALID`, HTTP 422 status mapping, conservative provider-output normalization, stricter prompt, and live-check validation issue summaries.
 - **Phase AI-5C.2 — Post-Extraction Quality Gate** ✅ 2026-05-28 local implementation: schema-valid but insufficient AI output now returns `EXTRACTION_INSUFFICIENT_DATA` with HTTP 422, safe missing-field details, frontend fallback copy, and live-check summaries.
-- **Deploy updated `analyze-car-link` Edge Function + AI-5C.2 live acceptance** ← immediate next operational step: deploy function, rerun URL-only live acceptance, and confirm page-not-found/no-vehicle data now returns controlled 422 instead of `ok: true`.
+- **Deploy updated `analyze-car-link` Edge Function + AI-5C.2 live acceptance** ✅ ЗАВЕРШЕНО: deployed, live-accepted, production live.
 - **Phase AI-6 — Accuracy Calibration Foundation** ✅ 2026-05-28 local implementation: migration, RLS-closed calibration table, difference helper, AdminLeads calibration panel, service layer with controlled errors, docs, and `npm run calibration:sanity`.
 - **Phase AI-6.5 — Secure Calibration Admin Backend** ✅ 2026-05-28 local implementation: `admin-calibrations` Edge Function, temporary `ADMIN_API_KEY`, server-side service-role writes, server-side validation/difference calculation, frontend service invocation, AdminLeads load/save through Edge Function, and admin lazy-load.
 - **Phase AI-6.6 — Internal Calibration Acceptance Test Prep** ✅ 2026-05-29: internal checklist and `npm run admin:calibration:live` dry/live script for safe synthetic Edge Function acceptance.
-- **Deploy calibration backend** ← next data step: run `supabase/migrations/20260528_accuracy_calibration.sql`, deploy `admin-calibrations`, set Supabase secrets `ADMIN_API_KEY` / `SUPABASE_SERVICE_ROLE_KEY`, and set `VITE_ADMIN_API_KEY` only in protected internal preview.
+- **Deploy calibration backend** ✅ ЗАВЕРШЕНО: deployed in production.
+- **Phase AI-5D — Encar Direct API Adapter** ✅ 2026-06-08 local implementation: `extractors/encarApi.ts`, `extractEncarCarId()`, 만원 normalization, 4 Encar API error codes, pipeline update (API first), `carId`/`adapter` in success response, listingText UX, sanity tests, live-check script, docs.
+- **Deploy AI-5D** ← next operational step: `supabase functions deploy analyze-car-link` then `npm run ai:edge:live -- --payload docs/examples/ai-link-fem-encar-request.json --allow-controlled-error` to verify `carId`/`adapter` in summary. Geo-blocking from US IPs is expected; `ENCAR_API_FORBIDDEN` or `ENCAR_API_UNAVAILABLE` is a controlled pass.
 - **Phase AI-7 — Verified Calculation Workflow**: manager confirmation, verified quote status, high-confidence calculation path.
 - **v0.3** — Supabase Auth: Phone OTP + Google + Apple. Аккаунт запрашивать только при сохранении / заявке. Перенесено после AI-assisted calculator contracts.
 - **v0.4** — Real Inventory: 30 качественных реальных листингов, честные лейблы

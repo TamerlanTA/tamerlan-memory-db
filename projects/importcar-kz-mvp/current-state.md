@@ -12,7 +12,31 @@
 - Notion contains 12 roadmap phases, 14 current operational tasks, 6 decision/risk records, and the production activation weekly review.
 - Current Office frontier matches memory: production activation, AI-5C.2 deployment/live acceptance, and calibration backend deployment.
 
-## Status as of 2026-05-27 — Preview Deploy Acceptance Prepared
+## Status as of 2026-06-08 — PRODUCTION LIVE ✅ + AI-5D implemented locally
+
+All deployment blockers resolved on 2026-06-08:
+- Both Supabase migrations applied
+- `analyze-car-link` (AI-5C.2) + `admin-calibrations` (AI-6.5) deployed with secrets
+- Live acceptance scripts passed (`ai:edge:live`, `admin:calibration:live`)
+- `vercel deploy --prod` completed
+- Live acceptance runbook completed
+- Real iPhone test passed
+- **Product is now live in production**
+
+AI-5D (Encar Direct API Adapter) implemented locally on 2026-06-08:
+- `extractors/encarApi.ts` — new adapter, browser-like headers, 만원 normalization
+- `extractEncarCarId()` in `sourceDetection.ts` — extracts 6–12 digit carId from URL
+- Pipeline: Encar API → HTML adapter → generic fetch → browser render → listingText
+- Success response adds `carId` and `adapter: "encar_api"` fields
+- All ENCAR_API_* errors are non-fatal; pipeline always falls through
+- All non-UI scripts pass: lint, build, ai:pipeline, ai:edge, ai:link-ui, ai:contracts, ai:risk, calibration:sanity, admin:calibration
+- Pending: `supabase functions deploy analyze-car-link` for production
+
+Next: deploy AI-5D Edge Function, live-test with real Encar carId, then AI-7 Verified Calculation Workflow
+
+---
+
+## Status as of 2026-05-27 — Preview Deploy Acceptance Prepared (historical)
 
 ### Strategic direction
 - Project direction changed from a basic deterministic import calculator to an **AI-assisted import calculator with deterministic pricing engine**.

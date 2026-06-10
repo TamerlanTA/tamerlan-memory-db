@@ -20,7 +20,24 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-payment-round-2-lifecycle-and-validation|Payment Round 2 lifecycle and validation]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-launch-analytics-foundation|Launch analytics foundation]]
 
-Last updated: 2026-06-05
+Last updated: 2026-06-09
+
+## GA4 activation residual risks (2026-06-09)
+
+- ~~Production missing `VITE_GA4_MEASUREMENT_ID`.~~ Resolved; `G-W5B405NSQE` is present in Production and deployed.
+- ~~DebugView verification remains open.~~ Resolved: official Tag Assistant debug mode produced `page_view` and `landing_view` in GA4 DebugView.
+- ~~Production validation access blocker.~~ Resolved: the authorized Chrome session connected and production was validated directly.
+- Do not report generation, preorder, checkout, or payment-success events as GA4-verified until each appears in DebugView/Realtime during a real authenticated flow.
+- ~~A real production landing visit did not produce a visible `landing_view` in Realtime.~~ Resolved after deployment `dpl_95CwShem7HEmRtXQxXfeuwZXy8wA`; Realtime showed `landing_view` twice.
+- ~~The gtag wrapper queued rest-parameter arrays instead of Google's required `arguments` command object.~~ Fixed in commit `808feb0` and regression-tested.
+- Production Umami remains misconfigured at `/analytics.local/umami`; this does not block the now-verified GA4 pipeline but still produces a console syntax error.
+
+## Analytics truth audit risks (2026-06-08)
+
+- **Critical analytics configuration gap**: production Vercel env is missing `VITE_GA4_MEASUREMENT_ID`, so the deployed GA4 loader never initializes.
+- **Critical verification gap**: no GA4 DebugView or Realtime proof exists for any launch event.
+- **High fallback analytics failure**: the production Umami script URL `/analytics.local/umami` returns non-JavaScript content and throws `SyntaxError: Unexpected token '<'`.
+- Event instrumentation is deployed, but production traffic, generation, preorder, checkout, and payment-success events are not currently proven in any functioning analytics destination.
 
 ## Post-payment success UI risk (2026-06-05)
 

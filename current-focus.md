@@ -26,15 +26,10 @@
 
 ## ImportCar.kz / imcar.kz (добавлен 2026-05-21)
 
-**Статус**: v0.1 + QA Hardening + Phase 2 + Phase 3A + Phase 3B deploy prep завершены. AI-1 contracts/schemas ✅, AI-2 secure link extraction backend ✅, AI-3 user confirmation/link mode ✅, AI-4 risk/explanation ✅, AI-4.5 preview QA ✅, AI-5A link extraction reliability layer + live acceptance ✅, AI-5B browser rendering fallback deployed/live tested ✅, AI-5C browser render deep extraction ✅ locally. Build clean (lint ✅ build ✅; current JS bundle ~496.41 kB, no Vite chunk warning). Продукт движется к AI-assisted import calculator, где AI извлекает/нормализует/объясняет/флагует риски, а deterministic pricing engine остаётся source of truth для финальной цены.
+**Статус**: **PRODUCTION LIVE ✅** (2026-06-08). Все фазы AI-1..AI-6.6 завершены и задеплоены. Обе Supabase-миграции применены. `analyze-car-link` (AI-5C.2) + `admin-calibrations` (AI-6.5) live в продакшне. `vercel deploy --prod` выполнен, live acceptance + real iPhone test пройдены.
 
-**Следующие действия** (в порядке приоритета):
-1. Запустить `supabase/migrations/20260521_calculator_leads_metadata.sql` в Supabase dashboard
-2. Set Vercel env vars: Supabase URL/key, `VITE_ENABLE_ADMIN_VIEW=false`, `VITE_WHATSAPP_PHONE`
-3. Деплой на Vercel + live acceptance по `docs/live-acceptance-runbook.md`
-Затем новый приоритет перед Auth/Payments/App Store: deploy/live-acceptance AI-5C `analyze-car-link`, затем **AI-5 — Accuracy Calibration**. Supabase secrets остаются только Edge Function secrets (`AI_PROVIDER`, `OPENAI_API_KEY`, `AI_MODEL`, `BROWSER_RENDER_PROVIDER`, `BROWSERLESS_API_KEY`, `BROWSERLESS_ENDPOINT`), не Vercel frontend vars.
+**Следующее**: AI-7 Verified Calculation Workflow (подтверждение менеджером, статус verified quote) + сбор реальных данных для AI-5 Accuracy Calibration.
 
-Handoff: [[projects/importcar-kz-mvp/sessions/2026-05-21-handoff]]
 Детали: [[projects/importcar-kz-mvp/next-steps]]
 
 ---

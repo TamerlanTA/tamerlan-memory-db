@@ -19,12 +19,32 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-payment-round-2-lifecycle-and-validation|Payment Round 2 lifecycle and validation]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-launch-analytics-foundation|Launch analytics foundation]]
 
-Last updated: 2026-06-05
+Last updated: 2026-06-09
+
+## GA4 activation follow-up (2026-06-09)
+
+1. ~~Correct the gtag queue wrapper to use Google's canonical `dataLayer.push(arguments)` contract.~~ Done in `808feb0`.
+2. ~~Add regression coverage for GA4 `config` and custom `event` command shape.~~ Done; focused suite passes.
+3. ~~Deploy the focused fix.~~ Done as `dpl_95CwShem7HEmRtXQxXfeuwZXy8wA`.
+4. ~~Verify `landing_view` in Realtime and DebugView.~~ Done at 2026-06-09 13:37 +05.
+5. Validate `generation_started` and `generation_succeeded` with a real production generation.
+6. Validate `preorder_submit_succeeded` with a real quote/preorder submission.
+7. Validate `checkout_started` and `payment_succeeded` with the next real successful credit purchase.
+8. Correct or remove the invalid Umami production endpoint to eliminate its unrelated console error.
+
+## Analytics launch gate (2026-06-08)
+
+1. Add the real `VITE_GA4_MEASUREMENT_ID` to Vercel Production.
+2. Correct or remove the invalid production Umami configuration.
+3. Redeploy production and verify the GA4 script, `window.gtag`, and `window.dataLayer` are active.
+4. Validate at minimum `landing_view`, `generation_started`, `generation_succeeded`, `preorder_submit_succeeded`, `checkout_started`, and `payment_succeeded` in GA4 DebugView/Realtime.
+5. Record validation evidence and only then mark launch analytics ready.
 
 ## Success moment polish follow-up (2026-06-08)
 
 - ~~Review and commit the three-file success-moment UI batch.~~ Done as `a2828ab`.
 - ~~Deploy to Vercel production.~~ Done as `dpl_Cg7nmpbUSUMTPukLJydqMeUN2zjk` (READY).
+- ~~Commit and deploy the two-file success checkmark micro-polish.~~ Done as commit `e295729`, production deployment `dpl_58iSzmD3Pv6BiuesXjiQm8Fdvp5Q`.
 - Verify the confirmed panel after one real purchase on desktop/mobile.
 - Confirm the updated balance has refreshed before the customer reaches the confirmed state; existing query invalidation remains unchanged.
 

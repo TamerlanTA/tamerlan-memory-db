@@ -69,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "My-Team/Aslanbek/profile.md",
+                "file": "projects/importcar-kz-mvp/current-state.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "profile"
+              "title": "current-state"
             }
           }
         ],
@@ -264,6 +264,8 @@
   },
   "active": "036f4cf61ab70d7f",
   "lastOpenFiles": [
+    "projects/importcar-kz-mvp/decisions.md",
+    "My-Team/Aslanbek/profile.md",
     "My-Team/Aslanbek/progress-log.md",
     "FlowOps — полное досье агентства.md",
     "projects/FlowOps Team/FlowOps Agency Dossier.md",
@@ -289,8 +291,6 @@
     "projects/importcar-kz-mvp/sessions/2026-05-21-production-calculator-v1.md",
     "projects/importcar-kz-mvp/sessions/2026-05-21-full-product-roadmap-saved.md",
     "Leads/almaty-30-net-new-2026-05-18.md",
-    "Leads/flowops-opportunity-registry.md",
-    "projects/FlowOps Team/sessions/2026-05-18-almaty-30-net-new-leads.md",
     "Leads",
     "projects/importcar-kz-mvp/sessions",
     "projects/importcar-kz-mvp",

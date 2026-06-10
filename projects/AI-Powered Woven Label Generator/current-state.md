@@ -42,7 +42,57 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-payment-round-2-lifecycle-and-validation|Payment Round 2 lifecycle and validation]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-launch-analytics-foundation|Launch analytics foundation]]
 
-Last updated: 2026-06-05
+Last updated: 2026-06-09
+
+## 2026-06-09 GA4 event delivery fix
+
+- Fixed the GA4 queue wrapper to use Google's required `dataLayer.push(arguments)` command format instead of pushing rest-parameter arrays.
+- Added regression coverage proving the `js`, `config`, and custom `event` commands enter the queue in the supported shape.
+- Verification passed: focused analytics tests (3), `pnpm check`, and `pnpm build`.
+- Committed and pushed as `808feb0` (`Fix GA4 event command delivery`) on `milestone4-auth-completion`.
+- Vercel production deployment `dpl_95CwShem7HEmRtXQxXfeuwZXy8wA` is READY and aliased to `https://methode.griffesvivienne.com`.
+- Live bundle `assets/index-D605PAt-.js` contains `window.dataLayer?.push(arguments)`, the Google tag loader, and `landing_view`.
+- GA4 Realtime showed one active user and `landing_view` twice after production visits.
+- Official Google Tag Assistant connected to `G-W5B405NSQE` and showed the Config command plus two `landing_view` commands.
+- GA4 DebugView showed `page_view` and `landing_view` at 2026-06-09 13:37 +05.
+- GA4 base delivery is now verified and READY. Generation, preorder, checkout, and payment events remain implemented but require separate flow-specific production validation.
+
+## 2026-06-09 GA4 production activation
+
+- Added `VITE_GA4_MEASUREMENT_ID` to Vercel Production with Measurement ID `G-W5B405NSQE`.
+- Deployed the unchanged production commit `e295729` from a clean Git archive.
+- Production deployment `dpl_6CVJgn1tR5WTPY26Q7WYAq9WnfR3` is READY and aliased to `https://methode.griffesvivienne.com`.
+- Live bundle `assets/index-D8FBP2sA.js` contains the Measurement ID, Google tag loader, and existing launch events.
+- Production DOM contains `https://www.googletagmanager.com/gtag/js?id=G-W5B405NSQE`; the Google script endpoint returns HTTP 200 JavaScript.
+- GA4 DebugView and end-to-end event receipt remain unverified. The independent browser is stopped at the production `Staging access` gate, and the authorized Chrome session could not be controlled because the Codex Chrome extension channel did not connect.
+- Analytics status is **configured and deployed, not fully verified**.
+
+## 2026-06-09 GA4 final verification result
+
+- GA4 Realtime was opened for property `399976814` and production was visited with validation UTMs.
+- `landing_view` did not appear after the initial visit, a repeat reload, and waiting for Realtime refresh.
+- `generation_started`, `generation_succeeded`, and `preorder_submit_succeeded` were not triggered because Chrome extension local-file upload permission blocked the validation logo upload.
+- DebugView showed zero debug devices and zero events.
+- Final analytics sign-off remains **HOLD**.
+
+## 2026-06-09 GA4 pipeline root cause
+
+- `initAnalytics()` is definitely executed in production before React render.
+- Home mounts and invokes `trackConversionEvent("landing_view", ...)`.
+- Root cause is the noncanonical gtag queue wrapper: production pushes rest-parameter arrays into `dataLayer`, while Google tag requires the function's `arguments` object.
+- As a result, the queued `config` command does not initialize the GA4 target and queued custom `event` commands are not processed.
+- The separate `{ event: ... }` object push is GTM-style, but no GTM container is installed to consume it.
+- Property and Measurement ID are correct: GA4 property `399976814` stream shows `G-W5B405NSQE`.
+- Code fix is required; no code was changed during this trace.
+
+## 2026-06-08 analytics truth audit
+
+- GA4 integration code and all 19 launch event names are present in production commit `e295729` and live bundle `assets/index-C5WFDkZ5.js`.
+- Production Vercel env does not contain `VITE_GA4_MEASUREMENT_ID`.
+- Live `https://methode.griffesvivienne.com` creates no `window.gtag`, no `window.dataLayer`, and loads no GA4/gtag script. Therefore the implemented events are not currently delivered to GA4.
+- No repository, memory, or operational evidence confirms any GA4 DebugView or Realtime validation. All GA4 events remain unverified.
+- The production Umami script currently loads from `/analytics.local/umami` and fails with `SyntaxError: Unexpected token '<'`; Umami cannot be treated as a working fallback.
+- Launch analytics status: **NOT READY** until GA4 env is added, production is redeployed, and core events are proven in DebugView/Realtime.
 
 ## 2026-06-08 success moment conversion polish
 
@@ -55,6 +105,12 @@ Last updated: 2026-06-05
 - Committed and pushed as `a2828ab` (`Polish post-payment success moment`) on `milestone4-auth-completion`.
 - Vercel production deployment `dpl_Cg7nmpbUSUMTPukLJydqMeUN2zjk` is READY on commit `a2828ab`; `https://methode.griffesvivienne.com` serves the new JS/CSS bundles.
 - Production smoke: `/credits` HTTP 200, live bundle contains the new FR/EN copy and success animation classes, no production-origin console errors, and 390px viewport has no horizontal overflow.
+- Follow-up micro-polish implemented locally: the confirmed icon now draws its thin circle first and the checkmark second in a restrained one-shot sequence completed in about 820ms.
+- Micro-polish changes are limited to `client/src/pages/Credits.tsx` and `client/src/styles/credits-success-moment.css`; reduced-motion renders the complete static icon.
+- Micro-polish QA: desktop/mobile and FR/EN browser checks pass, no horizontal overflow or relevant console errors, `pnpm check`, `pnpm build`, and lifecycle tests pass. Commit/deploy still pending.
+- Micro-polish committed and pushed as `e295729` (`Add subtle success checkmark animation`).
+- Vercel production deployment `dpl_58iSzmD3Pv6BiuesXjiQm8Fdvp5Q` is READY on commit `e295729`.
+- Production smoke: `/credits` HTTP 200, live JS `assets/index-C5WFDkZ5.js` and CSS `assets/index-CjhbZgZi.css` contain the circle/check animation classes and reduced-motion rule; no production-origin console errors.
 
 ## 2026-06-05 post-payment success UI bugfix
 

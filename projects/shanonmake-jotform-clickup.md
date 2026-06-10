@@ -1234,3 +1234,52 @@ New modules added (all with filter = skip if blank):
     - Labeling Top Lid Label + Warning Label -> `{"value":["c5252e79-8e44-43d2-a014-d79276bf26e7","7b77b08d-f4c0-4a7a-8050-259f285bf73f"]}`
     - Substrates Acetate -> `{"value":["f9fcd3ec-37a0-430b-a87c-641fa6425042"]}`
     - Printing Finishes Matte -> `{"value":["6f12024e-448b-4aef-ae2e-36db53316479"]}`
+
+---
+
+## 2026-06-10 Existing modes verification & targeted fix
+
+**Status**: Client confirmed New Collection flow is working end-to-end.
+**Task**: Verify and fix "Add Item Sets & Requests to an Existing Collection" and "Add Requests to an Existing Item Set" modes.
+
+### Jotform keys confirmed:
+- Form mode: `q99_formbranch` ("What would you like to do?") — text field
+- Existing Collection Task ID: `q105_idcollection` → module 22 variable `existing_collection_task_id`
+- Existing Item Set Task ID: `q106_iditemset` → module 22 variable `existing_item_set_task_id`
+
+### Filter values (text:contain operators):
+- "Submit a New Collection" → matches "Submit a New Collection & Requests" ✅
+- "Existing Collection" → matches "Add Item Sets & Requests to an Existing Collection" ✅
+- "Existing Item Set" → matches "Add Requests to an Existing Item Set" ✅
+
+### Both branches already implemented:
+**Existing Collection (Route 0, modules 405+)**:
+- M405: Creates Item Set in `{{22.target_list_id}}` with `parent: existing_collection_task_id`
+- M499 router → M500/501 feeder+writer (23 Item Set fields + Submitted By)
+- M905/906: Labeling/Substrates/Printing Finishes multiselect
+- M408 router → M409/412/413: Design/Sampling/Costing with `parent: {{405.body.id}}`
+- M490/491/492, M510/511/512, M520/521/522: child task custom fields + Submitted By
+- M470/472/474: due dates
+- Gate filter: mode contains "Existing Collection" AND task ID not blank (orphan guard) ✅
+
+**Existing Item Set (Route 1, modules 617+)**:
+- M617: gate variable (filter guards task ID not blank)
+- M608 router → M609/612/613: Design/Sampling/Costing with `parent: existing_item_set_task_id`
+- M690/691/692, M710/711/712, M720/721/722: child task custom fields + Submitted By
+- M670/672/674: due dates
+- Gate filter: mode contains "Existing Item Set" AND task ID not blank ✅
+
+### Fixes applied (2026-06-10):
+- M405 body: `parent` changed from `{{1.request.q105_idcollection}}` to `{{22.existing_collection_task_id}}` (trimmed)
+- M405 filter: non-blank check updated to use `{{22.existing_collection_task_id}}`
+- M617 filter: non-blank check updated to use `{{22.existing_item_set_task_id}}`
+- M609/612/613 bodies: `parent` changed from `{{1.request.q106_iditemset}}` to `{{22.existing_item_set_task_id}}` (trimmed)
+
+### Files:
+- Backup: `Integration Jotform.pre-2026-06-10-existing-modes-verify.backup.json`
+- New import: `Integration Jotform.2026-06-10-existing-modes-verified-IMPORT-THIS.blueprint.json`
+- Validation: 130 modules / 130 unique IDs / no missing module refs
+
+### Known limitations:
+- Attachments not supported in Existing Collection / Existing Item Set branches (only Default New Collection has 800-807)
+- Both modes still require routing fields (brand type / customer) to be filled so `target_list_id` resolves correctly
