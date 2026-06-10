@@ -262,8 +262,16 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "036f4cf61ab70d7f",
+  "active": "a7e3df8f6bd81cee",
   "lastOpenFiles": [
+    "projects/flowops-saas/pricing.md",
+    "projects/flowops-saas/next-steps.md",
+    "projects/flowops-saas/risks.md",
+    "projects/flowops-saas/decisions.md",
+    "projects/flowops-saas/current-state.md",
+    "projects/flowops-saas/overview.md",
+    "projects/flowops-saas/sessions",
+    "projects/flowops-saas",
     "projects/importcar-kz-mvp/decisions.md",
     "My-Team/Aslanbek/profile.md",
     "My-Team/Aslanbek/progress-log.md",
@@ -285,12 +293,6 @@
     "dashboard",
     "projects/importcar-kz-mvp/sessions/2026-05-21-live-acceptance-runbook.md",
     "projects/importcar-kz-mvp/sessions/2026-05-21-production-backend-activation-prep.md",
-    "projects/importcar-kz-mvp/sessions/2026-05-21-saved-calculations-request-flow.md",
-    "projects/importcar-kz-mvp/sessions/2026-05-21-handoff.md",
-    "projects/importcar-kz-mvp/sessions/2026-05-21-calculator-qa-hardening.md",
-    "projects/importcar-kz-mvp/sessions/2026-05-21-production-calculator-v1.md",
-    "projects/importcar-kz-mvp/sessions/2026-05-21-full-product-roadmap-saved.md",
-    "Leads/almaty-30-net-new-2026-05-18.md",
     "Leads",
     "projects/importcar-kz-mvp/sessions",
     "projects/importcar-kz-mvp",
@@ -302,8 +304,6 @@
     "resume_update_2026_05/rendered",
     "resume_update_2026_05/build_resume.py",
     "resume_update_2026_05",
-    "projects/pipeline-C-praga/sessions",
-    "projects/pipeline-C-praga",
     "Без названия.canvas",
     "Без названия 1.canvas"
   ]
