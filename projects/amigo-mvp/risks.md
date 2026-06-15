@@ -33,10 +33,14 @@
 - No tested retention and access controls.
 - More than 10% silent or unclassified application outcomes during pilot QA.
 
+## Resolved foundation blockers
+- Application repository and environments were created and linked on 2026-06-15.
+- Production Telegram webhook, database health, queue processing, and audit persistence were verified.
+- Draft CV and consent artifacts now exist; they remain pending approval rather than missing.
+
 ## Scale-to-30 gates
 - At least 95% of jobs finish in a terminal or actionable state.
 - Queue lag stays below 30 minutes during daily batch execution.
 - No duplicate applications in load testing.
 - Domain rate limiting and retry backoff are active.
 - Managers can find any candidate or pending action within two Telegram commands.
-

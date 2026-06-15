@@ -15,7 +15,7 @@
 - Planning window: 2026-06-12 to 2026-07-05
 - Launch target: controlled pilot for 10 candidates
 - Post-launch target: 30 active candidates
-- Current phase: architecture and foundation
+- Current phase: candidate intake
 - Working mode: two-person execution — Tamerlan owns business decisions, access, credentials, and approvals; Codex owns technical implementation, validation, and memory synchronization.
 
 ## What is complete
@@ -25,20 +25,26 @@
 - Algorithm-first search, matching, and application logic are confirmed.
 - LLM use is restricted to document translation and preparation.
 - Initial technical architecture, data model, connector strategy, and delivery roadmap are documented.
+- Private repository created and pushed: `https://github.com/TamerlanTA/amigo-mvp`, local path `/Users/tamerlan/Documents/amigo-mvp`.
+- TypeScript/pnpm monorepo, CI, typed environment contracts, redacting logs, Fastify/grammY API, and PGMQ foundation worker are implemented.
+- Supabase project `amigo-mvp` (`ibebnmlwjjkibfwdnffr`, Frankfurt) is provisioned and the first migration is applied.
+- Railway project `amigo-mvp` has successful production deployments for `bot-api` and `worker-foundation`.
+- Production health endpoint is live at `https://bot-api-production-e076.up.railway.app/health`.
+- Telegram bot `@amigomvpbot` has an authenticated production webhook and manager allowlist for Telegram ID `405182031`.
+- Transactional queue processing was verified in production: one job produced one audit event and queue depth returned to zero.
+- Draft Russian candidate consent and an ATS-friendly English hospitality CV template were created.
 
 ## What is not built
-- No confirmed application repository is linked to project memory.
-- Supabase and Railway environments are not recorded as provisioned.
-- Telegram bot workflow is not implemented.
-- Candidate schema, employer catalog, ingestion connectors, scoring, document generation, and application workers are not implemented.
+- Telegram candidate intake workflow is not implemented beyond Foundation commands.
+- Full candidate schema, employer catalog data, ingestion connectors, scoring, document generation service, and application workers are not implemented.
 - No ATS adapter is certified for production use.
 
 ## Immediate milestone
-The original 2026-06-14 foundation milestone is overdue as of 2026-06-15. The immediate recovery milestone is:
-- create the application repository and environments;
-- implement the database foundation and Telegram webhook skeleton;
-- load the initial employer catalog structure;
-- establish CI, logging, migrations, and queue conventions.
+Foundation was recovered and completed on 2026-06-15. The immediate milestone is:
+- implement resumable `/candidate_new`, `/candidate_find`, `/candidate_edit`, and `/candidate_close`;
+- expand the candidate schema and ownership rules;
+- record consent and validate intake completeness;
+- test the complete manager-led intake flow in Telegram.
 
 ## Capacity requirement
 The design must run the 10-candidate pilot without a rewrite and scale to:
