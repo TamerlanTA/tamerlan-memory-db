@@ -69,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "projects/flowops-saas/pipeline-catalog.md",
+                "file": "projects/amigo-mvp/roadmap.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "pipeline-catalog"
+              "title": "roadmap"
             }
           }
         ],
@@ -264,6 +264,7 @@
   },
   "active": "036f4cf61ab70d7f",
   "lastOpenFiles": [
+    "projects/flowops-saas/pipeline-catalog.md",
     "MEMORY.md",
     "projects/flowops-saas/sessions/2026-06-10-project-init.md",
     "projects/flowops-saas/overview.md",
@@ -272,7 +273,6 @@
     "projects/flowops-saas/risks.md",
     "projects/importcar-kz-mvp/current-state.md",
     "projects/flowops-saas/technical-architecture.md",
-    "projects/flowops-saas/pipeline-catalog.md",
     "projects/flowops-saas/next-steps.md",
     "projects/flowops-saas/decisions.md",
     "projects/flowops-saas/current-state.md",
