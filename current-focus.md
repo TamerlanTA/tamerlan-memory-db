@@ -11,6 +11,32 @@
 - [[projects/AI-Powered Woven Label Generator/current-state|AI-Powered Woven Label Generator — current state]]
 - [[projects/importcar-kz-mvp/overview|ImportCar.kz — overview]]
 - [[projects/importcar-kz-mvp/roadmap|ImportCar.kz — roadmap]]
+- [[projects/amigo-mvp/overview|AMIGO MVP — overview]]
+- [[projects/amigo-mvp/roadmap|AMIGO MVP — roadmap]]
+
+---
+
+## AMIGO MVP — International Hospitality Job Applications (обновлён 2026-06-12)
+
+**Статус**: Active, health Yellow. Product and technical planning are complete; implementation has not started.
+
+**Цель**:
+- controlled pilot for 10 candidates by 2026-07-05;
+- immediate post-launch capacity for 30 candidates from the waitlist;
+- 5–10 manager-approved application attempts per active candidate per day when enough suitable vacancies exist.
+
+**Модель**:
+- manager-led Russian intake in Telegram;
+- English CV generation with LLM plus fixed templates;
+- curated catalog of 100–200 international hospitality employers;
+- deterministic search, filtering, scoring, batching, and application execution;
+- certified hosted-form adapters with safe `NeedsAction` fallback.
+
+**Текущая фаза**: N1 Foundation and infrastructure, deadline 2026-06-14.
+
+**Блокеры**: application repository and environments are not linked; approved CV template and initial employer catalog are missing; no application adapter is certified.
+
+**Память**: [[projects/amigo-mvp/overview]] | [[projects/amigo-mvp/current-state]] | [[projects/amigo-mvp/roadmap]] | [[projects/amigo-mvp/technical-architecture]]
 
 ---
 

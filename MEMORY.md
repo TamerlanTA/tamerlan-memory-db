@@ -12,7 +12,7 @@
 
 ## Small / Single-file Projects
 
-- [amigo-mvp](projects/amigo-mvp.md)
+- [AMIGO MVP](projects/amigo-mvp/overview.md) — manager-led Telegram system for international hospitality candidates. Pilot for 10 candidates by 2026-07-05, then scale to 30
 - [flowops-agency-website](projects/flowops-agency-website.md)
 - [industrial-climbers-flowops](projects/industrial-climbers-flowops.md)
 - [michael dang](projects/michaeldang.md)

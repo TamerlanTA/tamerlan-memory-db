@@ -1283,3 +1283,50 @@ New modules added (all with filter = skip if blank):
 ### Known limitations:
 - Attachments not supported in Existing Collection / Existing Item Set branches (only Default New Collection has 800-807)
 - Both modes still require routing fields (brand type / customer) to be filled so `target_list_id` resolves correctly
+
+## 2026-06-11 FIELD_115 fix — Submitted By hierarchy guard for Item Set writers
+
+**Error**: `RuntimeError [400] FIELD_115: Custom field does not exist in the task location hierarchy` at module 201 (Item Set generic custom field writer, Default New Collection).
+
+**Diagnosis**:
+- All 23 field IDs in feeder 200 were verified against canonical `Custom Field ID's` doc — all correct ✅
+- All option IDs in module 22 were verified against canonical doc — all correct ✅
+- FIELD_115 = ClickUp hierarchy configuration issue: field exists in ClickUp but is NOT configured in the specific task list's hierarchy
+- Most likely culprit: `Submitted By` (`c8de277b-6bf8-4891-aea2-fd2f87460051`) — exact same field that caused FIELD_115 on 2026-06-03 at module 155
+
+**Fix applied (4 targeted changes)**:
+1. **M201 filter**: Added `{{200.field_id}} != c8de277b-6bf8-4891-aea2-fd2f87460051` (8th condition). Submitted By now skipped in Default New Collection Item Set feeder.
+2. **M231 filter**: Same skip added for Unbranded New Collection (references `{{230.field_id}}`).
+3. **M501 filter**: Same skip added for Existing Collection Item Set (references `{{500.field_id}}`).
+4. **M156 restored**: Changed from `util:SetVariable2` bypass back to `clickup:makeApiCall`. URL: `/v2/task/{{5.body.id}}/field/c8de277b-6bf8-4891-aea2-fd2f87460051`. Filter: `submitted_by_email != ""` AND `{{5.body.id}} != ""`. This is the dedicated direct write for Submitted By on the Item Set task in Default New Collection, matching the M155 pattern for the Collection parent.
+
+**Files**:
+- Backup: `Integration Jotform.pre-FIELD115-fix.backup.json`
+- New import: `Integration Jotform.2026-06-11-field115-fix-IMPORT-THIS.blueprint.json`
+- Validation: 130 modules / 130 unique IDs / all filters verified
+
+**Residual risk**:
+- If M156 also produces FIELD_115 (same field, same ClickUp hierarchy issue), only Submitted By on the Item Set will fail — all other 22 Item Set fields will be written successfully via feeder.
+- Permanent fix: In ClickUp, add the Submitted By custom field to the Space or Folder level hierarchy so all lists inherit it. Path: ClickUp Space → Customize → Custom Fields → ensure Submitted By is added at Space/Folder level.
+- If error still occurs after this fix, check Make execution log for the specific `{{200.field_id}}` value that failed — it may be a different field besides Submitted By.
+
+## 2026-06-11 FIELD_115 v2 — Lid Color + diagnostic modules
+
+**New error**: FIELD_115 for `Lid Color` (`97f75cc3-1b2a-4db7-b286-7ef4b7bd8a44`) at module 201. Body: `{"value":"Natural Oak"}`.
+
+**Key finding**: FIELD_115 is NOT specific to Submitted By — any Item Set custom field can fail if not configured in the ClickUp list hierarchy. Different customers/lists have different field configurations.
+
+**What was happening**: Lid Color was at position 18 of 23 in feeder 200. When it failed, fields 19-22 (Lid Details, MOQ, Labeling Direction, Single Item Packaging) were never written because Make stops the iterator on first error.
+
+**Fixes applied (2 changes, 6 modules affected)**:
+1. **Lid Color repositioned to last (position 22)** in feeders 200, 230, 500 — so when FIELD_115 occurs, fields 1-21 are already successfully written, only Lid Color fails
+2. **Diagnostic modules M202/M232/M502 added** (`util:SetVariables`) inserted BEFORE each generic writer M201/M231/M501. Captures: `field115_debug_field_id`, `field115_debug_field_name`, `field115_debug_task_id`, `field115_debug_value` — visible in Make execution log to identify WHICH field caused FIELD_115
+
+**Files**:
+- Backup: `Integration Jotform.pre-2026-06-11-field115-v2-diagnostic.backup.json`
+- New import: `Integration Jotform.2026-06-11-field115-v2-IMPORT-THIS.blueprint.json`
+- Validation: 133 modules / 133 unique IDs / flows [200,202,201,901,902], [230,232,231,903,904], [500,502,501,905,906]
+
+**Permanent ClickUp fix required**: In ClickUp, go to the Space → Customize → Custom Fields and add ALL Item Set fields (especially Lid Color, Submitted By) at the Space or Folder level. All customer lists under that Space will inherit them, eliminating FIELD_115 for any customer.
+
+**Make UI error handler (optional)**: For true "skip and continue" behavior, after importing the blueprint, right-click module 201 in Make's UI → Add error handler → Break. This lets the iterator skip failed bundles and continue to next fields. This cannot be reliably set via blueprint JSON without access to Make's internal handler format.

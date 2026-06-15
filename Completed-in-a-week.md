@@ -6,6 +6,62 @@
 
 ---
 
+# Неделя 9–15 июня 2026
+
+---
+
+## 🚗 ImportCar.kz — ЗАПУЩЕН В ПРОДАКШН ✅
+
+Главное событие недели: продукт полностью задеплоен.
+
+- **Продакшн-деплой** — обе Supabase-миграции применены, Edge Functions `analyze-car-link` + `admin-calibrations` задеплоены с секретами, `vercel deploy --prod` выполнен, live acceptance + тест на реальном iPhone прошли.
+- **AI-5D — Encar Direct API Adapter** — новый экстрактор: прямой API encar.com, нормализация 만원, 4 new error codes (non-fatal, pipeline всегда продолжается), success-response добавляет `carId` + `adapter`. Все non-UI скрипты прошли (lint, build, ai:pipeline, ai:edge, ai:contracts и др.).
+- **Premium UI Elevation v5** — улучшена типографика и глубина (3-tier shadow scale, `--edge-light`), карточки авто получили "stage" с подсветкой пола, анимация входа, единый easing `--ease-showroom`. Исправлен критический contrast-баг заголовков на тёмном canopy.
+
+---
+
+## 🏷️ Griffes Vivienne — Аналитика и UI
+
+- **GA4 активирован** — обнаружен production-баг (Measurement ID отсутствовал в Vercel env), добавлен `G-W5B405NSQE`, задеплоен. В Realtime подтверждён приём `landing_view`.
+- **GA4 bug fix** — исправлен враппер (`dataLayer.push(arguments)` вместо rest-params), добавлены regression-тесты. Tag Assistant и DebugView подтвердили корректную доставку событий.
+- **Success UI polish** — `/credits` переделан в премиальный экран «Your atelier is ready»: подтверждённый/pending визуальные состояния, билингвальный копи, компактный purchase summary, анимация checkmark (circle draw → check draw, ~820ms), reduced-motion guard.
+
+---
+
+## 🚀 AMIGO MVP — Новый проект (старт 12 июня)
+
+Telegram-платформа автоматической подачи заявок на работу для гостиничных кандидатов.
+
+- Проект развёрнут из одного файла в полную memory-структуру (overview, current-state, roadmap, technical-architecture, data-model, candidate-intake, integrations, prompts, decisions, risks).
+- **Цель пилота**: 10 кандидатов к 2026-07-05, сразу после — 30 из waitlist.
+- Исследованы: Greenhouse/Lever API, Workday/Oracle/SAP-ограничения, Telegram-onboarding, Playwright, Supabase queues, генерация документов.
+- В Notion создан проект: 9 фаз, 25 задач, 7 решений/рисков, Weekly Review.
+- **Ключевые решения**: детерминированный поиск + скоринг, LLM только для подготовки English-документов, менеджер аппрувит каждый батч.
+
+---
+
+## 💡 FlowOps SaaS — Новый стратегический проект (старт 10 июня)
+
+AI operations platform с marketplace готовых pipeline-систем.
+
+- Полностью спланирован: overview, roadmap, pricing, pipeline-catalog, technical-architecture, decisions, risks.
+- **40 pipeline-систем** в 7 категориях готовы к seeding.
+- **Pricing**: Entry $299–$499 setup · Standard $499–$899 · Complex $799–$1,499 + subscriptions Maintain $149/mo → Operator $549/mo.
+- **Phase 1 (4 недели)**: Supabase таблицы → `/os` marketplace + `/os/[slug]` → Order form + Telegram → `/pricing` → 12–15 pipelines seed.
+
+---
+
+## 🗂 Notion Office — Синхронизация проектов (8 июня)
+
+- **ImportCar.kz** добавлен в Notion Office: 12 фаз, 14 задач, 6 решений/рисков, Weekly Review.
+- **PromAlp** добавлен в Notion Office: 8 фаз, задачи, реальные блокеры (нет данных от Аидоса, нет credentials, домен не настроен).
+
+---
+
+*Сгенерировано автоматически · воскресенье 15 июня 2026*
+
+---
+
 # Неделя 2–8 июня 2026
 
 ---

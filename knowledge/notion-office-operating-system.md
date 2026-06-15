@@ -3,7 +3,7 @@
 ## Related
 - [[All about Agents/agent-memory|agent-memory]]
 - [[current-focus]]
-- [[projects/amigo-mvp|AMIGO MVP]]
+- [[projects/amigo-mvp/overview|AMIGO MVP]]
 
 ## Purpose
 Notion page `Office` is the shared operating center for managing multiple parallel projects with an assistant.

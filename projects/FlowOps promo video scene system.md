@@ -4,6 +4,17 @@
 - [[agent-memory]]
 
 ## Current status
+- 2026-06-14: Installed the reusable salon case-study Remotion project into `/Users/tamerlan/Desktop/videos-for-blog`, using the logo asset from that folder. The composition remains `FlowOpsSalonAutomation`: 1080x1920, 30 fps, 1200 frames / 40 seconds.
+- Fresh validation passed after upgrading Remotion packages to 4.0.477: `npm run lint`, `npm run build`, six representative still renders, full H.264 render, and production dependency audit with 0 high-severity findings.
+- Current rendered Reel: `/Users/tamerlan/Desktop/videos-for-blog/outputs/flowops-salon-automation-reel.mp4` (40.04 seconds, H.264, 1080x1920). QA contact sheet: `/Users/tamerlan/Desktop/videos-for-blog/outputs/qa/contact-sheet.png`.
+- 2026-06-11: Built a reusable Remotion case-study Reel template in `/Users/tamerlan/Desktop/flowops-cartoon`.
+- Added composition `FlowOpsSalonAutomation`: 1080x1920, 30 fps, 1200 frames / 40 seconds.
+- Implemented six scenes for the salon speed-to-lead story: lost lead, fragmented follow-up, FlowOps reveal, simplified automation workflow, successful booking chat, and final brand screen.
+- Scenario copy is centralized in `src/content.ts`; visual tokens and animation timing are centralized in `src/theme.ts`.
+- Reusable components include `ChatBubble`, `WorkflowNode`, `AnimatedArrow`, `StatusBadge`, `LogoReveal`, `SectionTitle`, `PhoneFrame`, and `SceneBackground`.
+- Used the local FlowOps logo from `/Users/tamerlan/Desktop/videos-for-blog/flowopslogo.png`, copied into the Remotion `public/` folder.
+- Validation completed: `npm run lint`, `npm run build`, representative still renders, and full H.264 render all passed.
+- Final rendered Reel: `/Users/tamerlan/Documents/Codex/2026-06-11/files-mentioned-by-the-user-you/outputs/flowops-salon-automation-reel.mp4`.
 - 2026-04-20: Created new Figma design file for the FlowOps 30-second vertical promo scene system: https://www.figma.com/design/jXPSBkTyDPvGK92nI85Jd8
 - Figma MCP canvas write was blocked by the Starter-plan tool-call limit immediately after file creation.
 - Wrote the complete Figma-ready build specification in `/Users/tamerlan/Desktop/flowopsVideopreviw/docs/flowops-figma-scene-system.md`.
@@ -20,6 +31,8 @@
 
 ## Key decisions
 - Treat this as a small project note, not a full project folder, unless the promo design evolves into a longer multi-session workstream.
+- Use Remotion as the reusable production template for case-study videos; keep story copy and theme tokens separate so future scenarios can be changed without rebuilding scene components.
+- Keep workflow visuals conceptual and owner-friendly rather than reproducing Make or n8n interfaces.
 - Creative direction: premium AI explainer short, hybrid motion-design scenes, not generic website sections or app-only screens. Reference-informed style is warm/mint explainer with deep shadows and sparse central objects, adapted to FlowOps systems/automation positioning.
 - System should use editable Figma layers, reusable components, consistent 1080x1920 scene frames, and CapCut-friendly layer grouping.
 - If Figma MCP quota blocks canvas writes, use the local plugin route instead of waiting on MCP: import `figma-plugin/flowops-scene-system/manifest.json` in Figma Desktop and run `FlowOps Scene System Builder`.
@@ -28,6 +41,8 @@
 - Figma Starter-plan MCP tool-call limit prevented direct creation of scene frames/components in Figma on both attempts.
 
 ## Next steps
+- Review the current render in `/Users/tamerlan/Desktop/videos-for-blog/outputs/flowops-salon-automation-reel.mp4` for pacing and brand preference; future variants should primarily edit `src/content.ts` and, when needed, scene timing in `src/Composition.tsx`.
+- Add audio, voiceover, or sound effects only after the silent visual pacing is approved.
 - Visually QA the generated Figma pages: `00 Design System + Components`, `01 Scenes - 1080x1920`, `02 Storyboard + Motion Notes`.
 - Check that all six 1080x1920 scenes were created and that major text/cards/connectors are editable layers.
 - If needed, refine composition based on screenshots from the generated Figma file.
