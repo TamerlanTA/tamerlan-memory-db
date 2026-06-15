@@ -16,6 +16,7 @@
 - Launch target: controlled pilot for 10 candidates
 - Post-launch target: 30 active candidates
 - Current phase: architecture and foundation
+- Working mode: two-person execution — Tamerlan owns business decisions, access, credentials, and approvals; Codex owns technical implementation, validation, and memory synchronization.
 
 ## What is complete
 - Product workflow and MVP boundaries are defined.
@@ -33,7 +34,7 @@
 - No ATS adapter is certified for production use.
 
 ## Immediate milestone
-By 2026-06-14:
+The original 2026-06-14 foundation milestone is overdue as of 2026-06-15. The immediate recovery milestone is:
 - create the application repository and environments;
 - implement the database foundation and Telegram webhook skeleton;
 - load the initial employer catalog structure;
@@ -53,4 +54,3 @@ The design must run the 10-candidate pilot without a rewrite and scale to:
 - Candidate email is used for applications.
 - Passwords for candidate email accounts are not stored.
 - CAPTCHA, OTP, assessments, and unknown required questions require human action.
-

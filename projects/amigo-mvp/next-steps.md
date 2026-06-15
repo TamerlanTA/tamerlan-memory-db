@@ -47,3 +47,7 @@
 - First 100–200 employer list or approval to assemble it from target brands.
 - Candidate consent text and business privacy contact.
 
+## Two-person working split
+- **Tamerlan:** approve business rules, provide or create service accounts and secrets, approve the CV template, consent text, target employer scope, and pilot candidates.
+- **Codex:** initialize and implement the repository, database, bot, workers, tests, CI, documentation, and project-memory updates.
+- **Joint checkpoints:** approve schema before production migration, approve the first end-to-end candidate flow, certify application adapters, and make the July 5 launch decision.
