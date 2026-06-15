@@ -1,0 +1,18 @@
+2026/06/15-16:53:49.751 29fc88d Creating DB /Users/tamerlan/Documents/TamerMemoryDB/Tamerlan Memory DB/~/.upwork-mcp/chrome-profile/Default/IndexedDB/https_www.upwork.com_0.indexeddb.leveldb since it was missing.
+2026/06/15-16:53:49.753 29fc88d Reusing MANIFEST /Users/tamerlan/Documents/TamerMemoryDB/Tamerlan Memory DB/~/.upwork-mcp/chrome-profile/Default/IndexedDB/https_www.upwork.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/06/15-16:53:49.988 29fc898 Manual compaction at level-0 from '\x00\x02\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x03\x00\x00\x00' @ 0 : 0; will stop at (end)
+2026/06/15-16:53:50.758 29fc898 Level-0 table #5: started
+2026/06/15-16:53:50.759 29fc898 Level-0 table #5: 9934 bytes OK
+2026/06/15-16:53:50.759 29fc898 Delete type=0 #3
+2026/06/15-16:53:50.760 29fc88f Manual compaction at level-0 from '\x00\x03\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x04\x00\x00\x00' @ 0 : 0; will stop at (end)
+2026/06/15-16:53:50.776 29fc88d Level-0 table #7: started
+2026/06/15-16:53:50.776 29fc88d Level-0 table #7: 501 bytes OK
+2026/06/15-16:53:50.777 29fc88d Delete type=0 #4
+2026/06/15-16:53:50.777 29fc88d Manual compaction at level-0 from '\x00\x04\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x05\x00\x00\x00' @ 0 : 0; will stop at (end)
+2026/06/15-16:53:50.777 29fc88d Manual compaction at level-1 from '\x00\x04\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x05\x00\x00\x00' @ 0 : 0; will stop at '\x00\x04\x00\x00\x05' @ 244 : 0
+2026/06/15-16:53:50.777 29fc88d Compacting 1@1 + 1@2 files
+2026/06/15-16:53:50.778 29fc88d Generated table #8@1: 36 keys, 5323 bytes
+2026/06/15-16:53:50.778 29fc88d Compacted 1@1 + 1@2 files => 5323 bytes
+2026/06/15-16:53:50.779 29fc88d compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/06/15-16:53:50.779 29fc88d Delete type=2 #7
+2026/06/15-16:53:50.779 29fc88d Manual compaction at level-1 from '\x00\x04\x00\x00\x05' @ 244 : 0 .. '\x00\x05\x00\x00\x00' @ 0 : 0; will stop at (end)
