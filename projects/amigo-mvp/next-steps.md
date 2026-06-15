@@ -19,12 +19,19 @@ Completed on 2026-06-15:
 7. PGMQ queue and worker health processing verified.
 8. Employer catalog CSV import format prepared.
 
-## P1 — Intake and documents
-1. Implement `/candidate_new`, `/candidate_find`, `/candidate_edit`, and `/candidate_close`.
-2. Implement resumable intake conversations and validation.
-3. Add source-fact versioning, consent, and standard answer bank.
-4. Implement structured OpenAI generation and fact-grounding validation.
-5. Produce approved DOCX/PDF templates and manager review actions.
+## P1 — Intake ✅ COMPLETE (2026-06-15)
+- `/candidate_new`, `/candidate_find`, `/candidate_view`, `/candidate_edit`, `/candidate_close`, `/cancel` all functional
+- Languages (CEFR) collected in intake and editable
+- Profile completeness check implemented (`profile.ts:checkCompleteness`)
+- 34 tests passing, deployed on Railway (commit 2be4a04)
+
+## P2 — Documents (next, due 2026-06-19–21)
+1. Owner approves CV template (`packages/document-templates/templates/hospitality-cv-en-v1.docx`) and consent text v1-ru-2026-06.
+2. Implement `worker-documents` service.
+3. OpenAI structured extraction of candidate data → Docxtemplater fills DOCX → Gotenberg renders PDF.
+4. Store PDF in Supabase Storage (signed URLs).
+5. Manager approval action in Telegram: view PDF → approve → candidate moves to `documents` status.
+6. Block generation if `checkCompleteness()` returns false.
 
 ## P1 — Search and matching
 1. Implement the normalized vacancy contract.

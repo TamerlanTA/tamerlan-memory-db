@@ -16,27 +16,30 @@
 
 ---
 
-## AMIGO MVP — International Hospitality Job Applications (обновлён 2026-06-12)
+## AMIGO MVP — International Hospitality Job Applications (обновлён 2026-06-15)
 
-**Статус**: Active, health Yellow. Product and technical planning are complete; implementation has not started.
+**Статус**: Active, health Green. Phase 1 (Foundation) + Phase 2 (Intake) complete and deployed.
 
 **Цель**:
 - controlled pilot for 10 candidates by 2026-07-05;
 - immediate post-launch capacity for 30 candidates from the waitlist;
 - 5–10 manager-approved application attempts per active candidate per day when enough suitable vacancies exist.
 
-**Модель**:
-- manager-led Russian intake in Telegram;
-- English CV generation with LLM plus fixed templates;
-- curated catalog of 100–200 international hospitality employers;
-- deterministic search, filtering, scoring, batching, and application execution;
-- certified hosted-form adapters with safe `NeedsAction` fallback.
+**Что готово**:
+- `/candidate_new`, `/candidate_find`, `/candidate_view`, `/candidate_edit`, `/candidate_close` — все работают
+- Языки (CEFR), согласие, аудит-события, profile completeness check — реализованы
+- 34 теста, задеплоено на Railway (commit 2be4a04), health OK
 
-**Текущая фаза**: N1 Foundation and infrastructure, deadline 2026-06-14.
+**Текущая фаза**: Phase 3 — Document generation (срок 2026-06-19–21).
 
-**Блокеры**: application repository and environments are not linked; approved CV template and initial employer catalog are missing; no application adapter is certified.
+**Блокеры**:
+- CV template и consent text v1-ru-2026-06 ждут бизнес/юридического одобрения от Tamerlan
+- Нет employer catalog (0/100)
+- Нет ATS adapter
 
-**Память**: [[projects/amigo-mvp/overview]] | [[projects/amigo-mvp/current-state]] | [[projects/amigo-mvp/roadmap]] | [[projects/amigo-mvp/technical-architecture]]
+**ВАЖНО для деплоя**: Railway НЕ подключён к GitHub. После каждого push делать `railway up --service bot-api` из `/Users/tamerlan/Documents/amigo-mvp`
+
+**Память**: [[projects/amigo-mvp/overview]] | [[projects/amigo-mvp/current-state]] | [[projects/amigo-mvp/next-steps]] | [[projects/amigo-mvp/technical-architecture]]
 
 ---
 

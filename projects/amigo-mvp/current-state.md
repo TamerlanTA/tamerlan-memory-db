@@ -34,18 +34,28 @@
 - Transactional queue processing was verified in production: one job produced one audit event and queue depth returned to zero.
 - Draft Russian candidate consent and an ATS-friendly English hospitality CV template were created.
 
+## What is complete (Phase 2 — as of 2026-06-15, commit 2be4a04)
+- `/candidate_new` — 9-field form (incl. languages), consent flow, atomic DB transaction
+- `/candidate_find` — numbered list with status labels
+- `/candidate_view` — full profile with completeness check
+- `/candidate_edit` — select candidate → select field → type value → validate → update + audit event
+- `/candidate_close` — select candidate → inline confirm → status=closed + audit event
+- `/cancel` — clear active session
+- `profile.ts` — `checkCompleteness()` reusable for document-generation gate
+- Languages stored in `candidate_languages` (CEFR A1–C2 + native)
+- 34 tests passing
+- Deployed and health check confirmed
+
 ## What is not built
-- `/candidate_edit` and `/candidate_close` are stubs — not yet functional.
-- Language intake step is not yet part of /candidate_new flow.
-- Full employer catalog, ingestion connectors, scoring, document generation service, and application workers are not implemented.
+- Document generation service (Phase 3)
+- Full employer catalog, ingestion connectors, scoring, matching (Phase 4–5)
+- Application workers, ATS adapters (Phase 6)
 - No ATS adapter is certified for production use.
 
 ## Immediate milestone
-Candidate intake implemented on 2026-06-15. Deployed to Railway (commit 1c9063a). The immediate next milestone is:
-- verify /candidate_new end-to-end in @amigomvpbot after Railway deploy;
-- implement /candidate_edit for field-level corrections;
-- implement /candidate_close with status confirmation;
-- test complete manager-led intake with a controlled test candidate.
+Phase 3: document generation — OpenAI structured CV extraction → Docxtemplater DOCX fill → Gotenberg PDF → manager approval in Telegram. Planned 2026-06-19–21.
+
+**Requires first**: business/legal approval of CV template (`packages/document-templates/templates/hospitality-cv-en-v1.docx`) and consent text v1-ru-2026-06.
 
 ## Capacity requirement
 The design must run the 10-candidate pilot without a rewrite and scale to:
