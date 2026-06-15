@@ -35,16 +35,17 @@
 - Draft Russian candidate consent and an ATS-friendly English hospitality CV template were created.
 
 ## What is not built
-- Telegram candidate intake workflow is not implemented beyond Foundation commands.
-- Full candidate schema, employer catalog data, ingestion connectors, scoring, document generation service, and application workers are not implemented.
+- `/candidate_edit` and `/candidate_close` are stubs — not yet functional.
+- Language intake step is not yet part of /candidate_new flow.
+- Full employer catalog, ingestion connectors, scoring, document generation service, and application workers are not implemented.
 - No ATS adapter is certified for production use.
 
 ## Immediate milestone
-Foundation was recovered and completed on 2026-06-15. The immediate milestone is:
-- implement resumable `/candidate_new`, `/candidate_find`, `/candidate_edit`, and `/candidate_close`;
-- expand the candidate schema and ownership rules;
-- record consent and validate intake completeness;
-- test the complete manager-led intake flow in Telegram.
+Candidate intake implemented on 2026-06-15. Deployed to Railway (commit 1c9063a). The immediate next milestone is:
+- verify /candidate_new end-to-end in @amigomvpbot after Railway deploy;
+- implement /candidate_edit for field-level corrections;
+- implement /candidate_close with status confirmation;
+- test complete manager-led intake with a controlled test candidate.
 
 ## Capacity requirement
 The design must run the 10-candidate pilot without a rewrite and scale to:
