@@ -47,14 +47,16 @@
 - [ ] Build real `/internal/orders` Supabase-backed list and order detail/status update routes.
 - [ ] Expand catalog from 8 to 12–15 systems.
 - [ ] Add Telegram notification path for new `pipeline_orders`.
+- [ ] Exclude or remove `design-extract-output/` from lint/project artifacts if keeping extraction output locally.
 
 ---
 
 ## Design
 
 - [x] Premium homepage redesign concept in Figma (2026-06-20) — https://www.figma.com/design/Pv2Rkr3W6pbbspoxT6B0DH (see [[sessions/2026-06-20-figma-website-design]])
-- [ ] Decide whether to port the Figma concept into the existing Next.js site
-- [ ] Optional Figma follow-ups: pipeline detail page, /pricing page, mobile (375px) frames
+- [x] Port bright/light redesign into existing Next.js site after user sketch + juanmora.co reference
+- [x] Desktop/mobile QA for `/`, `/os`, `/os/[slug]`, `/pricing`, `/internal/orders`
+- [ ] Optional follow-up: refine copy and section names from sketch into final marketing language
 
 ---
 

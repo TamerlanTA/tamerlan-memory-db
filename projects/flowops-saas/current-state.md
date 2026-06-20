@@ -8,20 +8,20 @@
 
 ---
 
-## Status: PHASE 1 STARTED / MARKETPLACE FOUNDATION (June 20, 2026)
+## Status: PHASE 1 FOUNDATION BUILT / LIGHT REDESIGN APPLIED (June 20, 2026)
 
 Проект перешёл из planning/pre-build в начальную реализацию Phase 1.  
-Локальный workspace `/Users/tamerlan/Desktop/FlowOps/FlowOps Saas` инициализирован как Next.js/TypeScript app с первым Marketplace MVP vertical slice.
+Локальный workspace `/Users/tamerlan/Desktop/FlowOps/FlowOps Saas` инициализирован как Next.js/TypeScript app с первым Marketplace MVP vertical slice. 20 июня 2026 редизайн портирован в код: светлая яркая FlowOps OS визуальная система, blue/cyan акценты, пастельные pipeline-карточки, animated workflow sections, mobile/desktop QA.
 
 ---
 
 ## Что уже готово
 
 ### Public Site
-- [x] Product-like FlowOps OS homepage
+- [x] Product-like FlowOps OS homepage with bright/light animated redesign
 - [x] Free AI Operations Audit section
 - [x] Systems positioning
-- [ ] Client Workspace Preview
+- [x] Client/Internal Workspace Preview
 - [x] CTA flow
 
 ### Backend / Internal
@@ -47,6 +47,8 @@
 - [x] Supabase migration for `pipeline_categories`, `pipelines`, `pipeline_orders`, `order_status_history`
 - [x] Seed SQL for first 8 Phase 1 pipeline systems
 - [x] Order request form with Supabase persistence when env keys are configured and validated fallback when not configured
+- [x] Modern light redesign across `/`, `/os`, `/os/[slug]`, `/pricing`, `/internal/orders`
+- [x] QA screenshots captured for desktop/mobile and order form success path
 
 ---
 
@@ -68,9 +70,9 @@
 
 ## Активная фаза
 
-**Phase 1 — Marketplace MVP foundation**: первый вертикальный срез создан локально; следующий шаг — подключить Supabase env, применить миграции и заменить preview/internal статические данные реальными queries.
+**Phase 1 — Marketplace MVP foundation**: первый вертикальный срез создан локально и визуально обновлён; следующий шаг — подключить Supabase env, применить миграции и заменить preview/internal статические данные реальными queries.
 
-Следующий шаг: начать Phase 1 (см. [[roadmap]] и [[next-steps]])
+Следующий шаг: production activation Phase 1 (см. [[roadmap]] и [[next-steps]])
 
 ---
 

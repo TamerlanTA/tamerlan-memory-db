@@ -84,3 +84,10 @@
 **Decision**: В Phase 1 `/api/pipeline-order` валидирует запрос и возвращает success payload без persistence, если Supabase env keys не настроены.
 **Why**: Это позволяет тестировать UI/order flow локально до подключения реального Supabase проекта, не блокируя frontend build.
 **Impact**: Перед production обязательно настроить `.env.local`, применить migration и проверить, что заказы реально пишутся в `pipeline_orders`.
+
+---
+
+### D-012 — Light Bright Product Direction
+**Decision**: Текущее визуальное направление FlowOps OS изменено с premium dark на светлый, яркий, технологичный стиль: warm off-white base, strong blue/cyan, пастельные system cards, большие выразительные заголовки, animated workflow diagrams.
+**Why**: Пользователь принёс sketch и reference juanmora.co; нужен более запоминающийся, живой и современный продуктовый интерфейс, не сухой dark SaaS.
+**Impact**: Дизайн страниц `/`, `/os`, `/os/[slug]`, `/pricing`, `/internal/orders` должен сохранять light/bright direction. D-007 считается историческим решением, заменённым для текущей реализации.
