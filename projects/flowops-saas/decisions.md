@@ -77,3 +77,10 @@
 **Decision**: Supabase — primary database для MVP. Никаких других баз.
 **Why**: Уже используется. PostgreSQL + realtime + auth in one. Избегаем overengineering.
 **Impact**: Расширяем существующие таблицы, добавляем новые (pipelines, orders, subscriptions).
+
+---
+
+### D-011 — Local-first order API fallback
+**Decision**: В Phase 1 `/api/pipeline-order` валидирует запрос и возвращает success payload без persistence, если Supabase env keys не настроены.
+**Why**: Это позволяет тестировать UI/order flow локально до подключения реального Supabase проекта, не блокируя frontend build.
+**Impact**: Перед production обязательно настроить `.env.local`, применить migration и проверить, что заказы реально пишутся в `pipeline_orders`.
