@@ -24,6 +24,12 @@
 | Waitlist activates before operations are stable | High | High | Ten-candidate controlled pilot, launch gates, connector error thresholds, staged 10→20→30 activation |
 | Monthly cost exceeds USD 100 | Medium | Medium | PGMQ instead of Redis, bounded browser concurrency, per-service budgets and weekly usage review |
 | Insufficient suitable vacancies prevents 5–10 daily applications | Medium | Medium | Report `eligible vacancy shortage` explicitly; never lower hard requirements only to hit volume |
+| Candidate edit/close lists apply the `closed` filter after `LIMIT 20` | Medium | Medium | Filter `status != closed` in SQL before limiting; add regression coverage with more than 20 mixed-status candidates |
+| Candidate assignment can change between close selection and confirmation | Low | High | Include `assigned_manager_id` in the closing update predicate and require an affected row before writing the audit event |
+| Intake accepts a location with an empty country or city | Medium | Medium | Validate both trimmed location parts and add cases for `Kazakhstan,` and `,Almaty` |
+| First production CV generation path has not been exercised end-to-end | Medium | High | Run a controlled candidate through `/candidate_documents`; inspect worker logs, generated files, signed URL, and approval status transition |
+| OpenAI document model name may differ from configured `gpt-5.4-mini` availability | Medium | High | Verify first production job; if unavailable, set `OPENAI_DOCUMENT_MODEL` to an approved available structured-output model |
+| Gotenberg private networking or LibreOffice conversion can fail at runtime | Medium | Medium | Gotenberg service is deployed at `gotenberg.railway.internal`; validate first PDF render and keep failure classified as `validation_failed`/worker error |
 
 ## Launch blockers
 - No production-certified application connector.
@@ -37,6 +43,11 @@
 - Application repository and environments were created and linked on 2026-06-15.
 - Production Telegram webhook, database health, queue processing, and audit persistence were verified.
 - Draft CV and consent artifacts now exist; they remain pending approval rather than missing.
+
+## Resolved Phase 2 blockers
+- Candidate edit/close list filtering now applies `status != closed` before `LIMIT 20`.
+- Close confirmation verifies candidate ID, current manager assignment, and non-closed status before update.
+- Intake location validation requires both country and city around the comma.
 
 ## Scale-to-30 gates
 - At least 95% of jobs finish in a terminal or actionable state.

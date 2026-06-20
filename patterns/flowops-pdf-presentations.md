@@ -11,12 +11,16 @@ Reusable HTML → PDF presentation system in FlowOps brand style (clean minimal,
   - `template.html` — full-fledged 14-slide HTML with all components ready
   - `README.md` — component cheat-sheet (hero, cards, pipeline, before/after, timeline, wireframe, chat, creatives, stats, pills, tables, callouts)
   - `build.sh` — one-line HTML → A4 PDF via headless Chrome (handles Cyrillic paths)
+- **Codex skill:** `/Users/tamerlan/.codex/skills/flowops-technical-specifications-pdf/`
+  - Use `$flowops-technical-specifications-pdf` when creating client-ready technical specification PDFs from the established FlowOps template.
+  - The skill includes bundled copies of `template.html` and `build.sh`, plus `scripts/render-pdf.sh`.
 
 ## When to use
 - Коммерческое предложение клиенту FlowOps
 - Бизнес-обзор / отчёт по проекту (как `speed-to-lead-business-overview.pdf`)
 - Internal-документ для команды в одном стиле
 - Любой A4 PDF на 8–20 слайдов с консервативной B2B-эстетикой
+- Technical specification PDF / ТЗ / КП для технических объектов, зданий, промышленных альпинистов, объектов, CRM/lead-capture/AI-call систем агентства.
 
 ## Workflow
 1. Скопировать `template.html` в рабочую папку проекта на Desktop.

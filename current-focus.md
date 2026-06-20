@@ -13,12 +13,23 @@
 - [[projects/importcar-kz-mvp/roadmap|ImportCar.kz — roadmap]]
 - [[projects/amigo-mvp/overview|AMIGO MVP — overview]]
 - [[projects/amigo-mvp/roadmap|AMIGO MVP — roadmap]]
+- [[projects/tg-finance-agent/overview|TG Finance Agent — overview]]
 
 ---
 
-## AMIGO MVP — International Hospitality Job Applications (обновлён 2026-06-15)
+## TG Finance Agent (добавлен 2026-06-17)
 
-**Статус**: Active, health Green. Phase 1 (Foundation) + Phase 2 (Intake) complete and deployed.
+**Статус**: memory initialized. Local workspace: `/Users/tamerlan/Desktop/tg-finance-agent`. At initialization the workspace was empty and not a git repository.
+
+**Следующее**: define product scope and initialize/inspect the app workspace.
+
+**Память**: [[projects/tg-finance-agent/overview]] | [[projects/tg-finance-agent/current-state]] | [[projects/tg-finance-agent/next-steps]]
+
+---
+
+## AMIGO MVP — International Hospitality Job Applications (обновлён 2026-06-16)
+
+**Статус**: Active, health Green. Phase 1 (Foundation) + Phase 2 (Intake) complete and deployed. Phase 3 document pipeline foundation is implemented and deployed; improved controlled CV generation works, approval callback validation is still pending.
 
 **Цель**:
 - controlled pilot for 10 candidates by 2026-07-05;
@@ -28,12 +39,17 @@
 **Что готово**:
 - `/candidate_new`, `/candidate_find`, `/candidate_view`, `/candidate_edit`, `/candidate_close` — все работают
 - Языки (CEFR), согласие, аудит-события, profile completeness check — реализованы
-- 34 теста, задеплоено на Railway (commit 2be4a04), health OK
+- `/candidate_documents` — выбор кандидата, queue generation, signed PDF link, approve/reject callbacks
+- `worker-documents` + Gotenberg deployed on Railway
+- CV template quality upgrade deployed in commit `a11145b`; latest controlled candidate CV version `9219995e-fed0-407c-a27f-f5ee3493cd71` is `pending_approval`
+- 38 тестов, bot-api health OK
 
-**Текущая фаза**: Phase 3 — Document generation (срок 2026-06-19–21).
+**Текущая фаза**: Phase 3 — Document generation validation (срок 2026-06-19–21).
 
 **Блокеры**:
 - CV template и consent text v1-ru-2026-06 ждут бизнес/юридического одобрения от Tamerlan
+- Нужно подтвердить Telegram approve/reject callback на latest CV version и переход кандидата в `documents`
+- Нужно подтвердить доступность `OPENAI_DOCUMENT_MODEL` или сменить модель
 - Нет employer catalog (0/100)
 - Нет ATS adapter
 
