@@ -50,6 +50,14 @@
 
 ---
 
+## Design
+
+- [x] Premium homepage redesign concept in Figma (2026-06-20) — https://www.figma.com/design/Pv2Rkr3W6pbbspoxT6B0DH (see [[sessions/2026-06-20-figma-website-design]])
+- [ ] Decide whether to port the Figma concept into the existing Next.js site
+- [ ] Optional Figma follow-ups: pipeline detail page, /pricing page, mobile (375px) frames
+
+---
+
 ## Phase 2 — After First 5 Clients
 
 - [ ] Stripe Checkout для setup fee (one-time payment)
