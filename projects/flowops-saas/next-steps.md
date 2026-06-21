@@ -9,25 +9,25 @@
 
 ---
 
-## Immediate Next Actions (Phase 1 — MVP)
+## Phase 1 — Complete
 
 ### Priority 1 — Database Schema Extension
 - [x] Создать migration для Supabase таблиц: `pipeline_categories`, `pipelines`, `pipeline_orders`, `order_status_history`
-- [ ] `pipeline_subscriptions` оставить на Phase 2/Stripe или добавить позже, когда subscription workflow станет реальным
+- [x] `pipeline_subscriptions` оставить на Phase 2/Stripe или добавить позже, когда subscription workflow станет реальным
 - [x] Добавить seed данные для первых 8 pipeline-систем
-- [ ] Расширить seed до 12–15 pipeline-систем
+- [x] Расширить seed до 12–15 pipeline-систем
 - [x] Добавить базовые RLS policies для public category/pipeline read
 
 ### Priority 2 — Marketplace Public Pages
 - [x] `/os` — Marketplace главная страница (категории + pipeline cards + internal workspace preview)
 - [x] `/os/[slug]` — Pipeline detail page (описание, pricing, CTA, order form)
-- [ ] `/os/[category]` — Category overview page
+- [x] `/os/[category]` — Category overview page через общий `/os/[slug]` route
 
 ### Priority 3 — Order/Request Flow
 - [x] Order request form (per pipeline)
 - [x] POST /api/pipeline-order → Supabase pipeline_orders when env keys are configured
-- [ ] Admin notification (Telegram via n8n)
-- [ ] Confirmation email (Resend или простой шаблон)
+- [x] Admin notification hook (`PIPELINE_ORDER_WEBHOOK_URL` for n8n or direct Telegram env)
+- [ ] Confirmation email (Resend или простой шаблон) — moved to Phase 2 unless needed immediately
 
 ### Priority 4 — Pricing Page
 - [x] `/pricing` — страница с тарифами подписки
@@ -35,19 +35,32 @@
 - [x] Bundle section
 
 ### Priority 5 — Internal Admin Workspace Extension
-- [ ] `/internal/orders` — список новых заказов на pipeline (preview exists; Supabase-backed list pending)
-- [ ] `/internal/orders/[id]` — детали заказа, статус, заметки
-- [ ] Status flow: New → In Progress → Deployed → Active
+- [x] `/internal/orders` — список новых заказов на pipeline с Supabase-backed list + preview fallback
+- [x] `/internal/orders/[id]` — детали заказа, статус, заметки/context
+- [x] Status flow: New → Qualified → In Progress → Deployed → Active
 
-## Immediate Next Actions After 2026-06-20 Build
+## Activation Completed 2026-06-21
 
-- [ ] Create `.env.local` from `.env.example` and connect the real Supabase project.
-- [ ] Apply `supabase/migrations/202606200001_flowops_phase1_marketplace.sql`.
-- [ ] Replace static catalog reads with Supabase reads or a hybrid static fallback.
-- [ ] Build real `/internal/orders` Supabase-backed list and order detail/status update routes.
-- [ ] Expand catalog from 8 to 12–15 systems.
-- [ ] Add Telegram notification path for new `pipeline_orders`.
-- [ ] Exclude or remove `design-extract-output/` from lint/project artifacts if keeping extraction output locally.
+- [x] Create `.env.local` from `.env.example` and connect the real Supabase project.
+- [x] Apply `supabase/migrations/202606200001_flowops_phase1_marketplace.sql`.
+- [x] Keep static catalog as Phase 1 source of truth and sync Supabase seed to it.
+- [x] Build real `/internal/orders` Supabase-backed list and order detail/status update routes.
+- [x] Expand catalog from 8 to 12–15 systems.
+- [x] Add notification path for new `pipeline_orders`.
+- [x] Exclude `design-extract-output/`, `qa/`, and `tmp/` from lint/project artifacts.
+- [x] Production verify with real Supabase credentials: submit order, confirm DB row, update status, confirm status history.
+- [x] Production verify notification delivery through direct Telegram bot.
+- [x] Remove QA orders from production DB after verification.
+
+## Immediate Next Actions After Phase 1
+
+- [x] Decide whether to add Resend confirmation email now or leave it for Phase 2.
+- [x] Prepare Phase 2 Stripe scope: setup fee Checkout first, then subscription webhooks.
+- [x] Decide deployment target and deploy the activated app.
+- [x] Add first real internal SOP for handling `pipeline_orders` from new to deployed.
+- [x] Protect `/internal/*` and admin checkout APIs with `INTERNAL_ACCESS_KEY`.
+- [x] Add safe `.env.template`.
+- [x] Add production readiness checklist.
 
 ---
 
@@ -62,11 +75,36 @@
 
 ## Phase 2 — After First 5 Clients
 
-- [ ] Stripe Checkout для setup fee (one-time payment)
+- [x] Stripe Checkout для setup fee (one-time payment) — code route implemented, live key verification pending
 - [ ] Stripe Subscriptions для monthly
-- [ ] Базовый email delivery workflow (Resend)
-- [ ] Расширить каталог до 20–25 pipeline-систем
+- [x] Stripe Subscriptions для monthly — code route/webhook scaffold implemented, live key verification pending
+- [x] Базовый email delivery workflow (Resend-ready hook) — live Resend key verification pending
+- [x] Расширить каталог до 20 pipeline-систем
+- [ ] Расширить каталог до 25 pipeline-систем
 - [ ] Добавить testimonials / case study section
+
+## Immediate Next Actions For Phase 2 Verification
+
+Deferred by user on 2026-06-21: return after the next product work block. Do not mark Phase 2 payment/email verification complete until real keys are configured and live checks pass.
+
+- [ ] Add real `STRIPE_SECRET_KEY`.
+- [ ] Add real `STRIPE_WEBHOOK_SECRET`.
+- [ ] Configure Stripe webhook endpoint to `/api/stripe/webhook`.
+- [ ] Add real `RESEND_API_KEY` and production `EMAIL_FROM`.
+- [ ] Submit one live order and create setup Checkout.
+- [ ] Complete Stripe test payment and verify `setup_payment_status = paid`.
+- [ ] Create subscription Checkout and verify `pipeline_subscriptions` row.
+- [ ] Verify Resend order/payment confirmation emails.
+
+## Immediate Next Actions For Deployment
+
+- [x] Choose deployment target: Vercel.
+- [x] Configure production/preview env vars from `.env.template` for currently available keys.
+- [x] Deploy app to Vercel production: `https://flowops-saas.vercel.app`.
+- [ ] Run deployed smoke test from `docs/production-readiness.md`.
+- [ ] Confirm `/internal/orders` without key returns 401 on deployed URL.
+- [ ] Confirm `/internal/orders?access_key=...` works on deployed URL.
+- [ ] Add Stripe/Resend env vars to Vercel after deferred live verification keys are ready.
 
 ---
 

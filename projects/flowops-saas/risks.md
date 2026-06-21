@@ -87,3 +87,11 @@
 **Probability**: Low (если откладываем)
 **Impact**: Low–Medium
 **Mitigation**: Phase 1 = manual payment link. Phase 2 = Stripe Checkout. Phase 3 = full subscription management.
+
+---
+
+### R-011 — Deployment env drift
+**Risk**: Vercel production работает с текущими Supabase/Internal/Telegram env vars, но Stripe/Resend keys намеренно не добавлены до live verification; future deploys могут выглядеть готовыми, хотя payment/email verification ещё не завершена.
+**Probability**: Medium
+**Impact**: Medium
+**Mitigation**: Держать Stripe/Resend verification отдельным checklist в [[next-steps]]. Перед включением оплат добавить `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `RESEND_API_KEY`, production `EMAIL_FROM` в Vercel и пройти live smoke.
