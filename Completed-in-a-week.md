@@ -6,6 +6,64 @@
 
 ---
 
+# Неделя 15–22 июня 2026
+
+---
+
+## 🚀 FlowOps SaaS — Marketplace запущен в продакшн ✅
+
+Самое большое событие недели: полноценный SaaS-продукт собран с нуля и задеплоен за 2 дня.
+
+- **Phase 1 (20 июня)** — Next.js 16 + TypeScript + Tailwind, 4 Supabase-таблицы, `/os` marketplace, `/os/[slug]` детальные страницы, форма заказа, `/pricing`, `/internal/orders`. Гит инициализирован.
+- **Каталог расширен до 20 систем** — добавлены WhatsApp Lead Reply, Cold Email Pipeline, Call Summary, Contact Enrichment, Document Processing. Миграция `202606210002` применена.
+- **Live-активация (21 июня)** — Supabase подключён, тестовый заказ прошёл E2E, Telegram-нотификация сработала, статус заказа обновился в `/internal/orders`. QA-заказы удалены.
+- **Vercel deploy** — `flowops-saas.vercel.app` в статусе `Ready`.
+- **Internal Order SOP** — создан и задокументирован.
+- Stripe/Resend — отложены намеренно до получения ключей.
+
+---
+
+## 🤖 TG Finance Agent — новый бот с нуля (17 июня)
+
+Полноценный Telegram-бот для анализа финансов построен и задеплоен за один день.
+
+- TypeScript-скелет, Kaspi PDF-парсер (138 транзакций из реального PDF), система категоризации с обучением, ежемесячные отчёты — всё в боте без n8n.
+- Создан GitHub repo, Railway проект (`tg-finance-agent`), volume `/data`, успешный деплой.
+- Бот `@tgFinanceAgentbot` работает на Railway.
+- Следующий шаг: открыть бот в Telegram, отправить `/start`, загрузить PDF.
+
+---
+
+## 👔 AMIGO MVP — Phases 1–3 завершены (15–16 июня)
+
+Telegram-платформа для трудоустройства гостиничных кандидатов прошла три фазы за два дня.
+
+- **Phase 1** — monorepo (pnpm/TypeScript), Fastify/grammY, Drizzle, Supabase `ibebnmlwjjkibfwdnffr` (Frankfurt), Railway deploy, Telegram webhook `@amigomvpbot`.
+- **Phase 2** — полный интейк кандидатов: все команды (`/candidate_new`, `/candidate_find`, `/candidate_view`, `/candidate_edit`, `/candidate_close`), языки CEFR, согласие, аудит, completeness check. 38 тестов ✅.
+- **Phase 3** — pipeline генерации документов: Supabase migration, `document_templates`/`document_versions`/`generation_runs`, DOCX через Docxtemplater + PDF через Gotenberg, Telegram `/candidate_documents` с approve/reject. Три Railway-сервиса задеплоены: `bot-api`, `worker-documents`, `gotenberg`.
+- CV template качество улучшено (коммит `a11145b`).
+- Блокеры: бизнес-одобрение CV-шаблона, нет employer catalog.
+
+---
+
+## 🎓 Учёба — Лабораторные работы (18–19 июня)
+
+- **Excel Lab #1** — `Laboratory work_1_Togysbayev_Tamerlan.xlsx`
+- **Excel Lab #2** — `Laboratory work_2_Togysbayev_Tamerlan.xlsm` с 5 VBA-макросами (PrepareFinancialData, CreateQuarterlySummary, GenerateFinancialCharts, ForecastNextQuarter, GenerateReportSummary). Макросы проверены: запускаются успешно.
+- **Computer Networks — Защита Practice 1** — конфигурация коммутатора/роутера/ПК (LAN `172.16.30.0/24`), файлы: DOCX + PDF + txt-команды.
+
+---
+
+## 📞 Upwork — Подготовка к коллу (18 июня)
+
+- Подготовлено позиционирование для звонка с Diana (роль: Telegram Automation & Funnel Developer): продавать Telegram revenue/funnel систему, не просто бота. Entry point → qualification → segmentation → CRM sync → conversion tracking.
+
+---
+
+*Сгенерировано автоматически · воскресенье 22 июня 2026*
+
+---
+
 # Неделя 9–15 июня 2026
 
 ---
