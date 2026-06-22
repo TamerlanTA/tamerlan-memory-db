@@ -43,14 +43,17 @@
 - `worker-documents` + Gotenberg deployed on Railway
 - CV template quality upgrade deployed in commit `a11145b`; latest controlled candidate CV version `9219995e-fed0-407c-a27f-f5ee3493cd71` is `pending_approval`
 - Telegram approval callback verified on 2026-06-22; CV version `9219995e-fed0-407c-a27f-f5ee3493cd71` is approved and candidate status is `documents`
+- Partner-approved CV correction deployed on 2026-06-22; latest corrected sample `c20ddaa5-15a7-4aa9-9314-8db68adec1ab` is pending approval and verified by PDF text + PNG render
 - Employer catalog foundation committed in `91bc7b0`; production has 25 employers and 25 career sources
 - Vacancy discovery schema committed in `b1f1411`; production has empty `source_runs` and `vacancies` tables ready for first connector
-- 38 тестов, bot-api health OK
+- Phase 3.5 CV enrichment committed in `3a7bd48`: production tables for candidate photos/work experience/education/extras, Telegram commands `/candidate_photo`, `/candidate_experience`, `/candidate_education`, `/candidate_extra`, `/candidate_view` readiness warnings, worker-documents structured loading
+- 52 теста, bot-api health OK
 
 **Текущая фаза**: Phase 4 — Employer catalog and vacancy discovery foundation.
 
 **Блокеры**:
 - Consent text v1-ru-2026-06 still needs business/legal approval before pilot scale
+- Need managers to collect real CV enrichment data for pilot candidates; actual DOCX portrait image embedding remains future/manual
 - Need first read-only discovery connector and vacancy upsert logic
 - Employer catalog is 25/100 seeded
 - Нет ATS adapter

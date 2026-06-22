@@ -17,7 +17,9 @@
 | CAPTCHA, OTP, assessments, or account creation block automation | High | Medium | Never bypass controls; create manager tasks with deep links and preserved context |
 | July 5 timeline is too short for broad ATS coverage | High | High | Launch with a narrow certified connector set and measure coverage rather than claiming universality |
 | Telegram-only operations become slow at 30 candidates | Medium | High | Add search, ownership filters, pagination, batch actions, and export reports; define web-panel trigger |
-| Generated CV contains invented or mistranslated facts | Medium | High | Structured output, source-field mapping, validation rules, manager approval, immutable versions |
+| Generated CV contains invented or mistranslated facts | Low | High | Structured output, source-field mapping, validation rules, manager approval, immutable versions, Phase 3.5 structured CV enrichment tables |
+| Managers enter weak or incomplete CV enrichment data | Medium | Medium | Use `/candidate_view` readiness warnings, runbook templates, manager review before document approval |
+| Candidate portrait is uploaded but not embedded into DOCX yet | High | Low | Store private portrait path now; generated CV shows `PHOTO UPLOADED - EMBEDDING PENDING`; implement DOCX image embedding after template placement is approved |
 | Duplicate or excessive applications damage candidate reputation | Medium | High | Idempotency keys, employer/domain limits, prior-application checks, daily caps |
 | Career sites block shared datacenter IPs | Medium | High | Slow domain-specific rates, stable sessions, optional compliant proxy budget, manual fallback |
 | Candidate personal data is exposed | Low | Critical | Private storage, RLS, least privilege, encrypted secrets, signed URLs, audit log, retention deletion |

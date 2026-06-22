@@ -71,6 +71,14 @@
 - CV quality upgrade completed in commit `a11145b`: the hospitality CV template now follows a warmer reference-style structure, adds a human summary/profile line, translates Russian role/country inputs, transliterates Cyrillic name/city values for English CV output, and removes visible internal placeholder phrases such as `pending manager enrichment`.
 - Controlled candidate `ac3f8e19-790b-44df-a91b-8fe547d749c5` was regenerated after deployment. Latest document version `9219995e-fed0-407c-a27f-f5ee3493cd71` is `pending_approval`, has no validation errors, and PDF text extraction verifies `Tamerlan Tog`, `Waiter`, `Almaty, Kazakhstan`, and no old placeholder text.
 - Phase 3 end-to-end approval was confirmed on 2026-06-22: document version `9219995e-fed0-407c-a27f-f5ee3493cd71` was approved in Telegram, `document_versions.status` became `approved`, and candidate status became `documents`.
+- Partner-approved CV correction completed on 2026-06-22:
+  - photo placeholder added to the DOCX template;
+  - About Me moved below candidate header;
+  - `Hospitality Strengths`, inferred skills, and pseudo-experience removed;
+  - EXPERIENCE section now uses only stored `work_experience` facts or a neutral no-experience note;
+  - OpenAI schema/prompt now uses `header`, `photo`, `about_me`, `personal_info`, `experience[]`, `education[]`, `languages[]`, `other[]` with source mappings;
+  - grounding strips unsupported experience/other and normalizes unsafe About Me output.
+- Production sample CV version `c20ddaa5-15a7-4aa9-9314-8db68adec1ab` was generated after the correction. PDF text and PNG visual verification passed: `PHOTO REQUIRED` appears, About Me is below header, no Hospitality Strengths, EXPERIENCE is exact, no fake experience, and no unsupported Other section.
 
 ## What is complete (Phase 4 catalog foundation — as of 2026-06-22)
 - Added Supabase migration `202606220001_employer_catalog_sources.sql`.
@@ -85,6 +93,26 @@
   - `vacancies` with `dedupe_key`, source/apply URLs, title, employer, location, freshness status, timestamps, and raw payload.
 - Applied migration `202606220002_vacancy_discovery_foundation.sql` to Supabase production; verification showed `source_runs=0`, `vacancies=0`, `career_sources=25`.
 
+## What is complete (Phase 3.5 CV enrichment — as of 2026-06-22)
+- Added production migration `202606220003_cv_profile_enrichment.sql` with:
+  - `candidate_photos`;
+  - `candidate_work_experiences`;
+  - `candidate_education`;
+  - `candidate_cv_extras`.
+- Updated private `candidate-documents` bucket to allow JPEG/PNG/WebP uploads while remaining non-public.
+- Added Telegram manager flows:
+  - `/candidate_photo`;
+  - `/candidate_experience`;
+  - `/candidate_education`;
+  - `/candidate_extra`.
+- Updated `/candidate_view` with CV enrichment counts and readiness warnings for portrait photo, structured work experience, education, and extras.
+- Updated `worker-documents` so CV generation reads structured work experience, education, extras, and portrait photo status from the new tables.
+- CV grounding still blocks invented employers, skills, experience, certificates, software, courses, achievements, education names, and unsupported extras.
+- If a portrait exists, CV currently shows `PHOTO UPLOADED - EMBEDDING PENDING`; actual DOCX image embedding remains manual/future.
+- Tests/check/build/format passed locally; migration applied to production; `bot-api` and `worker-documents` deployed to Railway; Telegram webhook refreshed with `pending_update_count=0`.
+- Commit `3a7bd48` pushed to `main`.
+- Post-deploy webhook correction on 2026-06-22: Telegram must be registered to `https://bot-api-production-e076.up.railway.app/telegram/webhook` with `secret_token = TELEGRAM_WEBHOOK_SECRET`. The old `/webhook/<secret>` URL returns 404 because the app validates the secret through the `X-Telegram-Bot-Api-Secret-Token` header.
+
 ## What is not built
 - Vacancy ingestion workers/connectors, normalized vacancy records, scoring, matching, and application adapters are not built yet.
 - Full employer catalog, ingestion connectors, scoring, matching (Phase 4–5)
@@ -94,7 +122,7 @@
 ## Immediate milestone
 Phase 4: employer catalog and vacancy discovery foundation.
 
-**Requires next**: implement the first read-only discovery connector, starting with one high-yield source from the seeded catalog.
+**Requires next**: implement the first read-only discovery connector, starting with one high-yield source from the seeded catalog. CV enrichment intake/storage is now implemented; photo embedding into DOCX remains a future document-rendering improvement.
 
 ## Capacity requirement
 The design must run the 10-candidate pilot without a rewrite and scale to:
