@@ -107,10 +107,15 @@ Deferred by user on 2026-06-21: return after the next product work block. Do not
 - [ ] Add Stripe/Resend env vars to Vercel after deferred live verification keys are ready.
 - [x] Redeploy production after 25-system catalog expansion.
 
-## Immediate Next Product Actions
+## Immediate Next Product Actions — Phase 2A Sales Readiness
 
 - [ ] Refine homepage copy and case-study language into final sales-ready wording.
-- [ ] Add search/filter interaction for `/os` marketplace.
+- [x] Add search/filter interaction for `/os` marketplace.
+- [x] Add thank-you / next-step experience after public order submission.
+- [x] Add ROI/payback blocks to priority pipeline detail pages.
+- [ ] Prepare 5 flagship beta offers for first-client outreach.
+- [ ] Prepare direct outreach list/message package for 20 target businesses.
+- [ ] Create delivery checklists/templates for first 3 flagship pipelines.
 - [ ] Start Phase 3 client portal planning/spec when ready.
 
 ---

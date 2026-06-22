@@ -20,71 +20,99 @@
 
 ---
 
-## Phase 0: Foundation Audit (Week 0) — CURRENT
+## Current Stage — Phase 2A: Sales Readiness & First Clients
 
-**Цель**: Зафиксировать текущее состояние и подготовиться к Phase 1.
+**Status as of 2026-06-22**: FlowOps SaaS is live in production. Marketplace MVP and deployment hardening are complete. Catalog has 25 published systems in code and live Supabase. Order flow writes to Supabase and sends Telegram notifications. Stripe/Resend code scaffolds exist, but live verification is intentionally deferred.
+
+**Active objective**: make the live product ready to sell and use it to win the first 3–5 beta clients before investing deeper into portal/self-serve/AI layers.
+
+### Verified Done
+- [x] Production URL: `https://flowops-saas.vercel.app`
+- [x] Vercel deployment smoke passed
+- [x] Supabase remote migrations applied through 25-system catalog
+- [x] Public marketplace/order flow works
+- [x] Internal order workspace protected by `INTERNAL_ACCESS_KEY`
+- [x] Telegram notifications verified
+- [x] QA production order cleanup verified
+- [x] `/os` search/filter interaction deployed
+- [x] ROI/payback blocks deployed on pipeline detail pages
+- [x] Post-submit thank-you/next-step flow deployed
+
+### Active Focus
+- [ ] Final homepage/case-study sales copy
+- [ ] First-client outreach package for 20 target businesses
+- [ ] Delivery checklists/templates for 3 flagship pipelines
+
+### Explicitly Deferred
+- [ ] Stripe/Resend live verification until real keys or first payment moment
+- [ ] Client portal until enough client demand exists
+- [ ] Self-serve pipeline deployment
+
+---
+
+## Phase 0: Foundation Audit (Week 0) — COMPLETE
 
 ### Задачи
 - [x] Стратегический roadmap создан (этот документ)
-- [ ] Аудит существующего кода (сайт + internal workspace)
-- [ ] Решить: нужен ли редизайн homepage или только добавить marketplace?
-- [ ] Зафиксировать: какие pipeline-системы делаем первыми (12 MVP)
-- [ ] Проверить Supabase: текущие таблицы, data, доступы
+- [x] Аудит существующего кода (сайт + internal workspace)
+- [x] Решить: нужен редизайн homepage + marketplace layer
+- [x] Зафиксировать и реализовать первые pipeline-системы MVP
+- [x] Проверить Supabase: текущие таблицы, data, доступы
 
 **Deliverable**: Готовы начать Phase 1.
 
 ---
 
-## Phase 1: Marketplace MVP (Weeks 1–4)
+## Phase 1: Marketplace MVP (Weeks 1–4) — COMPLETE
 
 **Цель**: Работающий marketplace с 12–15 pipeline-системами и возможностью принять заказ.
 
 ### Блок A: Database (Week 1)
-- [ ] Создать Supabase таблицы: `pipeline_categories`, `pipelines`, `pipeline_orders`, `order_status_history`
-- [ ] Добавить RLS policies (публичное чтение pipelines, запись только через API)
-- [ ] Seed data: 7 категорий + 12 pipeline-систем
-- [ ] API routes: GET /api/pipelines, GET /api/pipelines/[slug], POST /api/pipeline-order
+- [x] Создать Supabase таблицы: `pipeline_categories`, `pipelines`, `pipeline_orders`, `order_status_history`
+- [x] Добавить RLS policies (публичное чтение pipelines, запись только через API)
+- [x] Seed data: 7 категорий + 15 pipeline-систем
+- [x] API routes: GET /api/pipelines, GET /api/pipelines/[slug], POST /api/pipeline-order
 
 ### Блок B: Marketplace UI (Weeks 1–2)
-- [ ] `/os` — Marketplace main page
+- [x] `/os` — Marketplace main page
   - Hero: "Choose your operational system"
   - Category navigation (7 tabs/filters)
   - Pipeline cards grid (name, tagline, setup price, integrations icons, CTA)
-  - Search/filter by category
-- [ ] `/os/[category]` — Category overview page
+  - Category navigation ready; interactive search/filter remains Phase 2A polish
+- [x] `/os/[category]` — Category overview page
   - Category hero
   - Pipeline cards filtered by category
-- [ ] `/os/[slug]` — Pipeline detail page
+- [x] `/os/[slug]` — Pipeline detail page
   - Full pipeline info per [[pipeline-catalog]] standard
   - Visual workflow diagram (static SVG или Framer animation)
   - Pricing block (Setup + Monthly)
   - CTA: "Request Deployment" → order form
 
 ### Блок C: Order Flow (Week 2)
-- [ ] Order form modal/page (per pipeline)
+- [x] Order form modal/page (per pipeline)
   - Client info (name, email, company, website)
   - Current tools used
   - Business context
   - Specific requirements
   - Agree to pricing
-- [ ] POST /api/pipeline-order → Supabase pipeline_orders
-- [ ] Telegram notification → FlowOps team via n8n
-- [ ] Thank you page / email confirmation (простой, без Resend — можно Supabase email)
+- [x] POST /api/pipeline-order → Supabase pipeline_orders
+- [x] Telegram notification → FlowOps team via direct Telegram env
+- [ ] Thank-you page / polished post-submit next-step experience
 
 ### Блок D: Pricing Page (Week 2)
-- [ ] `/pricing` — Subscription tiers
+- [x] `/pricing` — Subscription tiers
   - Maintain / Scale / Operator / Enterprise cards
-  - Feature comparison table
+  - Feature comparison / value explanation
   - Bundle section (Sales Stack, Support Stack, etc.)
-  - FAQ section
+  - FAQ section optional polish
   - CTA: "Start with an audit" → Audit Form
 
 ### Блок E: Internal Orders Workspace (Week 3)
-- [ ] `/internal/orders` — Orders list
+- [x] `/internal/orders` — Orders list
   - Список всех заказов с статусами
-  - Filter by status, pipeline, date
+  - Filter by status, pipeline, date remains future internal polish
   - Quick actions
-- [ ] `/internal/orders/[id]` — Order detail
+- [x] `/internal/orders/[id]` — Order detail
   - Полная информация о клиенте и заказе
   - Status management (New → Qualified → In Progress → Deployed → Active)
   - Internal notes
@@ -92,48 +120,57 @@
   - Quick links: email client, Telegram
 
 ### Блок F: Homepage Update (Week 3–4)
-- [ ] Добавить Marketplace CTA на homepage
-- [ ] Обновить hero секцию (упомянуть "40+ operational systems")
-- [ ] Добавить featured pipelines section (3–5 карточек)
-- [ ] Обновить copy для platform positioning
+- [x] Добавить Marketplace CTA на homepage
+- [x] Обновить hero секцию под FlowOps OS marketplace
+- [x] Добавить featured pipelines section
+- [x] Обновить copy для platform positioning
+- [x] Добавить proof/case-study section
 
 ### Phase 1 Success Criteria
-- Marketplace live с 12–15 pipeline-системами
-- Первые 3 заказа приняты через форму
-- Internal workspace обрабатывает заказы
-- Время деплоя MVP: 3–4 недели
+- [x] Marketplace live с 12–15 pipeline-системами
+- [x] Order form verified with production QA order
+- [x] Internal workspace обрабатывает заказы
+- [x] Production deploy completed
 
 ---
 
-## Phase 2: First Revenue & Stripe (Weeks 5–10)
+## Phase 2: First Revenue & Stripe (Weeks 5–10) — ACTIVE
 
 **Цель**: Первые платящие клиенты. Stripe integration. Расширение каталога.
 
-### Блок A: First Clients (Weeks 5–6)
+### Блок A: First Clients / Sales Readiness (Weeks 5–6) — ACTIVE
+- [ ] Refine homepage and pipeline detail copy into final sales-ready language
+- [ ] Add search/filter interaction for `/os`
+- [ ] Add thank-you / next-step experience after public order submission
+- [ ] Prepare 5 flagship pipeline beta offers
 - [ ] Direct outreach к 20 целевым бизнесам
 - [ ] Предложить beta pricing (20% скидка) для первых 5 клиентов
 - [ ] Personal follow-up после каждого аудит-запроса
 - [ ] Задеплоить первые 3 pipeline-системы вручную
 
-### Блок B: Stripe Integration (Weeks 6–8)
-- [ ] Stripe Checkout для setup fee (one-time payment)
+### Блок B: Stripe Integration (Weeks 6–8) — CODE SCAFFOLD DONE / LIVE VERIFICATION DEFERRED
+- [x] Stripe Checkout route для setup fee (one-time payment)
 - [ ] Stripe Payment Link как альтернатива (быстрее запустить)
-- [ ] После оплаты → автоматически обновляется статус заказа
-- [ ] Email confirmation через Resend (настроить)
-- [ ] Stripe Subscriptions для monthly (после первой оплаты)
-- [ ] Stripe webhooks → update subscription status в Supabase
-- [ ] /api/stripe/create-checkout
-- [ ] /api/stripe/create-subscription
-- [ ] /api/stripe/webhooks
+- [x] После оплаты → webhook scaffold can update order/payment state
+- [x] Email confirmation hook через Resend scaffold
+- [x] Stripe Subscriptions route для monthly
+- [x] Stripe webhooks → update subscription status в Supabase scaffold
+- [x] `/api/stripe/create-setup-checkout`
+- [x] `/api/stripe/create-subscription-checkout`
+- [x] `/api/stripe/webhook`
+- [ ] Add real `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `RESEND_API_KEY`
+- [ ] Complete live Stripe/Resend verification
 
 ### Блок C: Pipeline Catalog Expansion (Weeks 7–9)
-- [ ] Добавить pipeline-системы до 20–25 (приоритет: популярные категории)
+- [x] Добавить pipeline-системы до 20–25 (приоритет: популярные категории)
 - [ ] `/internal/pipelines` — управление каталогом
 - [ ] Добавить "Coming Soon" карточки для объявленных pipeline
-- [ ] Добавить testimonials / результаты первых клиентов
+- [x] Добавить proof/case-study section
+- [ ] Добавить testimonials / результаты первых реальных клиентов
 
 ### Блок D: Email Automation (Week 8)
-- [ ] Resend: transactional emails (order confirmation, status updates)
+- [x] Resend: transactional email helper scaffold
+- [ ] Resend: live transactional emails (order confirmation, status updates)
 - [ ] n8n workflow WF-02: Status update → email клиенту
 - [ ] n8n workflow WF-03: Deployment complete → welcome email
 - [ ] n8n workflow WF-05: Subscription renewal reminder
@@ -144,11 +181,11 @@
 - [ ] Bundle pages: Sales Stack, Support Stack, Voice Stack, Full Ops Stack
 
 ### Phase 2 Success Criteria
-- 5+ платящих клиентов (setup fee received)
-- 3+ активных подписок
-- MRR > $500/month
-- Stripe Checkout работает
-- 20+ pipeline в каталоге
+- [ ] 5+ платящих клиентов (setup fee received)
+- [ ] 3+ активных подписок
+- [ ] MRR > $500/month
+- [ ] Stripe Checkout live verification passed
+- [x] 20+ pipeline в каталоге
 
 ---
 
@@ -316,49 +353,32 @@
 ## Prioritized Implementation Order
 
 ```
-WEEK 1:
-  1. Supabase: создать pipeline_categories + pipelines + pipeline_orders таблицы
-  2. API: GET /api/pipelines, GET /api/pipelines/[slug]
-  3. Seed: 7 категорий + 12 pipeline-систем
-  4. API: POST /api/pipeline-order с rate limiting
+DONE:
+  1. Supabase: pipeline_categories + pipelines + pipeline_orders + order_status_history
+  2. API: GET /api/pipelines, GET /api/pipelines/[slug], POST /api/pipeline-order
+  3. Catalog: 25 systems live in code and Supabase
+  4. /os marketplace, /os/[slug] details, /pricing
+  5. /internal/orders list/detail + status management
+  6. Telegram notifications for new orders
+  7. Homepage redesign + marketplace CTA + proof section
+  8. Internal access hardening
+  9. Vercel production deploy + smoke test
+  10. Stripe/Resend code scaffolds
 
-WEEK 2:
-  5. /os страница (marketplace main) с категориями и card grid
-  6. /os/[slug] pipeline detail page
-  7. Order form + POST /api/pipeline-order
-  8. Telegram notification via n8n при новом заказе
-  9. /pricing страница с тарифами
+NOW:
+  11. Conversion readiness: final copy polish remains; ROI/payback proof, search/filter, thank-you flow are deployed
+  12. First-client package: 5 flagship beta offers + direct outreach to 20 targets
+  13. Delivery readiness: deployment checklists/templates for first 3 pipelines
 
-WEEK 3:
-  10. /internal/orders list page
-  11. /internal/orders/[id] detail + status management
-  12. Status history timeline
-  13. Homepage обновление (добавить marketplace CTA + featured pipelines)
+NEXT AFTER FIRST PAYMENT / KEYS:
+  14. Stripe Payment Link or live Checkout verification
+  15. Resend live transactional emails
+  16. Subscription verification
 
-WEEK 4:
-  14. /os/[category] category pages
-  15. Mobile responsive polish
-  16. SEO: meta tags для всех новых страниц
-  17. QA + E2E test критических flows
-  18. Production deploy
-
-WEEK 5–6:
-  19. Первый outreach + первые клиенты
-  20. Stripe Payment Link (быстрее чем full integration)
-
-WEEK 7–8:
-  21. Full Stripe Checkout integration
-  22. Stripe Subscriptions
-  23. Email via Resend
-
-WEEK 9–10:
-  24. Каталог расширить до 20–25 pipelines
-  25. Bundle pages
-  26. Loyalty mechanics
-
-WEEKS 11+:
-  27. Supabase Auth
-  28. Client portal MVP
+LATER:
+  17. Bundle pages + loyalty mechanics
+  18. Supabase Auth
+  19. Client portal MVP
 ```
 
 ---
@@ -403,17 +423,11 @@ WEEKS 11+:
 
 ## Final Recommendation
 
-**Запускать Phase 1 немедленно.**
+**Текущая рекомендация: не уходить в Phase 3 portal. Дожать Phase 2A: sales readiness + первые клиенты.**
 
-Не ждать идеального дизайна — сделать достаточно хорошо за 3–4 недели.  
-Первые 5 клиентов важнее идеального UI.  
-Деньги от первых клиентов инвестировать в дизайн Phase 2.
+Marketplace уже live, поэтому главный риск сместился с разработки на спрос.  
+Самый быстрый путь к валидации теперь: conversion-ready сайт + 5 flagship offers + direct outreach к 20 бизнесам + ручной delivery первых pipeline.
 
-Самый большой риск — потратить 2 месяца на "идеальный" marketplace и не получить ни одного клиента.  
-Самый быстрый путь к валидации — 12 pipeline-карточек + рабочая форма заказа + личный outreach к 20 бизнесам.
-
-**Через 30 дней** у FlowOps должны быть первые 2–3 заказа.  
-**Через 60 дней** — первые 3–5 платящих клиентов.  
-**Через 90 дней** — MRR > $1,000 и понимание, какие pipeline-системы продаются лучше всего.
-
-Тогда Phase 2–3 строятся на реальных данных, а не гипотезах.
+**Следующие 7 дней**: привести live сайт к sales-ready состоянию и подготовить outreach package.  
+**Следующие 30 дней**: получить первые 2–3 заказа через форму/личный outreach.  
+**Следующие 60 дней**: закрыть 3–5 платящих клиентов, после чего Stripe/Resend/client portal получают реальные требования, а не строятся на гипотезах.

@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "All about Agents/supervisor-agent-prompt.md",
+                "file": "projects/flowops-saas/roadmap.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "supervisor-agent-prompt"
+              "title": "roadmap"
             }
           },
           {
@@ -276,16 +276,18 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "a7e3df8f6bd81cee",
+  "active": "45cb06c97067572f",
   "lastOpenFiles": [
-    "All about Agents/GPT project instructions.md",
+    "projects/flowops-saas/sessions/2026-06-22-conversion-readiness-batch-1.md",
+    "projects/flowops-saas/sessions/2026-06-22-roadmap-sync-current-stage.md",
+    "projects/amigo-mvp/roadmap.md",
     "All about Agents/supervisor-agent-prompt.md",
+    "All about Agents/GPT project instructions.md",
     "projects/flowops-saas/overview.md",
     "projects/flowops-saas/sessions/2026-06-20-light-redesign-and-animation.md",
     "projects/flowops-saas/sessions/2026-06-20-figma-website-design.md",
     "projects/flowops-saas/sessions/2026-06-20-phase-1-marketplace-foundation.md",
     "projects/flowops-saas/roadmap.md",
-    "projects/amigo-mvp/roadmap.md",
     "projects/amigo-mvp/sessions/2026-06-15-phase2-completion.md",
     "projects/amigo-mvp/next-steps.md",
     "projects/amigo-mvp/integrations.md",
@@ -302,8 +304,6 @@
     "projects/flowops-saas/pipeline-catalog.md",
     "MEMORY.md",
     "projects/flowops-saas/sessions/2026-06-10-project-init.md",
-    "projects/flowops-saas/pricing.md",
-    "projects/flowops-saas/risks.md",
     "projects/flowops-saas/sessions",
     "projects/flowops-saas",
     "dashboard",
