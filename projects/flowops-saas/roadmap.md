@@ -40,9 +40,9 @@
 - [x] First-client beta offer package prepared
 - [x] Outreach seed list/message package prepared
 - [x] Delivery checklists for first 3 flagship pipelines prepared
+- [x] Homepage/case-study sales copy polished and deployed
 
 ### Active Focus
-- [ ] Final homepage/case-study sales copy
 - [ ] Manual verification/enrichment of the 20-account seed list before sending
 - [ ] Start first outreach batch
 
@@ -369,7 +369,7 @@ DONE:
   10. Stripe/Resend code scaffolds
 
 NOW:
-  11. Conversion readiness: final copy polish remains; ROI/payback proof, search/filter, thank-you flow are deployed
+  11. Conversion readiness complete enough for outreach: final copy, ROI/payback proof, search/filter, thank-you flow are deployed
   12. First-client package is drafted; manually verify/enrich contacts before sending
   13. Delivery readiness checklists for first 3 pipelines are drafted
 

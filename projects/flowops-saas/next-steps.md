@@ -109,13 +109,15 @@ Deferred by user on 2026-06-21: return after the next product work block. Do not
 
 ## Immediate Next Product Actions — Phase 2A Sales Readiness
 
-- [ ] Refine homepage copy and case-study language into final sales-ready wording.
+- [x] Refine homepage copy and case-study language into final sales-ready wording.
 - [x] Add search/filter interaction for `/os` marketplace.
 - [x] Add thank-you / next-step experience after public order submission.
 - [x] Add ROI/payback blocks to priority pipeline detail pages.
 - [x] Prepare 5 flagship beta offers for first-client outreach.
 - [x] Prepare direct outreach list/message package for 20 target businesses.
 - [x] Create delivery checklists/templates for first 3 flagship pipelines.
+- [ ] Manually verify/enrich the 20-account seed list before sending.
+- [ ] Start first outreach batch.
 - [ ] Start Phase 3 client portal planning/spec when ready.
 
 ---
