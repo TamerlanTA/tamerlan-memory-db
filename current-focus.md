@@ -29,7 +29,7 @@
 
 ## AMIGO MVP — International Hospitality Job Applications (обновлён 2026-06-16)
 
-**Статус**: Active, health Green. Phase 1 (Foundation) + Phase 2 (Intake) complete and deployed. Phase 3 document pipeline foundation is implemented and deployed; improved controlled CV generation works, approval callback validation is still pending.
+**Статус**: Active, health Green. Phase 1 (Foundation), Phase 2 (Intake), and Phase 3 (Documents) are complete. Phase 4 employer catalog / vacancy discovery foundation has started.
 
 **Цель**:
 - controlled pilot for 10 candidates by 2026-07-05;
@@ -42,15 +42,17 @@
 - `/candidate_documents` — выбор кандидата, queue generation, signed PDF link, approve/reject callbacks
 - `worker-documents` + Gotenberg deployed on Railway
 - CV template quality upgrade deployed in commit `a11145b`; latest controlled candidate CV version `9219995e-fed0-407c-a27f-f5ee3493cd71` is `pending_approval`
+- Telegram approval callback verified on 2026-06-22; CV version `9219995e-fed0-407c-a27f-f5ee3493cd71` is approved and candidate status is `documents`
+- Employer catalog foundation committed in `91bc7b0`; production has 25 employers and 25 career sources
+- Vacancy discovery schema committed in `b1f1411`; production has empty `source_runs` and `vacancies` tables ready for first connector
 - 38 тестов, bot-api health OK
 
-**Текущая фаза**: Phase 3 — Document generation validation (срок 2026-06-19–21).
+**Текущая фаза**: Phase 4 — Employer catalog and vacancy discovery foundation.
 
 **Блокеры**:
-- CV template и consent text v1-ru-2026-06 ждут бизнес/юридического одобрения от Tamerlan
-- Нужно подтвердить Telegram approve/reject callback на latest CV version и переход кандидата в `documents`
-- Нужно подтвердить доступность `OPENAI_DOCUMENT_MODEL` или сменить модель
-- Нет employer catalog (0/100)
+- Consent text v1-ru-2026-06 still needs business/legal approval before pilot scale
+- Need first read-only discovery connector and vacancy upsert logic
+- Employer catalog is 25/100 seeded
 - Нет ATS adapter
 
 **ВАЖНО для деплоя**: Railway НЕ подключён к GitHub. После каждого push делать `railway up --service bot-api` из `/Users/tamerlan/Documents/amigo-mvp`

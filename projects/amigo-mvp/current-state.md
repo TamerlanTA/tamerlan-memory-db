@@ -15,7 +15,7 @@
 - Planning window: 2026-06-12 to 2026-07-05
 - Launch target: controlled pilot for 10 candidates
 - Post-launch target: 30 active candidates
-- Current phase: document generation
+- Current phase: employer catalog and vacancy discovery foundation
 - Working mode: two-person execution — Tamerlan owns business decisions, access, credentials, and approvals; Codex owns technical implementation, validation, and memory synchronization.
 
 ## What is complete
@@ -70,17 +70,31 @@
 - First real document-generation bug was fixed: Docxtemplater did not resolve dot-path tags like `{candidate.full_name}`, producing `undefined` in the generated CV. Added a dot-path parser, regression test, redeployed `worker-documents`, regenerated the candidate CV, and verified PDF text extraction contains candidate data.
 - CV quality upgrade completed in commit `a11145b`: the hospitality CV template now follows a warmer reference-style structure, adds a human summary/profile line, translates Russian role/country inputs, transliterates Cyrillic name/city values for English CV output, and removes visible internal placeholder phrases such as `pending manager enrichment`.
 - Controlled candidate `ac3f8e19-790b-44df-a91b-8fe547d749c5` was regenerated after deployment. Latest document version `9219995e-fed0-407c-a27f-f5ee3493cd71` is `pending_approval`, has no validation errors, and PDF text extraction verifies `Tamerlan Tog`, `Waiter`, `Almaty, Kazakhstan`, and no old placeholder text.
+- Phase 3 end-to-end approval was confirmed on 2026-06-22: document version `9219995e-fed0-407c-a27f-f5ee3493cd71` was approved in Telegram, `document_versions.status` became `approved`, and candidate status became `documents`.
+
+## What is complete (Phase 4 catalog foundation — as of 2026-06-22)
+- Added Supabase migration `202606220001_employer_catalog_sources.sql`.
+- Extended `career_sources` with `tenant_identifier`, `discovery_connector`, `application_adapter`, `polling_schedule`, and `updated_at`; added `employers.updated_at`.
+- Added idempotent importer `scripts/import-employer-catalog.ts`.
+- Added seed file `data/employer-catalog.seed.csv` with 25 target hospitality employers / career sources.
+- Applied migration to Supabase production and imported the seed catalog.
+- Production verification: 25 `employers`, 25 `career_sources`, and 25 distinct endpoints.
+- Commit `91bc7b0` pushed to `main`.
+- Added normalized vacancy discovery schema in commit `b1f1411`:
+  - `source_runs` for connector execution logs;
+  - `vacancies` with `dedupe_key`, source/apply URLs, title, employer, location, freshness status, timestamps, and raw payload.
+- Applied migration `202606220002_vacancy_discovery_foundation.sql` to Supabase production; verification showed `source_runs=0`, `vacancies=0`, `career_sources=25`.
 
 ## What is not built
-- Phase 3 has generated an improved filled PDF for a controlled candidate, but manager approval callback and final candidate status transition still need to be confirmed in Telegram.
+- Vacancy ingestion workers/connectors, normalized vacancy records, scoring, matching, and application adapters are not built yet.
 - Full employer catalog, ingestion connectors, scoring, matching (Phase 4–5)
 - Application workers, ATS adapters (Phase 6)
 - No ATS adapter is certified for production use.
 
 ## Immediate milestone
-Phase 3: document generation — first real manager-approved CV package. Planned 2026-06-19–21.
+Phase 4: employer catalog and vacancy discovery foundation.
 
-**Requires first**: business/legal approval of CV template (`packages/document-templates/templates/hospitality-cv-en-v1.docx`) and consent text v1-ru-2026-06.
+**Requires next**: implement the first read-only discovery connector, starting with one high-yield source from the seeded catalog.
 
 ## Capacity requirement
 The design must run the 10-candidate pilot without a rewrite and scale to:

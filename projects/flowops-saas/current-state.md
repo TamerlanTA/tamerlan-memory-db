@@ -11,7 +11,7 @@
 ## Status: PHASE 2 ACTIVE / VERCEL DEPLOYED (June 21, 2026)
 
 Проект перешёл из planning/pre-build в начальную реализацию Phase 1.  
-Локальный workspace `/Users/tamerlan/Desktop/FlowOps/FlowOps Saas` инициализирован как Next.js/TypeScript app с Marketplace MVP. 20 июня 2026 редизайн портирован в код: светлая яркая FlowOps OS визуальная система, blue/cyan акценты, пастельные pipeline-карточки, animated workflow sections, mobile/desktop QA. 21 июня 2026 Phase 1 завершена и активирована: remote Supabase migration применена в проект FlowOps, 15 систем опубликованы, live order submit пишет в `pipeline_orders`, status history работает, direct Telegram notification подтверждён. Phase 2 начата: payment/subscription schema, Stripe Checkout routes, webhook scaffold, payment UI, and Resend-ready email hooks implemented. По решению пользователя live Stripe/Resend verification отложена; следующий блок выполнен: catalog expanded to 20, Supabase seed applied, internal order SOP added, internal routes/payment actions protected by `INTERNAL_ACCESS_KEY`. 21 июня 2026 приложение задеплоено на Vercel в проект `flowops-saas`; production alias: `https://flowops-saas.vercel.app`.
+Локальный workspace `/Users/tamerlan/Desktop/FlowOps/FlowOps Saas` инициализирован как Next.js/TypeScript app с Marketplace MVP. 20 июня 2026 редизайн портирован в код: светлая яркая FlowOps OS визуальная система, blue/cyan акценты, пастельные pipeline-карточки, animated workflow sections, mobile/desktop QA. 21 июня 2026 Phase 1 завершена и активирована: remote Supabase migration применена в проект FlowOps, 15 систем опубликованы, live order submit пишет в `pipeline_orders`, status history работает, direct Telegram notification подтверждён. Phase 2 начата: payment/subscription schema, Stripe Checkout routes, webhook scaffold, payment UI, and Resend-ready email hooks implemented. По решению пользователя live Stripe/Resend verification отложена; следующий блок выполнен: catalog expanded to 20, Supabase seed applied, internal order SOP added, internal routes/payment actions protected by `INTERNAL_ACCESS_KEY`. 21 июня 2026 приложение задеплоено на Vercel в проект `flowops-saas`; production alias: `https://flowops-saas.vercel.app`. 22 июня 2026 deployed smoke passed: public pages/API render, catalog returns 20 systems, protected routes reject unauthenticated access, internal cookie flow works, QA order writes to Supabase, Telegram notification returns sent, and QA data was cleaned up. Later on 22 июня 2026 catalog expanded to 25 systems, Supabase migration applied, homepage proof/case-study section added, and production redeployed to Vercel.
 
 ---
 
@@ -75,6 +75,11 @@
 - [x] Vercel project `flowops-saas` created/linked
 - [x] Production deployment ready: `https://flowops-saas.vercel.app`
 - [x] Vercel Production/Preview env vars configured for Supabase, internal access, Telegram notification, and email sender
+- [x] Deployed smoke test passed on `https://flowops-saas.vercel.app`
+- [x] Catalog expanded from 20 to 25 systems in code and live Supabase
+- [x] Migration `202606220001_expand_catalog_to_25` applied
+- [x] Homepage proof/case-study section added
+- [x] Production redeployed after 25-system expansion: deployment `dpl_HdoJ5gcsjsJKqijeYum4WG6gAzdT`
 - [x] Modern light redesign across `/`, `/os`, `/os/[slug]`, `/pricing`, `/internal/orders`
 - [x] QA screenshots captured for desktop/mobile and order form success path
 
@@ -97,7 +102,7 @@
 
 ## Активная фаза
 
-**Phase 2 — active**: payment/email scaffold готов, но live Stripe/Resend verification intentionally deferred. Current completed Phase 2 work: catalog expanded to 20 systems, remote Supabase synchronized, internal manual order SOP added, production access hardening completed, and Vercel production deployment created.
+**Phase 2 — active**: payment/email scaffold готов, но live Stripe/Resend verification intentionally deferred. Current completed Phase 2 work: catalog expanded to 20 systems, remote Supabase synchronized, internal manual order SOP added, production access hardening completed, Vercel production deployment created, and deployed smoke passed.
 
 Следующий шаг: Phase 2 planning/implementation (Stripe setup payments/subscriptions, confirmation email, client portal planning) см. [[roadmap]] и [[next-steps]].
 
@@ -105,6 +110,6 @@
 
 ## Key Metrics (baseline)
 - Активных клиентов: 0 (platform не запущена)
-- Pipeline-систем в каталоге: 20 в code/static seed and live Supabase
+- Pipeline-систем в каталоге: 25 в code/static seed and live Supabase
 - MRR: $0
 - Leads через Audit Form: неизвестно (нужно уточнить из Supabase)

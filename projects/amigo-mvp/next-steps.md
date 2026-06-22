@@ -26,7 +26,7 @@ Completed on 2026-06-15:
 - Profile completeness check implemented (`profile.ts:checkCompleteness`)
 - 34 tests passing, deployed on Railway, Supabase migration applied
 
-## P2 — Documents (in progress, due 2026-06-19–21)
+## P2 — Documents ✅ COMPLETE (closed 2026-06-22)
 Completed foundation:
 1. `worker-documents` service implemented and deployed.
 2. OpenAI structured extraction path implemented with deterministic fallback mode.
@@ -35,13 +35,11 @@ Completed foundation:
 5. Document schema, storage bucket, and `document_generate` queue applied to production.
 6. CV template/content quality upgrade completed and deployed in commit `a11145b`.
 7. Controlled candidate regenerated with improved CV version `9219995e-fed0-407c-a27f-f5ee3493cd71`; status is `pending_approval`, validation errors are empty, and PDF text extraction passed.
+8. Manager approval callback was verified in Telegram: document version `9219995e-fed0-407c-a27f-f5ee3493cd71` became `approved`, and candidate status became `documents`.
 
-Remaining to close Phase 3:
-1. Owner approves the improved CV template (`packages/document-templates/templates/hospitality-cv-en-v1.docx`) and consent text v1-ru-2026-06.
-2. Approve the regenerated controlled candidate CV through `/candidate_documents`.
-3. Verify manager approval callback and candidate status transition.
-4. Confirm OpenAI model setting works in production or switch `OPENAI_DOCUMENT_MODEL` to an approved available model.
-5. Decide what additional experience fields must be collected to make real CVs stronger than the deterministic fallback profile.
+Residual follow-up:
+1. Business/legal owner still needs to formally approve consent text v1-ru-2026-06 before pilot scale.
+2. Decide what additional experience fields must be collected to make real CVs stronger than the deterministic fallback profile.
 
 ## P0 — Phase 2 review remediation ✅ COMPLETE (commit e5ad6e4)
 1. ✅ Non-closed filter moved to SQL WHERE in edit.ts and close.ts
@@ -49,9 +47,16 @@ Remaining to close Phase 3:
 3. ✅ Location validation already fixed in steps.ts rewrite (city.length < 1 check)
 
 ## P1 — Search and matching
-1. Implement the normalized vacancy contract.
-2. Build Greenhouse-read, Lever-read, and generic sitemap/JSON connectors.
-3. Implement deduplication and freshness rules.
+Completed foundation:
+1. Added employer catalog source columns and production migration `202606220001`.
+2. Added idempotent catalog importer `scripts/import-employer-catalog.ts`.
+3. Seeded 25 hospitality employers / career sources into production (`data/employer-catalog.seed.csv`).
+4. Added normalized vacancy discovery schema in migration `202606220002`: `source_runs` and `vacancies`.
+
+Next:
+1. Build the first read-only discovery connector from the seeded catalog.
+2. Implement deduplication/freshness upsert behavior against `vacancies.dedupe_key`.
+3. Add source-run metrics and error classification.
 4. Implement hard filters and weighted scoring with explanation records.
 5. Generate manager approval batches with reserve vacancies.
 
@@ -70,11 +75,10 @@ Remaining to close Phase 3:
 - Candidate consent: draft v1 created; business/legal approval and privacy contact still required.
 
 ## Immediate execution order
-1. Approve or revise the improved CV template and consent text.
-2. Open `/candidate_documents`, select the controlled candidate, and approve/reject CV version `9219995e-fed0-407c-a27f-f5ee3493cd71`.
-3. Verify manager approval callback and candidate status transition to `documents`.
-4. Confirm OpenAI model setting for production content generation.
-5. Start the 100-employer catalog while Phase 3 approval validation is finishing.
+1. Build the first read-only discovery connector, preferably Accor or Kerzner because the seeded endpoints expose hospitality jobs in target regions.
+2. Add dedupe/freshness upsert logic for imported vacancies.
+3. Add a Telegram/admin summary command for catalog/source health.
+4. Continue expanding employer catalog from 25 toward 100 approved brands.
 
 ## Two-person working split
 - **Tamerlan:** approve business rules, provide or create service accounts and secrets, approve the CV template, consent text, target employer scope, and pilot candidates.

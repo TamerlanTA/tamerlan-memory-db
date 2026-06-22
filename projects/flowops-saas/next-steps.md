@@ -80,8 +80,8 @@
 - [x] Stripe Subscriptions для monthly — code route/webhook scaffold implemented, live key verification pending
 - [x] Базовый email delivery workflow (Resend-ready hook) — live Resend key verification pending
 - [x] Расширить каталог до 20 pipeline-систем
-- [ ] Расширить каталог до 25 pipeline-систем
-- [ ] Добавить testimonials / case study section
+- [x] Расширить каталог до 25 pipeline-систем
+- [x] Добавить testimonials / case study section
 
 ## Immediate Next Actions For Phase 2 Verification
 
@@ -101,10 +101,17 @@ Deferred by user on 2026-06-21: return after the next product work block. Do not
 - [x] Choose deployment target: Vercel.
 - [x] Configure production/preview env vars from `.env.template` for currently available keys.
 - [x] Deploy app to Vercel production: `https://flowops-saas.vercel.app`.
-- [ ] Run deployed smoke test from `docs/production-readiness.md`.
-- [ ] Confirm `/internal/orders` without key returns 401 on deployed URL.
-- [ ] Confirm `/internal/orders?access_key=...` works on deployed URL.
+- [x] Run deployed smoke test from `docs/production-readiness.md`.
+- [x] Confirm `/internal/orders` without key returns 401 on deployed URL.
+- [x] Confirm `/internal/orders?access_key=...` works on deployed URL.
 - [ ] Add Stripe/Resend env vars to Vercel after deferred live verification keys are ready.
+- [x] Redeploy production after 25-system catalog expansion.
+
+## Immediate Next Product Actions
+
+- [ ] Refine homepage copy and case-study language into final sales-ready wording.
+- [ ] Add search/filter interaction for `/os` marketplace.
+- [ ] Start Phase 3 client portal planning/spec when ready.
 
 ---
 
