@@ -37,11 +37,14 @@
 - [x] `/os` search/filter interaction deployed
 - [x] ROI/payback blocks deployed on pipeline detail pages
 - [x] Post-submit thank-you/next-step flow deployed
+- [x] First-client beta offer package prepared
+- [x] Outreach seed list/message package prepared
+- [x] Delivery checklists for first 3 flagship pipelines prepared
 
 ### Active Focus
 - [ ] Final homepage/case-study sales copy
-- [ ] First-client outreach package for 20 target businesses
-- [ ] Delivery checklists/templates for 3 flagship pipelines
+- [ ] Manual verification/enrichment of the 20-account seed list before sending
+- [ ] Start first outreach batch
 
 ### Explicitly Deferred
 - [ ] Stripe/Resend live verification until real keys or first payment moment
@@ -367,8 +370,8 @@ DONE:
 
 NOW:
   11. Conversion readiness: final copy polish remains; ROI/payback proof, search/filter, thank-you flow are deployed
-  12. First-client package: 5 flagship beta offers + direct outreach to 20 targets
-  13. Delivery readiness: deployment checklists/templates for first 3 pipelines
+  12. First-client package is drafted; manually verify/enrich contacts before sending
+  13. Delivery readiness checklists for first 3 pipelines are drafted
 
 NEXT AFTER FIRST PAYMENT / KEYS:
   14. Stripe Payment Link or live Checkout verification
