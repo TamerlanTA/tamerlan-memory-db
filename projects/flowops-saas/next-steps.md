@@ -116,8 +116,13 @@ Deferred by user on 2026-06-21: return after the next product work block. Do not
 - [x] Prepare 5 flagship beta offers for first-client outreach.
 - [x] Prepare direct outreach list/message package for 20 target businesses.
 - [x] Create delivery checklists/templates for first 3 flagship pipelines.
+- [x] Fix critical middleware bug (proxy.ts → middleware.ts) — June 23, 2026
+- [x] Fix .env.example credential leak — June 23, 2026
+- [x] Build POST /api/audit-request + AuditRequestForm + audit_requests table — June 23, 2026
+- [x] Deploy fixes to production — dpl_4PmR3BmbGgFhA27FGrhSuobtkQTS — June 23, 2026
 - [ ] Manually verify/enrich the 20-account seed list before sending.
 - [ ] Start first outreach batch.
+- [x] Build /internal/audits page to view incoming audit requests — done June 23, 2026.
 - [ ] Start Phase 3 client portal planning/spec when ready.
 
 ---

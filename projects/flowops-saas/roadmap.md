@@ -167,7 +167,7 @@
 ### Блок C: Pipeline Catalog Expansion (Weeks 7–9)
 - [x] Добавить pipeline-системы до 20–25 (приоритет: популярные категории)
 - [ ] `/internal/pipelines` — управление каталогом
-- [ ] Добавить "Coming Soon" карточки для объявленных pipeline
+- [x] Добавить "Coming Soon" карточки для объявленных pipeline — 7 systems, June 23, 2026
 - [x] Добавить proof/case-study section
 - [ ] Добавить testimonials / результаты первых реальных клиентов
 

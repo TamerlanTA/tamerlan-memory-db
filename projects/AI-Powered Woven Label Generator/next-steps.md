@@ -19,7 +19,18 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-payment-round-2-lifecycle-and-validation|Payment Round 2 lifecycle and validation]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-launch-analytics-foundation|Launch analytics foundation]]
 
-Last updated: 2026-06-09
+Last updated: 2026-06-23
+
+## Pre-launch gate (2026-06-23)
+
+1. Resolve or explicitly owner-waive the 10 failing `pnpm test` failures before public launch.
+2. Repair or bypass the broken `git status` worktree metadata before any release commit/deploy decision.
+3. Verify Vercel production is on intended commit `0e34242` or the chosen release commit, with production env present: `DATABASE_URL`, `JWT_SECRET`, `ORDER_INTENT_SIGNING_SECRET`, Clerk keys, Stripe live secret/webhook secret, `APP_BASE_URL`, Google generation key, R2 credentials, Resend sender/API key, and GA4 measurement ID.
+4. Apply or manually verify DB migrations through `0013_preorder_generation_linkage.sql`; note that `0013` is not currently in `drizzle/meta/_journal.json`.
+5. Run one live generation and confirm R2-backed result URL plus download retrieval work after refresh.
+6. Run one live Stripe purchase and verify checkout return UI, webhook 2xx, credit grant, Account/admin payment visibility, duplicate webhook idempotency, Stripe receipt, and GV Resend confirmation.
+7. Run one preorder/quote submission and verify DB row, email delivery, thumbnail URL, reply-to, and admin preorder visibility.
+8. Validate GA4 production events for generation, preorder, checkout, and payment success; only `landing_view` has prior proof.
 
 ## GA4 activation follow-up (2026-06-09)
 

@@ -108,10 +108,11 @@
 - Updated `/candidate_view` with CV enrichment counts and readiness warnings for portrait photo, structured work experience, education, and extras.
 - Updated `worker-documents` so CV generation reads structured work experience, education, extras, and portrait photo status from the new tables.
 - CV grounding still blocks invented employers, skills, experience, certificates, software, courses, achievements, education names, and unsupported extras.
-- If a portrait exists, CV currently shows `PHOTO UPLOADED - EMBEDDING PENDING`; actual DOCX image embedding remains manual/future.
+- Candidate portrait image embedding was implemented on 2026-06-23 in commit `04dda5d`: `worker-documents` downloads JPEG/PNG portrait files from private Supabase Storage, embeds them into the generated DOCX, and Gotenberg carries the image into PDF. Unsupported formats still fall back to `PHOTO UPLOADED - EMBEDDING PENDING`.
 - Tests/check/build/format passed locally; migration applied to production; `bot-api` and `worker-documents` deployed to Railway; Telegram webhook refreshed with `pending_update_count=0`.
 - Commit `3a7bd48` pushed to `main`.
 - Post-deploy webhook correction on 2026-06-22: Telegram must be registered to `https://bot-api-production-e076.up.railway.app/telegram/webhook` with `secret_token = TELEGRAM_WEBHOOK_SECRET`. The old `/webhook/<secret>` URL returns 404 because the app validates the secret through the `X-Telegram-Bot-Api-Secret-Token` header.
+- Production verification for document version `0fb3b92b-2397-4ca6-bff5-d7db4072a6bb` confirmed placeholder text is gone and the PDF contains a JPEG image object.
 
 ## What is not built
 - Vacancy ingestion workers/connectors, normalized vacancy records, scoring, matching, and application adapters are not built yet.
@@ -122,7 +123,7 @@
 ## Immediate milestone
 Phase 4: employer catalog and vacancy discovery foundation.
 
-**Requires next**: implement the first read-only discovery connector, starting with one high-yield source from the seeded catalog. CV enrichment intake/storage is now implemented; photo embedding into DOCX remains a future document-rendering improvement.
+**Requires next**: implement the first read-only discovery connector, starting with one high-yield source from the seeded catalog. CV enrichment intake/storage and JPEG/PNG portrait embedding are now implemented.
 
 ## Capacity requirement
 The design must run the 10-candidate pilot without a rewrite and scale to:

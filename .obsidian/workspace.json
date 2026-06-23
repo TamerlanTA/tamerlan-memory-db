@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "projects/flowops-saas/roadmap.md",
+                "file": "All about Agents/supervisor-agent-prompt.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "roadmap"
+              "title": "supervisor-agent-prompt"
             }
           },
           {
@@ -278,6 +278,7 @@
   },
   "active": "45cb06c97067572f",
   "lastOpenFiles": [
+    "projects/flowops-saas/roadmap.md",
     "projects/flowops-saas/sessions/2026-06-22-homepage-sales-copy-polish.md",
     "projects/flowops-saas/sessions/2026-06-22-first-client-package-and-delivery-checklists.md",
     "projects/flowops-saas/sessions/2026-06-22-conversion-readiness-batch-1.md",
@@ -289,7 +290,6 @@
     "projects/flowops-saas/sessions/2026-06-20-light-redesign-and-animation.md",
     "projects/flowops-saas/sessions/2026-06-20-figma-website-design.md",
     "projects/flowops-saas/sessions/2026-06-20-phase-1-marketplace-foundation.md",
-    "projects/flowops-saas/roadmap.md",
     "projects/amigo-mvp/sessions/2026-06-15-phase2-completion.md",
     "projects/amigo-mvp/next-steps.md",
     "projects/amigo-mvp/integrations.md",

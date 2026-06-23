@@ -20,7 +20,16 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-payment-round-2-lifecycle-and-validation|Payment Round 2 lifecycle and validation]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-launch-analytics-foundation|Launch analytics foundation]]
 
-Last updated: 2026-06-09
+Last updated: 2026-06-23
+
+## Pre-launch technical audit risks (2026-06-23)
+
+- **High launch risk: full test suite is red.** `pnpm test` currently fails 10 tests in generation-facing areas: canonical label config defaults, production batch logo-type default, Nano Banana config-fidelity validation, and texture preset expectations. `pnpm check` and `pnpm build` pass.
+- **High storage/env risk: R2 is mandatory in production.** `server/assets.ts` only falls back to inline data URLs when `!ENV.isProduction`; missing R2 credentials in production will fail asset storage/generation rather than degrade gracefully.
+- **High migration risk: `0013_preorder_generation_linkage.sql` is outside Drizzle journal.** The file exists but `drizzle/meta/_journal.json` ends at `0012_preorder_confirmation_email`; production/staging must be checked or manually migrated before relying on linkage columns.
+- **High live validation gap remains:** one real production generation/download, one live Stripe purchase + webhook replay/idempotency, one preorder email, Resend delivery, Stripe receipt, and flow-specific GA4 events still require proof.
+- **Medium release operations risk:** ordinary `git status` still fails due to stale worktree metadata, so release dirty-state checks are unreliable until repaired.
+- **Medium signing secret risk:** `ORDER_INTENT_SIGNING_SECRET` falls back to `JWT_SECRET`, then a fixed dev fallback with a production warning. Production must have a strong explicit signing secret.
 
 ## GA4 activation residual risks (2026-06-09)
 

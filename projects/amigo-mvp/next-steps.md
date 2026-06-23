@@ -40,7 +40,7 @@ Completed foundation:
 Residual follow-up:
 1. Business/legal owner still needs to formally approve consent text v1-ru-2026-06 before pilot scale.
 2. Use the new `/candidate_experience`, `/candidate_education`, `/candidate_extra`, and `/candidate_photo` flows to enrich real pilot candidates before regenerating CVs.
-3. Implement actual DOCX portrait image embedding later; current CV output shows `PHOTO UPLOADED - EMBEDDING PENDING` when a portrait is stored.
+3. Re-upload any unsupported WebP portrait photos as JPEG/PNG before final CV generation; JPEG/PNG embedding is implemented.
 4. Optional: approve the latest corrected sample CV version `c20ddaa5-15a7-4aa9-9314-8db68adec1ab` or reject it after visual review.
 
 ## Phase 3.5 — CV Enrichment ✅ COMPLETE (2026-06-22, commit 3a7bd48)
@@ -55,7 +55,7 @@ Completed:
 Manual remaining:
 1. Add real enrichment data for each pilot candidate through Telegram.
 2. Regenerate and approve each enriched CV.
-3. Build DOCX image embedding when final portrait placement is approved.
+3. Review final portrait crop/quality in generated PDFs before approval.
 
 ## P0 — Phase 2 review remediation ✅ COMPLETE (commit e5ad6e4)
 1. ✅ Non-closed filter moved to SQL WHERE in edit.ts and close.ts

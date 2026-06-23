@@ -42,7 +42,17 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-payment-round-2-lifecycle-and-validation|Payment Round 2 lifecycle and validation]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-launch-analytics-foundation|Launch analytics foundation]]
 
-Last updated: 2026-06-09
+Last updated: 2026-06-23
+
+## 2026-06-23 pre-launch technical audit
+
+- Pre-launch audit completed for planned 2026-06-24 launch. Local workspace is `/Users/tamerlan/Desktop/griffes-vivienne-studio-claude-r2-storage-integration-pU2tu`, branch `milestone4-auth-completion`, HEAD `0e34242`.
+- `pnpm check` PASS and `pnpm build` PASS. Build still reports the known large client bundle warning.
+- `pnpm test` FAILS: 230 passing, 10 failing across label config defaults (`20x50` vs `50x20` expectations), production batch logo type default, Nano Banana config-fidelity validation behavior, and texture preset expectations.
+- `git status --short` still fails with stale worktree metadata pointing to `/Users/tamerlan/.git/worktrees/elated-engelbart`; use plumbing commands or repair the worktree before release operations.
+- `drizzle/0013_preorder_generation_linkage.sql` is present but missing from `drizzle/meta/_journal.json`; production DB migration state must be verified manually before relying on preorder-generation asset linkage/admin visibility.
+- Production R2 behavior is fail-closed if R2 credentials are missing because inline fallback is gated to non-production only.
+- Launch verdict from audit: not green for public launch until full tests are resolved or owner-waived and live env/payment/generation/preorder/analytics gates are proven.
 
 ## 2026-06-09 GA4 event delivery fix
 
