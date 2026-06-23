@@ -94,4 +94,4 @@
 **Risk**: Vercel production работает с текущими Supabase/Internal/Telegram env vars, но Stripe/Resend keys намеренно не добавлены до live verification; future deploys могут выглядеть готовыми, хотя payment/email verification ещё не завершена.
 **Probability**: Medium
 **Impact**: Medium
-**Mitigation**: Держать Stripe/Resend verification отдельным checklist в [[next-steps]]. Перед включением оплат добавить `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `RESEND_API_KEY`, production `EMAIL_FROM` в Vercel и пройти live smoke.
+**Mitigation**: Держать Stripe/Resend verification отдельным checklist в [[next-steps]]. Перед включением оплат добавить `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `RESEND_API_KEY`, production `EMAIL_FROM` в Vercel и пройти live smoke. Rate limiting changes are currently verified on preview deploy `dpl_9WcPzfPgLUAb52HJbRKTGaxkPThe`; promote deliberately when ready to update production.

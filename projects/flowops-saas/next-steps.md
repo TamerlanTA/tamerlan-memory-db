@@ -120,6 +120,8 @@ Deferred by user on 2026-06-21: return after the next product work block. Do not
 - [x] Fix .env.example credential leak — June 23, 2026
 - [x] Build POST /api/audit-request + AuditRequestForm + audit_requests table — June 23, 2026
 - [x] Deploy fixes to production — dpl_4PmR3BmbGgFhA27FGrhSuobtkQTS — June 23, 2026
+- [x] Add Supabase-backed rate limiting to `/api/pipeline-order` and `/api/audit-request` — migrations `202606230002`, `202606230003`; preview deploy `dpl_9WcPzfPgLUAb52HJbRKTGaxkPThe` — June 23, 2026.
+- [ ] Promote rate-limited preview to production if ready to update `flowops-saas.vercel.app`.
 - [ ] Manually verify/enrich the 20-account seed list before sending.
 - [ ] Start first outreach batch.
 - [x] Build /internal/audits page to view incoming audit requests — done June 23, 2026.

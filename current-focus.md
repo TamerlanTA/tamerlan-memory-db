@@ -66,21 +66,22 @@
 
 ## FlowOps SaaS — AI Operations Platform (добавлен 2026-06-10)
 
-**Статус**: PLANNING — стратегический роадмап создан. Готов к Phase 1 разработке.
+**Статус**: PHASE 2A — Sales Readiness / Pre-Outreach Hardening Complete (обновлено 2026-06-23).
 
 **Что это**: SaaS/Platform с marketplace из 40 готовых AI/automation pipeline-систем для бизнеса. Гибридная модель: setup fee + monthly subscription. Premium B2B positioning (Linear/Vercel quality).
 
-**Phase 1 цель (4 недели)**:
-- Supabase: pipeline_categories + pipelines + pipeline_orders таблицы
-- `/os` marketplace + `/os/[slug]` detail pages
-- Order request form + Telegram notifications
-- `/pricing` страница
-- `/internal/orders` workspace
-- Seed: 12–15 pipeline-систем
+**Что готово**:
+- Production site live: `https://flowops-saas.vercel.app`
+- 25 live pipeline systems + `/os`, `/os/[slug]`, `/pricing`, homepage audit CTA
+- Supabase-backed `pipeline_orders`, `audit_requests`, internal order/audit workspaces
+- Telegram notifications for orders and audit requests
+- Protected `/internal/*` routes with working `src/middleware.ts`
+- Stripe/Resend scaffolds exist, but live verification is deferred
+- Durable Supabase-backed rate limiting added for `/api/pipeline-order` and `/api/audit-request`
 
-**Следующий шаг**: Аудит существующего кода → создать DB схему → начать `/os` страницу
+**Следующий шаг**: promote rate-limited preview if production update is desired, then manually verify/enrich the 20-account seed list and start first outreach batch.
 
-**Память**: [[projects/flowops-saas/overview]] | [[projects/flowops-saas/roadmap]] | [[projects/flowops-saas/pipeline-catalog]] | [[projects/flowops-saas/pricing]]
+**Память**: [[projects/flowops-saas/overview]] | [[projects/flowops-saas/current-state]] | [[projects/flowops-saas/next-steps]] | [[projects/flowops-saas/roadmap]] | [[projects/flowops-saas/pipeline-catalog]] | [[projects/flowops-saas/pricing]]
 
 ---
 

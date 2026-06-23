@@ -8,10 +8,11 @@
 
 ---
 
-## Status: PHASE 2A — MARKETPLACE COMPLETENESS PASS (June 23, 2026)
+## Status: PHASE 2A — PRE-OUTREACH HARDENING COMPLETE (June 23, 2026)
 
 Проект задеплоен на Vercel: `https://flowops-saas.vercel.app`
 Последний деплой: `dpl_4PmR3BmbGgFhA27FGrhSuobtkQTS` (June 23, 2026)
+Последний preview deploy: `dpl_9WcPzfPgLUAb52HJbRKTGaxkPThe` — `https://flowops-saas-lnswlp9vu-tamertt931-8560s-projects.vercel.app` (June 23, 2026)
 
 Полный технический аудит выявил и исправил критические баги — ряд задач был помечен в памяти как "done" без реальной реализации в коде.
 
@@ -42,6 +43,10 @@
 - [x] `/internal/audits/[id]` детали + status update (new → contacted → audit_sent → converted | closed)
 - [x] Status flow: New → Qualified → In Progress → Deployed → Active
 - [x] Telegram notifications для pipeline_orders и audit_requests
+- [x] Durable rate limiting для `/api/pipeline-order` и `/api/audit-request`
+  - Supabase-backed `check_rate_limit` RPC + `rate_limit_buckets`
+  - 3 requests/hour per IP+email pair
+  - In-memory fallback for local/no-Supabase environments
 - [x] Stripe Checkout routes (scaffold, live verification pending)
 - [x] Stripe webhook с signature verification и корректным `items.data[0].current_period_start`
 - [x] Resend email hooks (live verification pending)
@@ -51,7 +56,9 @@
 - `202606210001` — Phase 2 payments
 - `202606210002` — Catalog to 20 systems
 - `202606220001` — Catalog to 25 systems
-- `202606230001` — audit_requests table
+- `20260623085205` — audit_requests table (remote canonical migration fetched from Supabase history)
+- `202606230002` — rate_limit_buckets table + check_rate_limit RPC
+- `202606230003` — check_rate_limit RPC returning fix
 
 ---
 
@@ -62,7 +69,7 @@
 - [x] `/internal/audits` list + `/internal/audits/[id]` detail — implemented June 23
 - [x] Coming Soon pipeline cards on `/os` — implemented June 23
 - [x] Site footer on public pages — implemented June 23
-- [ ] Rate limiting на `/api/pipeline-order` и `/api/audit-request`
+- [x] Rate limiting на `/api/pipeline-order` и `/api/audit-request`
 - [ ] Первый outreach batch (20 целевых аккаунтов)
 - [ ] Client portal / login (Phase 3)
 
@@ -70,7 +77,7 @@
 
 ## Активная фаза
 
-**Phase 2A — Sales Readiness**. Все critical blockers устранены. Продукт готов к первому outreach. Следующий шаг: отправить первый batch по 20 бизнесам, затем live Stripe/Resend verification.
+**Phase 2A — Sales Readiness**. Critical blockers и pre-outreach API hardening устранены. Следующий шаг: manually verify/enrich 20-account seed list, затем отправить первый outreach batch. Preview deploy с rate limiting готов; production promote нужно выполнить отдельным явным шагом, если хотим сразу обновить основной домен.
 
 ---
 
