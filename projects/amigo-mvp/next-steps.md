@@ -58,6 +58,21 @@ Manual remaining:
 3. Review final portrait crop/quality in generated PDFs before approval.
 4. Review and approve or reject production sample `84e1f6bf-fe95-40c8-b294-4e6e9588d3a8`.
 
+## Unified Candidate Onboarding ✅ DEPLOYED (2026-06-24, commit 8145245)
+Completed:
+1. `/candidate_new` continues after consent through experience, education, extras, portrait, and final review.
+2. Repeatable add-another loops and explicit skip/no-experience paths are implemented.
+3. Re-running `/candidate_new` resumes the same durable session without creating another candidate.
+4. Optional separate WhatsApp is stored and used in generated CVs.
+5. Standalone enrichment commands remain available.
+6. Production migration, Supabase advisors, Railway deployments, webhook, and `/health` passed.
+
+Manual remaining:
+1. Continue the existing production `awaiting_form` session by sending `/candidate_new`.
+2. Complete one candidate with one experience, education, extra, and portrait.
+3. Confirm `/candidate_view`, regenerate the CV, and inspect all collected data.
+4. Run separate skip-photo, no-experience, and `/cancel` acceptance checks.
+
 ## P0 — Phase 2 review remediation ✅ COMPLETE (commit e5ad6e4)
 1. ✅ Non-closed filter moved to SQL WHERE in edit.ts and close.ts
 2. ✅ handleCloseConfirm verifies candidateId + assignedManagerId + status != closed before UPDATE
@@ -92,11 +107,12 @@ Next:
 - Candidate consent: draft v1 created; business/legal approval and privacy contact still required.
 
 ## Immediate execution order
-1. Collect/enrich pilot candidate CV facts through the new Phase 3.5 Telegram commands.
-2. Build the first read-only discovery connector, preferably Accor or Kerzner because the seeded endpoints expose hospitality jobs in target regions.
-3. Add dedupe/freshness upsert logic for imported vacancies.
-4. Add a Telegram/admin summary command for catalog/source health.
-5. Continue expanding employer catalog from 25 toward 100 approved brands.
+1. Complete the unified `/candidate_new` manual Telegram acceptance pass.
+2. Collect/enrich pilot candidate CV facts through unified onboarding or standalone Phase 3.5 commands.
+3. Build the first read-only discovery connector, preferably Accor or Kerzner because the seeded endpoints expose hospitality jobs in target regions.
+4. Add dedupe/freshness upsert logic for imported vacancies.
+5. Add a Telegram/admin summary command for catalog/source health.
+6. Continue expanding employer catalog from 25 toward 100 approved brands.
 
 ## Two-person working split
 - **Tamerlan:** approve business rules, provide or create service accounts and secrets, approve the CV template, consent text, target employer scope, and pilot candidates.

@@ -52,3 +52,5 @@ Candidate documents and sensitive personal data are deleted 90 days after the ca
 ### D-014 — Cost-conscious infrastructure
 Use Supabase Postgres, Storage, Cron, and PGMQ plus Railway services. Avoid Redis and separate managed queues until measured load requires them.
 
+### D-015 — Unified candidate onboarding with durable post-consent session
+`/candidate_new` is the default full onboarding path. The candidate is created only after consent, using status `intake`; the same `intake_sessions` row then stores the created candidate ID and drives CV enrichment to final review. Re-running `/candidate_new` resumes that session instead of creating a second candidate. Standalone enrichment commands remain available for later corrections.

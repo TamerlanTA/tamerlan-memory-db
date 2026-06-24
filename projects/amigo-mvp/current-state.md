@@ -116,6 +116,16 @@
 - Portrait fallback hardening was completed on 2026-06-24 in commit `f3e4c9d`: private storage paths were removed from photo failure logs, JPEG/PNG loading was moved into a tested module, unsupported/download failures now render `PHOTO UPLOADED - EMBEDDING FAILED`, and DOCX/PDF render failures explicitly mark the version `validation_failed`.
 - Production sample `84e1f6bf-fe95-40c8-b294-4e6e9588d3a8` is `pending_approval` with no validation errors. Visual PNG review confirms the portrait is visible, About Me remains under the header, Experience is grounded, and no photo placeholder text remains.
 - Full validation passed with 57 tests; Railway deployment `67a874db-2780-4866-b59e-c3e83e414da3` succeeded and all services are Online.
+- Unified `/candidate_new` onboarding was implemented and deployed on 2026-06-24 in commit `8145245`:
+  - preserves the existing basic profile form, language parsing, and consent gate;
+  - creates the `intake` candidate, consent, languages, and durable session pointer atomically after consent;
+  - guides the manager through repeatable work experience, education, extras, portrait upload, and final readiness review;
+  - resumes the same session on repeated `/candidate_new` and rejects stale inline buttons;
+  - keeps `/candidate_photo`, `/candidate_experience`, `/candidate_education`, and `/candidate_extra` operational for later edits;
+  - `/cancel` clears the wizard while preserving an already-created consented candidate.
+- Added optional separate `whatsapp_phone` persistence in migration `20260624172128`; worker-documents uses it in CV output and falls back to the primary phone.
+- Production migration is applied; Supabase security/performance advisors report no issues.
+- Local validation passed with 69 tests. Railway deployments `9a8e1a8a-11d7-42b6-bb65-84ed51a754b8` (`bot-api`) and `1f11b5f8-23ab-4fc5-8adf-b461173963c4` (`worker-documents`) succeeded; webhook is healthy with zero pending updates.
 
 ## What is not built
 - Vacancy ingestion workers/connectors, normalized vacancy records, scoring, matching, and application adapters are not built yet.
@@ -126,7 +136,7 @@
 ## Immediate milestone
 Phase 4: employer catalog and vacancy discovery foundation.
 
-**Requires next**: implement the first read-only discovery connector, starting with one high-yield source from the seeded catalog. CV enrichment intake/storage and JPEG/PNG portrait embedding are now implemented.
+**Requires next**: manually complete the new `/candidate_new` Telegram acceptance flow, then implement the first read-only discovery connector from one high-yield seeded source.
 
 ## Capacity requirement
 The design must run the 10-candidate pilot without a rewrite and scale to:

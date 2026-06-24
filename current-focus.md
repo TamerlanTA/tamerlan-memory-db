@@ -47,13 +47,15 @@
 - Employer catalog foundation committed in `91bc7b0`; production has 25 employers and 25 career sources
 - Vacancy discovery schema committed in `b1f1411`; production has empty `source_runs` and `vacancies` tables ready for first connector
 - Phase 3.5 CV enrichment committed in `3a7bd48`: production tables for candidate photos/work experience/education/extras, Telegram commands `/candidate_photo`, `/candidate_experience`, `/candidate_education`, `/candidate_extra`, `/candidate_view` readiness warnings, worker-documents structured loading
-- 52 теста, bot-api health OK
+- Unified `/candidate_new` onboarding deployed in `8145245`: durable resume, experience/education/extras/photo/final review, optional WhatsApp, standalone enrichment commands preserved
+- 69 тестов, bot-api health OK
 
 **Текущая фаза**: Phase 4 — Employer catalog and vacancy discovery foundation.
 
 **Блокеры**:
 - Consent text v1-ru-2026-06 still needs business/legal approval before pilot scale
 - Need managers to collect real CV enrichment data for pilot candidates; JPEG/PNG DOCX/PDF portrait embedding is live, while WebP requires re-upload as JPEG/PNG
+- Need one full live Telegram acceptance pass of unified `/candidate_new`; one production session is safely waiting at `awaiting_form`
 - Need first read-only discovery connector and vacancy upsert logic
 - Employer catalog is 25/100 seeded
 - Нет ATS adapter
