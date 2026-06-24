@@ -8,7 +8,7 @@
 
 ---
 
-## Status: PHASE 2A — PRE-OUTREACH HARDENING COMPLETE (June 23, 2026)
+## Status: PHASE 2A — SALES READINESS COMPLETE (June 25, 2026)
 
 Проект задеплоен на Vercel: `https://flowops-saas.vercel.app`
 Последний деплой: `dpl_4PmR3BmbGgFhA27FGrhSuobtkQTS` (June 23, 2026)
@@ -28,6 +28,12 @@
 - [x] `/os` marketplace с working search/filter через `MarketplaceExplorer`
 - [x] `/os` "Coming Soon" pipeline cards — 7 announced systems in separate "On the Roadmap" section
 - [x] `/os/[slug]` pipeline detail pages (32 pages)
+- [x] `/stacks` — System Stacks overview page (all 3 bundles with savings badge, system tags, pricing) — June 25, 2026
+- [x] `/stacks/[slug]` — Individual stack detail pages: Sales Stack, Support Stack, Voice Operations — June 25, 2026
+- [x] `StackDetail` type + `stackDetails` array in `src/lib/pricing.ts` — June 25, 2026
+- [x] Stacks link added to SiteHeader nav and SiteFooter — June 25, 2026
+- [x] Homepage pricing section → "View system stacks — save up to 23%" link — June 25, 2026
+- [x] Pricing page bundle cards → link to `/stacks/[slug]` — June 25, 2026
 - [x] `/pricing` page
 - [x] `SiteFooter` on all 4 public pages (/, /os, /pricing, /os/[slug])
 
@@ -72,6 +78,7 @@
 - [x] Site footer on public pages — implemented June 23
 - [x] Rate limiting на `/api/pipeline-order` и `/api/audit-request`
 - [x] `/internal/pipelines` catalog page — implemented June 24, 2026
+- [x] Bundle/Stack pages — implemented June 25, 2026
 - [ ] Первый outreach batch (20 целевых аккаунтов)
 - [ ] Client portal / login (Phase 3)
 
@@ -79,11 +86,11 @@
 
 ## Активная фаза
 
-**Phase 2A — Sales Readiness**. Critical blockers и pre-outreach API hardening устранены. Следующий шаг: manually verify/enrich 20-account seed list, затем отправить первый outreach batch. Preview deploy с rate limiting готов; production promote нужно выполнить отдельным явным шагом, если хотим сразу обновить основной домен.
+**Phase 2A — Sales Readiness COMPLETE** (June 25, 2026). Все code tasks Phase 2A выполнены: audit form, coming soon cards, footer, rate limiting, /internal/audits, /internal/pipelines, testimonials, bundle/stack pages. Следующий шаг: manually verify/enrich 20-account seed list, затем отправить первый outreach batch. Redeploy to Vercel production needed.
 
 ---
 
-## Key Metrics (June 24, 2026)
+## Key Metrics (June 25, 2026)
 - Активных клиентов: 0
 - Pipeline-систем: 25 (code + Supabase)
 - MRR: $0
