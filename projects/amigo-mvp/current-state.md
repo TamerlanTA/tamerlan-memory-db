@@ -108,11 +108,14 @@
 - Updated `/candidate_view` with CV enrichment counts and readiness warnings for portrait photo, structured work experience, education, and extras.
 - Updated `worker-documents` so CV generation reads structured work experience, education, extras, and portrait photo status from the new tables.
 - CV grounding still blocks invented employers, skills, experience, certificates, software, courses, achievements, education names, and unsupported extras.
-- Candidate portrait image embedding was implemented on 2026-06-23 in commit `04dda5d`: `worker-documents` downloads JPEG/PNG portrait files from private Supabase Storage, embeds them into the generated DOCX, and Gotenberg carries the image into PDF. Unsupported formats still fall back to `PHOTO UPLOADED - EMBEDDING PENDING`.
+- Candidate portrait image embedding was implemented on 2026-06-23 in commit `04dda5d`: `worker-documents` downloads JPEG/PNG portrait files from private Supabase Storage, embeds them into the generated DOCX, and Gotenberg carries the image into PDF. The 2026-06-24 hardening changed unsupported/download failures to `PHOTO UPLOADED - EMBEDDING FAILED`.
 - Tests/check/build/format passed locally; migration applied to production; `bot-api` and `worker-documents` deployed to Railway; Telegram webhook refreshed with `pending_update_count=0`.
 - Commit `3a7bd48` pushed to `main`.
 - Post-deploy webhook correction on 2026-06-22: Telegram must be registered to `https://bot-api-production-e076.up.railway.app/telegram/webhook` with `secret_token = TELEGRAM_WEBHOOK_SECRET`. The old `/webhook/<secret>` URL returns 404 because the app validates the secret through the `X-Telegram-Bot-Api-Secret-Token` header.
 - Production verification for document version `0fb3b92b-2397-4ca6-bff5-d7db4072a6bb` confirmed placeholder text is gone and the PDF contains a JPEG image object.
+- Portrait fallback hardening was completed on 2026-06-24 in commit `f3e4c9d`: private storage paths were removed from photo failure logs, JPEG/PNG loading was moved into a tested module, unsupported/download failures now render `PHOTO UPLOADED - EMBEDDING FAILED`, and DOCX/PDF render failures explicitly mark the version `validation_failed`.
+- Production sample `84e1f6bf-fe95-40c8-b294-4e6e9588d3a8` is `pending_approval` with no validation errors. Visual PNG review confirms the portrait is visible, About Me remains under the header, Experience is grounded, and no photo placeholder text remains.
+- Full validation passed with 57 tests; Railway deployment `67a874db-2780-4866-b59e-c3e83e414da3` succeeded and all services are Online.
 
 ## What is not built
 - Vacancy ingestion workers/connectors, normalized vacancy records, scoring, matching, and application adapters are not built yet.

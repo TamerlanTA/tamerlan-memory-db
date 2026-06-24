@@ -53,7 +53,7 @@
 
 **Блокеры**:
 - Consent text v1-ru-2026-06 still needs business/legal approval before pilot scale
-- Need managers to collect real CV enrichment data for pilot candidates; actual DOCX portrait image embedding remains future/manual
+- Need managers to collect real CV enrichment data for pilot candidates; JPEG/PNG DOCX/PDF portrait embedding is live, while WebP requires re-upload as JPEG/PNG
 - Need first read-only discovery connector and vacancy upsert logic
 - Employer catalog is 25/100 seeded
 - Нет ATS adapter
