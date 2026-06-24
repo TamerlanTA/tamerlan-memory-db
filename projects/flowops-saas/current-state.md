@@ -22,6 +22,7 @@
 
 ### Public Site
 - [x] FlowOps OS homepage с полным контентом и proof/case-study секцией
+- [x] Testimonials section on homepage — 3 placeholder cards (Bright Dental, Northbar Realty, Pioneer HVAC) — June 24, 2026
 - [x] Секция `#audit` — реальная форма `AuditRequestForm` с POST `/api/audit-request`
 - [x] 25 pipeline систем в `src/lib/catalog.ts` и в Supabase
 - [x] `/os` marketplace с working search/filter через `MarketplaceExplorer`
