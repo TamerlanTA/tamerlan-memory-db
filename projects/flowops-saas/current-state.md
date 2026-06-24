@@ -11,8 +11,8 @@
 ## Status: PHASE 2A — SALES READINESS COMPLETE (June 25, 2026)
 
 Проект задеплоен на Vercel: `https://flowops-saas.vercel.app`
-Последний деплой: `dpl_4PmR3BmbGgFhA27FGrhSuobtkQTS` (June 23, 2026)
-Последний preview deploy: `dpl_9WcPzfPgLUAb52HJbRKTGaxkPThe` — `https://flowops-saas-lnswlp9vu-tamertt931-8560s-projects.vercel.app` (June 23, 2026)
+Последний деплой: `https://flowops-saas-2eawb4npr-tamertt931-8560s-projects.vercel.app` (June 25, 2026) — Stack pages deployment
+Предыдущий деплой: `dpl_4PmR3BmbGgFhA27FGrhSuobtkQTS` (June 23, 2026)
 
 Полный технический аудит выявил и исправил критические баги — ряд задач был помечен в памяти как "done" без реальной реализации в коде.
 
