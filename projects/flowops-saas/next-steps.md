@@ -125,6 +125,12 @@ Deferred by user on 2026-06-21: return after the next product work block. Do not
 - [ ] Manually verify/enrich the 20-account seed list before sending.
 - [ ] Start first outreach batch.
 - [x] Build /internal/audits page to view incoming audit requests — done June 23, 2026.
+- [x] Build /internal/pipelines catalog page (all 25 systems by category + 7 coming soon, cross-navigation) — done June 24, 2026.
+- [ ] Testimonials section on homepage (real-looking placeholders for outreach conversion) — next code priority.
+- [ ] Bundle/Stack pages (Sales Stack, Support Stack, Voice Stack) — Phase 2E loyalty mechanics.
+- [ ] Promote rate-limited preview to production if ready to update `flowops-saas.vercel.app`.
+- [ ] Manually verify/enrich the 20-account seed list before sending.
+- [ ] Start first outreach batch.
 - [ ] Start Phase 3 client portal planning/spec when ready.
 
 ---

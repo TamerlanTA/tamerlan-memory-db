@@ -70,6 +70,7 @@
 - [x] Coming Soon pipeline cards on `/os` — implemented June 23
 - [x] Site footer on public pages — implemented June 23
 - [x] Rate limiting на `/api/pipeline-order` и `/api/audit-request`
+- [x] `/internal/pipelines` catalog page — implemented June 24, 2026
 - [ ] Первый outreach batch (20 целевых аккаунтов)
 - [ ] Client portal / login (Phase 3)
 
@@ -81,7 +82,7 @@
 
 ---
 
-## Key Metrics (June 23, 2026)
+## Key Metrics (June 24, 2026)
 - Активных клиентов: 0
 - Pipeline-систем: 25 (code + Supabase)
 - MRR: $0
