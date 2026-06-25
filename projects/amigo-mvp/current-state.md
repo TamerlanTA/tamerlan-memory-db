@@ -126,6 +126,16 @@
 - Added optional separate `whatsapp_phone` persistence in migration `20260624172128`; worker-documents uses it in CV output and falls back to the primary phone.
 - Production migration is applied; Supabase security/performance advisors report no issues.
 - Local validation passed with 69 tests. Railway deployments `9a8e1a8a-11d7-42b6-bb65-84ed51a754b8` (`bot-api`) and `1f11b5f8-23ab-4fc5-8adf-b461173963c4` (`worker-documents`) succeeded; webhook is healthy with zero pending updates.
+- Compact CV header redesign was completed and deployed on 2026-06-25 in commit `63d9637`:
+  - the old full-width photo frame and separate centered title block were replaced with a fixed two-column header;
+  - portrait/photo fallback is in the left column at approximately 3.3 cm × 4.2 cm;
+  - name, target role, current location, target relocation countries, age, nationality, email, phone, WhatsApp, and language summary are aligned in the right column;
+  - About Me remains immediately below the complete header;
+  - failed photo embedding now shows compact `PHOTO EMBEDDING FAILED`.
+- Header identity/location/relocation is forced back to deterministic stored facts during grounding.
+- Local LibreOffice samples with real portrait and missing-photo fallback passed visual QA.
+- Production Gotenberg sample `689f61c4-ff82-426b-97fe-b44a7072939d` is `pending_approval` with no validation errors; PDF/PNG inspection confirms the compact layout and embedded JPEG.
+- Full validation passed with 95 tests. Railway deployment `70b6d688-ffad-4f31-b36f-b12c0079db05` succeeded; all services are Online and `document_generate` queue depth is zero.
 
 ## What is not built
 - Vacancy ingestion workers/connectors, normalized vacancy records, scoring, matching, and application adapters are not built yet.

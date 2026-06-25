@@ -57,6 +57,7 @@ Manual remaining:
 2. Regenerate and approve each enriched CV.
 3. Review final portrait crop/quality in generated PDFs before approval.
 4. Review and approve or reject production sample `84e1f6bf-fe95-40c8-b294-4e6e9588d3a8`.
+5. Review and approve or reject compact-header production sample `689f61c4-ff82-426b-97fe-b44a7072939d`.
 
 ## Unified Candidate Onboarding ✅ DEPLOYED (2026-06-24, commit 8145245)
 Completed:

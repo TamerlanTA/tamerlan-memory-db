@@ -48,7 +48,8 @@
 - Vacancy discovery schema committed in `b1f1411`; production has empty `source_runs` and `vacancies` tables ready for first connector
 - Phase 3.5 CV enrichment committed in `3a7bd48`: production tables for candidate photos/work experience/education/extras, Telegram commands `/candidate_photo`, `/candidate_experience`, `/candidate_education`, `/candidate_extra`, `/candidate_view` readiness warnings, worker-documents structured loading
 - Unified `/candidate_new` onboarding deployed in `8145245`: durable resume, experience/education/extras/photo/final review, optional WhatsApp, standalone enrichment commands preserved
-- 69 тестов, bot-api health OK
+- Compact two-column CV header deployed in `63d9637`; production sample `689f61c4-ff82-426b-97fe-b44a7072939d` passed PDF/PNG verification
+- 95 тестов, bot-api health OK
 
 **Текущая фаза**: Phase 4 — Employer catalog and vacancy discovery foundation.
 
