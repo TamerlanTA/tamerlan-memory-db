@@ -73,7 +73,7 @@ Manual remaining:
 2. Complete one candidate with one experience, education, extra, and portrait.
 3. Confirm `/candidate_view`, regenerate the CV, and inspect all collected data.
 4. Run separate skip-photo, no-experience, and `/cancel` acceptance checks.
-5. For manager `935784686`, resend the portrait as a normal Telegram photo or JPEG/PNG/WebP document; the session is still waiting at `cv_photo_upload`.
+5. For manager `935784686`, resend the same HEIC/HEIF portrait document; native conversion is deployed and the session is still waiting at `cv_photo_upload`.
 6. Rotate the Telegram bot token through BotFather because the old token appeared in historical Railway error logs, update Railway, and refresh the webhook.
 
 ## P0 — Phase 2 review remediation ✅ COMPLETE (commit e5ad6e4)

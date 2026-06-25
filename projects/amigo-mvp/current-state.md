@@ -145,6 +145,12 @@
 - Railway `bot-api` deployment `04c55e2e-416d-427f-9a26-6ae87f2eb5d5` succeeded. The previously stuck HEIC update was redelivered and acknowledged with HTTP 200; Telegram pending update count returned to zero.
 - Manager `935784686` remains safely on `cv_photo_upload` for candidate `db0e2aff-89a8-4cd8-aea1-eaafa1f931f1`; no invalid portrait row was created.
 - Full validation passed with 99 tests.
+- Native HEIC/HEIF photo acceptance was implemented and deployed on 2026-06-25 in commit `d029396`:
+  - Telegram image documents are recognized by MIME type or `.heic`/`.heif` filename when Telegram sends `application/octet-stream`;
+  - files are converted server-side to JPEG with `heic-convert` before private Supabase Storage upload;
+  - empty and oversized files are rejected safely, conversion errors preserve the active upload session, and private storage paths remain unexposed;
+  - a real 3024×4032 HEIC fixture converted successfully in 868 ms with orientation preserved.
+- Full validation passed with 104 tests. Railway `bot-api` deployment `97bd9248-f720-499f-9acc-9e1d90a7b9bd` succeeded; all services are Online, `/health` is green, and Telegram webhook pending updates are zero.
 
 ## What is not built
 - Vacancy ingestion workers/connectors, normalized vacancy records, scoring, matching, and application adapters are not built yet.
