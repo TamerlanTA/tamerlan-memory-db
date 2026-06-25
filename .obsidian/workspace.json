@@ -27,7 +27,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "projects/flowops-saas/roadmap.md",
+                "file": "projects/amigo-mvp/roadmap.md",
                 "mode": "source",
                 "source": false
               },
@@ -278,11 +278,12 @@
   },
   "active": "45cb06c97067572f",
   "lastOpenFiles": [
+    "projects/amigo-mvp/sessions/2026-06-25-memory-sync.md",
+    "projects/flowops-saas/roadmap.md",
     "projects/flowops-saas/sessions/2026-06-25-bundle-stack-pages.md",
     "projects/flowops-saas/sessions/2026-06-24-internal-pipelines-catalog.md",
     "projects/flowops-saas/sessions/2026-06-23-pre-outreach-rate-limiting.md",
     "All about Agents/supervisor-agent-prompt.md",
-    "projects/flowops-saas/roadmap.md",
     "projects/flowops-saas/sessions/2026-06-22-homepage-sales-copy-polish.md",
     "projects/flowops-saas/sessions/2026-06-22-first-client-package-and-delivery-checklists.md",
     "projects/flowops-saas/sessions/2026-06-22-conversion-readiness-batch-1.md",
@@ -303,7 +304,6 @@
     "projects/amigo-mvp/technical-architecture.md",
     "projects/amigo-mvp/risks.md",
     "Completed-in-a-week.md",
-    "projects/amigo-mvp/sessions/2026-06-15-candidate-intake-implementation.md",
     "projects/flowops-saas/sessions",
     "projects/flowops-saas",
     "dashboard",
