@@ -22,6 +22,7 @@
 | Unified Telegram onboarding has not completed a full live manager acceptance pass | Medium | Medium | Complete one real `/candidate_new` flow with experience, education, extra, photo, final review, CV regeneration, skip branches, and `/cancel` before pilot use |
 | Candidate portrait is uploaded in unsupported format or poor crop | Medium | Low | JPEG/PNG portraits are embedded into generated CVs; unsupported/download failures show compact `PHOTO EMBEDDING FAILED`, and managers should re-upload as JPEG/PNG and review final crop/quality before approval |
 | Compact CV header wraps on unusually long names/contact values | Low | Medium | Two-column production sample passed with realistic data; manager must review long-name/long-email candidates before document approval |
+| Telegram bot token appeared in historical Railway error logs before logging sanitization | Medium | Critical | Error serialization is fixed in `65ff305`; rotate the Telegram bot token through BotFather and update Railway `TELEGRAM_BOT_TOKEN`, then refresh the webhook |
 | Duplicate or excessive applications damage candidate reputation | Medium | High | Idempotency keys, employer/domain limits, prior-application checks, daily caps |
 | Career sites block shared datacenter IPs | Medium | High | Slow domain-specific rates, stable sessions, optional compliant proxy budget, manual fallback |
 | Candidate personal data is exposed | Low | Critical | Private storage, RLS, least privilege, encrypted secrets, signed URLs, audit log, retention deletion |

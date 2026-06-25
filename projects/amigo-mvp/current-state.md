@@ -136,6 +136,15 @@
 - Local LibreOffice samples with real portrait and missing-photo fallback passed visual QA.
 - Production Gotenberg sample `689f61c4-ff82-426b-97fe-b44a7072939d` is `pending_approval` with no validation errors; PDF/PNG inspection confirms the compact layout and embedded JPEG.
 - Full validation passed with 95 tests. Railway deployment `70b6d688-ffad-4f31-b36f-b12c0079db05` succeeded; all services are Online and `document_generate` queue depth is zero.
+- Telegram photo upload outage was fixed on 2026-06-25 in commit `65ff305`:
+  - Telegram `message:photo` is now treated as JPEG even when Telegram file download returns `application/octet-stream`;
+  - JPEG/PNG/WebP image documents remain supported;
+  - HEIC/HEIF receives a clear retry instruction instead of causing Supabase Storage `415` and webhook `500`;
+  - Telegram download, Storage upload, and photo-record failures now reply safely while preserving the `cv_photo_upload` session;
+  - bot error logs no longer serialize the full grammY context/API token.
+- Railway `bot-api` deployment `04c55e2e-416d-427f-9a26-6ae87f2eb5d5` succeeded. The previously stuck HEIC update was redelivered and acknowledged with HTTP 200; Telegram pending update count returned to zero.
+- Manager `935784686` remains safely on `cv_photo_upload` for candidate `db0e2aff-89a8-4cd8-aea1-eaafa1f931f1`; no invalid portrait row was created.
+- Full validation passed with 99 tests.
 
 ## What is not built
 - Vacancy ingestion workers/connectors, normalized vacancy records, scoring, matching, and application adapters are not built yet.
