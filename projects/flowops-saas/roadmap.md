@@ -20,13 +20,13 @@
 
 ---
 
-## Current Stage — Phase 2A: Sales Readiness & First Clients
+## Current Stage — Phase 2A: Sales Readiness COMPLETE / Phase 2C–E: In Progress
 
-**Status as of 2026-06-22**: FlowOps SaaS is live in production. Marketplace MVP and deployment hardening are complete. Catalog has 25 published systems in code and live Supabase. Order flow writes to Supabase and sends Telegram notifications. Stripe/Resend code scaffolds exist, but live verification is intentionally deferred.
+**Status as of 2026-06-25**: All Phase 2A code tasks complete. Phase 2C catalog expansion done (25 systems + 7 coming soon + /internal/pipelines). Phase 2E bundle/stack pages live (3 stacks). Hero illustration redesigned via Figma. Waiting on first outreach batch (business action, not code).
 
-**Active objective**: make the live product ready to sell and use it to win the first 3–5 beta clients before investing deeper into portal/self-serve/AI layers.
+**Active objective**: send first outreach batch to 20-account seed list. Next code priority: Stripe/Resend live keys OR Phase 3 planning.
 
-### Verified Done
+### Verified Done (Phase 2A–C–E)
 - [x] Production URL: `https://flowops-saas.vercel.app`
 - [x] Vercel deployment smoke passed
 - [x] Supabase remote migrations applied through 25-system catalog
@@ -38,9 +38,23 @@
 - [x] ROI/payback blocks deployed on pipeline detail pages
 - [x] Post-submit thank-you/next-step flow deployed
 - [x] First-client beta offer package prepared
-- [x] Outreach seed list/message package prepared
+- [x] Outreach seed list/message package prepared (20 accounts)
 - [x] Delivery checklists for first 3 flagship pipelines prepared
 - [x] Homepage/case-study sales copy polished and deployed
+- [x] `/internal/audits` list + detail + status flow (June 23)
+- [x] Audit request form (`#audit` section, POST `/api/audit-request`) (June 23)
+- [x] Coming Soon cards on `/os` — 7 announced systems (June 23)
+- [x] Site footer on all 4 public pages (June 23)
+- [x] Rate limiting on `/api/pipeline-order` + `/api/audit-request` — Supabase-backed (June 23)
+- [x] `/internal/pipelines` catalog management page (June 24)
+- [x] Testimonials section on homepage — 3 placeholder cards (June 24; real data pending first clients)
+- [x] `/stacks` overview page — 3 bundles with savings badges, system tags, pricing (June 25)
+- [x] `/stacks/[slug]` detail pages — Sales Stack, Support Stack, Voice Operations (June 25)
+- [x] Stacks link in SiteHeader + SiteFooter (June 25)
+- [x] Homepage → "View system stacks — save up to 23%" link (June 25)
+- [x] Pricing page bundle cards → link to `/stacks/[slug]` (June 25)
+- [x] Hero illustration redesigned: Figma-sourced chaos → FlowOps → organized (post June-25 commits)
+- [x] FlowOps SVG favicon replacing default Next.js icon
 
 ### Active Focus
 - [ ] Manual verification/enrichment of the 20-account seed list before sending
@@ -141,12 +155,13 @@
 
 **Цель**: Первые платящие клиенты. Stripe integration. Расширение каталога.
 
-### Блок A: First Clients / Sales Readiness (Weeks 5–6) — ACTIVE
-- [ ] Refine homepage and pipeline detail copy into final sales-ready language
-- [ ] Add search/filter interaction for `/os`
-- [ ] Add thank-you / next-step experience after public order submission
-- [ ] Prepare 5 flagship pipeline beta offers
-- [ ] Direct outreach к 20 целевым бизнесам
+### Блок A: First Clients / Sales Readiness (Weeks 5–6) — CODE DONE / OUTREACH PENDING
+- [x] Refine homepage and pipeline detail copy into final sales-ready language
+- [x] Add search/filter interaction for `/os`
+- [x] Add thank-you / next-step experience after public order submission
+- [x] Prepare 5 flagship pipeline beta offers (first-client package)
+- [x] Outreach seed list + message package prepared (20 целевых аккаунтов)
+- [ ] Send first outreach batch (manually verify/enrich contacts first)
 - [ ] Предложить beta pricing (20% скидка) для первых 5 клиентов
 - [ ] Personal follow-up после каждого аудит-запроса
 - [ ] Задеплоить первые 3 pipeline-системы вручную
@@ -166,10 +181,11 @@
 
 ### Блок C: Pipeline Catalog Expansion (Weeks 7–9)
 - [x] Добавить pipeline-системы до 20–25 (приоритет: популярные категории)
-- [x] `/internal/pipelines` — управление каталогом (implemented June 24, 2026)
-- [x] Добавить "Coming Soon" карточки для объявленных pipeline — 7 systems, June 23, 2026
+- [x] `/internal/pipelines` — управление каталогом (June 24, 2026)
+- [x] Добавить "Coming Soon" карточки для объявленных pipeline — 7 systems (June 23, 2026)
 - [x] Добавить proof/case-study section
-- [ ] Добавить testimonials / результаты первых реальных клиентов
+- [x] Testimonials section — 3 placeholder cards на homepage (June 24, 2026; реальные данные появятся после первых клиентов)
+- [ ] Заменить placeholder testimonials реальными результатами клиентов
 
 ### Блок D: Email Automation (Week 8)
 - [x] Resend: transactional email helper scaffold
@@ -178,10 +194,11 @@
 - [ ] n8n workflow WF-03: Deployment complete → welcome email
 - [ ] n8n workflow WF-05: Subscription renewal reminder
 
-### Блок E: Loyalty Mechanics (Week 9)
-- [ ] Stack Bundle Discount logic (2nd pipeline = 10% off setup)
-- [ ] Loyalty badge на сайте ("Stack & Save")
-- [ ] Bundle pages: Sales Stack, Support Stack, Voice Stack, Full Ops Stack
+### Блок E: Loyalty Mechanics (Week 9) — PARTIALLY DONE
+- [ ] Stack Bundle Discount logic (2nd pipeline = 10% off setup) — не реализовано, только статические страницы
+- [x] Loyalty badge на сайте — "Save X%" badge на /stacks страницах (June 25, 2026)
+- [x] Bundle pages: Sales Stack, Support Stack, Voice Operations — 3 из 4 (June 25, 2026)
+- [ ] Full Ops Stack bundle page — не реализовано
 
 ### Phase 2 Success Criteria
 - [ ] 5+ платящих клиентов (setup fee received)
@@ -357,31 +374,44 @@
 
 ```
 DONE:
-  1. Supabase: pipeline_categories + pipelines + pipeline_orders + order_status_history
-  2. API: GET /api/pipelines, GET /api/pipelines/[slug], POST /api/pipeline-order
-  3. Catalog: 25 systems live in code and Supabase
-  4. /os marketplace, /os/[slug] details, /pricing
-  5. /internal/orders list/detail + status management
-  6. Telegram notifications for new orders
-  7. Homepage redesign + marketplace CTA + proof section
-  8. Internal access hardening
-  9. Vercel production deploy + smoke test
+  1.  Supabase: pipeline_categories + pipelines + pipeline_orders + order_status_history
+  2.  API: GET /api/pipelines, GET /api/pipelines/[slug], POST /api/pipeline-order
+  3.  Catalog: 25 systems live in code and Supabase
+  4.  /os marketplace, /os/[slug] details, /pricing
+  5.  /internal/orders list/detail + status management
+  6.  Telegram notifications for new orders
+  7.  Homepage redesign + marketplace CTA + proof section
+  8.  Internal access hardening
+  9.  Vercel production deploy + smoke test
   10. Stripe/Resend code scaffolds
+  11. Search/filter interaction on /os + ROI/payback blocks + thank-you flow
+  12. First-client beta package + outreach seed list (20 accounts) + delivery checklists
+  13. Homepage sales copy polish
+  14. /internal/audits list + detail + status flow + audit_requests Supabase migration
+  15. Audit request form (#audit section) + POST /api/audit-request
+  16. Coming Soon cards on /os (7 announced systems)
+  17. Site footer on all public pages
+  18. Rate limiting (Supabase-backed, 3 req/hr per IP+email)
+  19. /internal/pipelines catalog management page
+  20. Testimonials section on homepage (3 placeholder cards)
+  21. /stacks overview + /stacks/[slug] detail pages (3 bundles, savings badges)
+  22. Stacks nav links in SiteHeader + SiteFooter
+  23. Hero illustration redesigned (Figma-sourced) + FlowOps SVG favicon
 
 NOW:
-  11. Conversion readiness complete enough for outreach: final copy, ROI/payback proof, search/filter, thank-you flow are deployed
-  12. First-client package is drafted; manually verify/enrich contacts before sending
-  13. Delivery readiness checklists for first 3 pipelines are drafted
+  24. Send first outreach batch (manually verify/enrich the 20-account seed list first)
 
 NEXT AFTER FIRST PAYMENT / KEYS:
-  14. Stripe Payment Link or live Checkout verification
-  15. Resend live transactional emails
-  16. Subscription verification
+  25. Stripe Payment Link or live Checkout verification
+  26. Resend live transactional emails
+  27. Subscription verification
 
 LATER:
-  17. Bundle pages + loyalty mechanics
-  18. Supabase Auth
-  19. Client portal MVP
+  28. Full Ops Stack bundle page (4th stack)
+  29. Stack Bundle Discount logic (2nd pipeline = 10% off setup)
+  30. Real testimonials (replace placeholders after first clients)
+  31. Supabase Auth
+  32. Client portal MVP
 ```
 
 ---
