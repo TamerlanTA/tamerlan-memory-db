@@ -7,6 +7,7 @@
 - [[decisions]]
 - [[roadmap]]
 - [[technical-architecture]]
+- [[phase-5-execution-plan]]
 
 ## P0 — 2026-06-12 to 2026-06-14
 Completed on 2026-06-15:
@@ -87,13 +88,33 @@ Completed foundation:
 2. Added idempotent catalog importer `scripts/import-employer-catalog.ts`.
 3. Seeded 25 hospitality employers / career sources into production (`data/employer-catalog.seed.csv`).
 4. Added normalized vacancy discovery schema in migration `202606220002`: `source_runs` and `vacancies`.
+5. Added first read-only vacancy discovery vertical slice in `@amigo/vacancy-discovery`.
+6. Implemented `successfactors-v1` connector for Kerzner public SuccessFactors search pages.
+7. Implemented idempotent vacancy upsert by `vacancies.dedupe_key`, source run success/failure lifecycle, minimal stale marking, CLI runner, and `/source_health`.
+8. Production Kerzner verification on 2026-06-26: two successful runs, 15 vacancy rows, 15 distinct dedupe keys, preserved `first_seen_at`, updated `last_seen_at`.
+9. Added Phase 4B scheduled discovery path, overlap protection, error taxonomy, richer source health, `worker-vacancy-discovery`, and runbook.
+10. Production connector verification on 2026-06-26: Atlantis Dubai succeeded with 3 active vacancies, Kerzner succeeded with 15 active vacancies, One&Only failed safely as `empty_result`; total `vacancies=18`, distinct `dedupe_key=18`.
+11. Implemented Phase 5 locally on 2026-06-28 following [[phase-5-execution-plan]]:
+    - matching schema migration draft;
+    - `@amigo/matching` package;
+    - hard filters, weighted scoring, explanations, duplicate suppression, daily batch preparation;
+    - Telegram `/candidate_batch` review with item/whole-batch approve/reject;
+    - no application submission from Phase 5;
+    - full local validation passed: `pnpm check`, `pnpm test`, `pnpm build`, `pnpm format:check`.
+12. Applied Supabase remote migration `202606280001` successfully on 2026-06-28; `supabase migration list` shows local and remote in sync for this migration.
+13. Deployed `bot-api` with Phase 5 `/candidate_batch` on Railway after fixing Docker workspace package copying and `@amigo/matching` runtime exports.
+14. Production Phase 5 data acceptance passed for candidate `61ac04f1-b04c-4f35-a324-0a8c99182109`: batch `c7c7fcb1-58a3-4f0a-bc24-e66eb8906877`, strict final result 6 primary vacancies, duplicate suppression OK, item approve/reject verified, no application submission.
+15. Added regression coverage for Russian target country aliases and ISO vacancy country codes after production data revealed false `country_mismatch`.
+16. Strict plan re-audit on 2026-06-28 fixed pending-batch regeneration safety: re-running prepare for an existing `pending_approval` batch preserves existing item decisions. Production verification confirmed the already approved/rejected items in batch `c7c7fcb1-58a3-4f0a-bc24-e66eb8906877` remained unchanged.
+17. Strict plan re-audit on 2026-06-28 fixed role-family hard filtering: unknown non-target roles now fail unless the title explicitly contains a target role, broad F&B markers no longer make kitchen/host/stewarding roles approvable, and the production acceptance batch was regenerated to 6 strict primary items with shortage `eligible_vacancy_shortage:6/10`.
 
 Next:
-1. Build the first read-only discovery connector from the seeded catalog.
-2. Implement deduplication/freshness upsert behavior against `vacancies.dedupe_key`.
-3. Add source-run metrics and error classification.
-4. Implement hard filters and weighted scoring with explanation records.
-5. Generate manager approval batches with reserve vacancies.
+1. Run a manual Telegram UI click-through of `/candidate_batch` as the manager to confirm the visible UX and inline buttons in chat.
+2. Resolve the remaining pending items in production batch `c7c7fcb1-58a3-4f0a-bc24-e66eb8906877` when ready, or regenerate a fresh batch after manager review.
+3. Confirm product/business approval for current scoring strictness and shortage behavior (`6/10` primary for the first accepted candidate).
+4. Start Phase 6 only after agreeing how approved/partially approved batches become application jobs.
+5. Keep the original One&Only umbrella endpoint visible as `empty_result` until a stable umbrella URL is found.
+6. Continue expanding employer catalog from 31 toward 100 approved brands after scoring/matching safety rules are live.
 
 ## P1 — Applications and reports
 1. Define the adapter SDK and fixture contract.
@@ -112,10 +133,9 @@ Next:
 ## Immediate execution order
 1. Complete the unified `/candidate_new` manual Telegram acceptance pass.
 2. Collect/enrich pilot candidate CV facts through unified onboarding or standalone Phase 3.5 commands.
-3. Build the first read-only discovery connector, preferably Accor or Kerzner because the seeded endpoints expose hospitality jobs in target regions.
-4. Add dedupe/freshness upsert logic for imported vacancies.
-5. Add a Telegram/admin summary command for catalog/source health.
-6. Continue expanding employer catalog from 25 toward 100 approved brands.
+3. Run `/candidate_batch` manually in Telegram for UX acceptance, then decide whether to close the existing pending batch or regenerate.
+4. Continue monitoring `worker-vacancy-discovery` scheduled runs and `/source_health` as the source count grows.
+5. Continue expanding employer catalog from 31 toward 100 approved brands.
 
 ## Two-person working split
 - **Tamerlan:** approve business rules, provide or create service accounts and secrets, approve the CV template, consent text, target employer scope, and pilot candidates.

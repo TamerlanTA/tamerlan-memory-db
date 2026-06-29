@@ -7,6 +7,7 @@ c# AMIGO MVP — Roadmap
 - [[risks]]
 - [[next-steps]]
 - [[technical-architecture]]
+- [[phase-5-execution-plan]]
 
 ## Phase 1 — Foundation, 12–14 June
 Goal: deployable backend foundation.
@@ -71,6 +72,8 @@ Acceptance:
 ## Phase 5 — Matching and approval, 26–28 June
 Goal: deterministic daily vacancy batches.
 
+Canonical execution plan: [[phase-5-execution-plan]]. Future Phase 5 implementation must follow that plan in order unless Tamerlan explicitly changes it or a verified blocker requires a documented deviation.
+
 Deliverables:
 - role taxonomy and synonym dictionaries;
 - hard filters;
@@ -134,4 +137,3 @@ Deliverables:
 - additional certified employer adapters;
 - manager SLA for `NeedsAction`;
 - operations dashboard specification if Telegram limits are reached.
-

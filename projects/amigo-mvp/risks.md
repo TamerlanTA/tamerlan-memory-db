@@ -29,6 +29,10 @@
 | Waitlist activates before operations are stable | High | High | Ten-candidate controlled pilot, launch gates, connector error thresholds, staged 10→20→30 activation |
 | Monthly cost exceeds USD 100 | Medium | Medium | PGMQ instead of Redis, bounded browser concurrency, per-service budgets and weekly usage review |
 | Insufficient suitable vacancies prevents 5–10 daily applications | Medium | Medium | Report `eligible vacancy shortage` explicitly; never lower hard requirements only to hit volume |
+| HTML-based public career pages change markup and break read-only vacancy parsing | Medium | Medium | Keep connector isolated/versioned, fixture-test parser behavior, monitor `source_runs`, and treat failures as source health issues rather than silent success |
+| Phase 4C.1 property-level SuccessFactors sources overlap with broad Kerzner search by `apply_url` | Medium | Medium | Phase 4C.2 duplicate report now detects active cross-source overlap; wire it into Phase 5 batch suppression before showing vacancies to managers |
+| Phase 5 Telegram UI has not been clicked manually after deploy | Medium | Medium | Production data acceptance passed through the matching store; run `/candidate_batch` in Telegram to verify visible manager UX and inline callbacks end to end |
+| Railway CLI auth can expire or fail between operational verification sessions | Medium | Medium | Use stable `RAILWAY_TOKEN` / `RAILWAY_API_TOKEN` for operational retries; token auth restored the 2026-06-27 Phase 4C.1 rollout |
 | Candidate edit/close lists apply the `closed` filter after `LIMIT 20` | Medium | Medium | Filter `status != closed` in SQL before limiting; add regression coverage with more than 20 mixed-status candidates |
 | Candidate assignment can change between close selection and confirmation | Low | High | Include `assigned_manager_id` in the closing update predicate and require an affected row before writing the audit event |
 | Intake accepts a location with an empty country or city | Medium | Medium | Validate both trimmed location parts and add cases for `Kazakhstan,` and `,Almaty` |
@@ -39,8 +43,8 @@
 ## Launch blockers
 - No production-certified application connector.
 - No end-to-end evidence trail for applications.
-- No duplicate prevention.
-- No manager approval gate.
+- No duplicate prevention for applications; vacancy ingestion dedupe and Phase 5 manager-facing duplicate suppression exist locally, but application-level duplicate prevention remains Phase 6.
+- Manager approval gate for vacancy batches is deployed and production data acceptance passed; manual Telegram UI click-through is still recommended before manager rollout.
 - No tested retention and access controls.
 - More than 10% silent or unclassified application outcomes during pilot QA.
 
@@ -53,6 +57,14 @@
 - Candidate edit/close list filtering now applies `status != closed` before `LIMIT 20`.
 - Close confirmation verifies candidate ID, current manager assignment, and non-closed status before update.
 - Intake location validation requires both country and city around the comma.
+
+## Resolved Phase 4C.1 rollout blockers
+- Railway auth was restored with token-based CLI access on 2026-06-27.
+- `bot-api` was redeployed with optimized plain-text `/source_health`; production webhook simulation returns HTTP 200 without timeout.
+- `worker-vacancy-discovery` was redeployed with updated `successfactors-v1` query preservation and logs `checkedSourceCount=9`.
+
+## Resolved Phase 4C.2 blocker
+- Cross-source vacancy duplicate detection exists as a read-only report before Phase 5 matching. Production report found 10 active groups / 20 rows, all canonical `apply_url` overlaps; source-scoped `dedupe_key` remains unchanged and production has 0 duplicate dedupe groups.
 
 ## Scale-to-30 gates
 - At least 95% of jobs finish in a terminal or actionable state.

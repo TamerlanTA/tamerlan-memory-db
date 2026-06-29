@@ -68,6 +68,7 @@
 
 - [x] Premium homepage redesign concept in Figma (2026-06-20) — https://www.figma.com/design/Pv2Rkr3W6pbbspoxT6B0DH (see [[sessions/2026-06-20-figma-website-design]])
 - [x] Port bright/light redesign into existing Next.js site after user sketch + juanmora.co reference
+- [x] Complete the homepage `How it works` section with a cohesive deployment-loop visual, stronger hierarchy, and responsive mobile flow — June 25, 2026
 - [x] Desktop/mobile QA for `/`, `/os`, `/os/[slug]`, `/pricing`, `/internal/orders`
 - [ ] Optional follow-up: refine copy and section names from sketch into final marketing language
 

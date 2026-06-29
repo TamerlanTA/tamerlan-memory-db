@@ -15,7 +15,7 @@
 - Planning window: 2026-06-12 to 2026-07-05
 - Launch target: controlled pilot for 10 candidates
 - Post-launch target: 30 active candidates
-- Current phase: employer catalog and vacancy discovery foundation
+- Current phase: Phase 5 matching and approval production deployed; Telegram UI manual click-through remains useful before manager rollout
 - Working mode: two-person execution — Tamerlan owns business decisions, access, credentials, and approvals; Codex owns technical implementation, validation, and memory synchronization.
 
 ## What is complete
@@ -93,6 +93,131 @@
   - `vacancies` with `dedupe_key`, source/apply URLs, title, employer, location, freshness status, timestamps, and raw payload.
 - Applied migration `202606220002_vacancy_discovery_foundation.sql` to Supabase production; verification showed `source_runs=0`, `vacancies=0`, `career_sources=25`.
 
+## What is complete (Phase 4 first vacancy ingestion slice — as of 2026-06-26)
+- Added isolated package `@amigo/vacancy-discovery` with connector abstraction, SuccessFactors read-only connector, normalization, idempotent `vacancies.dedupe_key` upsert, `source_runs` lifecycle, stale marking, and source health summary.
+- Added CLI `scripts/discover-vacancies.ts`:
+  - `--source <source-id-or-endpoint>`;
+  - `--connector successfactors-v1`;
+  - `--summary [connector-id]`.
+- Added Telegram/admin summary command `/source_health` in `bot-api`; it reads configured sources and latest source runs without triggering ingestion.
+- Chosen first live connector: `successfactors-v1` for Kerzner because `https://jobs.kerzner.com/search/` exposes server-rendered public search rows with title, department, facility, location, date, and apply URL.
+- Production run results for Kerzner source `a751ef51-fabd-452e-b929-652b362df455`:
+  - one initial failed `source_runs` row recorded a Date serialization bug without corrupting vacancies;
+  - two subsequent successful runs discovered/upserted 15 rows each;
+  - production has 15 Kerzner `vacancies` and 15 distinct `dedupe_key` values;
+  - repeated run preserved `first_seen_at` and updated `last_seen_at`;
+  - all sampled vacancies are `freshness_status = active`.
+- Local validation passed: `pnpm check`, `pnpm test` (111 tests), `pnpm build`, and `pnpm format:check`.
+
+## What is complete (Phase 4B scheduled ingestion and health hardening — as of 2026-06-26)
+- Added scheduled discovery execution path in `@amigo/vacancy-discovery`:
+  - due-source selection from `career_sources.polling_schedule`;
+  - `--scheduled` CLI one-shot;
+  - `--daemon` CLI loop;
+  - dedicated `apps/worker-vacancy-discovery` service and `Dockerfile.worker-vacancy-discovery`.
+- Added overlap protection: existing unfinished `source_runs.status = running` blocks a second run for the same source.
+- Added connector error taxonomy in `source_runs.metadata.errorCategory`: `network_error`, `http_error`, `parse_error`, `empty_result`, `blocked_or_auth_required`, `rate_limited`, `unknown_error`.
+- Hardened source health summaries for CLI and `/source_health`: connector totals, last success/failure, discovered/upserted counts, active/stale vacancy counts, latest error category/message.
+- Added runbook `docs/vacancy-discovery-runbook.md`.
+- Live verification on 2026-06-26:
+  - manual Kerzner single-source run still succeeded with 15 discovered/upserted;
+  - connector-level run processed three `successfactors-v1` sources independently;
+  - Atlantis Dubai succeeded with 3 active vacancies;
+  - Kerzner succeeded with 15 active vacancies;
+  - One&Only failed safely as `empty_result` without blocking other sources;
+  - scheduled one-shot found 0 due sources immediately after connector-level run;
+  - production totals: 18 `vacancies`, 18 distinct `dedupe_key`, 18 active, 0 stale.
+- Railway production activation on 2026-06-26:
+  - Railway CLI auth restored for project `amigo-mvp`, environment `production`;
+  - `bot-api` redeployed successfully, deployment `7ba716e6-7a98-43a4-8bb4-06601c19e0c5`;
+  - new Railway service `worker-vacancy-discovery` created and deployed successfully, deployment `2a4ebecc-228e-4965-89c2-23de840a274a`;
+  - worker env confirmed: `RAILWAY_DOCKERFILE_PATH=Dockerfile.worker-vacancy-discovery`, `VACANCY_DISCOVERY_CONNECTORS=successfactors-v1`, `VACANCY_DISCOVERY_INTERVAL_MS=300000`;
+  - worker logs showed daemon startup and repeated scheduled checks with `checkedSourceCount=3`, `dueSourceCount=0`;
+  - Telegram webhook is registered to `https://bot-api-production-e076.up.railway.app/telegram/webhook`, pending updates are 0, and `/source_health` webhook invocation returned HTTP 200;
+  - DB verification remained deduplicated: 18 vacancies, 18 distinct dedupe keys, 18 active, 0 stale, 0 stuck running source runs.
+- First scheduled due-cycle evidence on 2026-06-26:
+  - production DB shows three new `source_runs` after worker deployment at `2026-06-26T16:51Z`, matching the first due window after the manual `10:48Z` runs;
+  - Atlantis Dubai succeeded with 2 discovered/upserted and marked 1 previously active vacancy stale;
+  - Kerzner International succeeded with 15 discovered/upserted and marked 1 previously active vacancy stale;
+  - One&Only Resorts failed safely again as `empty_result`;
+  - production totals are now 19 vacancies, 19 distinct dedupe keys, 17 active, 2 stale, 0 duplicate dedupe keys, and 0 running source runs;
+  - `/source_health` remains operational through the production webhook and reflects the scheduled-cycle results.
+- Local validation passed: `pnpm check`, `pnpm test` (118 tests), `pnpm build`, and `pnpm format:check`.
+- Phase 4C.1 partial expansion on 2026-06-26:
+  - seed/import catalog expanded from 25 to 31 sources, with `successfactors-v1` configured for 9 Kerzner-family sources;
+  - added verified One&Only property keyword sources: The Palm, Aesthesis, Kea Island, Palmilla, Mandarina, and Moonlight Basin;
+  - `successfactors-v1` now preserves explicit endpoint `q` query parameters for property-specific search pages;
+  - production manual connector run verified 8 successful sources and 1 expected `empty_result` failure for the original One&Only umbrella endpoint;
+  - source health after manual verification: 9 configured, 8 succeeded last run, 1 failed last run, 96 active vacancies, 82 stale historical rows, 0 stuck running runs, and 0 duplicate `dedupe_key` rows;
+  - caveat: active `apply_url` overlap remains between broad Kerzner and property-level sources because current `dedupe_key` is source-scoped;
+  - `/source_health` initially hit a production timeout after catalog expansion because bot-api still used a sequential per-source query path; code was fixed to use the optimized vacancy-discovery health summary store;
+  - production rollout completed on 2026-06-27 after Railway token auth was restored:
+    - `bot-api` redeployed successfully, final deployment `adc456b8-11cd-464c-872f-61f2d4e8a5d4`;
+    - `worker-vacancy-discovery` redeployed successfully, deployment `db58da6e-101e-4163-a8f3-7a61242e1057`;
+    - worker env confirmed: `RAILWAY_DOCKERFILE_PATH=Dockerfile.worker-vacancy-discovery`, `VACANCY_DISCOVERY_CONNECTORS=successfactors-v1`, `VACANCY_DISCOVERY_INTERVAL_MS=300000`;
+    - worker logs show daemon startup and scheduled checks with `checkedSourceCount=9`, `dueSourceCount=0`;
+    - `/source_health` production webhook simulation returns HTTP 200 without timeout;
+    - DB verification remains clean: 9 `successfactors-v1` sources, 178 vacancies, 178 distinct `dedupe_key`, 0 duplicate groups, 0 stuck running source runs, 96 active and 82 stale vacancies, latest health 8 succeeded / 1 classified `empty_result`.
+  - Phase 4C.1 is production accepted for read-only SuccessFactors vacancy ingestion expansion.
+- Phase 4C.2 cross-source duplicate detection was implemented on 2026-06-27:
+  - kept existing source-scoped `vacancies.dedupe_key` behavior unchanged and backward-compatible;
+  - added read-only canonical duplicate detection in `@amigo/vacancy-discovery` using canonical `apply_url` first, then external id plus normalized title/employer/location fallback;
+  - added CLI report: `pnpm tsx scripts/discover-vacancies.ts --duplicates successfactors-v1`;
+  - no migration was added and no existing vacancy rows are deleted, merged, or rewritten;
+  - tests cover same apply URL across sources, tracking query parameter differences, same title with different locations, unrelated jobs, and source-scoped dedupe stability;
+  - full local validation passed: `pnpm check`, `pnpm test` (124 tests), `pnpm build`, and `pnpm format:check`;
+  - production duplicate report found 10 active cross-source duplicate groups / 20 rows, all by identical canonical `apply_url`, mostly broad Kerzner plus property-level sources;
+  - after two repeated `successfactors-v1` discovery runs, production remained clean: 180 vacancies, 180 distinct `dedupe_key`, 0 duplicate dedupe groups, 0 stuck running source runs, latest health 8 succeeded / 1 classified `empty_result`.
+  - Phase 4C.2 is accepted as a read-only pre-Phase-5 duplicate detection guard.
+
+## What is complete (Phase 5 local implementation — as of 2026-06-28)
+- Implemented Phase 5 according to [[phase-5-execution-plan]] Batch 0 through Batch 8 in local code.
+- Added production migration draft `202606280001_phase5_matching_batches.sql` for:
+  - `vacancy_scores`;
+  - `daily_batches`;
+  - `daily_batch_items`;
+  - Phase 5 enums for score bucket, batch status, and item decision.
+- Added `@amigo/matching` package with deterministic:
+  - role taxonomy and synonym matching;
+  - candidate/vacancy hard filters;
+  - weighted scoring and structured explanations;
+  - canonical duplicate suppression using Phase 4C.2 duplicate identity;
+  - daily batch preparation with primary/reserve/rejected buckets and shortage reporting;
+  - Postgres store for candidate/vacancy loading, score persistence, batch persistence, and manager decisions.
+- Added Telegram `/candidate_batch` flow:
+  - lists manager-owned candidates with approved CVs;
+  - prepares/persists today's pending approval batch;
+  - shows primary/reserve vacancies with score;
+  - supports item approve/reject and whole-batch approve/reject callbacks;
+  - enforces manager ownership and current pending batch status;
+  - does not submit applications or enqueue Phase 6 application jobs.
+- Phase 5 tests cover deterministic scoring, hard-filter rejection, canonical duplicate suppression without row mutation, and batch shortage behavior.
+- Full local validation passed on 2026-06-28:
+  - `CI=true pnpm check`;
+  - `CI=true pnpm test` — 128 tests passed across current test suites;
+  - `CI=true pnpm build`;
+  - `CI=true pnpm format:check`.
+- Supabase remote migration `202606280001` was applied successfully on 2026-06-28 and appears in `supabase migration list`.
+- Railway token auth was provided and `bot-api` was deployed successfully on 2026-06-28 after two packaging fixes:
+  - Dockerfiles now copy `packages/matching/package.json` before `pnpm install`;
+  - `@amigo/matching` package exports were restored to runtime `dist` output instead of TS source.
+- Production `bot-api` health returned `{"status":"ok","service":"bot-api","database":"ok"}` after deploy.
+- Telegram webhook info after deploy: pending updates 0, no last error.
+- Production Phase 5 data acceptance:
+  - candidate `61ac04f1-b04c-4f35-a324-0a8c99182109` with approved CV `689f61c4-ff82-426b-97fe-b44a7072939d`;
+  - batch `c7c7fcb1-58a3-4f0a-bc24-e66eb8906877`;
+  - final strict re-audit batch has 6 primary vacancies, 0 reserves, shortage `eligible_vacancy_shortage:6/10`;
+  - canonical duplicate suppression check passed;
+  - item rank 1 approved and rank 2 rejected through Phase 5 store, batch remains `pending_approval` because other items are still pending.
+- Added country normalization fixes for Russian target countries and ISO country codes (`ОАЭ`/`AE`, `Катар`/`QA`, `Бахрейн`/`BH`, etc.) after production acceptance initially showed false `country_mismatch`.
+- 2026-06-28 strict plan re-audit found and fixed a regeneration safety issue: re-preparing an existing `pending_approval` batch now returns the existing batch instead of deleting/recreating items and losing decisions. Production verification confirmed rank 1 stayed `approved` and rank 2 stayed `rejected` after re-prepare.
+- 2026-06-28 strict plan re-audit also fixed local test reliability by making `bot-api` tests build `@amigo/matching` before resolving its runtime `dist` export.
+- 2026-06-28 strict plan re-audit found and fixed a role-family hard-filter gap:
+  - unknown non-target roles now fail with `role_mismatch` unless the title explicitly contains a target role;
+  - broad F&B markers were removed from waiter matching because they let kitchen/host/stewarding roles enter approvable batches;
+  - production batch `c7c7fcb1-58a3-4f0a-bc24-e66eb8906877` was intentionally expired and regenerated under the stricter filter;
+  - excluded examples now include `F&B Intern`, `Restaurant Hostess`, `Stewarding Supervisor`, `Sushi Commis Chef`, and `Public Area Attendant`.
+
 ## What is complete (Phase 3.5 CV enrichment — as of 2026-06-22)
 - Added production migration `202606220003_cv_profile_enrichment.sql` with:
   - `candidate_photos`;
@@ -153,15 +278,15 @@
 - Full validation passed with 104 tests. Railway `bot-api` deployment `97bd9248-f720-499f-9acc-9e1d90a7b9bd` succeeded; all services are Online, `/health` is green, and Telegram webhook pending updates are zero.
 
 ## What is not built
-- Vacancy ingestion workers/connectors, normalized vacancy records, scoring, matching, and application adapters are not built yet.
-- Full employer catalog, ingestion connectors, scoring, matching (Phase 4–5)
+- Broad non-SuccessFactors connector coverage and application adapters are not built yet.
+- Full employer catalog and additional ingestion connectors remain incomplete.
 - Application workers, ATS adapters (Phase 6)
 - No ATS adapter is certified for production use.
 
 ## Immediate milestone
-Phase 4: employer catalog and vacancy discovery foundation.
+Phase 5 production acceptance.
 
-**Requires next**: manually complete the new `/candidate_new` Telegram acceptance flow, then implement the first read-only discovery connector from one high-yield seeded source.
+**Requires next**: run one manual Telegram UI click-through of `/candidate_batch` as the manager, then proceed to Phase 6 application handoff/adapters only after approval rules are accepted.
 
 ## Capacity requirement
 The design must run the 10-candidate pilot without a rewrite and scale to:

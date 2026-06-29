@@ -11,7 +11,9 @@
 ## Status: PHASE 2A — SALES READINESS COMPLETE (June 25, 2026)
 
 Проект задеплоен на Vercel: `https://flowops-saas.vercel.app`
-Последний деплой: `https://flowops-saas-2eawb4npr-tamertt931-8560s-projects.vercel.app` (June 25, 2026) — Stack pages deployment
+Последний preview-деплой: `https://flowops-saas-lgumct4fo-tamertt931-8560s-projects.vercel.app` (`dpl_EFSeU9rDXWs8Nz5G3FHMrHEfSFaj`, June 26, 2026) — homepage marketplace section refinement + marquee overlap fix
+Предыдущий preview-деплой: `https://flowops-saas-ixaq9qpdk-tamertt931-8560s-projects.vercel.app` (`dpl_E2S1npxw1oy3hUnfNBLeffhhPxWm`, June 26, 2026) — frameless homepage `How it works` refinement
+Предыдущий деплой: `https://flowops-saas-2eawb4npr-tamertt931-8560s-projects.vercel.app` (June 25, 2026) — Stack pages deployment
 Предыдущий деплой: `dpl_4PmR3BmbGgFhA27FGrhSuobtkQTS` (June 23, 2026)
 
 Полный технический аудит выявил и исправил критические баги — ряд задач был помечен в памяти как "done" без реальной реализации в коде.
@@ -22,6 +24,8 @@
 
 ### Public Site
 - [x] FlowOps OS homepage с полным контентом и proof/case-study секцией
+- [x] Homepage `How it works` section upgraded into a frameless, canvas-integrated deployment-loop composition with abstract color fields and only two functional product surfaces — June 25, 2026
+- [x] Homepage marketplace teaser rebuilt into an editorial product-shelf composition: one featured workflow, overlapping pastel system tiles, abstract color fields, and retained trust marquee — June 26, 2026
 - [x] Testimonials section on homepage — 3 placeholder cards (Bright Dental, Northbar Realty, Pioneer HVAC) — June 24, 2026
 - [x] Секция `#audit` — реальная форма `AuditRequestForm` с POST `/api/audit-request`
 - [x] 25 pipeline систем в `src/lib/catalog.ts` и в Supabase

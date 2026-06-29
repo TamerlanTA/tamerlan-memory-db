@@ -7,6 +7,7 @@
 - [[next-steps]]
 - [[technical-architecture]]
 - [[roadmap]]
+- [[phase-5-execution-plan]]
 
 ## Accepted decisions
 
@@ -54,3 +55,6 @@ Use Supabase Postgres, Storage, Cron, and PGMQ plus Railway services. Avoid Redi
 
 ### D-015 — Unified candidate onboarding with durable post-consent session
 `/candidate_new` is the default full onboarding path. The candidate is created only after consent, using status `intake`; the same `intake_sessions` row then stores the created candidate ID and drives CV enrichment to final review. Re-running `/candidate_new` resumes that session instead of creating a second candidate. Standalone enrichment commands remain available for later corrections.
+
+### D-016 — Phase 5 execution lock
+Phase 5 matching and approval must be implemented according to [[phase-5-execution-plan]] in order. The plan is the canonical scope-control document for matching, scoring, duplicate suppression, daily batches, and Telegram approval. Future implementation may deviate only if Tamerlan explicitly changes the plan or a verified blocker is documented in a session note / decision before continuing.
