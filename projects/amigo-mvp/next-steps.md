@@ -108,8 +108,10 @@ Completed foundation:
 16. Strict plan re-audit on 2026-06-28 fixed pending-batch regeneration safety: re-running prepare for an existing `pending_approval` batch preserves existing item decisions. Production verification confirmed the already approved/rejected items in batch `c7c7fcb1-58a3-4f0a-bc24-e66eb8906877` remained unchanged.
 17. Strict plan re-audit on 2026-06-28 fixed role-family hard filtering: unknown non-target roles now fail unless the title explicitly contains a target role, broad F&B markers no longer make kitchen/host/stewarding roles approvable, and the production acceptance batch was regenerated to 6 strict primary items with shortage `eligible_vacancy_shortage:6/10`.
 
+18. Manual Telegram click-through on 2026-06-29 found and fixed callback handling for `/candidate_batch`: callbacks were reaching production, but old/retried callback query ids and Markdown parsing failures made the buttons appear unresponsive. `bot-api` redeployed with safe early callback answers and plain-text batch summaries.
+
 Next:
-1. Run a manual Telegram UI click-through of `/candidate_batch` as the manager to confirm the visible UX and inline buttons in chat.
+1. Retry `/candidate_batch` in Telegram with a new command message and press candidate button `1` or `2`; old inline buttons from before deployment may still be stale.
 2. Resolve the remaining pending items in production batch `c7c7fcb1-58a3-4f0a-bc24-e66eb8906877` when ready, or regenerate a fresh batch after manager review.
 3. Confirm product/business approval for current scoring strictness and shortage behavior (`6/10` primary for the first accepted candidate).
 4. Start Phase 6 only after agreeing how approved/partially approved batches become application jobs.
