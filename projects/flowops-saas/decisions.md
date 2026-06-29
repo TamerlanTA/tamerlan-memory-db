@@ -91,3 +91,13 @@
 **Decision**: Текущее визуальное направление FlowOps OS изменено с premium dark на светлый, яркий, технологичный стиль: warm off-white base, strong blue/cyan, пастельные system cards, большие выразительные заголовки, animated workflow diagrams.
 **Why**: Пользователь принёс sketch и reference juanmora.co; нужен более запоминающийся, живой и современный продуктовый интерфейс, не сухой dark SaaS.
 **Impact**: Дизайн страниц `/`, `/os`, `/os/[slug]`, `/pricing`, `/internal/orders` должен сохранять light/bright direction. D-007 считается историческим решением, заменённым для текущей реализации.
+
+### D-013 — Trust Layer Before Scaling Outreach
+**Decision**: Before scaling owner-focused outreach, FlowOps site needs a deliberate trust/proof layer across the homepage, marketplace, audit flow, and pipeline detail pages.
+**Why**: Primary buyers are business owners. They do not buy "AI automation" first; they buy reduced operational risk, proof of competence, and confidence that FlowOps will not break their business processes.
+**Impact**:
+- Do not rely on generic testimonials alone, especially while real client proof is still limited.
+- Add risk-reduction proof: deployment process, manual QA, owner approval before deployment, rollback/monitoring language, privacy/data-handling signals.
+- Add proof-of-work surfaces: implementation examples, audit workspace/product screenshots, workflow diagrams, Telegram/status notifications, internal pipeline/order surfaces where appropriate.
+- Use mini-case studies and implementation examples without falsely claiming client outcomes until real results exist.
+- Replace placeholder testimonials with real proof as soon as first clients produce credible outcomes.

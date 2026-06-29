@@ -8,7 +8,7 @@
 
 ---
 
-## Status: PHASE 2A — SALES READINESS COMPLETE (June 25, 2026)
+## Status: PHASE 2A — SALES READINESS COMPLETE; PHASE 2F TRUST LAYER PLANNED (June 29, 2026)
 
 Проект задеплоен на Vercel: `https://flowops-saas.vercel.app`
 Последний preview-деплой: `https://flowops-saas-lgumct4fo-tamertt931-8560s-projects.vercel.app` (`dpl_EFSeU9rDXWs8Nz5G3FHMrHEfSFaj`, June 26, 2026) — homepage marketplace section refinement + marquee overlap fix
@@ -90,7 +90,11 @@
 
 ## Активная фаза
 
-**Phase 2A — Sales Readiness COMPLETE** (June 25, 2026). Все code tasks Phase 2A выполнены: audit form, coming soon cards, footer, rate limiting, /internal/audits, /internal/pipelines, testimonials, bundle/stack pages. Следующий шаг: manually verify/enrich 20-account seed list, затем отправить первый outreach batch. Redeploy to Vercel production needed.
+**Phase 2A — Sales Readiness COMPLETE** (June 25, 2026). Все code tasks Phase 2A выполнены: audit form, coming soon cards, footer, rate limiting, /internal/audits, /internal/pipelines, testimonials, bundle/stack pages.
+
+**Phase 2F — Trust Layer / Proof of Work PLANNED** (June 29, 2026). Перед масштабированием outreach нужно усилить доверие для владельцев бизнеса: показать снижение риска, процесс внедрения, proof-of-work surfaces, мини-кейсы/implementation examples, понятные audit next steps и founder/operator credibility. Текущие placeholder testimonials недостаточны как главный trust mechanism; их нужно заменить, переформатировать или явно отделить от реальных клиентских результатов.
+
+**Следующий шаг**: внедрить Phase 2F trust layer на сайте, затем manually verify/enrich 20-account seed list и отправить первый outreach batch. Redeploy to Vercel production needed после реализации trust layer.
 
 ---
 
@@ -99,3 +103,11 @@
 - Pipeline-систем: 25 (code + Supabase)
 - MRR: $0
 - Audit requests: 0 (форма только запущена)
+
+## Trust Layer Requirements (June 29, 2026)
+- Homepage must explain why FlowOps is safe for business owners: audit-first, workflow map, owner approval, test run/manual QA, monitoring/support.
+- Use implementation examples and mini-cases before real client results exist; avoid fake-looking testimonial claims.
+- Add proof surfaces: audit/internal workspace previews, pipeline/order dashboard surfaces, workflow diagrams, Telegram/status notifications.
+- Add owner-facing before/after examples to priority pipeline pages.
+- Add audit next-step clarity near CTA so prospects know what happens after submitting.
+- Add founder/operator credibility through built systems and delivery discipline, without overclaiming.

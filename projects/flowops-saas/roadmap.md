@@ -20,11 +20,11 @@
 
 ---
 
-## Current Stage — Phase 2A: Sales Readiness COMPLETE / Phase 2C–E: In Progress
+## Current Stage — Phase 2A: Sales Readiness COMPLETE / Phase 2C–F: In Progress
 
-**Status as of 2026-06-25**: All Phase 2A code tasks complete. Phase 2C catalog expansion done (25 systems + 7 coming soon + /internal/pipelines). Phase 2E bundle/stack pages live (3 stacks). Hero illustration redesigned via Figma. Waiting on first outreach batch (business action, not code).
+**Status as of 2026-06-29**: All Phase 2A code tasks complete. Phase 2C catalog expansion done (25 systems + 7 coming soon + /internal/pipelines). Phase 2E bundle/stack pages live (3 stacks). Hero illustration redesigned via Figma. Phase 2F Trust Layer is now required before scaled owner-focused outreach, because business owners need proof of competence and risk reduction before trusting FlowOps with operations.
 
-**Active objective**: send first outreach batch to 20-account seed list. Next code priority: Stripe/Resend live keys OR Phase 3 planning.
+**Active objective**: add owner-trust/proof layer, then send first outreach batch to the 20-account seed list. Next code priority after trust layer: Stripe/Resend live keys OR Phase 3 planning.
 
 ### Verified Done (Phase 2A–C–E)
 - [x] Production URL: `https://flowops-saas.vercel.app`
@@ -57,6 +57,7 @@
 - [x] FlowOps SVG favicon replacing default Next.js icon
 
 ### Active Focus
+- [ ] Add Phase 2F Trust Layer before scaled outreach
 - [ ] Manual verification/enrichment of the 20-account seed list before sending
 - [ ] Start first outreach batch
 
@@ -161,6 +162,7 @@
 - [x] Add thank-you / next-step experience after public order submission
 - [x] Prepare 5 flagship pipeline beta offers (first-client package)
 - [x] Outreach seed list + message package prepared (20 целевых аккаунтов)
+- [ ] Add owner-trust/proof layer before scaling outreach: risk-reduction copy, proof surfaces, implementation examples, and clear audit expectations
 - [ ] Send first outreach batch (manually verify/enrich contacts first)
 - [ ] Предложить beta pricing (20% скидка) для первых 5 клиентов
 - [ ] Personal follow-up после каждого аудит-запроса
@@ -186,6 +188,53 @@
 - [x] Добавить proof/case-study section
 - [x] Testimonials section — 3 placeholder cards на homepage (June 24, 2026; реальные данные появятся после первых клиентов)
 - [ ] Заменить placeholder testimonials реальными результатами клиентов
+
+### Блок F: Trust Layer / Proof of Work (Before Scaled Outreach)
+**Goal**: Make business owners feel FlowOps is competent, careful, and safe to trust with real operations before they book an audit or request a deployment.
+
+- [ ] Add homepage section: "Built for business owners, not automation hobbyists"
+  - Emphasize operational discipline, business-process understanding, and owner-level clarity
+  - Avoid generic AI hype; frame FlowOps as risk-aware operations infrastructure
+- [ ] Add homepage section: "Our deployment process protects your operations"
+  - Audit/process review
+  - Workflow map
+  - Owner approval before deployment
+  - Test run / manual QA
+  - Monitoring and support after launch
+- [ ] Add homepage section: "Proof of work"
+  - Use implementation examples and mini-case studies, not fake outcome claims
+  - Show actual or mock-safe product surfaces: audit workspace, pipeline/order dashboard, Telegram/status notification, workflow diagram
+  - Include concrete business scenarios such as missed-call recovery, dental lead follow-up, real estate inquiry routing, support inbox triage
+- [ ] Add trust badges/signals where relevant
+  - Manual QA before deployment
+  - Private business data handling
+  - Owner-approved workflow map
+  - Rollback/monitoring plan
+  - Monthly monitoring included
+  - n8n/internal automation engine hidden from clients
+- [ ] Add "What happens after you request an audit" near the audit CTA
+  - 15-minute business process review
+  - 2–3 practical automation opportunities
+  - Simple implementation map
+  - No deployment until owner approval
+- [ ] Add before/after operational examples to priority pipeline detail pages
+  - Before: manual follow-up, missed WhatsApp/phone leads, status confusion, owner chasing updates
+  - After: automated response, routing, reminders, escalation, reporting
+- [ ] Replace or clearly reframe placeholder testimonials
+  - Until real clients exist, prefer "implementation examples" over fictional testimonials
+  - After first 3 clients, convert real outcomes into case studies with permission
+- [ ] Add founder/operator credibility block
+  - Explain FlowOps experience through built systems, workflow count, CRM/Telegram/AI/n8n/Supabase implementation capability, and delivery discipline
+  - Avoid overclaiming enterprise credentials until proven
+
+### Phase 2F Success Criteria
+- [ ] Homepage trust layer shipped and responsive
+- [ ] Audit CTA explains next steps clearly
+- [ ] At least 3 mini-case/implementation examples visible
+- [ ] At least 3 real product/proof surfaces visible
+- [ ] Placeholder testimonials removed, reframed, or clearly separated from real client claims
+- [ ] Priority pipeline pages include before/after owner-facing examples
+- [ ] First outreach batch points prospects to a page that feels credible for business owners
 
 ### Блок D: Email Automation (Week 8)
 - [x] Resend: transactional email helper scaffold

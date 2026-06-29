@@ -95,3 +95,9 @@
 **Probability**: Medium
 **Impact**: Medium
 **Mitigation**: Держать Stripe/Resend verification отдельным checklist в [[next-steps]]. Перед включением оплат добавить `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `RESEND_API_KEY`, production `EMAIL_FROM` в Vercel и пройти live smoke. Rate limiting changes are currently verified on preview deploy `dpl_9WcPzfPgLUAb52HJbRKTGaxkPThe`; promote deliberately when ready to update production.
+
+### R-012 — Owner trust gap before outreach
+**Risk**: Владельцы бизнеса могут не доверить FlowOps реальные процессы, если сайт выглядит как обычный AI/automation лендинг без доказательств качества, аккуратности внедрения и снижения риска.
+**Probability**: High
+**Impact**: High
+**Mitigation**: До масштабного outreach реализовать Phase 2F Trust Layer: risk-reduction deployment process, proof-of-work surfaces, implementation examples/mini-cases, audit next-step clarity, owner-approved workflow map, manual QA/monitoring signals, founder/operator credibility. Placeholder testimonials заменить, убрать или переформатировать до появления реальных клиентских результатов.
