@@ -8,7 +8,7 @@
 
 ---
 
-## Status: PHASE 2A — SALES READINESS COMPLETE; PHASE 2F TRUST LAYER PLANNED (June 29, 2026)
+## Status: PHASE 2F — TRUST LAYER IMPLEMENTED (June 29, 2026); DEPLOY TO PRODUCTION PENDING
 
 Проект задеплоен на Vercel: `https://flowops-saas.vercel.app`
 Последний preview-деплой: `https://flowops-saas-lgumct4fo-tamertt931-8560s-projects.vercel.app` (`dpl_EFSeU9rDXWs8Nz5G3FHMrHEfSFaj`, June 26, 2026) — homepage marketplace section refinement + marquee overlap fix
@@ -26,7 +26,9 @@
 - [x] FlowOps OS homepage с полным контентом и proof/case-study секцией
 - [x] Homepage `How it works` section upgraded into a frameless, canvas-integrated deployment-loop composition with abstract color fields and only two functional product surfaces — June 25, 2026
 - [x] Homepage marketplace teaser rebuilt into an editorial product-shelf composition: one featured workflow, overlapping pastel system tiles, abstract color fields, and retained trust marquee — June 26, 2026
-- [x] Testimonials section on homepage — 3 placeholder cards (Bright Dental, Northbar Realty, Pioneer HVAC) — June 24, 2026
+- [x] Testimonials section replaced with `DeploymentScenariosSection` — 3 labeled Before/Deployed/Signal cards for dental clinic, real estate, HVAC; disclaimer note; no fake attributed quotes — June 29, 2026
+- [x] `SafeDeploymentSection` on homepage — 5-step deployment process (audit map → owner-approved scope → manual build + QA → live with monitoring → monthly check-in) + trust badge pills — June 29, 2026
+- [x] "What happens next" 3-step mini-timeline added to audit CTA left column — June 29, 2026
 - [x] Секция `#audit` — реальная форма `AuditRequestForm` с POST `/api/audit-request`
 - [x] 25 pipeline систем в `src/lib/catalog.ts` и в Supabase
 - [x] `/os` marketplace с working search/filter через `MarketplaceExplorer`
@@ -92,9 +94,9 @@
 
 **Phase 2A — Sales Readiness COMPLETE** (June 25, 2026). Все code tasks Phase 2A выполнены: audit form, coming soon cards, footer, rate limiting, /internal/audits, /internal/pipelines, testimonials, bundle/stack pages.
 
-**Phase 2F — Trust Layer / Proof of Work PLANNED** (June 29, 2026). Перед масштабированием outreach нужно усилить доверие для владельцев бизнеса: показать снижение риска, процесс внедрения, proof-of-work surfaces, мини-кейсы/implementation examples, понятные audit next steps и founder/operator credibility. Текущие placeholder testimonials недостаточны как главный trust mechanism; их нужно заменить, переформатировать или явно отделить от реальных клиентских результатов.
+**Phase 2F — Trust Layer IMPLEMENTED** (June 29, 2026). Homepage now has: `SafeDeploymentSection` (5-step owner-safe deployment process), `DeploymentScenariosSection` (3 labeled Before/Deployed/Signal examples, not fake quotes), and "What happens next" mini-timeline in audit CTA. Build passes lint + TypeScript clean.
 
-**Следующий шаг**: внедрить Phase 2F trust layer на сайте, затем manually verify/enrich 20-account seed list и отправить первый outreach batch. Redeploy to Vercel production needed после реализации trust layer.
+**Следующий шаг**: deploy to Vercel production (git push → auto-deploy), then add before/after examples to priority pipeline detail pages, manually verify/enrich 20-account seed list, and start first outreach batch.
 
 **Phase 3 planning update**: Client portal should become "Client Accounts + Deal Room", not just a passive dashboard. Future authenticated clients should be able to submit automation requests/offers inside the site, discuss scope with FlowOps in a request thread, receive status updates, and later see active systems/billing/support. Email/Telegram should become notifications, while the canonical conversation lives in FlowOps.
 

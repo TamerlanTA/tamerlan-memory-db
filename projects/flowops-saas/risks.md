@@ -98,6 +98,6 @@
 
 ### R-012 — Owner trust gap before outreach
 **Risk**: Владельцы бизнеса могут не доверить FlowOps реальные процессы, если сайт выглядит как обычный AI/automation лендинг без доказательств качества, аккуратности внедрения и снижения риска.
-**Probability**: High
+**Probability**: Medium (reduced from High — Phase 2F partially implemented June 29)
 **Impact**: High
-**Mitigation**: До масштабного outreach реализовать Phase 2F Trust Layer: risk-reduction deployment process, proof-of-work surfaces, implementation examples/mini-cases, audit next-step clarity, owner-approved workflow map, manual QA/monitoring signals, founder/operator credibility. Placeholder testimonials заменить, убрать или переформатировать до появления реальных клиентских результатов.
+**Mitigation**: Phase 2F Trust Layer implemented June 29, 2026: `SafeDeploymentSection` (5-step owner-safe process), `DeploymentScenariosSection` (labeled examples, no fake quotes, disclaimer), "What happens next" audit clarity. Remaining: before/after examples on priority pipeline pages; founder/operator credibility block; real client results to replace scenarios as they become available.

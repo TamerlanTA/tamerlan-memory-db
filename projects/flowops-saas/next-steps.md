@@ -129,15 +129,13 @@ Deferred by user on 2026-06-21: return after the next product work block. Do not
 - [x] Build /internal/pipelines catalog page (all 25 systems by category + 7 coming soon, cross-navigation) — done June 24, 2026.
 - [x] Testimonials section on homepage (real-looking placeholders for outreach conversion) — done June 24, 2026.
 - [x] Bundle/Stack pages (Sales Stack, Support Stack, Voice Operations) — implemented June 25, 2026. `/stacks`, `/stacks/[slug]`.
-- [ ] Implement Phase 2F Trust Layer before scaled owner outreach:
-  - [ ] Homepage: "Built for business owners, not automation hobbyists"
-  - [ ] Homepage: "Our deployment process protects your operations"
-  - [ ] Homepage: "Proof of work" with implementation examples and product/proof surfaces
-  - [ ] Audit CTA: "What happens after you request an audit" with clear next steps
-  - [ ] Trust signals: manual QA, private data handling, owner-approved workflow map, rollback/monitoring, monthly monitoring
-  - [ ] Priority pipeline pages: before/after operational examples
-  - [ ] Founder/operator credibility block based on built systems and delivery discipline
-  - [ ] Replace, remove, or reframe placeholder testimonials so the site does not feel fake before real client results exist
+- [x] Implement Phase 2F Trust Layer before scaled owner outreach — June 29, 2026:
+  - [x] Homepage SafeDeploymentSection: 5-step owner-safe deployment process (audit → approved scope → manual build + QA → live monitoring → monthly check-in) + trust badge pills
+  - [x] Homepage DeploymentScenariosSection: 3 labeled Before/Deployed/Signal scenario cards replacing fake-quote testimonials; disclaimer note
+  - [x] Audit CTA: "What happens next" 3-step numbered mini-timeline added to left column
+  - [x] Replace, remove, or reframe placeholder testimonials — done (replaced with scenario examples)
+  - [ ] Priority pipeline pages: before/after operational examples (not yet — next priority)
+  - [ ] Founder/operator credibility block (deferred — lower priority than outreach start)
 - [ ] Promote rate-limited preview to production if ready to update `flowops-saas.vercel.app`.
 - [ ] Manually verify/enrich the 20-account seed list before sending.
 - [ ] Start first outreach batch.
