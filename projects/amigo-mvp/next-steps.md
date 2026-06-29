@@ -109,10 +109,11 @@ Completed foundation:
 17. Strict plan re-audit on 2026-06-28 fixed role-family hard filtering: unknown non-target roles now fail unless the title explicitly contains a target role, broad F&B markers no longer make kitchen/host/stewarding roles approvable, and the production acceptance batch was regenerated to 6 strict primary items with shortage `eligible_vacancy_shortage:6/10`.
 
 18. Manual Telegram click-through on 2026-06-29 found and fixed callback handling for `/candidate_batch`: callbacks were reaching production, but old/retried callback query ids and Markdown parsing failures made the buttons appear unresponsive. `bot-api` redeployed with safe early callback answers and plain-text batch summaries.
+19. Tamerlan retried `/candidate_batch` after the fix; the button worked and the 2026-06-29 batch became `approved` with 6 strict primary vacancies and shortage `eligible_vacancy_shortage:6/10`.
 
 Next:
-1. Retry `/candidate_batch` in Telegram with a new command message and press candidate button `1` or `2`; old inline buttons from before deployment may still be stale.
-2. Resolve the remaining pending items in production batch `c7c7fcb1-58a3-4f0a-bc24-e66eb8906877` when ready, or regenerate a fresh batch after manager review.
+1. Start Phase 6 planning/implementation: convert approved or partially approved batch items into application jobs with duplicate prevention, adapters, evidence, and reporting.
+2. Decide whether Phase 6 first supports manual deep-link tasks, email apply, or one certified ATS adapter.
 3. Confirm product/business approval for current scoring strictness and shortage behavior (`6/10` primary for the first accepted candidate).
 4. Start Phase 6 only after agreeing how approved/partially approved batches become application jobs.
 5. Keep the original One&Only umbrella endpoint visible as `empty_result` until a stable umbrella URL is found.
