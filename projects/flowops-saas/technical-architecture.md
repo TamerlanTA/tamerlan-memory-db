@@ -140,7 +140,7 @@ order_status_history (
 )
 ```
 
-### Phase 3 Tables (Client Portal)
+### Phase 3 Tables (Client Accounts + Deal Room)
 ```sql
 clients (
   id uuid PRIMARY KEY,
@@ -159,6 +159,46 @@ client_pipeline_instances (
   health_score int,
   last_checked_at timestamptz,
   ...
+)
+
+automation_requests (
+  id uuid PRIMARY KEY,
+  client_id uuid REFERENCES clients,
+  audit_request_id uuid REFERENCES audit_requests,
+  pipeline_id uuid REFERENCES pipelines,
+  pipeline_order_id uuid REFERENCES pipeline_orders,
+  request_type text, -- pipeline|stack|audit_recommendation|custom
+  title text,
+  company_context text,
+  current_tools text,
+  process_description text,
+  desired_outcome text,
+  urgency text,
+  budget_range text,
+  status text, -- new|reviewing|scoping|proposal_sent|approved|deploying|active|closed
+  assigned_to text,
+  created_at timestamptz DEFAULT now(),
+  updated_at timestamptz DEFAULT now()
+)
+
+request_messages (
+  id uuid PRIMARY KEY,
+  request_id uuid REFERENCES automation_requests,
+  sender_type text, -- client|flowops|system
+  sender_user_id uuid,
+  body text,
+  is_internal boolean DEFAULT false,
+  created_at timestamptz DEFAULT now()
+)
+
+request_status_history (
+  id uuid PRIMARY KEY,
+  request_id uuid REFERENCES automation_requests,
+  from_status text,
+  to_status text,
+  note text,
+  changed_by text,
+  created_at timestamptz DEFAULT now()
 )
 
 support_requests (...)
@@ -199,6 +239,21 @@ POST /api/stripe/webhooks              -- Stripe webhook handler
 POST /api/auth/login                   -- Client portal auth
 ```
 
+### Phase 3 Client Account / Deal Room Routes
+```
+GET    /api/portal/me                         -- Current client account
+POST   /api/portal/requests                   -- Create automation request / offer
+GET    /api/portal/requests                   -- Client request list
+GET    /api/portal/requests/[id]              -- Client-visible request detail
+POST   /api/portal/requests/[id]/messages     -- Add client message
+
+GET    /api/internal/requests                 -- FlowOps request inbox
+GET    /api/internal/requests/[id]            -- Internal request detail
+PATCH  /api/internal/requests/[id]/status     -- Update request status
+POST   /api/internal/requests/[id]/messages   -- FlowOps reply or internal note
+POST   /api/internal/requests/[id]/convert    -- Convert approved request to pipeline_order
+```
+
 ---
 
 ## Page Architecture
@@ -225,13 +280,19 @@ POST /api/auth/login                   -- Client portal auth
 /internal/pipelines/[id]/edit    -- Edit pipeline (NEW)
 ```
 
-### Phase 3 Client Portal
+### Phase 3 Client Accounts + Deal Room
 ```
 /portal                    -- Client login
 /portal/dashboard          -- Active pipelines
+/portal/new-request        -- Submit automation request / offer inside account
+/portal/requests           -- Client request list
+/portal/requests/[id]      -- Request detail + in-site discussion
 /portal/pipelines/[id]     -- Pipeline detail + health
 /portal/billing            -- Subscription + invoices
 /portal/support            -- Support requests
+
+/internal/requests         -- FlowOps request inbox
+/internal/requests/[id]    -- Scope, discuss, assign, convert to order
 ```
 
 ---

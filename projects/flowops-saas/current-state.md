@@ -96,6 +96,8 @@
 
 **Следующий шаг**: внедрить Phase 2F trust layer на сайте, затем manually verify/enrich 20-account seed list и отправить первый outreach batch. Redeploy to Vercel production needed после реализации trust layer.
 
+**Phase 3 planning update**: Client portal should become "Client Accounts + Deal Room", not just a passive dashboard. Future authenticated clients should be able to submit automation requests/offers inside the site, discuss scope with FlowOps in a request thread, receive status updates, and later see active systems/billing/support. Email/Telegram should become notifications, while the canonical conversation lives in FlowOps.
+
 ---
 
 ## Key Metrics (June 25, 2026)

@@ -101,3 +101,12 @@
 - Add proof-of-work surfaces: implementation examples, audit workspace/product screenshots, workflow diagrams, Telegram/status notifications, internal pipeline/order surfaces where appropriate.
 - Use mini-case studies and implementation examples without falsely claiming client outcomes until real results exist.
 - Replace placeholder testimonials with real proof as soon as first clients produce credible outcomes.
+
+### D-014 — Client Accounts Should Become a Deal Room, Not Only a Dashboard
+**Decision**: Phase 3 client accounts should include an in-site order/proposal/chat workspace ("deal room"), not only post-deployment dashboard, billing, and support.
+**Why**: The stronger product experience is: client creates an account, submits an automation request/offer inside the site, FlowOps discusses scope in the same workspace, then the request becomes an order/deployment. This reduces reliance on email, keeps context durable, and makes FlowOps feel like a platform instead of a contact form.
+**Impact**:
+- Portal scope must expand from passive dashboard to active client workspace.
+- Add authenticated conversations, request/proposal threads, attachments/context, status timeline, team replies, and internal assignment.
+- Keep MVP manual-delivery: chat helps qualification and scope, but does not imply self-serve automation deployment.
+- Email/Telegram can remain notifications, but the canonical client conversation should live in FlowOps.

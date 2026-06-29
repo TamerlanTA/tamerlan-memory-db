@@ -141,13 +141,21 @@ Deferred by user on 2026-06-21: return after the next product work block. Do not
 - [ ] Promote rate-limited preview to production if ready to update `flowops-saas.vercel.app`.
 - [ ] Manually verify/enrich the 20-account seed list before sending.
 - [ ] Start first outreach batch.
-- [ ] Start Phase 3 client portal planning/spec when ready.
+- [ ] Start Phase 3 client accounts + deal-room planning/spec when ready:
+  - [ ] Decide Phase 3 MVP entry point: account before order, or account after first audit/order
+  - [ ] Design `/portal/new-request` for in-site automation request / offer submission
+  - [ ] Design `/portal/requests/[id]` as client-visible deal room with scope, status timeline, and discussion
+  - [ ] Design `/internal/requests/[id]` for FlowOps team replies, internal notes, assignment, and conversion to order
+  - [ ] Define database/RLS for `clients`, `automation_requests`, `request_messages`, `request_status_history`
+  - [ ] Define notification policy: email/Telegram alerts, but canonical conversation lives in FlowOps portal
 
 ---
 
 ## Phase 3 — Client Portal
 
 - [ ] Supabase Auth (email login)
+- [ ] Client account / deal room for in-site automation requests and discussion
+- [ ] Chat/message threads tied to requests/orders
 - [ ] Client dashboard: активные pipeline-системы
 - [ ] Deployment status per pipeline
 - [ ] Subscription management

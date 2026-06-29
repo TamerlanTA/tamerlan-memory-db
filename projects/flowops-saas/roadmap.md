@@ -24,7 +24,7 @@
 
 **Status as of 2026-06-29**: All Phase 2A code tasks complete. Phase 2C catalog expansion done (25 systems + 7 coming soon + /internal/pipelines). Phase 2E bundle/stack pages live (3 stacks). Hero illustration redesigned via Figma. Phase 2F Trust Layer is now required before scaled owner-focused outreach, because business owners need proof of competence and risk reduction before trusting FlowOps with operations.
 
-**Active objective**: add owner-trust/proof layer, then send first outreach batch to the 20-account seed list. Next code priority after trust layer: Stripe/Resend live keys OR Phase 3 planning.
+**Active objective**: add owner-trust/proof layer, then send first outreach batch to the 20-account seed list. Next code priority after trust layer: Stripe/Resend live keys OR Phase 3 account/deal-room planning.
 
 ### Verified Done (Phase 2A–C–E)
 - [x] Production URL: `https://flowops-saas.vercel.app`
@@ -63,7 +63,7 @@
 
 ### Explicitly Deferred
 - [ ] Stripe/Resend live verification until real keys or first payment moment
-- [ ] Client portal until enough client demand exists
+- [ ] Client accounts/deal room until enough client demand exists
 - [ ] Self-serve pipeline deployment
 
 ---
@@ -258,9 +258,9 @@
 
 ---
 
-## Phase 3: Client Portal (Weeks 11–20)
+## Phase 3: Client Accounts + Deal Room (Weeks 11–20)
 
-**Цель**: Клиент видит свои активные системы, может управлять подпиской.
+**Цель**: Клиент может создать аккаунт, заказать/предложить автоматизацию внутри сайта, вести обсуждение с FlowOps в одном workspace, затем видеть активные системы, статусы, поддержку и billing.
 
 ### Блок A: Auth Layer (Weeks 11–12)
 - [ ] Supabase Auth (email magic link или password)
@@ -268,13 +268,31 @@
 - [ ] Link клиент → его pipeline_orders
 - [ ] RLS policies для клиентских данных
 
+### Блок A2: Client Request / Deal Room Foundation (Weeks 12–14)
+- [ ] `/portal/new-request` — authenticated automation request / offer intake
+  - Client chooses existing pipeline, stack, audit-based recommendation, or "custom automation request"
+  - Client describes process, current tools, desired outcome, urgency, budget range
+  - Client can add links, docs/screenshots later when attachments are supported
+- [ ] Convert request into internal `pipeline_order` or `automation_request` record
+- [ ] `/portal/requests` — list of client requests with statuses
+- [ ] `/portal/requests/[id]` — request detail / deal room
+  - Scope summary
+  - Status timeline: new → reviewing → scoping → proposal_sent → approved → deploying → active/closed
+  - In-site discussion thread between client and FlowOps
+  - Team-side internal notes must remain private
+- [ ] `/internal/requests` and `/internal/requests/[id]`
+  - FlowOps team sees new requests, replies, assigns owner, updates status, links to order/audit
+- [ ] Notifications
+  - Email/Telegram notify about new messages and status changes
+  - Canonical conversation remains inside FlowOps portal
+
 ### Блок B: Client Portal MVP (Weeks 12–16)
 - [ ] `/portal` — Login page
 - [ ] `/portal/dashboard` — Active pipeline systems
   - Список активных pipeline с статусом (Active/Maintenance/Issue)
   - Health score per pipeline
   - Last activity timestamp
-  - Quick: "Request support", "View details"
+  - Quick: "New automation request", "Open deal room", "Request support", "View details"
 - [ ] `/portal/pipelines/[id]` — Pipeline instance detail
   - Status + logs (simplified)
   - Deployment date, next check date
@@ -285,6 +303,15 @@
   - Next billing date
   - Upgrade/downgrade plan
 - [ ] `/portal/support` — Support ticket creation
+
+### Блок B2: In-Site Chat / Conversation System (Weeks 14–17)
+- [ ] Authenticated message threads for each request/order/support item
+- [ ] Client messages, FlowOps replies, system status messages
+- [ ] Read/unread state and last activity timestamp
+- [ ] Internal-only notes separate from client-visible messages
+- [ ] Basic attachment plan: start with links/text, add file uploads only after storage/security rules are designed
+- [ ] Rate limits and abuse protection for authenticated messages
+- [ ] Clear notification policy: email/Telegram alert, but conversation history stays in portal
 
 ### Блок C: Operations Monitoring (Weeks 16–18)
 - [ ] n8n workflow WF-04: Weekly health check → update pipeline health scores
@@ -298,6 +325,8 @@
 
 ### Phase 3 Success Criteria
 - 10+ активных клиентов с доступом к portal
+- At least 5 client requests created inside the portal instead of email-only
+- Client/FlowOps conversation history stored in the portal for active requests
 - MRR > $2,000/month
 - Client churn < 10%
 - NPS > 7
