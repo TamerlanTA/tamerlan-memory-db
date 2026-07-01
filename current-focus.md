@@ -27,9 +27,9 @@
 
 ---
 
-## AMIGO MVP — International Hospitality Job Applications (обновлён 2026-06-16)
+## AMIGO MVP — International Hospitality Job Applications (обновлён 2026-06-30)
 
-**Статус**: Active, health Green. Phase 1 (Foundation), Phase 2 (Intake), and Phase 3 (Documents) are complete. Phase 4 employer catalog / vacancy discovery foundation has started.
+**Статус**: Active, health Yellow. Phase 1–5 are functionally implemented/deployed through matching and approval. Phase 6 safe manual-action slice is deployed: DB migrations applied, `bot-api` and `worker-applications` live, controlled handoff created 4 manual-action application jobs. Remaining acceptance is Telegram manual resolution/evidence.
 
 **Цель**:
 - controlled pilot for 10 candidates by 2026-07-05;
@@ -49,17 +49,20 @@
 - Phase 3.5 CV enrichment committed in `3a7bd48`: production tables for candidate photos/work experience/education/extras, Telegram commands `/candidate_photo`, `/candidate_experience`, `/candidate_education`, `/candidate_extra`, `/candidate_view` readiness warnings, worker-documents structured loading
 - Unified `/candidate_new` onboarding deployed in `8145245`: durable resume, experience/education/extras/photo/final review, optional WhatsApp, standalone enrichment commands preserved
 - Compact two-column CV header deployed in `63d9637`; production sample `689f61c4-ff82-426b-97fe-b44a7072939d` passed PDF/PNG verification
-- 104 теста, bot-api health OK
+- Phase 4/5 production state: 31 discovery sources active in scheduler, 533 total vacancies / 388 active after manual activation; `/candidate_batch` approved a strict 6/10 shortage batch; `/approved_vacancies` deployed for pre-Phase-6 duplicate audit
+- Phase 6 production safe slice: migrations `202606300001` and `202607010001` applied; direct DB verification confirms application tables, queues, unique open manual-action guard, and queue depth 0. `bot-api` deployment `2e2d57e5-a522-42ab-9073-e99eb452904e` and `worker-applications` deployment `c501d034-40a9-4a50-b928-1bc50032e732` are live. Controlled handoff created 4 applications/manual tasks for batch `7c580a24-8e0e-4b1a-b22a-0e0999e09869`, skipped 2 stale vacancies, and re-run created 0 duplicates.
 
-**Текущая фаза**: Phase 4 — Employer catalog and vacancy discovery foundation.
+**Текущая фаза**: Phase 6 — local readiness complete; next is explicit production migration/deploy/acceptance checkpoint.
 
 **Блокеры**:
 - Consent text v1-ru-2026-06 still needs business/legal approval before pilot scale
 - Need managers to collect real CV enrichment data for pilot candidates; JPEG/PNG/WebP/HEIC/HEIF uploads are accepted, with HEIC/HEIF converted privately to JPEG before CV rendering
 - Need one full live Telegram acceptance pass of unified `/candidate_new`; one production session is safely waiting at `awaiting_form`
-- Need first read-only discovery connector and vacancy upsert logic
-- Employer catalog is 25/100 seeded
-- Нет ATS adapter
+- `/approved_vacancies` still needs manual Telegram verification before Phase 6 handoff
+- Phase 6 Telegram resolution acceptance is pending: open `/manual_actions`, resolve one task, verify evidence and `/application_report`
+- Railway token shared in chat must be rotated
+- Need production/manual Telegram acceptance before any auto-submit path
+- Нет production-enabled certified ATS/application adapter; `manual-deep-link-v1` never submits and `email-apply-v1` exists locally with dry-run default, but no real sender/source-level production enable is wired
 
 **ВАЖНО для деплоя**: Railway НЕ подключён к GitHub. После каждого push делать `railway up --service bot-api` из `/Users/tamerlan/Documents/amigo-mvp`
 
@@ -67,24 +70,26 @@
 
 ---
 
-## FlowOps SaaS — AI Operations Platform (добавлен 2026-06-10)
+## FlowOps SaaS — AI Operations Platform (обновлён 2026-06-30)
 
-**Статус**: PHASE 2A — Sales Readiness / Pre-Outreach Hardening Complete (обновлено 2026-06-23).
+**Статус**: MVP Sales Validation. Account/chat/deal-room deferred out of MVP on 2026-06-30; future layer preserved.
 
 **Что это**: SaaS/Platform с marketplace из 40 готовых AI/automation pipeline-систем для бизнеса. Гибридная модель: setup fee + monthly subscription. Premium B2B positioning (Linear/Vercel quality).
 
 **Что готово**:
-- Production site live: `https://flowops-saas.vercel.app`
+- Production site live: `https://flowops.agency` / `https://flowops-saas.vercel.app`
+- Latest MVP scope-reversal preview: `https://flowops-saas-pvoewrzoy-tamertt931-8560s-projects.vercel.app` (`dpl_92thMKzyip2qEvXBSi1MtV37EiKu`) — public order flow restored to `/api/pipeline-order`, Portal removed from public nav/CTA, `/portal/*` gated unless `ENABLE_CLIENT_PORTAL=true`
 - 25 live pipeline systems + `/os`, `/os/[slug]`, `/pricing`, homepage audit CTA
 - Supabase-backed `pipeline_orders`, `audit_requests`, internal order/audit workspaces
 - Telegram notifications for orders and audit requests
 - Protected `/internal/*` routes with working `src/middleware.ts`
 - Stripe/Resend scaffolds exist, but live verification is deferred
 - Durable Supabase-backed rate limiting added for `/api/pipeline-order` and `/api/audit-request`
+- Phase 3 account/chat/deal-room foundation was explored and partially implemented, but is deferred out of MVP; keep as future infrastructure, not current buyer flow
 
-**Следующий шаг**: promote rate-limited preview if production update is desired, then manually verify/enrich the 20-account seed list and start first outreach batch.
+**Следующий шаг**: if preview is accepted, promote MVP scope-reversal preview to production; then run the FlowOps automation-card audit before scaled outreach: verify every card's real buyer need, expand sparse descriptions, recheck pricing against market/custom-build references with productized ~30%-below-market logic where safe, add unified in-card SVG-style illustrations, then manually verify/enrich the 20-account seed list and start first outreach batch.
 
-**Память**: [[projects/flowops-saas/overview]] | [[projects/flowops-saas/current-state]] | [[projects/flowops-saas/next-steps]] | [[projects/flowops-saas/roadmap]] | [[projects/flowops-saas/pipeline-catalog]] | [[projects/flowops-saas/pricing]]
+**Память**: [[projects/flowops-saas/overview]] | [[projects/flowops-saas/current-state]] | [[projects/flowops-saas/next-steps]] | [[projects/flowops-saas/roadmap]] | [[projects/flowops-saas/pipeline-catalog]] | [[projects/flowops-saas/pricing]] | [[projects/flowops-saas/automation-card-audit-brief]]
 
 ---
 

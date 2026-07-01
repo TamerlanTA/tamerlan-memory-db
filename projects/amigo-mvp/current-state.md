@@ -7,6 +7,7 @@
 - [[next-steps]]
 - [[roadmap]]
 - [[technical-architecture]]
+- [[phase-6-execution-plan]]
 
 ## Status
 - Project status: Active
@@ -15,7 +16,7 @@
 - Planning window: 2026-06-12 to 2026-07-05
 - Launch target: controlled pilot for 10 candidates
 - Post-launch target: 30 active candidates
-- Current phase: Phase 5 matching and approval production deployed; Telegram UI manual click-through remains useful before manager rollout
+- Current phase: Phase 6 safe production slice deployed. DB migrations are applied, `bot-api` and `worker-applications` are deployed, and controlled handoff created 4 manual-action application jobs. Remaining acceptance is manual Telegram resolution/evidence. Phase 5 matching and approval is production deployed.
 - Working mode: two-person execution — Tamerlan owns business decisions, access, credentials, and approvals; Codex owns technical implementation, validation, and memory synchronization.
 
 ## What is complete
@@ -218,6 +219,98 @@
   - production batch `c7c7fcb1-58a3-4f0a-bc24-e66eb8906877` was intentionally expired and regenerated under the stricter filter;
   - excluded examples now include `F&B Intern`, `Restaurant Hostess`, `Stewarding Supervisor`, `Sushi Commis Chef`, and `Public Area Attendant`.
 - 2026-06-29 manual Telegram click-through found a Phase 5 callback UX bug: pressing candidate buttons in `/candidate_batch` appeared to do nothing. Production logs showed callback queries reached the bot, but `answerCallbackQuery` failed after Telegram retries/expiry and `sendBatchSummary` could fail Markdown parsing because batch text contained underscores or unescaped vacancy text. Fixed in `apps/bot-api/src/intake/batch.ts` by answering callbacks safely/early and sending batch summaries without Markdown parsing. Deployed `bot-api` deployment `155670f9-f22e-4f78-bfe3-85eb73f39cb4`; `/health` and webhook smoke passed. Tamerlan retried `/candidate_batch`; the callback worked and the 2026-06-29 batch reached `approved` with 6 strict primary vacancies and shortage `eligible_vacancy_shortage:6/10`.
+- 2026-06-30 local Phase 5 bot audit tool added: `/approved_vacancies` lists manager-owned candidates, then shows all approved/partially-approved batch items with total approvals, unique vacancies, duplicate count, and duplicate groups by `vacancy_id`. This is intended to verify Tamerlan's concern that approved vacancies for a candidate may repeat across batches before Phase 6 turns approved items into applications.
+- 2026-06-30 Phase 5 production completion deploy: `bot-api` deployment `c3aa43ac-8526-4fe6-a856-9f1d3a867661` succeeded with `/approved_vacancies`, a Phase 5 timeout fix, and sanitized process-level error logging. Production `/health` returned OK, Telegram `getMyCommands` includes `approved_vacancies`, and fresh `bot-api` logs show clean startup. The timeout fix avoids persisting rejected vacancy scores during batch preparation; only primary/reserve approvable scores are written, preventing statement timeouts when the active vacancy catalog is large.
+- 2026-06-30 investigated candidate `db0e2aff-89a8-4cd8-aea1-eaafa1f931f1` / Юля Иванова Иванов returning `0/10` for target role `ресепшионист`. Production diagnosis showed all 100 active scored vacancies were rejected; front-office-like vacancies existed only in non-target countries (`MX`, `US`), while UAE active vacancies were F&B/housekeeping/kitchen/HR/etc. Fixed taxonomy so Russian `ресепшионист` / `ресепшионистка` maps to `front_office`; read-only recalculation still returned `0/10`, now correctly because of `country_mismatch` for available front-office roles and no UAE/Qatar/Bahrain receptionist vacancies in the current catalog. Deployed `bot-api` deployment `8c54bb00-c56f-4e5b-8d90-e4496258f5b8`; `/health` and webhook smoke passed.
+- 2026-06-30 expanded vacancy discovery coverage:
+  - added `workday-v1` connector for public Workday CXS job search APIs;
+  - enabled permanent worker connectors `successfactors-v1,workday-v1`;
+  - ran Four Seasons production discovery successfully: 100 discovered/upserted vacancies;
+  - deployed `worker-vacancy-discovery` deployment `f055b8ba-e81c-491a-9280-59579307cfe9`;
+  - worker logs confirm `connectorIds=["successfactors-v1","workday-v1"]`, `checkedSourceCount=10`;
+  - production vacancies increased to 345 total, 200 active, 145 stale, 221 distinct apply URLs.
+- 2026-06-30 activated all seeded vacancy discovery sources:
+  - expanded `DiscoveryConnectorId` and connector registry to all catalog ids: `successfactors-v1`, `workday-v1`, `marriott-careers-v1`, `accor-careers-v1`, `oracle-cx-v1`, `taleo-v1`, `ihg-careers-v1`, and `generic-careers-v1`;
+  - added a structured Marriott preload-state parser and a best-effort HTML link parser for Accor, Oracle CX, Taleo, IHG, and generic career pages;
+  - production manual runs added active vacancies from Marriott (+10), Accor (+87), Oracle/Hilton (+20), Taleo/Hyatt (+2), and generic pages (+69);
+  - updated `worker-vacancy-discovery` production env to all connector ids and deployed Railway deployment `37579492-ebd8-4401-b8ba-53059d2d7080`;
+  - worker logs confirm all connector ids and `checkedSourceCount=31`, so the scheduler now scans all seeded sources instead of 10;
+  - production vacancy totals after activation: 533 total rows, 388 active, 145 stale, 399 distinct apply URLs;
+  - source health caveat: some endpoints remain blocked or need dedicated parsers (`Rixos` 404, `Jumeirah` empty result, both `IHG` sources network failure, several generic sources 403/410/empty result), but they are now visible in health instead of being silently inactive.
+
+## What is complete (Phase 6 Batch 0-4 local — as of 2026-06-30)
+- Phase 6 Batch 0 audit completed against the local repo and [[phase-6-execution-plan]]:
+  - existing queues include `application.submit`, `application.manual_action`, and `report.daily`;
+  - Phase 5 handoff currently stops at approved/partially approved batches and approved items;
+  - no application tables, worker, manual action UX, evidence trail, or certified adapter existed before Batch 1.
+- Phase 6 Batch 1 schema/contracts implemented locally:
+  - added migration draft `supabase/migrations/202606300001_phase6_applications.sql`;
+  - added Drizzle schema for `applications`, `application_attempts`, `application_evidence`, and `manual_actions`;
+  - added application status/error/evidence/manual-action enums;
+  - added `@amigo/contracts` application schemas, queue payload schemas, idempotency key builder, and status transition guard;
+  - added contract tests for idempotency keys, terminal states, allowed transitions, and queue payload parsing.
+- Validation passed locally:
+  - `pnpm --filter @amigo/contracts test`;
+  - `pnpm --filter @amigo/contracts check`;
+  - `pnpm --filter @amigo/db check`;
+  - `CI=true pnpm check`;
+  - `CI=true pnpm test`;
+  - `CI=true pnpm build`;
+  - `CI=true pnpm format:check`.
+- Production migration has not been applied yet; no application jobs or external submissions were created.
+- Phase 6 Batch 2 approved-batch handoff implemented locally:
+  - added `packages/matching/src/application-handoff.ts`;
+  - added `PostgresApplicationHandoffStore.createApplicationJobsForBatch()`;
+  - added pure `planApplicationHandoff()` guard used by tests;
+  - handoff reads approved/partially approved batches, approved items, active vacancies, current approved CV, existing applications, and manager ownership;
+  - eligible items insert `applications` rows with stable idempotency keys and enqueue `application_submit` PGMQ messages;
+  - audit event `application.handoff.created` is written for created application jobs;
+  - duplicates, inactive vacancies, non-approved items, non-approved batches, closed candidates, and document mismatches are skipped without external submission.
+- Migration draft now also creates PGMQ queues `application_submit`, `application_manual_action`, and `report_daily`.
+- Added tests for approved and partially approved handoff planning, pending batch blocking, closed candidate blocking, document mismatch, inactive vacancies, and duplicate applications.
+- `pnpm-lock.yaml` was refreshed with workspace state; note that the repo already had uncommitted Phase 4/5 workspace/package changes before Phase 6 work began.
+- Final local validation passed after Batch 2:
+  - `CI=true pnpm check`;
+  - `CI=true pnpm test` — 13 matching tests, 5 contracts tests, 83 bot-api tests, 27 vacancy-discovery tests, 20 worker-documents tests;
+  - `CI=true pnpm build`;
+  - `CI=true pnpm format:check`.
+- Phase 6 Batch 3 manual deep-link task layer implemented locally:
+  - added `packages/matching/src/manual-actions.ts`;
+  - added `PostgresManualActionStore.createManualActionsForBatch()`;
+  - added open manual-action candidate/action listing;
+  - added manual action resolution to `applied`, `failed`, or `skipped`;
+  - `applied` resolution writes `application_evidence` with `manual_confirmation`;
+  - all resolutions update `applications.status`, close `manual_actions`, and write audit events;
+  - added Telegram commands `/application_handoff` and `/manual_actions`;
+  - `/application_handoff` creates application jobs from approved batches, then creates manual deep-link tasks;
+  - `/manual_actions` lists open tasks by candidate, shows apply URL, signed approved CV link, instructions, and action buttons;
+  - added callbacks for `Applied`, `Failed`, and `Skipped`;
+  - updated help/menu command listings.
+- Added tests for manual-action instructions, no-bypass boundary wording, candidate-name formatting, and terminal resolution mapping.
+- Final local validation passed after Batch 3:
+  - `CI=true pnpm check`;
+  - `CI=true pnpm test` — matching tests now 16 passing, plus existing contracts/bot/vacancy/doc tests;
+  - `CI=true pnpm build`;
+  - `CI=true pnpm format:check`.
+- No application worker was started, no production migration was applied, and no real application was submitted.
+- Phase 6 Batch 4 application worker foundation implemented locally:
+  - added `apps/worker-applications`;
+  - added `Dockerfile.worker-applications`;
+  - added worker scripts/package wiring and root `dev:worker-applications`;
+  - worker reads PGMQ queues `application_submit` and `application_manual_action`;
+  - `application_submit` processing starts an attempt and routes `manual-deep-link-v1` or unsupported adapters to manual action without auto-submit;
+  - failed manual-action creation marks the attempt failed with `manual_only`;
+  - `application_manual_action` processing records audit visibility for queued manual tasks;
+  - added testable `processor.ts` with pure queue payload/state handling;
+  - added `processor.test.ts` covering manual adapter routing, no auto-submit, failed manual action creation, and manual-action queue visibility;
+  - extended `PostgresManualActionStore` with `createManualActionForApplication()`;
+  - updated Dockerfiles so install layers know about `apps/worker-applications/package.json`.
+- Final local validation passed after Batch 4:
+  - `CI=true pnpm check`;
+  - `CI=true pnpm test` — includes `apps/worker-applications` 4 tests;
+  - `CI=true pnpm build`;
+  - `CI=true pnpm format:check`.
+- No production migration was applied, no application worker was deployed/started, and no real application was submitted.
 
 ## What is complete (Phase 3.5 CV enrichment — as of 2026-06-22)
 - Added production migration `202606220003_cv_profile_enrichment.sql` with:
@@ -279,15 +372,15 @@
 - Full validation passed with 104 tests. Railway `bot-api` deployment `97bd9248-f720-499f-9acc-9e1d90a7b9bd` succeeded; all services are Online, `/health` is green, and Telegram webhook pending updates are zero.
 
 ## What is not built
-- Broad non-SuccessFactors connector coverage and application adapters are not built yet.
+- Some newly activated best-effort discovery sources remain fragile and need hardening.
 - Full employer catalog and additional ingestion connectors remain incomplete.
-- Application workers, ATS adapters (Phase 6)
+- ATS adapters, automated runtime evidence capture beyond manual confirmation, and reporting (Phase 6) are not built yet.
 - No ATS adapter is certified for production use.
 
 ## Immediate milestone
 Phase 5 production acceptance.
 
-**Requires next**: run one manual Telegram UI click-through of `/candidate_batch` as the manager, then proceed to Phase 6 application handoff/adapters only after approval rules are accepted.
+**Requires next**: follow [[phase-6-execution-plan]] Batch 5. Add adapter SDK/certification harness and keep `manual-deep-link-v1` as the safe default. Do not skip ahead to auto-submit; no certified adapter exists.
 
 ## Capacity requirement
 The design must run the 10-candidate pilot without a rewrite and scale to:

@@ -19,7 +19,27 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-payment-round-2-lifecycle-and-validation|Payment Round 2 lifecycle and validation]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-launch-analytics-foundation|Launch analytics foundation]]
 
-Last updated: 2026-06-23
+Last updated: 2026-07-01
+
+## Immediate generation stability follow-up (2026-07-01)
+
+1. Run a real production generation smoke after deployment `dpl_6AUjKBkYidVUua2s6dPvRNcEmXAd`: at minimum one guest preview and one authenticated/final generation if credentials are available.
+2. Watch Vercel logs for `[NanoBanana] Returning generated image despite validation warning`; these should now end in successful customer results rather than final-step errors.
+3. Push local commits `d25e7b1` and `69751ed` to GitHub once local GitHub HTTPS credentials are configured.
+4. Add persistent generation metadata for validator status/reason so admin can distinguish perfect `pass` results from best-effort results.
+5. Keep provider/storage failure behavior fail-closed: do not spend credit/free-trial when no image exists or result storage fails.
+
+## Immediate generation recovery (2026-06-30)
+
+1. ~~Decide/implement fail-closed validator policy for the current recovery path.~~ Done locally on 2026-06-30: non-pass validation now returns failure before storage/bookkeeping.
+2. ~~Normalize Gemini `400 INVALID_ARGUMENT` into a clearer code path.~~ Done locally on 2026-06-30: provider invalid argument without image context maps to `TEMPORARY_UPSTREAM_UNAVAILABLE`.
+3. ~~Convert exhausted free-trial and insufficient-credit paths to explicit tRPC/domain errors.~~ Done locally on 2026-06-30: router emits `FORBIDDEN` with `GUEST_FREE_TRIAL_EXHAUSTED` / `INSUFFICIENT_CREDITS`; Result uses premium-lock flow.
+4. ~~Repair local release tooling before hotfix deploy: fix stale git worktree metadata and restore a stable `.vercel/project.json`.~~ Done locally on 2026-06-30; `git status` works and Vercel CLI is linked to the production project.
+5. ~~Deploy the local generation stabilization hotfix after reviewing the changed files and creating the release commit/deploy package.~~ Done via direct Vercel production deploy `dpl_HkE8JkNdaiQkDiCLkBgB5EE5pMuv`; local commit is `d25e7b1`, but GitHub push is still blocked by local HTTPS credentials.
+6. Replace production Clerk test keys with live keys and redeploy; then smoke auth, guest claim, credits, and generation access.
+7. Improve generation run observability: persist normalized error code, upstream status/code, model id, attempt count, and validator reason in DB or admin-visible metadata.
+8. After deploy, run a live generation matrix: guest first preview, exhausted guest, paid user final, zero-credit user, HD/HD_COTTON/SATIN/TAFFETA, and one download-after-refresh check.
+- See audit note: [[projects/AI-Powered Woven Label Generator/sessions/2026-06-30-generation-platform-health-audit|Generation platform health audit]].
 
 ## Pre-launch gate (2026-06-23)
 
@@ -112,7 +132,7 @@ Last updated: 2026-06-23
 
 ## Immediate
 
-- **Repair or bypass local git-status issue before edits/commits/deploys**: workspace still has stale worktree metadata causing `git status` and `git diff HEAD` to fail against `/Users/tamerlan/.git/worktrees/elated-engelbart`; rely on Git plumbing only for read-only verification until fixed.
+- ~~**Repair or bypass local git-status issue before edits/commits/deploys**: workspace still has stale worktree metadata causing `git status` and `git diff HEAD` to fail against `/Users/tamerlan/.git/worktrees/elated-engelbart`; rely on Git plumbing only for read-only verification until fixed.~~ Done locally on 2026-06-30; ordinary `git status --short --branch` works again.
 - **25x25 live generation QA**: after deploying the square-format hotfix, generate `25x25` HD beige/black and `25x25` HD Cotton beige/black; confirm the visible label body is square/1:1, not long horizontal.
 - **Browser QA before client review**: upload an actual white PNG logo and verify Home upload preview + Prepare preview remain visible on white/off-white backgrounds.
 - **Generation QA before client review**: live-generate one symbol-only logo and one text-containing logo to confirm the safer `symbol_only` default does not reintroduce hallucinated text and still preserves intentionally uploaded text where appropriate.

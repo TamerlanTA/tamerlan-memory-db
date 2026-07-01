@@ -101,3 +101,22 @@
 **Probability**: Medium (reduced from High — Phase 2F partially implemented June 29)
 **Impact**: High
 **Mitigation**: Phase 2F Trust Layer implemented June 29, 2026: `SafeDeploymentSection` (5-step owner-safe process), `DeploymentScenariosSection` (labeled examples, no fake quotes, disclaimer), "What happens next" audit clarity. Remaining: before/after examples on priority pipeline pages; founder/operator credibility block; real client results to replace scenarios as they become available.
+
+### R-013 — Phase 3 before revenue validation
+**Risk**: Client Accounts + Deal Room may consume implementation time before real clients create validated portal requirements.
+**Probability**: Reduced after June 30 scope reversal, but still present if future agents resume portal work too early.
+**Impact**: Medium–High
+**Mitigation**: User reversed the MVP scope on June 30, 2026. Account/chat/deal-room must be deferred out of MVP and kept as future infrastructure. Current MVP should return to public audit + public system request/order form + internal order workspace + manual follow-up. Do not resume portal/deal-room work until explicitly reprioritized after sales/client validation.
+
+### R-014 — Supabase Auth provider configuration blocks portal acceptance
+**Risk**: Portal code is deployed, but real signup/login cannot pass acceptance while Supabase Auth is not fully configured.
+**Probability**: High if/when portal is reactivated; currently deferred out of MVP.
+**Impact**: Low for current MVP, high for future portal launch.
+**Evidence**: Public Auth settings showed `external.google=false` and `mailer_autoconfirm=false`; user reported Google button does not work and confirmation email does not arrive. Vercel Preview/Production env contains required Supabase keys, so the blocker is provider/email configuration.
+**Mitigation**: No longer a blocker for MVP because portal is not part of the current buyer-facing flow. Before future portal launch, enable Google provider in Supabase, configure callback/redirect URLs, and either disable email confirmations for MVP or configure reliable SMTP/custom Auth email delivery before testing signup.
+
+### R-015 — Deal room becomes generic chat instead of operational workspace
+**Risk**: If Phase 3 only adds messages, clients still will not have confidence about scope, next action, proposal, delivery state, decisions, billing, and support. The product would feel like an embedded inbox rather than a premium managed operations platform.
+**Probability**: Medium when future portal work resumes.
+**Impact**: High for future SaaS maturity, low for current MVP.
+**Mitigation**: Keep `/Users/tamerlan/Desktop/FlowOps/FlowOps Saas/docs/phase-3-account-chat-deal-room-quality-spec.md` as the future quality target. Do not expose a half-finished generic chat in MVP. When resumed, prioritize next-action visibility, scope summary, status timeline, proposal/approval layer, decision log, internal unread/waiting cues, and active-system links before decorative chat features.

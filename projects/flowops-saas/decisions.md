@@ -105,8 +105,51 @@
 ### D-014 — Client Accounts Should Become a Deal Room, Not Only a Dashboard
 **Decision**: Phase 3 client accounts should include an in-site order/proposal/chat workspace ("deal room"), not only post-deployment dashboard, billing, and support.
 **Why**: The stronger product experience is: client creates an account, submits an automation request/offer inside the site, FlowOps discusses scope in the same workspace, then the request becomes an order/deployment. This reduces reliance on email, keeps context durable, and makes FlowOps feel like a platform instead of a contact form.
+**Status**: Future-only after D-018. This remains the target for a later SaaS maturity layer, not the current MVP.
 **Impact**:
 - Portal scope must expand from passive dashboard to active client workspace.
 - Add authenticated conversations, request/proposal threads, attachments/context, status timeline, team replies, and internal assignment.
 - Keep MVP manual-delivery: chat helps qualification and scope, but does not imply self-serve automation deployment.
 - Email/Telegram can remain notifications, but the canonical client conversation should live in FlowOps.
+
+### D-015 — Phase 3 Execution Reprioritized By User
+**Decision**: On June 29, 2026, the user explicitly moved FlowOps SaaS execution into Phase 3 Client Accounts + Deal Room.
+**Why**: The user wants to proceed with client accounts and deal-room implementation now, rather than keep it deferred behind outreach/first-client validation.
+**Status**: Superseded by D-018 on June 30, 2026.
+**Impact**:
+- Treat the older roadmap warning "do not go into Phase 3 before first clients" as a risk note, not a blocker.
+- All Phase 3 implementation must follow `docs/phase-3-client-accounts-deal-room-plan.md`.
+- The MVP remains scoped: accounts, automation request intake, request-specific discussion, internal request management, and request-to-order conversion.
+- Still do not build self-serve deployment, multi-user workspaces, file uploads, realtime logs, or AI reports unless explicitly reprioritized.
+
+### D-016 — Portal Auth Uses Email/Password + Google, Not Magic-Link-First
+**Decision**: Phase 3 portal auth should use conventional SaaS auth: email/password sign-in, email/password account creation, and Google OAuth when configured.
+**Why**: The user rejected the magic-link-first MVP experience as not normal enough for the product.
+**Impact**:
+- Do not reintroduce magic link as the primary portal login UX.
+- Keep Supabase Auth as the auth provider and keep RLS/API bearer-token model.
+- Production readiness must include Supabase email/password provider, Google provider, anon key, and redirect URL setup.
+- Authenticated acceptance should test password signup/login and Google OAuth, not magic-link login.
+
+### D-017 — Account, Chat, and Deal Room Quality Bar
+**Decision**: The target Phase 3 portal quality bar is a full operational workspace: account system, structured request intake, request-specific chat, deal-room scope/proposal/status/decision history, active systems, support, billing context, and internal request operations.
+**Why**: A premium FlowOps client should never wonder what is happening, who owns the next step, what has been agreed, or where to discuss a request. The portal must make FlowOps feel like a managed AI operations platform, not a prettier contact form.
+**Status**: Future quality target after D-018. Preserve the spec; do not expose it in MVP.
+**Impact**:
+- Use `/Users/tamerlan/Desktop/FlowOps/FlowOps Saas/docs/phase-3-account-chat-deal-room-quality-spec.md` as the Phase 3 quality target.
+- Deal rooms must show status, next action, scope summary, timeline, chat, proposal/approval state later, and conversion/order/system links.
+- Chat is not a generic messenger; it is a structured business workflow conversation tied to requests, proposals, decisions, delivery, support, and internal-only notes.
+- Portal dashboard should emphasize action-required, open deal rooms, active systems, recent updates, billing/support shortcuts, and what needs the client or FlowOps next.
+- Keep manual delivery and keep n8n hidden from clients.
+- Do not build file uploads, multi-user client workspaces, realtime logs, self-serve workflow builder, or AI-generated proposals until real usage proves need.
+
+### D-018 — Client Accounts, Chat, and Deal Room Deferred Out of MVP
+**Decision**: On June 30, 2026, the user reversed the MVP scope: account system, chat, and deal room are not needed for the current MVP and must be removed from the buyer-facing MVP flow for now.
+**Why**: For the current MVP, the priority is sales validation and simple manual delivery: public audit, public system request/order form, internal order workspace, and direct follow-up. Account/chat/deal-room is valuable, but it adds product surface area before there is enough client usage to justify it.
+**Impact**:
+- Do not expose account/chat/deal-room as the primary public order flow in the MVP.
+- Public system pages should use the earlier `/api/pipeline-order` request flow without requiring portal auth.
+- Remove Portal from public navigation/CTA surfaces for MVP.
+- Keep the existing Phase 3 portal/deal-room code, database schema, docs, and quality spec as future infrastructure unless the user explicitly asks to delete it.
+- Treat account/chat/deal-room as a required future SaaS maturity layer after first client/sales validation, not as abandoned work.
+- The future quality bar remains `/Users/tamerlan/Desktop/FlowOps/FlowOps Saas/docs/phase-3-account-chat-deal-room-quality-spec.md`.

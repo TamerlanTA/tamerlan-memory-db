@@ -42,7 +42,43 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-payment-round-2-lifecycle-and-validation|Payment Round 2 lifecycle and validation]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-launch-analytics-foundation|Launch analytics foundation]]
 
-Last updated: 2026-06-23
+Last updated: 2026-06-30
+
+## 2026-07-01 generation stability hotfix
+
+- User reported production generation frequently reaches the end and then fails at the final validation step, leaving customers without a result.
+- Changed the product policy in `server/nanoBananaService.ts`: if Gemini has returned an image, non-pass validator results (`fail` or `protocol_error`) no longer block the response. The service logs a validation warning and returns the best generated image so the router can store it and the customer can see a result.
+- Real provider/storage failures still remain failures: if Google returns no image, quota/timeout fails, or R2 result storage fails, the generation still errors and credits/free-trial value are protected by existing router ordering.
+- Regression tests updated in `server/nanoBananaService.pipeline.test.ts` to prove failed config fidelity and malformed validator responses still return the generated image when image data exists.
+- Verification: `vitest run` PASS (41 files, 241 tests), `tsc --noEmit` PASS, Vite/esbuild production build PASS.
+- Local release commit `69751ed` (`Return generated image on validation warnings`) created. Branch is now ahead of GitHub by 2 commits because HTTPS GitHub credentials are still not configured locally.
+- Vercel Production deploy completed directly from the local workspace: deployment `dpl_6AUjKBkYidVUua2s6dPvRNcEmXAd`, READY, aliased to `https://methode.griffesvivienne.com`.
+- See session note: [[projects/AI-Powered Woven Label Generator/sessions/2026-07-01-generation-stability-hotfix|Generation stability hotfix]].
+
+## 2026-06-30 generation platform health audit
+
+- Production `https://methode.griffesvivienne.com` is live and Vercel deployment `dpl_FsiZLHuxjxBREUzZrTmkpCVKYbQH` is READY, but generation is degraded rather than fully healthy.
+- Production DB shows `generationRuns`: 204 successful generations, 20 failed, 5 old `started` rows; overall failure rate is about 8.7%. Current 2026-06-30 operating day shows 7 successes and 1 failed run in the checked window.
+- Recent live logs show Google/Gemini image generation intermittently returning `400 INVALID_ARGUMENT` for valid-looking requests; the app retries and sometimes succeeds, but failures surface as generic 500 / `GENERATION_FAILED_UNKNOWN`.
+- R2 storage is currently working in production: required R2 env vars are present and recent `logo_original`, `logo_derivative`, and `generation_result` assets are being written with storage keys.
+- Production Clerk env/client bundle uses Clerk test keys (`pk_test` / `sk_test`) while `NODE_ENV=production`; this is a production readiness/auth risk.
+- Local validation from the current workspace: `node_modules/.bin/tsc --noEmit` PASS, manual build PASS, full Vitest FAILS with the known 10 generation/texture tests.
+- The most important code finding is `server/nanoBananaService.ts`: validation failures and `protocol_error` states intentionally return the best available image with `success: true`, so users can receive off-spec output and spend trial/credit value even when validator expectations failed.
+- Local release operations are still impaired: `git status` fails due stale worktree metadata and local `.vercel` points to a temp symlink; use plumbing/Vercel CLI workarounds until repaired.
+- See audit note: [[projects/AI-Powered Woven Label Generator/sessions/2026-06-30-generation-platform-health-audit|Generation platform health audit]].
+
+## 2026-06-30 generation stabilization step 1
+
+- Implemented local generation stabilization changes after the health audit: `server/nanoBananaService.ts` now fails closed when final validation status is not `pass` instead of returning best-effort output as `success: true`.
+- Gemini/provider `400 INVALID_ARGUMENT` without input-image context now normalizes to `TEMPORARY_UPSTREAM_UNAVAILABLE`, matching recent production behavior where a retry could succeed.
+- `label.generate` now throws explicit `FORBIDDEN` tRPC errors for `INSUFFICIENT_CREDITS` and `GUEST_FREE_TRIAL_EXHAUSTED`; Result page maps those states into existing premium-lock flow instead of a generic generation error.
+- Updated stale generation/texture tests to current production defaults: default size `20x50`, default logo type `SYMBOL_ONLY`, taffeta density/reference/prompt expectations.
+- Verification is now green locally: `node_modules/.bin/vitest run` PASS (41 files, 241 tests), `node_modules/.bin/tsc --noEmit` PASS, manual Vite/esbuild build PASS. Build still has the known large client chunk warning.
+- Release tooling was repaired after the stabilization batch: accidental `.claude/worktrees/*` gitlink entries were removed from the index, `.claude/worktrees/` and `.vercel/` were ignored, and local `.vercel/project.json` was restored for Vercel project `prj_LkPZqybEyxElduycv9y1O1qu6G4j` / org `team_JfRybqpC6WsadUDMtKRb857f`.
+- `git status --short --branch` now works again, Vercel CLI can inspect the linked project and list Production env vars, and the full verification cycle still passes: `vitest run` PASS (41 files, 241 tests), `tsc --noEmit` PASS, Vite/esbuild build PASS.
+- Release commit was created locally as `d25e7b1` (`Stabilize generation failure handling`). GitHub push failed from this machine because HTTPS credentials are not configured: `could not read Username for 'https://github.com'`.
+- Vercel production deploy was completed directly from the local workspace: deployment `dpl_HkE8JkNdaiQkDiCLkBgB5EE5pMuv`, READY, aliased to `https://methode.griffesvivienne.com`; live JS bundle `assets/index-DCe4fzhf.js` contains `GUEST_FREE_TRIAL_EXHAUSTED` and `INSUFFICIENT_CREDITS`.
+- Remaining before production recovery: replace production Clerk test keys with live keys and run live generation/auth smoke tests.
 
 ## 2026-06-23 pre-launch technical audit
 

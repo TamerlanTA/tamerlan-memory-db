@@ -8,6 +8,7 @@
 - [[roadmap]]
 - [[technical-architecture]]
 - [[phase-5-execution-plan]]
+- [[phase-6-execution-plan]]
 
 ## P0 — 2026-06-12 to 2026-06-14
 Completed on 2026-06-15:
@@ -110,14 +111,27 @@ Completed foundation:
 
 18. Manual Telegram click-through on 2026-06-29 found and fixed callback handling for `/candidate_batch`: callbacks were reaching production, but old/retried callback query ids and Markdown parsing failures made the buttons appear unresponsive. `bot-api` redeployed with safe early callback answers and plain-text batch summaries.
 19. Tamerlan retried `/candidate_batch` after the fix; the button worked and the 2026-06-29 batch became `approved` with 6 strict primary vacancies and shortage `eligible_vacancy_shortage:6/10`.
+20. Candidate Юля Иванова Иванов (`ресепшионист`, target countries ОАЭ/Катар/Бахрейн) returned `0/10`. Production diagnosis showed no active front-office/receptionist vacancies in target countries in the current catalog. Russian receptionist aliases were added to front-office taxonomy so future matching is correct, but the current shortage remains real until the catalog includes receptionist/front-office vacancies in UAE/Qatar/Bahrain or the candidate's target roles/countries are widened.
+21. Vacancy discovery coverage was expanded on 2026-06-30 by adding `workday-v1` and enabling it in `worker-vacancy-discovery` alongside `successfactors-v1`. Four Seasons Workday produced 100 active/upserted vacancies; production reached 345 total vacancies, 200 active, 145 stale, and 221 distinct apply URLs.
+22. All seeded discovery sources were activated on 2026-06-30. `worker-vacancy-discovery` now runs all connector ids (`successfactors-v1`, `workday-v1`, `marriott-careers-v1`, `accor-careers-v1`, `oracle-cx-v1`, `taleo-v1`, `ihg-careers-v1`, `generic-careers-v1`) and logs `checkedSourceCount=31`. Production totals after manual discovery are 533 vacancies, 388 active, 145 stale, and 399 distinct apply URLs.
+23. `/approved_vacancies` was added and deployed on 2026-06-30 to show approved vacancies per candidate and flag duplicate approved `vacancy_id` values across approved/partially approved batches.
+24. Phase 5 batch preparation timeout found in production logs was fixed and deployed on 2026-06-30: `persistPreparedBatch()` now persists only primary/reserve approvable scores, not every rejected vacancy score, so large active catalogs do not cause statement timeouts while creating a manager-facing batch.
 
 Next:
-1. Start Phase 6 planning/implementation: convert approved or partially approved batch items into application jobs with duplicate prevention, adapters, evidence, and reporting.
-2. Decide whether Phase 6 first supports manual deep-link tasks, email apply, or one certified ATS adapter.
-3. Confirm product/business approval for current scoring strictness and shortage behavior (`6/10` primary for the first accepted candidate).
-4. Start Phase 6 only after agreeing how approved/partially approved batches become application jobs.
-5. Keep the original One&Only umbrella endpoint visible as `empty_result` until a stable umbrella URL is found.
-6. Continue expanding employer catalog from 31 toward 100 approved brands after scoring/matching safety rules are live.
+1. Follow [[phase-6-execution-plan]] exactly. Batch 0 audit through Batch 8 QA/production readiness are locally complete.
+2. Phase 6 migrations `202606300001_phase6_applications.sql` and `202607010001_manual_actions_open_unique.sql` are applied to production; direct DB verification confirms tables, queues, queue depth 0, and 0 duplicate open manual-action groups.
+3. `bot-api` deployment `2e2d57e5-a522-42ab-9073-e99eb452904e` and `worker-applications` deployment `c501d034-40a9-4a50-b928-1bc50032e732` are live on Railway.
+4. Controlled production handoff on batch `7c580a24-8e0e-4b1a-b22a-0e0999e09869` created 4 application jobs/manual tasks; 2 stale vacancies were safely skipped; re-run created 0 duplicate apps.
+5. Manual Telegram acceptance remains: open `/manual_actions`, verify apply URL and signed CV link, resolve at least one task as applied, then verify `manual_confirmation` evidence and `/application_report` counts.
+6. Rotate the Railway token shared in chat after deploy verification.
+7. Before any production auto-submit, wire `email-apply-v1` to an explicitly configured email sender/source-level enable flag, verify duplicate prevention/rate limits, and record one controlled submission or approved dry-run evidence.
+7. Manually test `/approved_vacancies` in Telegram, then use its duplicate report before Phase 6 production handoff.
+8. Confirm product/business approval for current scoring strictness and shortage behavior (`6/10` primary for the first accepted candidate).
+9. Keep the original One&Only umbrella endpoint visible as `empty_result` until a stable umbrella URL is found.
+10. Continue expanding employer catalog from 31 toward 100 approved brands after scoring/matching safety rules are live.
+11. Certify and harden the newly activated best-effort sources: replace fragile HTML parsing with dedicated APIs/parsers where available, especially Rixos/Accor 404, Jumeirah Oracle CX empty result, IHG network failures, and generic sources blocked by 403/410.
+12. Improve location extraction for best-effort generic vacancies so matching can safely use more of the newly ingested rows instead of relying only on title/apply URL.
+13. Rotate secrets exposed in operational logs/chats: at minimum Railway token and Telegram bot token; review OpenAI and Supabase service-role keys as well.
 
 ## P1 — Applications and reports
 1. Define the adapter SDK and fixture contract.

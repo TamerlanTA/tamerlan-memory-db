@@ -5,6 +5,7 @@
 - [[decisions]]
 - [[roadmap]]
 - [[pipeline-catalog]]
+- [[automation-card-audit-brief]]
 
 ---
 
@@ -168,6 +169,31 @@
 - **Subscription**: полностью открытые цены на /pricing
 - **Bundles**: выделить как "Best Value"
 - **НЕ показывать**: точные цены до квалификации для Tier 3–4
+
+---
+
+## Productized Pricing Re-Audit Rule (Added 2026-06-30)
+
+Before changing card prices, agents must run the [[automation-card-audit-brief]] pricing review.
+
+### User Direction
+Because FlowOps sells ready/productized automation modules rather than fully custom one-off builds, many setup prices can likely be positioned about **30% below comparable custom-market build pricing** while still feeling premium and profitable.
+
+### Required Method
+For every card:
+1. Research current comparable market pricing using live references where possible.
+2. Estimate custom-build range for the same workflow.
+3. Decide whether the FlowOps version is truly productized enough to discount.
+4. Recommend setup/monthly price.
+5. Record delivery complexity and margin risk.
+6. Update bundle/stack prices after card-level changes.
+
+### Guardrails
+- Do not frame FlowOps as "cheap automation."
+- Use language like "productized deployment price" or "pre-mapped system."
+- Keep high-risk systems higher or quote-based: voice agents, CRMOS, OpsOS, full dashboards, multi-tool data workflows.
+- Monthly subscription should reflect monitoring/support burden, not only setup speed.
+- Do not reduce prices until the implementation scope and delivery risk are understood.
 
 ---
 

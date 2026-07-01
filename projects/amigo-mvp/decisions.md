@@ -8,6 +8,7 @@
 - [[technical-architecture]]
 - [[roadmap]]
 - [[phase-5-execution-plan]]
+- [[phase-6-execution-plan]]
 
 ## Accepted decisions
 
@@ -58,3 +59,6 @@ Use Supabase Postgres, Storage, Cron, and PGMQ plus Railway services. Avoid Redi
 
 ### D-016 — Phase 5 execution lock
 Phase 5 matching and approval must be implemented according to [[phase-5-execution-plan]] in order. The plan is the canonical scope-control document for matching, scoring, duplicate suppression, daily batches, and Telegram approval. Future implementation may deviate only if Tamerlan explicitly changes the plan or a verified blocker is documented in a session note / decision before continuing.
+
+### D-017 — Phase 6 execution lock
+Phase 6 applications and reporting must be implemented according to [[phase-6-execution-plan]] in order. The canonical first safe execution mode is manual deep-link tasks; auto-submit is allowed only for a narrow certified adapter or email flow after duplicate prevention, evidence persistence, worker state handling, and manager approval checks exist. Future agents must not implement universal ATS auto-apply, bypass protective controls, invent answers, or submit real applications outside the plan.

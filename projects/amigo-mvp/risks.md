@@ -7,6 +7,7 @@
 - [[next-steps]]
 - [[technical-architecture]]
 - [[integrations]]
+- [[phase-6-execution-plan]]
 
 ## Active risks
 
@@ -22,8 +23,9 @@
 | Unified Telegram onboarding has not completed a full live manager acceptance pass | Medium | Medium | Complete one real `/candidate_new` flow with experience, education, extra, photo, final review, CV regeneration, skip branches, and `/cancel` before pilot use |
 | Candidate portrait has a poor crop, unexpected orientation, or a malformed image file | Medium | Low | JPEG/PNG/WebP/HEIC/HEIF uploads are accepted; HEIC/HEIF is converted to JPEG server-side, processing failures preserve the Telegram session, and managers review final crop/quality in the generated PDF before approval |
 | Compact CV header wraps on unusually long names/contact values | Low | Medium | Two-column production sample passed with realistic data; manager must review long-name/long-email candidates before document approval |
-| Telegram bot token appeared in historical Railway error logs before logging sanitization | Medium | Critical | Error serialization is fixed in `65ff305`; rotate the Telegram bot token through BotFather and update Railway `TELEGRAM_BOT_TOKEN`, then refresh the webhook |
+| Telegram bot token and other secrets appeared in operational logs/chats before full sanitization/rotation | Medium | Critical | `bot-api` deployment `c3aa43ac-8526-4fe6-a856-9f1d3a867661` adds sanitized process-level error logging; rotate the Telegram bot token through BotFather, rotate the shared Railway token, review OpenAI/Supabase keys, update Railway variables, and refresh the webhook |
 | Duplicate or excessive applications damage candidate reputation | Medium | High | Idempotency keys, employer/domain limits, prior-application checks, daily caps |
+| Phase 6 drifts into unsafe universal auto-apply | Medium | High | [[phase-6-execution-plan]] is now canonical; start with manual deep-link tasks and allow auto-submit only for certified narrow adapters |
 | Career sites block shared datacenter IPs | Medium | High | Slow domain-specific rates, stable sessions, optional compliant proxy budget, manual fallback |
 | Candidate personal data is exposed | Low | Critical | Private storage, RLS, least privilege, encrypted secrets, signed URLs, audit log, retention deletion |
 | Waitlist activates before operations are stable | High | High | Ten-candidate controlled pilot, launch gates, connector error thresholds, staged 10→20→30 activation |
@@ -33,6 +35,7 @@
 | Phase 4C.1 property-level SuccessFactors sources overlap with broad Kerzner search by `apply_url` | Medium | Medium | Phase 4C.2 duplicate report now detects active cross-source overlap; wire it into Phase 5 batch suppression before showing vacancies to managers |
 | Phase 5 Telegram UI has not been clicked manually after deploy | Medium | Medium | Production data acceptance passed through the matching store; run `/candidate_batch` in Telegram to verify visible manager UX and inline callbacks end to end |
 | Railway CLI auth can expire or fail between operational verification sessions | Medium | Medium | Use stable `RAILWAY_TOKEN` / `RAILWAY_API_TOKEN` for operational retries; token auth restored the 2026-06-27 Phase 4C.1 rollout |
+| Railway token shared in chat during Phase 6 deploy | High | High | Rotate the token after deploy verification; avoid storing it in repo or memory |
 | Candidate edit/close lists apply the `closed` filter after `LIMIT 20` | Medium | Medium | Filter `status != closed` in SQL before limiting; add regression coverage with more than 20 mixed-status candidates |
 | Candidate assignment can change between close selection and confirmation | Low | High | Include `assigned_manager_id` in the closing update predicate and require an affected row before writing the audit event |
 | Intake accepts a location with an empty country or city | Medium | Medium | Validate both trimmed location parts and add cases for `Kazakhstan,` and `,Almaty` |
@@ -41,9 +44,10 @@
 | Gotenberg private networking or LibreOffice conversion can fail at runtime | Medium | Medium | Gotenberg service is deployed at `gotenberg.railway.internal`; validate first PDF render and keep failure classified as `validation_failed`/worker error |
 
 ## Launch blockers
-- No production-certified application connector.
-- No end-to-end evidence trail for applications.
-- No duplicate prevention for applications; vacancy ingestion dedupe and Phase 5 manager-facing duplicate suppression exist locally, but application-level duplicate prevention remains Phase 6.
+- No production-enabled application connector; `manual-deep-link-v1` is safe/manual and `email-apply-v1` is local dry-run/default only.
+- Phase 6 manual-action slice is deployed, but no manager has resolved a production manual action yet, so `manual_confirmation` evidence is still unverified.
+- No production end-to-end evidence trail for applications has been accepted yet.
+- Application-level duplicate prevention exists locally in Phase 6 schema/service but is not production-applied yet.
 - Manager approval gate for vacancy batches is deployed and production data acceptance passed; manual Telegram UI click-through is still recommended before manager rollout.
 - No tested retention and access controls.
 - More than 10% silent or unclassified application outcomes during pilot QA.

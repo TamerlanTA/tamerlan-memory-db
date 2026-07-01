@@ -4,6 +4,7 @@
 - [[overview]]
 - [[pricing]]
 - [[technical-architecture]]
+- [[automation-card-audit-brief]]
 
 ---
 
@@ -18,6 +19,32 @@
 ### 7. Marketing & Content (5 pipelines)
 
 **Total: 40 pipelines**
+
+---
+
+## Card Quality Standard (Added 2026-06-30)
+
+Before scaled outreach, all live and coming-soon pipeline cards must be audited against [[automation-card-audit-brief]].
+
+Each card should include or support:
+- clear target buyer and best-fit verticals;
+- concrete business pain;
+- trigger → automation steps → result;
+- richer 2–3 sentence description;
+- typical integrations;
+- setup scope;
+- monthly monitoring/support scope;
+- deploy time;
+- setup and monthly price with rationale;
+- realistic outcome/ROI logic;
+- in-card illustration key/concept.
+
+Descriptions that only say a workflow "routes requests", "answers questions", or "keeps response times tight" are too sparse for sales validation. Each card must make the buyer think: "this is my exact operational problem."
+
+Visuals must follow the FlowOps workflow SVG style: light canvas, white rounded nodes, soft shadows, dotted connectors, small icons/status chips, and sky/mint/peach/amber accents. Reference files:
+- `/Users/tamerlan/Downloads/flowops-custom-workflow.svg`
+- `/Users/tamerlan/Downloads/flowops-request-to-proof-v2_1.svg`
+- `/Users/tamerlan/Downloads/flowops-request-to-proof.svg`
 
 ---
 

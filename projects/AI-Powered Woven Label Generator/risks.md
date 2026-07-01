@@ -20,15 +20,27 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-payment-round-2-lifecycle-and-validation|Payment Round 2 lifecycle and validation]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-launch-analytics-foundation|Launch analytics foundation]]
 
-Last updated: 2026-06-23
+Last updated: 2026-07-01
+
+## Generation platform health risks (2026-06-30)
+
+- ~~**High no-result UX risk:** the 2026-06-30 fail-closed validator policy caused generations that already had an image to fail at the final validation step, leaving customers without a result.~~ Fixed and deployed on 2026-07-01: `server/nanoBananaService.ts` now returns the best generated image when image data exists and validator status is `fail` or `protocol_error`.
+- **Generation quality tradeoff:** because validator warnings no longer block the image response, some returned images may be off-spec on material/color/format. This is an intentional stability tradeoff until persistent validator metadata and a softer retry/regenerate UX exist.
+- ~~**High provider/error UX risk:** recent production logs show Gemini `400 INVALID_ARGUMENT` mapped to `GENERATION_FAILED_UNKNOWN` and surfaced as HTTP 500.~~ Improved locally on 2026-06-30: provider `INVALID_ARGUMENT` without image context maps to `TEMPORARY_UPSTREAM_UNAVAILABLE`.
+- **High auth readiness risk:** production Vercel env and live client bundle are using Clerk test keys (`pk_test` / `sk_test`) while the deployment is production.
+- ~~**Medium entitlement UX risk:** exhausted guest free-trial paths throw plain `Error` strings and appear in production logs as 500s rather than a clear domain state such as `GUEST_FREE_TRIAL_EXHAUSTED`.~~ Improved locally on 2026-06-30: generation router throws explicit `FORBIDDEN` codes and Result page routes these into premium-lock state.
+- **Medium observability risk:** `generationRuns.errorMessage` stores coarse messages like `GENERATION_FAILED_UNKNOWN`; upstream status/code/model/attempt/validation reason are mostly only in ephemeral logs.
+- ~~**Medium release operations risk:** `git status` and local `.vercel` project linking are broken in the workspace, increasing hotfix/deploy mistake risk.~~ Fixed locally on 2026-06-30: stale `.claude/worktrees/*` gitlinks were removed from the index, worktree/Vercel local paths are ignored, `.vercel/project.json` was restored, and Vercel CLI can inspect the linked production project.
+- **Current non-blocker:** R2 is no longer the active storage blocker in production; recent generation assets are being persisted to R2-backed keys.
+- See audit note: [[projects/AI-Powered Woven Label Generator/sessions/2026-06-30-generation-platform-health-audit|Generation platform health audit]].
 
 ## Pre-launch technical audit risks (2026-06-23)
 
-- **High launch risk: full test suite is red.** `pnpm test` currently fails 10 tests in generation-facing areas: canonical label config defaults, production batch logo-type default, Nano Banana config-fidelity validation, and texture preset expectations. `pnpm check` and `pnpm build` pass.
+- ~~**High launch risk: full test suite is red.**~~ Resolved locally on 2026-06-30 after generation stabilization and stale test updates: `vitest run` PASS (41 files, 241 tests), `tsc --noEmit` PASS, build PASS.
 - **High storage/env risk: R2 is mandatory in production.** `server/assets.ts` only falls back to inline data URLs when `!ENV.isProduction`; missing R2 credentials in production will fail asset storage/generation rather than degrade gracefully.
 - **High migration risk: `0013_preorder_generation_linkage.sql` is outside Drizzle journal.** The file exists but `drizzle/meta/_journal.json` ends at `0012_preorder_confirmation_email`; production/staging must be checked or manually migrated before relying on linkage columns.
 - **High live validation gap remains:** one real production generation/download, one live Stripe purchase + webhook replay/idempotency, one preorder email, Resend delivery, Stripe receipt, and flow-specific GA4 events still require proof.
-- **Medium release operations risk:** ordinary `git status` still fails due to stale worktree metadata, so release dirty-state checks are unreliable until repaired.
+- ~~**Medium release operations risk:** ordinary `git status` still fails due to stale worktree metadata, so release dirty-state checks are unreliable until repaired.~~ Resolved locally on 2026-06-30; `git status --short --branch` is reliable again after removing tracked `.claude/worktrees/*` gitlinks.
 - **Medium signing secret risk:** `ORDER_INTENT_SIGNING_SECRET` falls back to `JWT_SECRET`, then a fixed dev fallback with a production warning. Production must have a strong explicit signing secret.
 
 ## GA4 activation residual risks (2026-06-09)
@@ -79,7 +91,7 @@ Last updated: 2026-06-23
 
 ## Sync risks (2026-06-03)
 
-- **Local git-status reliability issue remains open**: `git status` and `git diff HEAD` still fail with `fatal: not a git repository: /Users/tamerlan/.git/worktrees/elated-engelbart`, even though `git rev-parse`, `git log`, `git show`, and `git ls-remote` work.
+- ~~**Local git-status reliability issue remains open**: `git status` and `git diff HEAD` still fail with `fatal: not a git repository: /Users/tamerlan/.git/worktrees/elated-engelbart`, even though `git rev-parse`, `git log`, `git show`, and `git ls-remote` work.~~ Resolved locally on 2026-06-30 by removing tracked `.claude/worktrees/*` gitlinks and ignoring local worktree folders.
 - **Stripe hardening is now on remote branch but still needs production/live verification**: `milestone4-auth-completion` and `origin/milestone4-auth-completion` point to `04c0bc4`, but do not treat live Stripe as verified until production is confirmed on that commit and one real payment/webhook/idempotency pass succeeds.
 
 ## Live Stripe risks (2026-05-28)
@@ -87,7 +99,7 @@ Last updated: 2026-06-23
 - **Live-payment verification still pending**: code audit/build/tests pass, but production cannot be called live-payment verified until one real Stripe live payment is completed and checked in Stripe Dashboard, app UI, and DB/admin.
 - **Env configuration is user-reported, not independently read from Vercel in this session**: expected production vars are `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, and `APP_BASE_URL=https://methode.griffesvivienne.com`; no secrets were printed or committed.
 - **Webhook fail-closed hardening added locally**: `checkout.session.completed` now grants credits only when `payment_status === "paid"`. This reduces accidental grant risk, but the new change still needs deployment before it protects production.
-- **Local git-status reliability issue remains**: branch/commit can be verified with plumbing/remote commands, but `git status` still errors against stale `/Users/tamerlan/.git/worktrees/elated-engelbart` metadata.
+- ~~**Local git-status reliability issue remains**: branch/commit can be verified with plumbing/remote commands, but `git status` still errors against stale `/Users/tamerlan/.git/worktrees/elated-engelbart` metadata.~~ Resolved locally on 2026-06-30; ordinary `git status` works again.
 
 ## Resolved / newly identified (2026-05-11)
 
@@ -171,5 +183,5 @@ Last updated: 2026-06-23
 ## Process risk
 
 - ~~`~/.codex/AGENTS.md` vault path mismatch~~ — **RESOLVED** (2026-04-15): path already points to the correct nested path `/Users/tamerlan/Documents/TamerMemoryDB/Tamerlan Memory DB`
-- **Local git-status reliability issue** — `git status` in the current workspace fails with `fatal: not a git repository: /Users/tamerlan/.git/worktrees/elated-engelbart`, even though `.git` exists and `git log` / `git rev-parse --show-toplevel` work. Treat local dirty-state checks as unreliable until stale worktree metadata/config is repaired or explicitly bypassed.
+- ~~**Local git-status reliability issue** — `git status` in the current workspace fails with `fatal: not a git repository: /Users/tamerlan/.git/worktrees/elated-engelbart`, even though `.git` exists and `git log` / `git rev-parse --show-toplevel` work. Treat local dirty-state checks as unreliable until stale worktree metadata/config is repaired or explicitly bypassed.~~ Resolved locally on 2026-06-30 by removing accidental tracked `.claude/worktrees/*` gitlinks and ignoring worktree folders.
 - The Railway database URL with password was exposed in chat during migration application; safest follow-up is to rotate the credential

@@ -9,6 +9,7 @@
 - [[pipeline-catalog]]
 - [[pricing]]
 - [[technical-architecture]]
+- [[automation-card-audit-brief]]
 
 ---
 
@@ -20,11 +21,15 @@
 
 ---
 
-## Current Stage — Phase 2A: Sales Readiness COMPLETE / Phase 2C–F: In Progress
+## Current Stage — MVP Sales Validation: Portal / Chat / Deal Room Deferred
 
-**Status as of 2026-06-29**: All Phase 2A code tasks complete. Phase 2C catalog expansion done (25 systems + 7 coming soon + /internal/pipelines). Phase 2E bundle/stack pages live (3 stacks). Hero illustration redesigned via Figma. Phase 2F Trust Layer is now required before scaled owner-focused outreach, because business owners need proof of competence and risk reduction before trusting FlowOps with operations.
+**Status as of 2026-06-30**: All Phase 2A code tasks complete. Phase 2C catalog expansion done (25 systems + 7 coming soon + /internal/pipelines). Phase 2E bundle/stack pages live. Phase 2F trust layer and priority pipeline before/after examples are complete. Phase 3 account/chat/deal-room work was explored and partially implemented, but the user reversed MVP scope on June 30, 2026.
 
-**Active objective**: add owner-trust/proof layer, then send first outreach batch to the 20-account seed list. Next code priority after trust layer: Stripe/Resend live keys OR Phase 3 account/deal-room planning.
+**Active objective**: return the buyer-facing MVP to simple sales validation: public audit, public system request/order form, internal order workspace, manual follow-up, first outreach batch. Account system, chat, and deal room are required future platform features, but not part of the current MVP.
+
+**Scope update**: Portal/auth/chat/deal-room code and docs should be preserved as future infrastructure, not deleted, unless the user explicitly requests removal.
+
+**Latest preview**: `https://flowops-saas-pvoewrzoy-tamertt931-8560s-projects.vercel.app` (`dpl_92thMKzyip2qEvXBSi1MtV37EiKu`) contains the MVP scope reversal. Production `flowops.agency` still needs promotion if this preview is accepted.
 
 ### Verified Done (Phase 2A–C–E)
 - [x] Production URL: `https://flowops-saas.vercel.app`
@@ -57,13 +62,18 @@
 - [x] FlowOps SVG favicon replacing default Next.js icon
 
 ### Active Focus
-- [ ] Add Phase 2F Trust Layer before scaled outreach
+- [x] Add Phase 2F Trust Layer before scaled outreach
+- [x] Phase 3 portal/deal-room foundation explored and partially implemented; now deferred out of MVP
+- [x] Restore public system-page ordering to `/api/pipeline-order` without requiring portal auth — preview deployed June 30
+- [x] Remove Portal/deal-room from public navigation and buyer-facing CTA copy — preview deployed June 30
+- [ ] Promote MVP scope-reversal preview to production if accepted
+- [ ] Run [[automation-card-audit-brief]] before scaled outreach: verify every card's real buyer need, enrich descriptions, recheck pricing, and add unified in-card illustrations
 - [ ] Manual verification/enrichment of the 20-account seed list before sending
 - [ ] Start first outreach batch
 
 ### Explicitly Deferred
 - [ ] Stripe/Resend live verification until real keys or first payment moment
-- [ ] Client accounts/deal room until enough client demand exists
+- [x] Client accounts/deal room deferred out of MVP by user on June 30, 2026; keep as future platform layer
 - [ ] Self-serve pipeline deployment
 
 ---
@@ -189,6 +199,49 @@
 - [x] Testimonials section — 3 placeholder cards на homepage (June 24, 2026; реальные данные появятся после первых клиентов)
 - [ ] Заменить placeholder testimonials реальными результатами клиентов
 
+### Блок C2: Automation Card Audit & Upgrade (Before Scaled Outreach)
+**Goal**: Make every automation card feel like a useful, credible, productized FlowOps system with clear demand, rich explanation, defensible pricing, and a consistent visual language.
+
+Source of truth: [[automation-card-audit-brief]].
+
+- [ ] Inventory all 25 live pipeline cards and 7 coming-soon cards from `src/lib/catalog.ts`.
+- [ ] For every card, verify whether people actually need it:
+  - [ ] target buyer and buyer role;
+  - [ ] vertical fit;
+  - [ ] urgency/frequency/cost of the pain;
+  - [ ] keep/reposition/merge/move-to-coming-soon/remove recommendation.
+- [ ] Expand every card description:
+  - [ ] sharper tagline;
+  - [ ] 2–3 sentence buyer-facing description;
+  - [ ] trigger → automation steps → result;
+  - [ ] setup scope;
+  - [ ] monthly monitoring/support;
+  - [ ] integrations;
+  - [ ] deployment time;
+  - [ ] realistic outcome/ROI logic.
+- [ ] Recheck pricing card-by-card against current market references:
+  - [ ] comparable custom automation/AI agency setup ranges;
+  - [ ] FlowOps recommended setup/monthly;
+  - [ ] productized discount target of about 30% below comparable custom builds where safe;
+  - [ ] margin/delivery risk note;
+  - [ ] update stack/bundle pricing after card price changes.
+- [ ] Add a small illustration for every live automation card:
+  - [ ] consistent with `/Users/tamerlan/Downloads/flowops-custom-workflow.svg`;
+  - [ ] consistent with `/Users/tamerlan/Downloads/flowops-request-to-proof-v2_1.svg`;
+  - [ ] consistent with `/Users/tamerlan/Downloads/flowops-request-to-proof.svg`;
+  - [ ] pale blue/white canvas, soft shadows, rounded nodes, dotted connectors, status chips, sky/mint/peach/amber accents;
+  - [ ] illustration must show the actual workflow concept, not decoration.
+- [ ] Update UI/schema only after the audit table is reviewed or clearly aligned with the brief.
+- [ ] QA desktop/mobile on `/os`, `/os/[slug]`, `/pricing`, and `/stacks`.
+
+### Automation Card Audit Success Criteria
+- [ ] Every live card has clear buyer need, pain, workflow, outcome, price rationale, and illustration.
+- [ ] No card reads like a generic automation service or Fiverr-style listing.
+- [ ] Pricing is credible, internally consistent, and reflects productized deployment economics.
+- [ ] Copy does not overpromise ROI or imply unsupported guarantees.
+- [ ] Visuals match the existing FlowOps SVG/product style.
+- [ ] First outreach batch points prospects to a marketplace that feels complete and premium.
+
 ### Блок F: Trust Layer / Proof of Work (Before Scaled Outreach)
 **Goal**: Make business owners feel FlowOps is competent, careful, and safe to trust with real operations before they book an audit or request a deployment.
 
@@ -258,78 +311,162 @@
 
 ---
 
-## Phase 3: Client Accounts + Deal Room (Weeks 11–20)
+## Future Phase 3: Client Accounts + Deal Room — DEFERRED OUT OF MVP
 
-**Цель**: Клиент может создать аккаунт, заказать/предложить автоматизацию внутри сайта, вести обсуждение с FlowOps в одном workspace, затем видеть активные системы, статусы, поддержку и billing.
+**Цель будущей фазы**: Клиент может создать аккаунт, заказать/предложить автоматизацию внутри сайта, вести обсуждение с FlowOps в одном workspace, затем видеть активные системы, статусы, поддержку и billing. Portal is the canonical source of truth; email/Telegram are notifications only.
 
-### Блок A: Auth Layer (Weeks 11–12)
-- [ ] Supabase Auth (email magic link или password)
-- [ ] Создать client accounts после первого деплоя
-- [ ] Link клиент → его pipeline_orders
-- [ ] RLS policies для клиентских данных
+**June 30, 2026 MVP decision**: account system, chat, and deal room are not needed for the current MVP. Keep this section as the future product target, but do not treat it as active MVP scope. Current MVP returns to unauthenticated public audit + public system request/order form + internal order workspace + manual follow-up.
 
-### Блок A2: Client Request / Deal Room Foundation (Weeks 12–14)
-- [ ] `/portal/new-request` — authenticated automation request / offer intake
-  - Client chooses existing pipeline, stack, audit-based recommendation, or "custom automation request"
-  - Client describes process, current tools, desired outcome, urgency, budget range
-  - Client can add links, docs/screenshots later when attachments are supported
-- [ ] Convert request into internal `pipeline_order` or `automation_request` record
-- [ ] `/portal/requests` — list of client requests with statuses
-- [ ] `/portal/requests/[id]` — request detail / deal room
-  - Scope summary
-  - Status timeline: new → reviewing → scoping → proposal_sent → approved → deploying → active/closed
-  - In-site discussion thread between client and FlowOps
-  - Team-side internal notes must remain private
-- [ ] `/internal/requests` and `/internal/requests/[id]`
-  - FlowOps team sees new requests, replies, assigns owner, updates status, links to order/audit
-- [ ] Notifications
-  - Email/Telegram notify about new messages and status changes
-  - Canonical conversation remains inside FlowOps portal
+Execution source of truth:
+`/Users/tamerlan/Desktop/FlowOps/FlowOps Saas/docs/phase-3-client-accounts-deal-room-plan.md`
 
-### Блок B: Client Portal MVP (Weeks 12–16)
-- [ ] `/portal` — Login page
-- [ ] `/portal/dashboard` — Active pipeline systems
-  - Список активных pipeline с статусом (Active/Maintenance/Issue)
-  - Health score per pipeline
-  - Last activity timestamp
-  - Quick: "New automation request", "Open deal room", "Request support", "View details"
-- [ ] `/portal/pipelines/[id]` — Pipeline instance detail
-  - Status + logs (simplified)
-  - Deployment date, next check date
-  - Support history
-- [ ] `/portal/billing` — Subscription management
-  - Current plan
-  - Invoice history
-  - Next billing date
-  - Upgrade/downgrade plan
-- [ ] `/portal/support` — Support ticket creation
+Quality target:
+`/Users/tamerlan/Desktop/FlowOps/FlowOps Saas/docs/phase-3-account-chat-deal-room-quality-spec.md`
 
-### Блок B2: In-Site Chat / Conversation System (Weeks 14–17)
-- [ ] Authenticated message threads for each request/order/support item
-- [ ] Client messages, FlowOps replies, system status messages
-- [ ] Read/unread state and last activity timestamp
-- [ ] Internal-only notes separate from client-visible messages
-- [ ] Basic attachment plan: start with links/text, add file uploads only after storage/security rules are designed
-- [ ] Rate limits and abuse protection for authenticated messages
-- [ ] Clear notification policy: email/Telegram alert, but conversation history stays in portal
+### Future Phase 3 Foundation — Built/Explored, Now Deferred
+- [x] Supabase Auth UI direction changed to email/password + Google OAuth, not magic-link-first
+- [x] Phase 3 migration applied: `clients`, `client_pipeline_instances`, `automation_requests`, `request_messages`, `request_status_history`
+- [x] RLS policies for client-owned data and internal-note hiding
+- [x] Portal routes:
+  - [x] `/portal`
+  - [x] `/portal/dashboard`
+  - [x] `/portal/new-request`
+  - [x] `/portal/requests`
+  - [x] `/portal/requests/[id]`
+  - [x] `/portal/pipelines/[id]`
+  - [x] `/portal/billing`
+  - [x] `/portal/support`
+- [x] Portal APIs:
+  - [x] `GET /api/portal/me`
+  - [x] `GET /api/portal/dashboard`
+  - [x] `POST /api/portal/requests`
+  - [x] `GET /api/portal/requests`
+  - [x] `GET /api/portal/requests/[id]`
+  - [x] `POST /api/portal/requests/[id]/messages`
+  - [x] `GET /api/portal/pipelines/[id]`
+- [x] Internal request workspace:
+  - [x] `/internal/requests`
+  - [x] `/internal/requests/[id]`
+  - [x] request status update
+  - [x] assignment
+  - [x] client-visible FlowOps replies
+  - [x] internal-only notes
+  - [x] request-to-order conversion
+- [x] Internal APIs protected by `INTERNAL_ACCESS_KEY`
+- [x] Public system detail pages created portal deal-room requests in the June 29/30 build; superseded by June 30 MVP reversal, public system pages should now use `/api/pipeline-order` again
+- [x] Notifications added for new requests, client messages, FlowOps replies, and status updates through existing Telegram/webhook/Resend paths when configured
 
-### Блок C: Operations Monitoring (Weeks 16–18)
-- [ ] n8n workflow WF-04: Weekly health check → update pipeline health scores
-- [ ] Alert system: если pipeline не работает → notify FlowOps team immediately
-- [ ] Client visible status updates (через Supabase realtime)
+### Future Phase 3 Acceptance / Production Setup — Deferred
+- [ ] Configure Supabase email/password confirmation behavior when portal is reactivated
+- [ ] Configure Supabase Auth redirect URLs for `/portal/dashboard`
+- [x] Configure Google OAuth provider for production domain (user reported Google auth works)
+- [ ] Create one test auth user + client account when portal is reactivated
+- [ ] Run authenticated browser acceptance when portal is reactivated:
+  - email/password signup
+  - email/password sign-in
+  - Google sign-in
+  - profile setup
+  - create request
+  - request list/detail
+  - client message
+  - FlowOps internal reply/status/note
+  - convert to order
+  - verify `/internal/orders/[id]`
+- [ ] Verify RLS and API boundaries when portal is reactivated:
+  - unauthenticated portal API returns 401
+  - client A cannot read client B request
+  - client cannot read internal notes
+  - internal API without key returns 401
+  - service-role key not exposed to client bundle
 
-### Блок D: AI Audit Reports (Weeks 18–20)
-- [ ] После завершения аудита → AI генерирует report с рекомендациями
-- [ ] Рекомендации = конкретные pipeline-системы с расчётом ROI
-- [ ] Report доступен в portal
+### Future Quality Bar — Account System
+- [ ] Account page with personal profile, company profile, notification preferences, security, connected context, and privacy/data-handling summary
+- [ ] Profile fields: contact name, work email, company, role/title, website, business type, country/time zone, preferred contact channel
+- [ ] Optional account context: phone/WhatsApp, CRM used, current tools, team size, lead volume, main bottleneck, urgency
+- [ ] Auth states: signup, login, Google OAuth, password reset, missing confirmation, expired session, provider disabled, network failure
+- [ ] Account UX should keep setup short before first request and ask deeper operational questions inside request intake
 
-### Phase 3 Success Criteria
-- 10+ активных клиентов с доступом к portal
+### Future Quality Bar — Dashboard
+- [ ] Dashboard answers five questions immediately:
+  - what is active?
+  - what needs client action?
+  - what did FlowOps update recently?
+  - what is being scoped/deployed?
+  - where does the client start a new request?
+- [ ] Modules: action-required queue, active systems summary, open deal rooms, recent activity, upcoming milestones, billing summary, support shortcut
+- [ ] States: new account, no requests, request awaiting FlowOps, request awaiting client, multiple open requests, active client, billing pending/overdue, auth/session error
+
+### Future Quality Bar — Request Intake
+- [ ] Request types: existing pipeline, custom automation, support, upgrade/additional system, audit follow-up
+- [ ] Required request fields: title, type, desired outcome, current process, tools involved, trigger/event, current manual steps, output recipient, urgency, success criteria
+- [ ] Optional fields: volume, examples, links, constraints, launch date, budget comfort range
+- [ ] Future pipeline detail CTA can prefill pipeline slug/context and redirect directly into the deal room after submit; not for current MVP
+
+### Future Quality Bar — Deal Room
+- [ ] Deal room layout: header, conversation/activity, scope side panel, next action, timeline, proposal state, key links
+- [ ] Header: request number, title, status, last update, assigned FlowOps owner, current next action
+- [ ] Side panel: request type, selected pipeline, desired outcome, tools, urgency, current stage, next milestone, proposal/payment state when available
+- [ ] Client-visible statuses: New, Reviewing, Scoping, Proposal ready, Approved, Deploying, Live, Needs input, Paused, Closed
+- [ ] Every open deal room has one clear next action: waiting for FlowOps, waiting for client, proposal approval, payment, build, QA, launch confirmation, monitoring
+- [ ] Scope section: problem, desired outcome, included workflow, excluded workflow, tools, inputs, outputs, approval gates, edge cases, data access needed, launch criteria
+- [ ] Proposal section: recommended system, setup fee, monthly plan, included/excluded scope, timeline, required access, risk notes, approval CTA
+- [ ] Delivery section after approval: access collection, build, internal QA, client review, launch, monitoring, active
+- [ ] Decision log/system events: scope approved, price approved, access provided, launch date confirmed, workflow exclusions accepted, change requests accepted/rejected
+
+### Future Quality Bar — Chat
+- [ ] Chat is structured around requests, not a generic messenger
+- [ ] Message types:
+  - client message
+  - FlowOps message
+  - system status update
+  - proposal sent
+  - approval recorded
+  - access requested
+  - launch update
+  - internal note
+  - assignment change
+  - risk flag
+- [ ] Message behavior: sender labels, chronological order, internal note separation, loading/error/retry states, duplicate-send prevention, body validation, line breaks, preserved draft on failure
+- [ ] Client composer: clear response expectation and suggested context prompts when helpful
+- [ ] Internal composer: client-visible/internal-note toggle, warning before client-visible reply, recent client context visible while replying
+- [ ] Notifications: new request, new client message, FlowOps reply, status change, proposal sent, approval needed, support update, billing action
+- [ ] Email links must deep-link back to the exact deal room
+
+### Future Quality Bar — Internal Operations
+- [ ] Internal inbox filters: status, owner, waiting state, last activity, unread client messages, overdue requests, company/request search
+- [ ] Internal request detail: client profile, request scope, client messages, internal notes, status controls, assignment, proposal state, convert-to-order, related order/system links, activity history
+- [ ] Internal safety: internal notes never returned by portal APIs; service-role only server-side; internal routes and APIs protected
+
+### Future Quality Bar — Active Systems, Support, Billing
+- [ ] Active systems page: system name, status, health, last check, monthly plan, owner, related deal room/order, support shortcut
+- [ ] System detail: what the system does, connected tools, status, last meaningful activity, monitoring summary, known limitations, support history, change request CTA
+- [ ] Support: issue type, affected system, severity, affected workflow, since when, examples, expected response time
+- [ ] Billing MVP: manual billing status, plan name if known, setup/payment status if known, open billing support
+- [ ] Full billing later: invoices, receipts, subscription plan, payment method, renewal date, upgrade/downgrade, failed payment state
+
+### Future Phase 3 Quality Upgrade Batches
+1. **MVP acceptance and auth hardening**
+   - Supabase auth config, authenticated browser pass, RLS/API boundary checks.
+2. **Portal dashboard + deal-room usability**
+   - Action-required dashboard, open deal rooms, next-action model, clearer deal-room layout, scope summary, timeline, proposal placeholder.
+3. **Chat reliability + internal inbox**
+   - Better message composer states, duplicate-send prevention, preserved drafts, internal visible/private toggle clarity, unread/waiting/owner filters.
+4. **Proposal and approval layer**
+   - Structured proposal fields, proposal status, client approval action, approval system events, manual payment/billing handoff.
+5. **Active systems + support**
+   - Useful client system detail, support request types, severity, related system/deal-room history.
+6. **Hardening**
+   - Rate limits for request/message creation, API tests, RLS verification, notification deep links, production monitoring.
+
+### Future Phase 3 Success Criteria
+- Authenticated account flow works reliably with email/password and Google
 - At least 5 client requests created inside the portal instead of email-only
-- Client/FlowOps conversation history stored in the portal for active requests
-- MRR > $2,000/month
-- Client churn < 10%
-- NPS > 7
+- Client/FlowOps conversation history stored in portal deal rooms
+- Every open deal room has status, next action, scope summary, and latest activity
+- Internal team can filter, reply, note, assign, update status, and convert to order without leaking private notes
+- Client can see active systems/support/billing context without false automation claims
+- Security acceptance passes for auth, RLS, internal notes, and internal APIs
+- MRR target remains $2,000+/month once sales catches up to product readiness
 
 ---
 
@@ -477,19 +614,23 @@ DONE:
   23. Hero illustration redesigned (Figma-sourced) + FlowOps SVG favicon
 
 NOW:
-  24. Send first outreach batch (manually verify/enrich the 20-account seed list first)
+  24. Promote MVP scope-reversal preview to production if accepted
+  25. Run Automation Card Audit & Upgrade: demand check, richer descriptions, pricing recheck, unified illustrations
+  26. Manually verify/enrich the 20-account seed list
+  27. Send first outreach batch
 
 NEXT AFTER FIRST PAYMENT / KEYS:
-  25. Stripe Payment Link or live Checkout verification
-  26. Resend live transactional emails
-  27. Subscription verification
+  28. Stripe Payment Link or live Checkout verification
+  29. Resend live transactional emails
+  30. Subscription verification
 
 LATER:
-  28. Full Ops Stack bundle page (4th stack)
-  29. Stack Bundle Discount logic (2nd pipeline = 10% off setup)
-  30. Real testimonials (replace placeholders after first clients)
-  31. Supabase Auth
-  32. Client portal MVP
+  30. Stack Bundle Discount logic (2nd pipeline = 10% off setup)
+  31. Real testimonials (replace placeholders after first clients)
+  32. Future client accounts + deal room after sales validation
+  33. Proposal/approval layer in future deal rooms
+  34. Active systems/support hardening after portal is reactivated
+  35. File uploads only after storage/RLS design
 ```
 
 ---
@@ -497,15 +638,17 @@ LATER:
 ## What NOT To Build (Yet)
 
 - ❌ Self-serve automated pipeline deployment
-- ❌ Full client portal before 10 paying clients
+- ❌ Full self-serve workflow builder inside client portal
 - ❌ Complex AI layer before product-market fit
 - ❌ White-label version
 - ❌ Mobile app
 - ❌ External marketplace for 3rd party pipeline providers
 - ❌ Usage-based billing (too complex for MVP)
-- ❌ Real-time pipeline logs in client portal (Phase 3 only)
+- ❌ Raw n8n / real-time execution logs exposed to clients
 - ❌ Multi-user workspace per client (Phase 4)
 - ❌ API access for clients
+- ❌ AI-generated proposals without human review
+- ❌ File uploads before storage/RLS/security design
 
 ---
 
@@ -534,11 +677,16 @@ LATER:
 
 ## Final Recommendation
 
-**Текущая рекомендация: не уходить в Phase 3 portal. Дожать Phase 2A: sales readiness + первые клиенты.**
+**Текущая рекомендация: убрать account/chat/deal-room из MVP и вернуться к sales validation.**
 
-Marketplace уже live, поэтому главный риск сместился с разработки на спрос.  
-Самый быстрый путь к валидации теперь: conversion-ready сайт + 5 flagship offers + direct outreach к 20 бизнесам + ручной delivery первых pipeline.
+Marketplace, trust layer, pipeline pages, audit form, and internal order workspace are enough for the current MVP. Account/chat/deal-room has a strong future spec and partial implementation, but it is now intentionally deferred.
 
-**Следующие 7 дней**: привести live сайт к sales-ready состоянию и подготовить outreach package.  
-**Следующие 30 дней**: получить первые 2–3 заказа через форму/личный outreach.  
-**Следующие 60 дней**: закрыть 3–5 платящих клиентов, после чего Stripe/Resend/client portal получают реальные требования, а не строятся на гипотезах.
+Fastest path:
+1. promote the MVP scope-reversal preview to production if accepted;
+2. manually verify/enrich the 20-account outreach list;
+3. start outreach with audit/order flows and manual FlowOps follow-up;
+4. only reactivate portal/deal-room after real client conversations show what the account workspace must support.
+
+**Следующие 7 дней**: production promotion if accepted + first outreach batch.  
+**Следующие 30 дней**: 2–3 qualified requests through audit/order/manual follow-up.  
+**Следующие 60 дней**: 3–5 paying clients, real proof/case studies, then decide when to reactivate account/deal-room.

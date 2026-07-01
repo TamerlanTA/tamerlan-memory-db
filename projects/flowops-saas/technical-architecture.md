@@ -205,6 +205,23 @@ support_requests (...)
 invoices (...)
 ```
 
+### Phase 3 Quality Target Data Extensions
+
+The current MVP tables are enough for the first portal/deal-room flow. The quality target in `/Users/tamerlan/Desktop/FlowOps/FlowOps Saas/docs/phase-3-account-chat-deal-room-quality-spec.md` adds these future data needs.
+
+Recommended additions when implementing quality batches:
+- `automation_requests.next_action` or derived next-action fields (`waiting_for`, `next_action_label`, `next_action_due_at`)
+- `automation_requests.proposal_status`
+- proposal fields: recommended system, setup fee, monthly plan, included scope, excluded scope, timeline, required access, risk notes, approval state
+- scope fields/versioning: problem statement, included workflow, excluded workflow, inputs, outputs, approval gates, edge cases, launch criteria
+- message metadata for system events: event type, old/new status, proposal ID, approval ID, delivery stage, actor display name
+- read/unread state for client/internal users
+- internal inbox fields or derived views: last client message, last FlowOps reply, waiting state, overdue flag, assigned owner
+- support request linkage to `client_pipeline_instances`
+- billing state fields only after Stripe/subscription verification is reliable
+
+Do not add file uploads until Supabase Storage buckets, RLS, file type limits, retention, and client/internal visibility rules are designed.
+
 ---
 
 ## API Routes Architecture
@@ -254,6 +271,20 @@ POST   /api/internal/requests/[id]/messages   -- FlowOps reply or internal note
 POST   /api/internal/requests/[id]/convert    -- Convert approved request to pipeline_order
 ```
 
+### Phase 3 Quality Target API Needs
+```
+PATCH  /api/portal/me                         -- Update profile/company/notification preferences
+PATCH  /api/internal/requests/[id]/next-action
+PATCH  /api/internal/requests/[id]/scope
+POST   /api/internal/requests/[id]/proposal
+PATCH  /api/internal/requests/[id]/proposal
+POST   /api/portal/requests/[id]/approve      -- Approve proposal/scope when ready
+POST   /api/portal/requests/[id]/support      -- Support/change request tied to request/system
+PATCH  /api/portal/messages/[id]/read         -- Later read/unread tracking
+```
+
+Use these only when implementing the corresponding quality batch. Do not add unused endpoints speculatively.
+
 ---
 
 ## Page Architecture
@@ -282,18 +313,33 @@ POST   /api/internal/requests/[id]/convert    -- Convert approved request to pip
 
 ### Phase 3 Client Accounts + Deal Room
 ```
-/portal                    -- Client login
-/portal/dashboard          -- Active pipelines
-/portal/new-request        -- Submit automation request / offer inside account
-/portal/requests           -- Client request list
-/portal/requests/[id]      -- Request detail + in-site discussion
-/portal/pipelines/[id]     -- Pipeline detail + health
-/portal/billing            -- Subscription + invoices
-/portal/support            -- Support requests
+/portal                    -- Client login / account entry
+/portal/dashboard          -- Action-required, open deal rooms, active systems, recent activity
+/portal/new-request        -- Structured automation/support/upgrade request intake
+/portal/requests           -- Client request list with status, waiting state, last activity
+/portal/requests/[id]      -- Deal room: chat, scope, status, next action, timeline, proposal, decisions
+/portal/pipelines/[id]     -- Active system detail: status, health, monitoring summary, support/change path
+/portal/billing            -- Honest billing overview; invoices/subscriptions only when Stripe data is reliable
+/portal/support            -- Support/change request entry point, ideally tied to active system
 
-/internal/requests         -- FlowOps request inbox
-/internal/requests/[id]    -- Scope, discuss, assign, convert to order
+/internal/requests         -- FlowOps request inbox with filters: status, owner, waiting, unread, overdue
+/internal/requests/[id]    -- Client context, scope, chat, internal notes, status, proposal, convert to order
 ```
+
+Current MVP gate (June 30, 2026):
+- Client portal/account/chat/deal-room is deferred out of MVP.
+- `ENABLE_CLIENT_PORTAL` must stay false/empty for the current MVP.
+- When false, `src/middleware.ts` redirects `/portal/*` to `/#audit` and returns 404 for `/api/portal/*`.
+- Public system ordering uses `/api/pipeline-order`, not `/api/portal/requests`.
+- Preserve portal schema/routes/components as future infrastructure; do not delete unless explicitly requested.
+
+### Deal Room Layout Contract
+- Header: request number, title, client-visible status, last update, owner, next action.
+- Main column: structured chat/activity stream.
+- Side panel: scope summary, selected pipeline, desired outcome, tools, urgency, timeline, proposal/payment state, related links.
+- Mobile: tabs for Conversation, Scope, Status, Proposal.
+- Every open deal room must make the next action visible.
+- Internal-only notes must be visually distinct and never returned to portal APIs.
 
 ---
 
@@ -352,6 +398,35 @@ n8n workflows для каждой pipeline-системы — скрыты от 
 <PipelineEditorForm />    -- Редактирование pipeline в каталоге
 ```
 
+### Phase 3 Portal / Deal Room Components
+```
+<PortalShell />                 -- Authenticated portal frame and nav
+<AccountProfileForm />          -- Client/company profile and notification preferences
+<PortalDashboard />             -- Action-required, open deal rooms, active systems, recent activity
+<RequestIntakeForm />           -- Structured request creation
+<RequestList />                 -- Request cards/table with status, waiting state, last activity
+<DealRoom />                    -- Request detail workspace
+<DealRoomHeader />              -- Number/title/status/owner/next action
+<DealRoomChat />                -- Client-visible messages + system events
+<DealRoomComposer />            -- Reliable message composer
+<ScopeSummaryPanel />           -- Problem/outcome/tools/included/excluded/launch criteria
+<StatusTimeline />              -- Request status history and system events
+<ProposalPanel />               -- Proposal state, price, scope, approval CTA when implemented
+<DecisionLog />                 -- Scope/price/access/launch/change decisions
+<ActiveSystemCard />            -- Client pipeline instance summary
+<SupportRequestForm />          -- Support/change request intake
+```
+
+### Phase 3 Internal Components
+```
+<InternalRequestInbox />         -- Filters by status/owner/waiting/unread/overdue
+<InternalRequestDetail />        -- Client context + scope + chat + internal notes
+<InternalReplyComposer />        -- Client-visible reply vs internal note toggle
+<NextActionControl />            -- Waiting state / owner / due date
+<ProposalEditor />               -- Manual proposal drafting
+<ConvertToOrderAction />         -- Approved request to pipeline_order
+```
+
 ---
 
 ## Security
@@ -362,6 +437,12 @@ n8n workflows для каждой pipeline-системы — скрыты от 
 - No PII in logs
 - Stripe webhooks: signature verification
 - Phase 3: Supabase Auth + RLS per user
+- Phase 3 portal APIs require bearer-token auth.
+- Client can only read/write own `clients`, `automation_requests`, and non-internal `request_messages`.
+- Client cannot set internal fields: assignment, internal status, price/proposal, conversion, internal notes.
+- Internal APIs require `INTERNAL_ACCESS_KEY` and use service-role only server-side.
+- Message/request creation should be rate-limited before public traffic.
+- Test RLS boundary: client A cannot read client B request; clients cannot read `is_internal = true` messages.
 
 ---
 

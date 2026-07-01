@@ -8,6 +8,7 @@ c# AMIGO MVP — Roadmap
 - [[next-steps]]
 - [[technical-architecture]]
 - [[phase-5-execution-plan]]
+- [[phase-6-execution-plan]]
 
 ## Phase 1 — Foundation, 12–14 June
 Goal: deployable backend foundation.
@@ -88,6 +89,8 @@ Acceptance:
 
 ## Phase 6 — Applications and reporting, 29 June–2 July
 Goal: supported applications execute and produce evidence.
+
+Canonical execution plan: [[phase-6-execution-plan]]. Future Phase 6 implementation must follow that plan in order unless Tamerlan explicitly changes it or a verified blocker requires a documented deviation.
 
 Deliverables:
 - adapter SDK and first certified adapters;
