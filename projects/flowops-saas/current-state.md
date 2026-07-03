@@ -9,12 +9,20 @@
 
 ---
 
-## Status: MVP SALES VALIDATION — PORTAL / CHAT / DEAL ROOM DEFERRED (June 30, 2026)
+## Status: MVP SALES VALIDATION — PORTAL / CHAT / DEAL ROOM DEFERRED (July 3, 2026)
 
 Проект задеплоен на Vercel: `https://flowops.agency` (production alias) / `https://flowops-saas.vercel.app`
-**Последние изменения в git (NOT YET deployed)**: Commits 16a3c07 + 98af96c (June 30, 2026, automated session):
-- 16a3c07 — «How it works» переработана: `RequestToProofIllustration.tsx` (CSS-only, SSR-safe animated SVG), flat blue buttons, Geist headers, clean trend illustration. Ранее uncommitted — теперь закоммичено.
-- 98af96c — `PipelineIllustration.tsx` — 7 category-specific SVG mini flow diagrams (4-node: trigger→AI→action→output, dotted connectors, status chip). Добавлено в `PipelineCard.tsx` между name block и tagline. Все 25 live pipeline cards теперь показывают workflow illustration. Build clean (68 pages).
+**Текущий production-деплой**: `dpl_J49enzwnhJgcmpT7mR3NsBPmhf1X` (July 3, 2026) — commit `30e8d26` deployed: Stack Bundle Discount logic (10%/15% loyalty pricing on repeat pipeline orders, `src/lib/loyalty.ts`, migration `20260703091233_bundle_discount.sql` already live on remote Supabase). Deployed via `vercel deploy --prod`, aliased to `https://flowops.agency`. Smoke-verified: `/`, `/os`, `/pricing`, `/stacks`, `/os/missed-call-recovery`, `/stacks/sales-stack` all return 200. See [[sessions/2026-07-03-bundle-discount-logic]] and [[decisions]] D-019.
+**Предыдущий production-деплой**: `dpl_DFfYu4FMe4sKJTccEw2J1Chh2Fnc` (July 3, 2026) — commit `ba2e6ac` deployed: `/pricing` FAQ (10 entries) + bottom CTA + 2×2 bundle grid; site-wide card polish (unified neutral borders + numbered watermark motif on homepage/`/os/[slug]`/`/stacks`/pipeline cards); `RevealOnView.tsx` hydration-mismatch fix + `react-hooks/set-state-in-effect` lint fix; `layout.tsx` noscript reveal fallback. Deployed via `vercel deploy --prod`, aliased to `https://flowops.agency`. Smoke-verified: `/`, `/os`, `/pricing`, `/stacks`, `/os/missed-call-recovery`, `/stacks/sales-stack` all return 200. See [[sessions/2026-07-03-pricing-polish-commit-hydration-fix]].
+**Предыдущий production-деплой**: `dpl_HdSh2VFzbURmifLZ9KyHLhDF1HA7` (July 2, 2026) — 7 pending commits deployed:
+- 88c8bb2 — Before/after examples for all 25 pipeline detail pages; fixed 2 slug key mismatches (appointment-booking, customer-onboarding). Build clean (68 pages).
+- 9b7ba12 — Homepage: CompareApproachesSection + HeroIllustrationMobile
+- 75f996f — Automation card audit phase 2: enriched descriptions, setupScope/monthlySupport, mobile pass, RevealOnView
+- 98af96c — PipelineIllustration.tsx: 7 category SVG workflow diagrams on all 25 cards
+- 16a3c07 — How it works: RequestToProofIllustration animated SVG
+- c1f014b — SEO metadata + OG image + sitemap + robots + Phase 2F trust layer
+- eea3471 — MVP scope reversal: unauthenticated order flow, portal gated
+Note: repo has no git remote; deploy via `vercel deploy --prod` from project root.
 **Предыдущий production-деплой**: `dpl_Fy6kk9u4sLzyxQnntNtqH3TwtRzJ` (June 30, 2026) — OG Image + SEO metadata + sitemap + robots + Phase 2F trust layer committed (c1f014b) and deployed. 68 pages. Aliased to `https://flowops.agency`. See [[sessions/2026-06-30-og-image-commit-deploy]].
 Предыдущий production-деплой: `dpl_Fy6kk9u4sLzyxQnntNtqH3TwtRzJ` (June 30, 2026) — OG Image + SEO metadata + sitemap + robots + Phase 2F trust layer committed (c1f014b) and deployed. 68 pages. Aliased to `https://flowops.agency`. Includes design overhaul (fonts, shadows, animations) + OG image + sitemap.xml + robots.txt. See [[sessions/2026-06-30-og-image-commit-deploy]].
 Предыдущий production-деплой: `dpl_52MqBqFmpHSoSDTArDv12YtZ8cf3` (June 30, 2026) — DESIGN OVERHAUL. Fonts → Bricolage Grotesque (headings) + Plus Jakarta Sans (body); fixed cramped big headers (relaxed negative letter-spacing site-wide); layered shadow system + `.fo-card`/`.fo-pill`; gradient buttons w/ sheen+hover lift; PROOF OF WORK CASE SIGNAL illustrations (trend/bars/donut) w/ CSS draw-in; enlarged bundle/stack cards; on-theme CSS-only animations. Now committed in git at c1f014b. См. [[sessions/2026-06-30-design-overhaul-fonts-proof-bundles]].
@@ -48,6 +56,19 @@
 - [x] `/os` "Coming Soon" pipeline cards — 7 announced systems in separate "On the Roadmap" section
 - [x] Homepage `How it works` section — `RequestToProofIllustration.tsx` animated SVG deployment-loop panel (CSS-only, SSR-safe, reduced-motion); flat blue buttons; Geist headers; clean trend illustration — committed 16a3c07, June 30, 2026
 - [x] Pipeline card illustrations — `PipelineIllustration.tsx` with 7 category SVG mini-flow diagrams; added to all 25 live cards via `PipelineCard.tsx` — committed 98af96c, June 30, 2026
+- [x] Automation card audit phase 2 — all 25 pipeline descriptions enriched to 2-3 buyer-facing sentences; `problem` made concrete; `whatItDoes` expanded to full trigger→steps→result; `setupScope` and `monthlySupport` fields added to Pipeline type and filled for all 25 systems — committed 75f996f, July 1, 2026
+- [x] `/os/[slug]` pipeline detail pages now show Setup Scope and Monthly Support sections — July 1, 2026
+- [x] Mobile responsive pass — all public page h1/h2/price nodes get fluid mobile sizes with sm: breakpoints; HeroIllustration min-h mobile fix; portrait mobile SVG variant for RequestToProofIllustration — July 1, 2026
+- [x] `RevealOnView.tsx` — new scroll-reveal utility component (IntersectionObserver + lazy state init, lint-safe) — July 1, 2026
+- [x] `HeroIllustrationMobile.tsx` — phone-native hero SVG (chaos→engine→outputs, CSS-only animations, RevealOnView, staggered entrance) — committed July 1, 2026 (was untracked, would have broken Vercel build)
+- [x] `CompareApproachesSection` on homepage — "Why FlowOps" section (DIY tools vs agency build vs FlowOps OS, 3-column 5-point comparison, FlowOps card highlighted with `#audit` CTA) — July 1, 2026
+- [x] Before/After operational examples on all 25 pipeline detail pages — fixed 2 slug mismatches (appointment-booking, customer-onboarding were silently broken); added 17 new entries covering all remaining pipelines — July 2, 2026
+- [x] Production deploy `dpl_HdSh2VFzbURmifLZ9KyHLhDF1HA7` — all 7 pending commits live at `https://flowops.agency` — July 2, 2026
+- [x] `/pricing` FAQ section — 10 buyer-facing Q&A entries (native `<details>/<summary>` accordion, SSR-safe, no JS); addresses all main objections before audit CTA — written July 2, committed `ba2e6ac` July 3, 2026
+- [x] `/pricing` bottom CTA section — gradient card with "Start with a free workflow audit" heading, dual CTAs to `/#audit` and `/os`, trust tagline — written July 2, committed `ba2e6ac` July 3, 2026
+- [x] `/pricing` bundle grid fix — changed `lg:grid-cols-3` to `sm:grid-cols-2` so 4 bundles show in clean 2×2 grid — written July 2, committed `ba2e6ac` July 3, 2026
+- [x] Site-wide card polish — unified neutral `border-[#101728]/[0.06]` card borders (replacing per-category colored borders) + `CardWatermark` numbered-watermark motif on homepage (`SafeDeploymentSection`, `DeploymentScenariosSection`, proof cards), `/os/[slug]` payback/after-FlowOps panels, `/stacks` bundle cards, `PipelineCard`/`ComingSoonPipelineCard` — committed `ba2e6ac`, July 3, 2026
+- [x] `RevealOnView.tsx` SSR/client hydration mismatch fixed — `shown` state now initializes identically on server and client; no-`IntersectionObserver` fallback deferred into `requestAnimationFrame` to satisfy `react-hooks/set-state-in-effect` lint rule; `layout.tsx` adds `<noscript>` CSS fallback — committed `ba2e6ac`, July 3, 2026
 - [x] `/os/[slug]` pipeline detail pages (32 pages)
 - [x] SEO metadata: per-page `metadata` exports on `/`, `/os`, `/pricing`, `/stacks`; `generateMetadata` on `/os/[slug]` and `/stacks/[slug]`; all pages have unique OG title + description + Twitter card — June 30, 2026
 - [x] `metadataBase` set to `https://flowops.agency` in root layout — OG URLs resolve correctly in production — June 30, 2026
@@ -84,6 +105,7 @@
 - [x] Stripe Checkout routes (scaffold, live verification pending)
 - [x] Stripe webhook с signature verification и корректным `items.data[0].current_period_start`
 - [x] Resend email hooks (live verification pending)
+- [x] Stack Bundle Discount logic — `src/lib/loyalty.ts` + `POST /api/pipeline-order` apply D-008's 10%/15% loyalty tiers automatically at order time by counting a client's prior distinct pipelines by email; `pipeline_orders` gained `original_setup_price`/`discount_percent`/`discount_reason` columns; surfaced in order confirmation, Telegram notification, and `/internal/orders/[id]` — implemented and verified end-to-end July 3, 2026 (commit `30e8d26`)
 
 ### Migrations applied to Supabase (fmpvyuowglvyrrqecmrn)
 - `202606200001` — Phase 1 schema
@@ -93,6 +115,7 @@
 - `20260623085205` — audit_requests table (remote canonical migration fetched from Supabase history)
 - `202606230002` — rate_limit_buckets table + check_rate_limit RPC
 - `202606230003` — check_rate_limit RPC returning fix
+- `20260703091233` — bundle_discount: `pipeline_orders.original_setup_price`/`discount_percent`/`discount_reason`
 
 ---
 

@@ -62,3 +62,12 @@ Phase 5 matching and approval must be implemented according to [[phase-5-executi
 
 ### D-017 — Phase 6 execution lock
 Phase 6 applications and reporting must be implemented according to [[phase-6-execution-plan]] in order. The canonical first safe execution mode is manual deep-link tasks; auto-submit is allowed only for a narrow certified adapter or email flow after duplicate prevention, evidence persistence, worker state handling, and manager approval checks exist. Future agents must not implement universal ATS auto-apply, bypass protective controls, invent answers, or submit real applications outside the plan.
+
+### D-018 — Next automation layer is certification-gated email/apply readiness
+After manual deep-link evidence acceptance and 85-source expansion, the next automation layer is not universal ATS auto-submit. It is a controlled adapter-readiness layer:
+- add worker/runtime support for `email-apply-v1` in dry-run/feature-flag mode first;
+- keep live email sending disabled until source-level enablement, sender configuration, rate limits, duplicate prevention, and one controlled evidence review are complete;
+- add adapter eligibility reporting so managers can see which approved vacancies are manual-only, email-capable, or future adapter candidates;
+- keep all non-certified ATS/form URLs routed to manual actions.
+
+Production check on 2026-07-03 found `0` active `mailto:` vacancies and all `85` career sources have `application_adapter = null`, so live email sending would not improve current volume yet. Source quality hardening continues in parallel, but the next application automation implementation should create the safe routing/certification foundation before any real sending.

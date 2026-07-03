@@ -296,11 +296,10 @@ Source of truth: [[automation-card-audit-brief]].
 - [ ] n8n workflow WF-03: Deployment complete → welcome email
 - [ ] n8n workflow WF-05: Subscription renewal reminder
 
-### Блок E: Loyalty Mechanics (Week 9) — PARTIALLY DONE
-- [ ] Stack Bundle Discount logic (2nd pipeline = 10% off setup) — не реализовано, только статические страницы
+### Блок E: Loyalty Mechanics (Week 9) — COMPLETE
+- [x] Stack Bundle Discount logic (2nd pipeline = 10% off setup, 3rd+ = 15%) — implemented July 3, 2026: `src/lib/loyalty.ts` computes discount from prior distinct pipelines per client email at order time; `POST /api/pipeline-order` applies it and stores `original_setup_price`/`discount_percent`/`discount_reason`; surfaced in order confirmation UI/email, Telegram notification, and `/internal/orders/[id]`. Migration `20260703091233_bundle_discount.sql` applied to remote Supabase.
 - [x] Loyalty badge на сайте — "Save X%" badge на /stacks страницах (June 25, 2026)
-- [x] Bundle pages: Sales Stack, Support Stack, Voice Operations — 3 из 4 (June 25, 2026)
-- [ ] Full Ops Stack bundle page — не реализовано
+- [x] Bundle pages: Sales Stack, Support Stack, Voice Operations, Full Ops Stack — all 4 live (June 25/29, 2026)
 
 ### Phase 2 Success Criteria
 - [ ] 5+ платящих клиентов (setup fee received)
@@ -624,8 +623,10 @@ NEXT AFTER FIRST PAYMENT / KEYS:
   29. Resend live transactional emails
   30. Subscription verification
 
+DONE (cont.):
+  30. Stack Bundle Discount logic (2nd pipeline = 10% off setup, 3rd+ = 15%) — July 3, 2026
+
 LATER:
-  30. Stack Bundle Discount logic (2nd pipeline = 10% off setup)
   31. Real testimonials (replace placeholders after first clients)
   32. Future client accounts + deal room after sales validation
   33. Proposal/approval layer in future deal rooms

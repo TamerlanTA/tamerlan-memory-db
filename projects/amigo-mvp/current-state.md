@@ -16,7 +16,7 @@
 - Planning window: 2026-06-12 to 2026-07-05
 - Launch target: controlled pilot for 10 candidates
 - Post-launch target: 30 active candidates
-- Current phase: Phase 6 safe production slice deployed. DB migrations are applied, `bot-api` and `worker-applications` are deployed, and controlled handoff created 4 manual-action application jobs. Remaining acceptance is manual Telegram resolution/evidence. Phase 5 matching and approval is production deployed.
+- Current phase: Phase 6 safe production slice accepted for manual deep-link mode. DB migrations are applied, `bot-api` and `worker-applications` are deployed, controlled handoff/manual-action UX works, and production verification on 2026-07-02 confirms `applied` manual resolutions with `manual_confirmation` evidence. Remaining Phase 6 work is pilot operations, reporting polish, source expansion, secret rotation, and certified auto-submit/email planning.
 - Working mode: two-person execution — Tamerlan owns business decisions, access, credentials, and approvals; Codex owns technical implementation, validation, and memory synchronization.
 
 ## What is complete
@@ -237,6 +237,45 @@
   - worker logs confirm all connector ids and `checkedSourceCount=31`, so the scheduler now scans all seeded sources instead of 10;
   - production vacancy totals after activation: 533 total rows, 388 active, 145 stale, 399 distinct apply URLs;
   - source health caveat: some endpoints remain blocked or need dedicated parsers (`Rixos` 404, `Jumeirah` empty result, both `IHG` sources network failure, several generic sources 403/410/empty result), but they are now visible in health instead of being silently inactive.
+- 2026-07-01 ops hardening:
+  - added and deployed `/ops_status` in `bot-api` deployment `1f93effb-640e-4ec8-ae76-f39627f749c0`;
+  - `/ops_status` reports live source counts, active employers, connectors, active/total vacancies, distinct active apply URLs, vacancies first seen today, vacancies refreshed today, source runs today, connector breakdown, and latest failed sources;
+  - `/source_health` and `/ops_status` now catch command-level failures and reply to managers instead of silently failing;
+  - production verification passed: `/health` returned `status=ok` and `database=ok`, Telegram webhook pending updates were `0`.
+- 2026-07-01 shortage diagnosis:
+  - production catalog had 756 total vacancies, 386 active, 366 distinct active apply URLs, 130 new today, and 470 refreshed today;
+  - recent `0/10` batches are caused by strict role+country intersections, not an empty catalog;
+  - `официант + Катар` had 0 active Qatar/Doha vacancies and 0 active Qatar/Doha waiter/server vacancies at verification time;
+  - `ресепшионист + ОАЭ/Катар/Бахрейн` had 0 active Gulf receptionist/front-office matches at verification time;
+  - many active rows still have `location_country = null`, so location extraction improvements remain important before widening matching safely.
+- 2026-07-02 candidate supply expansion work:
+  - added shared vacancy location inference in code and ran production backfill for existing null-country vacancies;
+  - active vacancies with `location_country is null` dropped from 275 to 224;
+  - production now has 385 active / 1008 total vacancies, with active country counts including AE 43, GB 25, US 20, GR 19, MX 18, SA 13, QA 7, KW 6, BH 1, OM 1;
+  - implemented local `phase5-v2` tiered matching: exact target role/country, same-role GCC fallback, adjacent-role target-country fallback, and unknown-location same-role reserve review;
+  - added local `/candidate_supply` Telegram diagnostic flow to show candidate-specific primary/reserve counts, match tiers, role/country snapshot, and top rejection reasons;
+  - production-like local check after build: Юля Иванова Иванов has 6 primary + 7 reserve; Жанибек Иванов has 5 primary + 4 reserve; Qatar-only waiter candidate has 5 reserve options;
+  - full validation passed: `pnpm check`, `pnpm test`, `pnpm build`, `pnpm format:check`;
+  - Railway deploy completed after Tamerlan provided a temporary Railway token: `bot-api` and `worker-vacancy-discovery` are online, `/health` returns OK, Telegram commands include `/candidate_supply`, webhook has 0 pending updates, and fresh Railway logs show clean startup for both services.
+- 2026-07-02 duplicate Telegram response fix:
+  - production logs showed repeated `/candidate_batch` and `/application_handoff` messages were caused by Telegram webhook timeouts: grammY returned `500 Request timed out after 10000 ms`, so Telegram retried the same update after the bot had already sent replies;
+  - deployed `bot-api` fix with in-memory `update_id` dedupe and webhook timeout increased to 30 seconds;
+  - post-deploy `/health` is OK, webhook pending updates are 0, and fresh `bot-api` logs show clean startup.
+- 2026-07-02 Phase 6 manual evidence acceptance:
+  - production DB verification shows 8 applications with `status = applied` / `status_reason = manual_applied`;
+  - `manual_actions` has 8 resolved rows with `resolution_note = applied`;
+  - `application_evidence` has 8 `manual_confirmation` rows, latest at `2026-07-02T12:56:05.464Z`;
+  - latest applied evidence includes Жанибек Иванов and Тамерлан Тог rows;
+  - current open manual actions: 2 for Тамерлан Тог.
+- 2026-07-02 source expansion to 85 production sources:
+  - employer catalog was expanded from 31 to 85 sources and imported to production: 85 employers / 85 career sources;
+  - added Workday query support for `searchText`/`q`/`keyword` endpoint parameters, with regression coverage, so query-level Four Seasons sources run correctly in the scheduler;
+  - added query/property sources focused on Qatar/UAE/Bahrain/Kuwait/Saudi F&B and front-office roles across Accor, Four Seasons Workday, Marriott, and selected Gulf hotel groups;
+  - manually ran discovery for Accor, Workday, Marriott, and generic connectors; `worker-vacancy-discovery` was redeployed and Railway logs show `checkedSourceCount=85`;
+  - production verification after expansion: 1353 active / 2613 total vacancies, 481 distinct active apply URLs, 85 sources, 8 connectors, and today 103 succeeded / 38 failed source runs;
+  - active country coverage now includes UNKNOWN 461, AE 316, QA 233, SA 128, BH 53, KW 36; active target-role snapshots include QA F&B-like 97 / front-like 53, AE F&B-like 117 / front-like 75, BH F&B-like 14 / front-like 11;
+  - candidate supply on current production catalog: Юля Иванова Иванов prepares 10 primary + 10 reserve; Жанибек Иванов prepares 10 primary + 10 reserve; Тамерлан Тог, after already-approved vacancies are excluded, prepares 1 strict primary + 10 reserve for Qatar-only waiter;
+  - caveat: generic sources still have many expected 403/404/410/empty failures, and query sources can over-broaden location signals; keep using `/candidate_supply` and manager review rather than blindly treating all query-source rows as perfect matches.
 
 ## What is complete (Phase 6 Batch 0-4 local — as of 2026-06-30)
 - Phase 6 Batch 0 audit completed against the local repo and [[phase-6-execution-plan]]:

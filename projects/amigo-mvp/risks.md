@@ -18,6 +18,7 @@
 | CAPTCHA, OTP, assessments, or account creation block automation | High | Medium | Never bypass controls; create manager tasks with deep links and preserved context |
 | July 5 timeline is too short for broad ATS coverage | High | High | Launch with a narrow certified connector set and measure coverage rather than claiming universality |
 | Telegram-only operations become slow at 30 candidates | Medium | High | Add search, ownership filters, pagination, batch actions, and export reports; define web-panel trigger |
+| Slow Telegram callbacks can exceed webhook timeout and cause Telegram to retry the same update | Medium | Medium | `bot-api` now dedupes Telegram `update_id` in memory and webhook timeout is 30 seconds; keep heavy operations under timeout or move them to async jobs |
 | Generated CV contains invented or mistranslated facts | Low | High | Structured output, source-field mapping, validation rules, manager approval, immutable versions, Phase 3.5 structured CV enrichment tables |
 | Managers enter weak or incomplete CV enrichment data | Medium | Medium | Use `/candidate_view` readiness warnings, runbook templates, manager review before document approval |
 | Unified Telegram onboarding has not completed a full live manager acceptance pass | Medium | Medium | Complete one real `/candidate_new` flow with experience, education, extra, photo, final review, CV regeneration, skip branches, and `/cancel` before pilot use |
@@ -31,6 +32,10 @@
 | Waitlist activates before operations are stable | High | High | Ten-candidate controlled pilot, launch gates, connector error thresholds, staged 10→20→30 activation |
 | Monthly cost exceeds USD 100 | Medium | Medium | PGMQ instead of Redis, bounded browser concurrency, per-service budgets and weekly usage review |
 | Insufficient suitable vacancies prevents 5–10 daily applications | Medium | Medium | Report `eligible vacancy shortage` explicitly; never lower hard requirements only to hit volume |
+| Narrow country+role intersections return `0/10` despite a healthy overall vacancy catalog | High | Medium | Use `/ops_status` for catalog totals, then inspect exact role+country coverage; expand Qatar/Bahrain/front-office/waiter sources and improve location extraction before relaxing hard filters |
+| Query-level sources can over-broaden location signals | Medium | Medium | Treat query-source rows as supply candidates, not final truth; preserve manager review, inspect vacancy title/location conflicts, and improve per-vacancy location extraction before making strict auto-submit decisions |
+| Reserve-heavy daily batches may satisfy volume but not strict primary fit | Medium | Medium | Decide product policy: count manager-approved reserve vacancies toward the 5/day goal or require 5 strict primary items and widen candidate/source coverage accordingly |
+| Temporary Railway token was shared in chat for candidate supply deploy | High | High | Deploy succeeded; rotate the token immediately after verification and prefer short-lived deployment tokens for future Railway operations |
 | HTML-based public career pages change markup and break read-only vacancy parsing | Medium | Medium | Keep connector isolated/versioned, fixture-test parser behavior, monitor `source_runs`, and treat failures as source health issues rather than silent success |
 | Phase 4C.1 property-level SuccessFactors sources overlap with broad Kerzner search by `apply_url` | Medium | Medium | Phase 4C.2 duplicate report now detects active cross-source overlap; wire it into Phase 5 batch suppression before showing vacancies to managers |
 | Phase 5 Telegram UI has not been clicked manually after deploy | Medium | Medium | Production data acceptance passed through the matching store; run `/candidate_batch` in Telegram to verify visible manager UX and inline callbacks end to end |
@@ -45,7 +50,7 @@
 
 ## Launch blockers
 - No production-enabled application connector; `manual-deep-link-v1` is safe/manual and `email-apply-v1` is local dry-run/default only.
-- Phase 6 manual-action slice is deployed, but no manager has resolved a production manual action yet, so `manual_confirmation` evidence is still unverified.
+- Phase 6 manual-action slice is accepted for manual deep-link mode; production has `Applied` manual resolutions and `manual_confirmation` evidence. Remaining risk is operational consistency across more candidates and any future auto-submit/email path.
 - No production end-to-end evidence trail for applications has been accepted yet.
 - Application-level duplicate prevention exists locally in Phase 6 schema/service but is not production-applied yet.
 - Manager approval gate for vacancy batches is deployed and production data acceptance passed; manual Telegram UI click-through is still recommended before manager rollout.

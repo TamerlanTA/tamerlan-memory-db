@@ -42,7 +42,236 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-payment-round-2-lifecycle-and-validation|Payment Round 2 lifecycle and validation]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-launch-analytics-foundation|Launch analytics foundation]]
 
-Last updated: 2026-06-30
+Last updated: 2026-07-03
+
+## 2026-07-03 forgot password visual polish
+
+- Owner reported the `Forgot password?` link looked visually detached under the Clerk sign-in card.
+- Reduced it to a subtle `text-xs` muted link placed closer to the card; hover uses primary color/underline.
+- Commit `70a7e83` (`Polish forgot password link placement`) pushed to `origin/milestone4-auth-completion`.
+- Verification: `npx tsc --noEmit` PASS, `npm run build` PASS.
+- Production deployment `dpl_Bw763pSMurK7BaJ4ZYLB9rUGY9En` is READY and aliased to `https://methode.griffesvivienne.com`.
+
+## 2026-07-03 Clerk sign-up route fix
+
+- Fixed the broken `Create an account` behavior on `/sign-in`: the Clerk provider had `signUpUrl="/sign-in"`, so the prebuilt link reloaded the same login page.
+- Added dedicated `/sign-up` route/page using Clerk `<SignUp />` and changed provider config to `signUpUrl="/sign-up"`.
+- Added EN/FR copy for the sign-up page.
+- Commit `a99ee08` (`Add dedicated Clerk sign-up route`) pushed to `origin/milestone4-auth-completion`.
+- Verification: `npx tsc --noEmit` PASS, `npm run build` PASS.
+- Production deployment `dpl_7DDa4Hs6u9iAFJoAhGAh6P3ZCqxn` is READY and aliased to `https://methode.griffesvivienne.com`; live `/sign-in` serves bundle `assets/index-BKs0nM8F.js`.
+- See session note: [[projects/AI-Powered Woven Label Generator/sessions/2026-07-03-clerk-sign-up-route-fix|Clerk sign-up route fix]].
+
+## 2026-07-03 Clerk password reset flow
+
+- Implemented explicit password recovery for email/password users after Benjamin reported there was no "Forgot password?" path on the login page.
+- Added `/forgot-password` route using Clerk `useSignIn()` with `reset_password_email_code`: user enters email, receives Clerk reset code, enters code + new password, and is signed in on success.
+- Added a "Forgot password?" link below the embedded Clerk `<SignIn />` on `/sign-in`.
+- Added EN/FR copy for the reset flow.
+- Commit `0dfdf99` (`Add Clerk password reset flow`) pushed to `origin/milestone4-auth-completion`.
+- Verification: `npx tsc --noEmit` PASS, `npm run build` PASS.
+- Production deployment `dpl_23Ywua63CDBHQMecZt3bEQLfv9NZ` is READY and aliased to `https://methode.griffesvivienne.com`.
+- Operational note: Clerk Dashboard production instance must have email/password and reset password email-code strategy enabled for the flow to send codes successfully.
+- See session note: [[projects/AI-Powered Woven Label Generator/sessions/2026-07-03-clerk-password-reset-flow|Clerk password reset flow]].
+
+## 2026-07-03 paybox admin login issue triage
+
+- Benjamin reported he cannot connect to admin anymore using `paybox@griffesvivienne.com`.
+- Code review: recent commits did not change admin authorization logic; admin access still requires `ctx.user.role === "admin"` from the local `users` table.
+- Production DB check confirmed `paybox@griffesvivienne.com` still exists with `role = admin`; it was not removed/demoted. The existing row's `lastSignedIn` had not updated today, suggesting the issue is before backend admin authorization (likely Clerk sign-in/session).
+- Current likely cause: after production Clerk keys were added/switched, `paybox@griffesvivienne.com` may need to sign in/create a user in the production Clerk instance. The backend should relink by matching email when Clerk successfully returns the same email.
+- Live bundle check shows production contains a `pk_live` Clerk publishable key; old/test-key strings may still exist in bundle text but live auth is not obviously missing from the public bundle.
+- Next action: ask Benjamin for the exact error screen/message. If he can create/sign in with `paybox@griffesvivienne.com` in production Clerk, the app should relink to the existing admin row by email. If not, fix in Clerk Dashboard production instance or manually relink the new Clerk `user_...` id to the existing DB admin row.
+
+## 2026-07-02 admin stats navigation hotfix
+
+- Fixed a production admin UX regression where the new `Recent Generation Diagnostics` table rendered above the main admin tabs, making it look like `/admin/stats` had lost the other sections.
+- Moved diagnostics into its own `Diagnostics` tab beside `Generations`, so `Preorders`, `Users`, `Generations`, `Payments & Credits`, `Guest Continuity`, and `Production Prep` are visible immediately after the top admin cards.
+- Commit `812612f` (`Restore admin stats tab visibility`) pushed to `origin/milestone4-auth-completion`.
+- Verification: `npx tsc --noEmit` PASS, `npm run build` PASS.
+- Production deployment `dpl_H1g9WmY32pYwUYjgtJuUiPtdpy64` is READY and aliased to `https://methode.griffesvivienne.com`.
+- See session note: [[projects/AI-Powered Woven Label Generator/sessions/2026-07-02-admin-stats-navigation-hotfix|Admin stats navigation hotfix]].
+
+## 2026-07-02 gate tuning pushed and production deployed
+
+- Pushed Claude's latest stabilization commit `96674e6` (`Relax input gate and enforce label format in output gate`) to `origin/milestone4-auth-completion`; local and remote branch now match.
+- Production deployed with `vercel deploy --prod -y`: deployment `dpl_A7UutKtxygsPfRr9jx3x83mtmXzr`, status READY, target `production`, aliased to `https://methode.griffesvivienne.com`.
+- Vercel inspect confirmed aliases: `https://methode.griffesvivienne.com`, `https://griffes-vivienne-studio-3vop.vercel.app`, and `https://griffes-vivienne-studio-3vop-tamertt931-8560s-projects.vercel.app`.
+- Pre-deploy verification: `npx vitest run` PASS (44 files, 282 tests), `npx tsc --noEmit` PASS, `npm run build` PASS. Build still has the known large chunk warning only.
+- Next required step remains live production smoke: test legitimate photographed-label inputs that were previously over-rejected, then verify 20x50/other elongated formats do not ship as square outputs; monitor `validatorReason` for `FORMAT_MISMATCH` and `recovered`.
+- See session note: [[projects/AI-Powered Woven Label Generator/sessions/2026-07-02-gate-tuning-production-deploy|Gate tuning production deploy]].
+
+## 2026-07-02 gate tuning after owner production feedback
+
+- Owner tested live (screenshot: methode.griffesvivienne.com already serves the semantic-gates batch) and reported two issues: (1) input gate too strict - rejected a photographed woven label on a marble surface (legit reference) and logos with minor extra elements; (2) generation sometimes ignores the configured size (20x50 produced a square label).
+- Commit `96674e6` (`Relax input gate and enforce label format in output gate`), tree clean:
+  - Input classifier prompt relaxed: accept a single dominant mark even photographed/scanned on a plain surface with minor extras; reject only clear cases; explicit "if uncertain, accept" (output gate stays strict). Regression-guard test on the prompt wording.
+  - Output classifier now receives `expectedLabelSize` (from result.labelConfig.size) and rejects clear proportion violations as `FORMAT_MISMATCH` - which triggers the existing automatic recovery re-roll. Enforced only for unambiguous ratios (<=1.2 square, >=1.8 elongated); 20x30-style ratios skipped.
+- Verification: full `vitest run` PASS (44 files, 282 tests), `tsc --noEmit` PASS, `npm run build` PASS. Not pushed/deployed by me.
+- Monitoring note: watch `output=rejected:FORMAT_MISMATCH` in validatorReason - high frequency means the generation prompt needs the next format fix, not the validator.
+
+## 2026-07-02 release commit created for the semantic-gates batch
+
+- Commit `72e8193` (`Add semantic input/output gates with recovery and diagnostics`) created on `milestone4-auth-completion`: 14 files, +1980/-19 (Blocks 1+2, retry seed entropy, automatic output recovery, gate observability, 422 error semantics). Working tree clean.
+- IMPORTANT: `git push --dry-run` now SUCCEEDS from this machine (0e34242..72e8193 negotiated with GitHub) - the long-standing missing-HTTPS-credentials blocker is resolved. Branch is 9 commits ahead of origin and can be pushed when the owner authorizes.
+- Not pushed and not deployed yet per instruction.
+- See session note: [[projects/AI-Powered Woven Label Generator/sessions/2026-07-02-release-readiness-handoff|Release readiness handoff]].
+
+## 2026-07-02 semantic gate observability + error semantics
+
+- Made the Block 1/2 + recovery behavior observable from `generationRuns` without raw logs, using existing columns only (no migration).
+- `validatorReason` now persists a per-gate trail (`input=...; output=...; recovery=...`, plus `woven=...` internal validator verdict on success rows); `validatorStatus` becomes `recovered` when the stored image came from the automatic recovery generation, `fail` on semantic rejections.
+- Input rejections now persist the classifier reason code (e.g. `input=rejected:PEOPLE_OR_FACES (...)`), not just the normalized error code.
+- `OUTPUT_IMAGE_REJECTED` now returns tRPC `UNPROCESSABLE_CONTENT` (HTTP 422) instead of 500, and expected quality rejections log at warn (not error) in both catch layers, keeping error dashboards honest.
+- Admin recent-runs table picks the richer strings up automatically.
+- Verification: full `vitest run` PASS (44 files, 276 tests), `tsc --noEmit` PASS, `npm run build` PASS. Not committed/deployed per instruction.
+- See session note: [[projects/AI-Powered Woven Label Generator/sessions/2026-07-02-semantic-gate-observability|Semantic gate observability]].
+
+## 2026-07-02 demo-stability audit: retry entropy + automatic output-rejection recovery
+
+- End-to-end reliability audit after Blocks 1+2 confirmed credit ordering, admin diagnostics, stale-run handling, and client error CTAs are sound; two gaps were found and fixed.
+- Fixed the deterministic retry loop: generation seed was a pure config hash, so retrying a rejected output reproduced the same composition. Added `deriveGenerationSeed(config, variation)`, `seedVariation` on `GenerateLabelInput`, optional `attempt` (0-100) on `label.generate`, and the Result page now sends its retry counter. Attempt 0 keeps the historical seed for visual consistency.
+- Added one automatic in-request recovery when the output semantic gate rejects: regenerate once with an uncorrelated seed (offset 1000+attempt), re-validate, and only surface `OUTPUT_IMAGE_REJECTED` if the recovery also fails. Most output rejections become invisible to the customer at the cost of one extra generation.
+- Worst case per request: 2 generations + 3 flash validations - similar envelope to the service's existing internal retries. No vercel maxDuration change; flagged for post-deploy monitoring.
+- Verification: full `vitest run` PASS (44 files, 276 tests), `tsc --noEmit` PASS, `npm run build` PASS. Not committed/deployed per instruction.
+- See session note: [[projects/AI-Powered Woven Label Generator/sessions/2026-07-02-demo-stability-audit-and-retry-entropy|Demo-stability audit and retry entropy]].
+
+## 2026-07-02 Block 2: post-generation output safety validation
+
+- Implemented Block 2: after `generateLabel()` succeeds, the router classifies the generated image with Gemini 2.5 Flash before `storeGenerationResultAsset` and before any paid/free-trial/basic bookkeeping. Bad outputs (people, photo scenes, unrelated brands/text, collages, non-label/poster compositions) are hard-rejected without spending value.
+- New module `server/label/outputSemanticValidation.ts`; classifier sees both the generated image and the customer's source logo to judge unrelated text (addresses the "American Vintage" complaint case).
+- New retryable code `OUTPUT_IMAGE_REJECTED` -> client retry CTA with reassurance copy (FR/EN). Same fail-open policy as Block 1 when the validator itself is unavailable.
+- Diagnostics on rejection: run row gets `validatorStatus=fail` + `validatorReason` (pre-throw partial update), then `status=failed`, `normalizedErrorCode=OUTPUT_IMAGE_REJECTED`, `diagnosticStage=label.generate.outputSemantics` via the existing failure handler. No migration.
+- Verification: full `vitest run` PASS (43 files, 270 tests), `tsc --noEmit` PASS. Not committed/deployed per instruction.
+- See session note: [[projects/AI-Powered Woven Label Generator/sessions/2026-07-02-block2-output-semantic-validation|Block 2 output semantic validation]].
+
+## 2026-07-02 Block 1: pre-provider semantic input validation
+
+- Implemented Block 1 of the generation-quality plan: `label.generate` now semantically classifies the uploaded image with Gemini 2.5 Flash (same `GOOGLE_AI_STUDIO_API_KEY` path) before asset storage, `generateLabel`, and any paid-credit or free-trial commit.
+- New module `server/label/inputSemanticValidation.ts`; new error code `INPUT_IMAGE_NOT_LOGO` (shared taxonomy -> BAD_REQUEST -> client "use another image" CTA, FR/EN copy added).
+- Safety policy: fail open with logged warning when the validator itself is unavailable (missing key, provider error, timeout, indeterminate response); hard reject only on a clear classifier "reject" verdict. Valid users are never blocked by classifier outages.
+- Rejections persist in `generationRuns` diagnostics (status=failed, normalizedErrorCode=INPUT_IMAGE_NOT_LOGO) via the existing failure handler - no DB migration needed.
+- Verification: full `vitest run` PASS (42 files, 259 tests), `tsc --noEmit` PASS. Not committed/deployed in this session.
+- Codex review after Claude implementation: accepted for continuation. Focused tests, full `npx vitest run`, and `npx tsc --noEmit` passed locally. Nuance: the semantic gate uses a small Gemini Flash classifier call, so it prevents expensive generation spend, not all provider/token usage.
+- Output-side validation (Block 2) is explicitly not started.
+- See session note: [[projects/AI-Powered Woven Label Generator/sessions/2026-07-02-block1-input-semantic-validation|Block 1 input semantic validation]].
+- Review session note: [[projects/AI-Powered Woven Label Generator/sessions/2026-07-02-block1-review-and-block2-prompt|Block 1 review and Block 2 prompt]].
+
+## 2026-07-02 Codex review: Block 2 + recovery stabilization
+
+- Reviewed Claude's follow-up stabilization batch covering Block 2 output safety validation, output-rejection recovery, and retry seed variation.
+- Accepted core approach: generated outputs are semantically validated before result storage/bookkeeping; bad outputs can trigger one automatic regeneration with a non-deterministic seed variation; manual retries now send an attempt counter so they do not repeat the same deterministic seed.
+- Verification by Codex: focused tests PASS, full `npx vitest run` PASS (44 files, 276 tests), `npx tsc --noEmit` PASS, `npm run build` PASS.
+- Remaining review note before final release/deploy: successful output-recovery paths are visible in logs but not strongly persisted in admin/DB diagnostics, so monitoring recovery frequency would rely on logs instead of `generationRuns`.
+
+## 2026-07-02 Codex review: observability release readiness batch
+
+- Reviewed Claude's monitoring/observability follow-up for Blocks 1-2 + recovery.
+- Accepted the batch: `generationRuns.validatorStatus` / `validatorReason` now carry a compact semantic-gate trail such as `input=ok; output=rejected:UNRELATED_TEXT_OR_BRAND (...); recovery=ok`, `validatorStatus=recovered` marks successful automatic recovery, input rejections persist their reason code, and fail-open validator windows persist `input=unavailable` / `output=unavailable`.
+- `OUTPUT_IMAGE_REJECTED` now maps to tRPC `UNPROCESSABLE_CONTENT` (HTTP 422) instead of an internal-server-error style 500, and expected semantic quality rejections log at warn level.
+- Verification by Codex: focused semantic/recovery tests PASS, full `npx vitest run` PASS (44 files, 276 tests), `npx tsc --noEmit` PASS, `npm run build` PASS.
+- Local stabilization batch is ready for commit/deploy decision, pending operational blockers: GitHub push credentials and production env/Clerk live-key/DNS cleanup.
+
+## 2026-07-02 release handoff review
+
+- Reviewed Claude's release handoff for the semantic-gates stabilization batch and accepted it as the current release plan.
+- Confirmed local state: 14 changed/untracked files in the working tree for this batch; branch `milestone4-auth-completion`; branch is 8 commits ahead of `origin/milestone4-auth-completion`.
+- No DB migration is required by this batch; it uses existing `generationRuns.validatorStatus` and `validatorReason` columns from migration `0015`.
+- Release gate is now operational, not code-level: commit the batch, decide push-vs-direct deploy, verify production env/Clerk live config, deploy, and run the smoke matrix with admin/DB/log checks.
+
+## 2026-07-02 semantic-gates commit verification
+
+- Claude created local commit `72e8193` (`Add semantic input/output gates with recovery and diagnostics`) on `milestone4-auth-completion`.
+- Codex verified the commit exists at HEAD, working tree is clean, and the commit contains the intended 14-file semantic-gates batch (+1,980/-19).
+- Branch is now 9 commits ahead of `origin/milestone4-auth-completion`: the previous 8 local-only stabilization commits plus `72e8193`.
+- Important correction: Codex's own `git push --dry-run origin milestone4-auth-completion` still fails with `fatal: could not read Username for 'https://github.com': Device not configured`. Treat GitHub push credentials as still unresolved in this shell, despite Claude's report that dry-run succeeded elsewhere.
+
+## 2026-07-02 push and production deploy
+
+- Fixed GitHub push auth for the shell by running `gh auth setup-git`; `git push --dry-run origin milestone4-auth-completion` then succeeded.
+- Pushed `milestone4-auth-completion` to GitHub: remote now matches local HEAD `72e8193291914debedda6b10dd2aa26ff02d399d`.
+- Deployed production to Vercel with `vercel deploy --prod -y`.
+- Production deployment is `dpl_2XcQgksz1SFGBYFoNKH74yYoJyNQ`, status READY, aliased to `https://methode.griffesvivienne.com`.
+- Vercel inspect confirmed target `production`, status Ready, aliases `https://methode.griffesvivienne.com`, `https://griffes-vivienne-studio-3vop.vercel.app`, and `https://griffes-vivienne-studio-3vop-tamertt931-8560s-projects.vercel.app`.
+- Next required step is the real production smoke matrix and post-generation admin/DB/log checks; deployment alone is not a full launch sign-off.
+
+## 2026-07-01 emergency guest abuse controls
+
+- Added and deployed emergency anti-abuse controls requested by client.
+- New DB tables: `runtime_controls` for runtime kill switches and `abuse_alerts` for alert audit/cooldown. Production migration `0016_emergency_guest_generation_controls.sql` was applied and verified.
+- `/admin/stats` now has an Emergency Controls card with a kill switch to disable/enable free guest generations without a deploy. Paid and signed-in credit generations are not blocked by this switch.
+- `label.generate` checks `free_guest_generations_disabled` before storage/provider work for guests, so turning the switch on stops token spend from free guest traffic early.
+- Added guest velocity monitoring: when guest generation attempts exceed 10 in 5 minutes, the app sends a Resend email alert and records an `abuse_alerts` row; cooldown prevents per-request email spam.
+- Resend production env exists; no dedicated `ABUSE_ALERT_EMAIL` / `EMERGENCY_ALERT_EMAIL` is configured, so alerts currently fall back to `RESEND_REPLY_TO_EMAIL`.
+- Verification: focused credit-safety tests PASS (4), full `vitest run` PASS (41 files, 247 tests), `tsc --noEmit` PASS, `npm run build` PASS, `git diff --check` PASS.
+- Local commit created: `42ec05e` (`Add emergency guest generation controls`). GitHub push failed because local HTTPS credentials are unavailable.
+- Vercel Production deploy completed: `dpl_4QGttkgEdT6qWQszTLH7xMSi3JQB`, READY, aliased to `https://methode.griffesvivienne.com`; live domain returns HTTP 200 and bundle is `assets/index-MvidJn4Q.js`.
+- Production config blocker remains: live client bundle still contains Clerk `pk_test`; live Clerk keys must be replaced before launch stability sign-off.
+- See session note: [[projects/AI-Powered Woven Label Generator/sessions/2026-07-01-emergency-guest-abuse-controls|Emergency guest abuse controls]].
+
+## 2026-07-01 stabilization batch: diagnostics, stale runs, and guest trial session guard
+
+- User rejected the IP/user-agent/language anonymous free-trial claim hardening because it could block legitimate users; reverted that behavior in code.
+- Guest free-trial enforcement is now back to cookie/session scope: `gv_guest_session` + `guest_sessions.freeTrialConsumedAt` + actor lock by guest session. This preserves refresh protection and same-session race safety without fingerprint/IP-style blocking.
+- Removed `server/freeTrialGuard.ts`, removed `guestTrialClaims` schema usage, and deleted `drizzle/0014_guest_trial_claims.sql` from the repo. Production DB still has the unused table from the prior deploy; it is harmless and not referenced.
+- Added persisted `generationRuns` diagnostics fields: `diagnosticStage`, `diagnosticAttempt`, `diagnosticPipeline`, `upstreamStatus`, `upstreamCode`, `normalizedErrorCode`, `validatorStatus`, `validatorReason`, `referenceCount`, `inputImageCount`, and `inputBytes`.
+- Updated `server/nanoBananaService.ts` to return generation diagnostics on success/failure and `server/routers.ts` to persist those diagnostics in `generationRuns`.
+- Added stale run cleanup: `cleanupStaleGenerationRuns()` marks `started` runs older than 45 minutes as `failed` with `GENERATION_RUN_STALE`. It is called best-effort during generation entitlement lock acquisition.
+- Cleaned current production stale runs manually: 5 old `started` rows were marked failed; production now has 0 stale `started` rows older than 45 minutes.
+- Added Recent Generation Diagnostics table in `/admin/stats` using existing `label.getUsageStats.recentRuns`.
+- Hardened Umami loading: invalid/non-http `VITE_ANALYTICS_ENDPOINT` values such as `/analytics.local` are skipped instead of injecting a broken script. Live bundle still contains the baked string but includes the guard.
+- Reduced legacy OAuth production noise: missing `OAUTH_SERVER_URL` now logs that legacy OAuth is disabled instead of a production error.
+- Production DB migration for diagnostic columns was applied manually and verified (`diagnosticColumns = 11`).
+- Verification: focused stability tests PASS (17), `tsc --noEmit` PASS, full `vitest run` PASS (41 files, 246 tests), `npm run build` PASS.
+- Local commit created: `cf2a318` (`Stabilize generation diagnostics and guest trial session guard`). Branch is ahead of GitHub by 7 commits because local HTTPS GitHub credentials remain unavailable.
+- Vercel Production deploy completed: `dpl_EGnB38QHeVPuB4beME4k5ck7KUM6`, READY, aliased to `https://methode.griffesvivienne.com`; live domain returns HTTP 200.
+- Production config blocker remains: live client bundle still contains Clerk `pk_test`; live Clerk keys must be replaced in Vercel/Clerk Dashboard before launch stability sign-off.
+- See session note: [[projects/AI-Powered Woven Label Generator/sessions/2026-07-01-diagnostics-stale-runs-and-config-cleanup|Diagnostics, stale runs, and config cleanup]].
+
+## 2026-07-01 guest free-trial hardening
+
+- Audited guest free-trial enforcement after user asked whether the first free generation can be bypassed by refresh or other simple tricks.
+- Superseded by the later 2026-07-01 stabilization batch: the IP/user-agent/language claim guard was removed from active code at user request.
+- Same-browser refresh was already protected by the persistent `gv_guest_session` cookie plus `guest_sessions.freeTrialConsumedAt`.
+- Critical gap found: deleting cookies, incognito, or a new browser could create a fresh guest session and receive another free generation because no server-side claim existed beyond the guest cookie.
+- Implemented server-side guest trial claims: new `guest_trial_claims` table stores a SHA-256 claim hash derived from IP, user-agent, and accept-language; raw IP/UA are not stored.
+- `label.generate` now computes the guest claim, checks consumed claims before expensive upload/generation work, and uses a claim-level DB advisory lock so parallel new guest sessions from the same claim cannot race into multiple free generations.
+- `createFreeTrialGenerationWithCommit` now atomically records the claim and marks `guest_sessions.freeTrialConsumedAt` only after the generated result asset exists, preserving prior credit/free-trial safety behavior.
+- Added regression coverage in `server/labelGenerationCreditSafety.test.ts` proving a second guest free trial is blocked even when a new guest session is created from the same client claim.
+- Production DB migration `0014_guest_trial_claims.sql` was applied manually and verified before deploy.
+- Verification: focused `vitest run server/labelGenerationCreditSafety.test.ts` PASS (4 tests), full `vitest run` PASS (41 files, 247 tests), `tsc --noEmit` PASS, `npm run build` PASS.
+- Local commit created: `f930791` (`Harden guest free trial enforcement`). Branch is ahead of GitHub by 6 commits because local HTTPS GitHub credentials remain unavailable.
+- Vercel Production deploy completed: `dpl_AXCHFYpWU6tjUyqZBZPmCe1iCJTj`, READY, aliased to `https://methode.griffesvivienne.com`; live domain returns HTTP 200.
+- Remaining caveat: anonymous free trials still cannot be made mathematically impossible to bypass without stronger identity such as account/email OTP/phone/payment; VPN/new IP/new device can still look like a new claimant.
+- See session note: [[projects/AI-Powered Woven Label Generator/sessions/2026-07-01-guest-free-trial-hardening|Guest free-trial hardening]].
+
+## 2026-07-01 generation retry fallback stabilization
+
+- Implemented and deployed the first reliability fix from the root-cause audit.
+- Changed `server/nanoBananaService.ts` so if a validator-driven retry generation fails after a previous image already exists, the service returns the previous generated image with a validation warning instead of surfacing a no-result error to the customer.
+- Applied the same salvage behavior to HD Cotton motif refinement retry attempts.
+- Reduced generation request fragility: material reference images are capped to 3 per request, single-pass retries send only 1 reference image, and HD Cotton motif retries send 0 extra material references because they already include the locked base, previous attempt, and source logo.
+- Added retry diagnostics to generation logs: attempt-level `referenceCount`, retry fallback log with failed/returned attempt, error status, and `nextRetryReferenceCount`.
+- Added regression coverage in `server/nanoBananaService.pipeline.test.ts` for the production failure mode where the first image exists, woven validation fails, and retry generation throws `INVALID_ARGUMENT`; expected behavior is now `success: true` with the first image.
+- Verification: focused `vitest run server/nanoBananaService.pipeline.test.ts` PASS (11 tests), full `vitest run` PASS (41 files, 246 tests), `tsc --noEmit` PASS, `npm run build` PASS.
+- Local commit created: `16447cd` (`Stabilize generation retry fallback`). Branch is ahead of GitHub by 5 commits because local HTTPS GitHub credentials remain unavailable.
+- Vercel Production deploy completed directly from local workspace: `dpl_64beaG6APr3XdPmTf44QB2RAt3UC`, READY, aliased to `https://methode.griffesvivienne.com`; domain returns HTTP 200.
+- See session note: [[projects/AI-Powered Woven Label Generator/sessions/2026-07-01-generation-retry-fallback-stabilization|Generation retry fallback stabilization]].
+
+## 2026-07-01 generation reliability root-cause audit
+
+- Performed a production-only audit after Benjamin reported that too many users still see generation errors and the launch is not demo-stable.
+- No code was changed during this audit.
+- Current production deployment is `dpl_CWkgLwJ42GA34Mjq7cN4n5ir2shY`, READY, aliased to `https://methode.griffesvivienne.com`; live client bundle is `assets/index-CLadMgTo.js`.
+- Production DB snapshot since `2026-06-30 00:00:00` DB time: 23 successful completed generations, 9 failed, 1 stuck `started`; failed share among completed runs is about 28.1%.
+- Material split in that same window shows the strongest instability on Taffeta: `TAFFETA` has 7 successes and 7 failures, while `HD` has 7 successes / 2 failures and `SATIN` has 9 successes / 1 started.
+- Critical live log root cause found on run `252` / request `lg_mr23zt3k_f3mlcf`: the first Gemini image was produced, the woven-textile validator rejected it as too printed/smooth, the server attempted a regeneration, and the retry request failed with Google/Gemini `400 INVALID_ARGUMENT`; the app then returned no image to the customer.
+- Neighboring run `253` showed the same validator-retry pattern but succeeded after retry, proving the current pipeline is probabilistic rather than reliably customer-safe.
+- Code root cause is in `server/nanoBananaService.ts`: when a later validation retry throws, `runSinglePassGeneration()` does not salvage and return the previously generated `lastImageBase64`, even though the product policy now intends to return a result whenever an image exists.
+- Taffeta likely amplifies upstream failures because its reference selection can send 5 material/style references; retry then adds the previous generated image and source logo, creating a heavier multimodal request shape.
+- Production is also not clean: browser console shows broken `/analytics.local/umami`, Clerk development-key warning, and Vercel logs repeatedly show missing `OAUTH_SERVER_URL`; these are launch-readiness issues but not the direct root of the generation failures.
+- Sentry could not be audited because `SENTRY_AUTH_TOKEN` is not available locally.
+- See session note: [[projects/AI-Powered Woven Label Generator/sessions/2026-07-01-generation-reliability-root-cause-audit|Generation reliability root-cause audit]].
 
 ## 2026-07-01 generation stability hotfix
 
@@ -54,6 +283,28 @@ Last updated: 2026-06-30
 - Local release commit `69751ed` (`Return generated image on validation warnings`) created. Branch is now ahead of GitHub by 2 commits because HTTPS GitHub credentials are still not configured locally.
 - Vercel Production deploy completed directly from the local workspace: deployment `dpl_6AUjKBkYidVUua2s6dPvRNcEmXAd`, READY, aliased to `https://methode.griffesvivienne.com`.
 - See session note: [[projects/AI-Powered Woven Label Generator/sessions/2026-07-01-generation-stability-hotfix|Generation stability hotfix]].
+
+## 2026-07-01 mobile generation payload hotfix
+
+- User reported desktop generation mostly works, but mobile Safari shows `Service temporarily unavailable` during generation.
+- Vercel logs did not expose request logs for the deployment/domain, so root cause was inferred from code path and mobile behavior: iPhone uploads can produce heavier image data and send a large original upload alongside the generation-ready logo image.
+- Implemented client-side mobile hardening in `client/src/domain/logoAssets.ts`: generation canvas max dimension reduced from `1280` to `960`, and `shouldSendOriginalLogoDataUrl` now excludes heavy original uploads above `750_000` chars from the generation request.
+- This keeps the actual generation input smaller and more predictable on mobile while preserving real provider/storage failure handling.
+- Verification: focused tests PASS (28), full `vitest run` PASS (41 files, 242 tests), `tsc --noEmit` PASS, Vite/esbuild production build PASS.
+- Local commit `883ca3c` (`Harden mobile logo generation payloads`) created. Branch is now ahead of GitHub by 3 commits because GitHub HTTPS credentials are still not configured locally.
+- Vercel Production deploy completed directly from the local workspace: deployment `dpl_iP1YJvhGLkZmQcs9eh3vvzKBUtVh`, READY, aliased to `https://methode.griffesvivienne.com`; live bundle is `assets/index-CRTJ2pq0.js`.
+- See session note: [[projects/AI-Powered Woven Label Generator/sessions/2026-07-01-mobile-generation-payload-hotfix|Mobile generation payload hotfix]].
+
+## 2026-07-01 mobile upload storage hotfix
+
+- User provided a mobile screen recording where the app showed the generic `Something went wrong` fallback immediately after pressing continue from the logo upload screen, before visible generation.
+- Root cause was inferred from the reproduced flow and code path: raster uploads were used as full original DataURLs for preview and then synchronously written to `localStorage` along with the original upload. Large iPhone image DataURLs can trigger `QuotaExceededError` on mobile Safari, causing the React fallback screen.
+- Implemented client hardening: Home upload now rasterizes all supported image previews through canvas with the existing `960px` max dimension, skips reading/passing oversized original uploads into generator state, and store localStorage reads/writes/removes are guarded.
+- Oversized originals are no longer persisted to `gv_original_logo_data_url`; the generation flow uses the lightweight preview instead, prioritizing successful customer progression over preserving large original context.
+- Verification: full `vitest run` PASS (41 files, 245 tests), `tsc --noEmit` PASS, Vite/esbuild production build PASS.
+- Local commit `cac32db` (`Prevent mobile logo upload storage crashes`) created. Branch is now ahead of GitHub by 4 commits because local GitHub HTTPS credentials are still not configured.
+- Vercel Production deploy completed directly from the local workspace: deployment `dpl_CWkgLwJ42GA34Mjq7cN4n5ir2shY`, READY, aliased to `https://methode.griffesvivienne.com`; live bundle is `assets/index-CLadMgTo.js`.
+- See session note: [[projects/AI-Powered Woven Label Generator/sessions/2026-07-01-mobile-upload-storage-hotfix|Mobile upload storage hotfix]].
 
 ## 2026-06-30 generation platform health audit
 

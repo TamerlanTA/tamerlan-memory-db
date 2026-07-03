@@ -153,3 +153,12 @@
 - Keep the existing Phase 3 portal/deal-room code, database schema, docs, and quality spec as future infrastructure unless the user explicitly asks to delete it.
 - Treat account/chat/deal-room as a required future SaaS maturity layer after first client/sales validation, not as abandoned work.
 - The future quality bar remains `/Users/tamerlan/Desktop/FlowOps/FlowOps Saas/docs/phase-3-account-chat-deal-room-quality-spec.md`.
+
+### D-019 — Bundle Discount Computed By Email Lookup, Not an Account System
+**Decision**: The Stack Bundle Discount (D-008: 2nd active pipeline = 10% off setup, 3rd+ = 15%) is computed server-side at order time in `POST /api/pipeline-order` by counting a client's prior distinct `pipeline_slug` values in `pipeline_orders` matched by `client_email` (case-insensitive), excluding cancelled orders and the pipeline being ordered. It does not depend on the deferred (D-018) client account/portal system.
+**Why**: Implementing this via email lookup against the existing unauthenticated order flow makes the loyalty pricing real now, without requiring the account system that D-018 explicitly deferred out of MVP. Email-based matching is an approximation (a client could use a different email per order) but is good enough for the current manual-follow-up sales model, where FlowOps staff can also apply/adjust the discount manually if the automatic match misses a known repeat client.
+**Impact**:
+- `pipeline_orders` has `original_setup_price`, `discount_percent`, `discount_reason` columns (migration `20260703091233_bundle_discount.sql`). `agreed_setup_price` is now the post-discount price; `original_setup_price` preserves the base catalog price.
+- Discount logic lives in `src/lib/loyalty.ts` (`bundleDiscountForPriorCount`, `getBundleDiscountForClient`, `applyDiscount`) so the tier numbers stay in one place if D-008 pricing changes.
+- If/when the account system (D-018) is reactivated, this same logic should key off `clients.id` instead of raw email for a more reliable match — revisit at that time.
+- Discount is only applied automatically up to the 15% (3rd+) tier; D-008's "5+ = custom package" remains a manual sales conversation, not automatic.

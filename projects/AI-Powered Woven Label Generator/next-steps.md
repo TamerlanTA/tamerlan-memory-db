@@ -19,15 +19,63 @@
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-payment-round-2-lifecycle-and-validation|Payment Round 2 lifecycle and validation]]
 - [[projects/AI-Powered Woven Label Generator/sessions/2026-06-03-launch-analytics-foundation|Launch analytics foundation]]
 
-Last updated: 2026-07-01
+Last updated: 2026-07-02
+
+## Generation input/output validation blocks (2026-07-02)
+
+1. ~~Blocks 1 (input), 2 (output), demo-stability recovery, semantic-gate diagnostics, and the 2026-07-02 gate-tuning commit are pushed and production deployed.~~ Latest deployment: `dpl_A7UutKtxygsPfRr9jx3x83mtmXzr`, READY, aliased to `https://methode.griffesvivienne.com`.
+2. Run live production smoke for the exact client complaints: photographed woven label / logo on neutral surface should pass input validation; `20x50` and other elongated formats should not ship as square outputs after recovery.
+3. Watch production `generationRuns` for `INPUT_IMAGE_NOT_LOGO`, `OUTPUT_IMAGE_REJECTED`, `FORMAT_MISMATCH`, and `recovered` frequency; tune classifier prompts or generation prompt if any category spikes.
+4. Optional follow-up: dedicated `generationRuns` column for semantic rejection reasonCodes if analytics need more than the normalized error code (output reasonCode currently lands in `validatorReason`).
+- See session notes: [[projects/AI-Powered Woven Label Generator/sessions/2026-07-02-block1-input-semantic-validation|Block 1 input semantic validation]] and [[projects/AI-Powered Woven Label Generator/sessions/2026-07-02-block2-output-semantic-validation|Block 2 output semantic validation]].
+- Review session note: [[projects/AI-Powered Woven Label Generator/sessions/2026-07-02-block1-review-and-block2-prompt|Block 1 review and Block 2 prompt]].
+
+## Immediate emergency control validation (2026-07-01)
+
+1. Log in as admin on production and confirm `/admin/stats` renders the Emergency Controls card.
+2. Temporarily toggle "Disable free guests" during a controlled test window, attempt one guest free generation, and confirm it stops before provider usage with the temporary-service-unavailable UX; then re-enable free guests.
+3. Configure `ABUSE_ALERT_EMAIL` or `EMERGENCY_ALERT_EMAIL` in Vercel Production if abuse alerts should go to a dedicated operations address instead of the current `RESEND_REPLY_TO_EMAIL` fallback.
+4. ~~Push local commit `42ec05e` plus prior local-only stabilization commits to GitHub once HTTPS credentials are available.~~ Resolved on 2026-07-02: branch push auth was fixed and `origin/milestone4-auth-completion` now includes the stabilization stack through `96674e6`.
+- See session note: [[projects/AI-Powered Woven Label Generator/sessions/2026-07-01-emergency-guest-abuse-controls|Emergency guest abuse controls]].
+
+## Immediate stabilization continuation (2026-07-01)
+
+1. Run the requested production smoke matrix on real devices/accounts: mobile Safari HD, mobile Safari Taffeta, desktop HD, paid final Taffeta.
+2. After each real generation, inspect Vercel logs and `/admin/stats` Recent Generation Diagnostics for `diagnosticStage`, `diagnosticAttempt`, `upstreamStatus`, `normalizedErrorCode`, `validatorReason`, `referenceCount`, `inputImageCount`, and `inputBytes`.
+3. Replace Clerk test keys with live keys in Vercel Production (`VITE_CLERK_PUBLISHABLE_KEY`, server `CLERK_SECRET_KEY` / publishable companion if used), redeploy, and confirm live bundle no longer contains `pk_test`.
+4. Decide whether to clear the stale `VITE_ANALYTICS_ENDPOINT=/analytics.local` env var from Vercel Production. The app now skips invalid Umami endpoints, but removing the env cleans the bundle/config.
+5. Configure Sentry/log drain access and record the project DSN/token or Vercel integration status; current local environment cannot enable it.
+6. ~~Push local commits through `cf2a318` to GitHub once local GitHub HTTPS credentials are configured.~~ Resolved on 2026-07-02; the branch is synced through `96674e6`.
+- See session note: [[projects/AI-Powered Woven Label Generator/sessions/2026-07-01-diagnostics-stale-runs-and-config-cleanup|Diagnostics, stale runs, and config cleanup]].
+
+## Immediate guest free-trial validation (2026-07-01)
+
+1. Smoke production from one real mobile device: complete one guest free generation, refresh, and confirm retrying does not grant another free generation for the same cookie/session.
+2. Cookie-reset/incognito bypass is open by product decision after `cf2a318`; do not treat it as fixed unless free generation moves behind account/email verification.
+3. Smoke a legitimate logged-in first free generation and a paid-credit generation to confirm authenticated entitlement paths still work.
+4. Push local commits `d25e7b1`, `69751ed`, `883ca3c`, `cac32db`, `16447cd`, `f930791`, and `cf2a318` to GitHub once local GitHub HTTPS credentials are configured.
+- See session note: [[projects/AI-Powered Woven Label Generator/sessions/2026-07-01-guest-free-trial-hardening|Guest free-trial hardening]].
+
+## Immediate reliability fixes from root-cause audit (2026-07-01)
+
+1. ~~Patch `server/nanoBananaService.ts` so validation retry failures salvage `lastImageBase64` and return the previously generated image with validator warning metadata instead of throwing a no-result error.~~ Done in `16447cd`, deployed as `dpl_64beaG6APr3XdPmTf44QB2RAt3UC`.
+2. ~~Reduce retry request complexity: cap material/style references to at most 3 overall, and use fewer references on retry, especially for Taffeta.~~ Done in `16447cd`: 3 references max, 1 reference on single-pass retry, 0 extra material references on HD Cotton motif retry.
+3. ~~Add a Taffeta-specific safety pass: prefer 2-3 curated references and avoid sending previous image + source logo + 5 material references together.~~ Done in `16447cd`: Taffeta dark/light variants now cap material references to 3, white still uses the dedicated white reference.
+4. Persist structured generation diagnostics: normalized error code, upstream status/code, model id, generation stage, attempt number, validator status/reason, reference count, input image count, and input byte sizes.
+5. Convert retryable provider failures into a clear structured client state (`TEMPORARY_UPSTREAM_UNAVAILABLE` / service unavailable), not a generic interrupted-generation screen.
+6. Add a cleanup/reaper path for stale `generationRuns.status = started` rows and log whether the request was aborted, timed out, or failed before finalization.
+7. After the reliability patch, run a production smoke matrix: mobile Safari guest HD, mobile Safari Taffeta, desktop control HD, paid final Taffeta, and retry/validator-warning log watch.
+8. Production cleanup after the stability patch: replace Clerk development keys with live keys, fix/remove `/analytics.local/umami`, set or disable `OAUTH_SERVER_URL`, and enable Sentry/log-drain access.
+- See audit note: [[projects/AI-Powered Woven Label Generator/sessions/2026-07-01-generation-reliability-root-cause-audit|Generation reliability root-cause audit]].
 
 ## Immediate generation stability follow-up (2026-07-01)
 
-1. Run a real production generation smoke after deployment `dpl_6AUjKBkYidVUua2s6dPvRNcEmXAd`: at minimum one guest preview and one authenticated/final generation if credentials are available.
+1. Run a real production generation smoke after deployment `dpl_CWkgLwJ42GA34Mjq7cN4n5ir2shY`: at minimum one mobile Safari guest upload/continue with the same phone logo from the screen recording, one full mobile generation, and one desktop control generation.
 2. Watch Vercel logs for `[NanoBanana] Returning generated image despite validation warning`; these should now end in successful customer results rather than final-step errors.
-3. Push local commits `d25e7b1` and `69751ed` to GitHub once local GitHub HTTPS credentials are configured.
+3. Push local commits `d25e7b1`, `69751ed`, `883ca3c`, and `cac32db` to GitHub once local GitHub HTTPS credentials are configured.
 4. Add persistent generation metadata for validator status/reason so admin can distinguish perfect `pass` results from best-effort results.
 5. Keep provider/storage failure behavior fail-closed: do not spend credit/free-trial when no image exists or result storage fails.
+6. If mobile still fails after the upload/storage hotfix, add browser-side telemetry around upload file size, preview DataURL length, storage persistence failures, and `label.generate` request shape; then consider a server-side mobile/photo preprocessor.
 
 ## Immediate generation recovery (2026-06-30)
 

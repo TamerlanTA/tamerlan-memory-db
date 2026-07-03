@@ -116,13 +116,15 @@ Completed foundation:
 22. All seeded discovery sources were activated on 2026-06-30. `worker-vacancy-discovery` now runs all connector ids (`successfactors-v1`, `workday-v1`, `marriott-careers-v1`, `accor-careers-v1`, `oracle-cx-v1`, `taleo-v1`, `ihg-careers-v1`, `generic-careers-v1`) and logs `checkedSourceCount=31`. Production totals after manual discovery are 533 vacancies, 388 active, 145 stale, and 399 distinct apply URLs.
 23. `/approved_vacancies` was added and deployed on 2026-06-30 to show approved vacancies per candidate and flag duplicate approved `vacancy_id` values across approved/partially approved batches.
 24. Phase 5 batch preparation timeout found in production logs was fixed and deployed on 2026-06-30: `persistPreparedBatch()` now persists only primary/reserve approvable scores, not every rejected vacancy score, so large active catalogs do not cause statement timeouts while creating a manager-facing batch.
+25. `/ops_status` was added and deployed on 2026-07-01 as the compact real-time operations command: sources, active/total vacancies, distinct active apply URLs, new/refreshed vacancies today, source runs, connector breakdown, and latest failed sources.
+26. 2026-07-01 shortage diagnosis confirmed that `0/10` candidate batches can be real under current hard filters: production had 386 active vacancies overall, but 0 active Qatar/Doha vacancies for `официант + Катар` and 0 active Gulf receptionist/front-office matches for `ресепшионист + ОАЭ/Катар/Бахрейн`.
 
 Next:
 1. Follow [[phase-6-execution-plan]] exactly. Batch 0 audit through Batch 8 QA/production readiness are locally complete.
 2. Phase 6 migrations `202606300001_phase6_applications.sql` and `202607010001_manual_actions_open_unique.sql` are applied to production; direct DB verification confirms tables, queues, queue depth 0, and 0 duplicate open manual-action groups.
 3. `bot-api` deployment `2e2d57e5-a522-42ab-9073-e99eb452904e` and `worker-applications` deployment `c501d034-40a9-4a50-b928-1bc50032e732` are live on Railway.
 4. Controlled production handoff on batch `7c580a24-8e0e-4b1a-b22a-0e0999e09869` created 4 application jobs/manual tasks; 2 stale vacancies were safely skipped; re-run created 0 duplicate apps.
-5. Manual Telegram acceptance remains: open `/manual_actions`, verify apply URL and signed CV link, resolve at least one task as applied, then verify `manual_confirmation` evidence and `/application_report` counts.
+5. Manual Telegram evidence acceptance is complete for manual deep-link mode: production has 8 `applied` applications and 8 `manual_confirmation` evidence rows. Continue using `/application_report` during pilot operations.
 6. Rotate the Railway token shared in chat after deploy verification.
 7. Before any production auto-submit, wire `email-apply-v1` to an explicitly configured email sender/source-level enable flag, verify duplicate prevention/rate limits, and record one controlled submission or approved dry-run evidence.
 7. Manually test `/approved_vacancies` in Telegram, then use its duplicate report before Phase 6 production handoff.
@@ -132,6 +134,26 @@ Next:
 11. Certify and harden the newly activated best-effort sources: replace fragile HTML parsing with dedicated APIs/parsers where available, especially Rixos/Accor 404, Jumeirah Oracle CX empty result, IHG network failures, and generic sources blocked by 403/410.
 12. Improve location extraction for best-effort generic vacancies so matching can safely use more of the newly ingested rows instead of relying only on title/apply URL.
 13. Rotate secrets exposed in operational logs/chats: at minimum Railway token and Telegram bot token; review OpenAI and Supabase service-role keys as well.
+14. Use `/ops_status` during daily operations before interpreting `0/10` batches; if totals are healthy but a candidate returns `0/10`, inspect the candidate's exact role+country intersection before relaxing filters.
+15. Expand or repair sources specifically for Qatar/Bahrain and front-office/waiter roles before expecting narrow candidates to consistently receive 5-10 eligible vacancies.
+16. Source expansion from 31 to 85 is production-deployed. Monitor `worker-vacancy-discovery` logs and `/ops_status`; the scheduler now reports `checkedSourceCount=85`.
+17. Re-run `/candidate_supply` and `/candidate_batch` in Telegram after the 85-source expansion:
+    - expected now: Юля Иванова Иванов 10 primary + 10 reserve;
+    - Жанибек Иванов 10 primary + 10 reserve;
+    - Тамерлан Тог 1 strict primary + 10 reserve after today's already-approved вакансии are excluded.
+18. Decide product policy for the daily minimum: count approved reserve items toward the 5/day target, or require 5 strict primary items. If strict primary is required for narrow Qatar-only waiter candidates, either widen target countries/roles or add more Qatar-specific source/API coverage.
+19. Clean up source health: replace or disable generic sources returning 403/404/410/empty results, and prefer dedicated API/connectors over generic HTML parsing.
+20. Add guardrails for query-level sources: review location inference and avoid over-trusting broad Workday/Marriott/Accor query labels when individual vacancy location conflicts with the query.
+21. Rotate the temporary Railway token shared in chat after deploy verification.
+22. Re-test `/candidate_batch` and `/application_handoff`; repeated identical messages should stop after the `update_id` dedupe/webhook-timeout fix.
+23. Start pilot operations for the first 2-3 real candidates: daily `/candidate_supply`, `/candidate_batch`, manager approval, `/application_handoff`, `/manual_actions`, `/application_report`.
+24. Next automation layer decision is recorded in [[decisions]] as D-018: build certification-gated `email-apply-v1`/adapter readiness first, with dry-run/feature-flag runtime support and adapter eligibility reporting; do not enable live sending until source-level enablement, sender configuration, rate limits, duplicate prevention, and controlled evidence review are complete.
+25. Before implementing live `email-apply-v1`, find or add real mailto/email-apply sources; production check on 2026-07-03 found 0 active `mailto:` vacancies and all 85 sources have `application_adapter = null`.
+26. Implementation order for the next layer:
+    - add worker execution mode for `email-apply-v1` dry-run and persist evidence without sending;
+    - add source/application adapter eligibility report for approved batches;
+    - add source-level config/import support for `application_adapter = email-apply-v1`;
+    - only then wire a real sender behind an explicit env flag and controlled source allowlist.
 
 ## P1 — Applications and reports
 1. Define the adapter SDK and fixture contract.

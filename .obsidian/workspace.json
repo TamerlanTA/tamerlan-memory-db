@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "projects/flowops-saas/roadmap.md",
+                "file": "projects/amigo-mvp/overview.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "roadmap"
+              "title": "overview"
             }
           },
           {
@@ -278,6 +278,7 @@
   },
   "active": "45cb06c97067572f",
   "lastOpenFiles": [
+    "projects/flowops-saas/roadmap.md",
     "projects/flowops-saas/sessions/2026-06-29-homepage-custom-workflow-section-refinement.md",
     "projects/amigo-mvp/sessions/2026-06-29-phase5-candidate-batch-callback-fix.md",
     "projects/flowops-saas/sessions/2026-06-29-trust-layer-implementation.md",
@@ -293,7 +294,6 @@
     "projects/amigo-mvp/sessions/2026-06-25-stale-button-debug-and-fix.md",
     "projects/amigo-mvp/sessions/2026-06-25-onboarding-checklist-fixes.md",
     "projects/amigo-mvp/sessions/2026-06-25-memory-sync.md",
-    "projects/flowops-saas/roadmap.md",
     "projects/flowops-saas/sessions/2026-06-25-bundle-stack-pages.md",
     "projects/flowops-saas/sessions/2026-06-24-internal-pipelines-catalog.md",
     "projects/flowops-saas/sessions/2026-06-23-pre-outreach-rate-limiting.md",

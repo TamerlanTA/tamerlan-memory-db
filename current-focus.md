@@ -50,7 +50,8 @@
 - Unified `/candidate_new` onboarding deployed in `8145245`: durable resume, experience/education/extras/photo/final review, optional WhatsApp, standalone enrichment commands preserved
 - Compact two-column CV header deployed in `63d9637`; production sample `689f61c4-ff82-426b-97fe-b44a7072939d` passed PDF/PNG verification
 - Phase 4/5 production state: 31 discovery sources active in scheduler, 533 total vacancies / 388 active after manual activation; `/candidate_batch` approved a strict 6/10 shortage batch; `/approved_vacancies` deployed for pre-Phase-6 duplicate audit
-- Phase 6 production safe slice: migrations `202606300001` and `202607010001` applied; direct DB verification confirms application tables, queues, unique open manual-action guard, and queue depth 0. `bot-api` deployment `2e2d57e5-a522-42ab-9073-e99eb452904e` and `worker-applications` deployment `c501d034-40a9-4a50-b928-1bc50032e732` are live. Controlled handoff created 4 applications/manual tasks for batch `7c580a24-8e0e-4b1a-b22a-0e0999e09869`, skipped 2 stale vacancies, and re-run created 0 duplicates.
+- Phase 6 production safe slice is accepted for manual deep-link mode: migrations `202606300001` and `202607010001` applied; application tables, queues, unique open manual-action guard, and queue depth verified. Production DB on 2026-07-02 shows 8 `applied` applications, 8 resolved manual actions with `resolution_note = applied`, and 8 `manual_confirmation` evidence rows. Two manual actions remain open for Тамерлан Тог.
+- Candidate supply expansion on 2026-07-02 is deployed: location backfill reduced active null-country vacancies from 275 to 224; `phase5-v2` tiered matching plus `/candidate_supply` gives production-like local supply of Юля 6 primary + 7 reserve and Жанибек 5 primary + 4 reserve. Full validation passed. `bot-api` and `worker-vacancy-discovery` are online after Railway deploy; `/health` OK, Telegram commands include `/candidate_supply`, webhook pending updates 0.
 
 **Текущая фаза**: Phase 6 — local readiness complete; next is explicit production migration/deploy/acceptance checkpoint.
 
@@ -59,9 +60,10 @@
 - Need managers to collect real CV enrichment data for pilot candidates; JPEG/PNG/WebP/HEIC/HEIF uploads are accepted, with HEIC/HEIF converted privately to JPEG before CV rendering
 - Need one full live Telegram acceptance pass of unified `/candidate_new`; one production session is safely waiting at `awaiting_form`
 - `/approved_vacancies` still needs manual Telegram verification before Phase 6 handoff
-- Phase 6 Telegram resolution acceptance is pending: open `/manual_actions`, resolve one task, verify evidence and `/application_report`
+- Phase 6 manual evidence acceptance is complete; next is pilot operating loop, source expansion, and certified email/adapter planning
 - Railway token shared in chat must be rotated
 - Need production/manual Telegram acceptance before any auto-submit path
+- Need Telegram manual verification of `/candidate_supply` and `/candidate_batch` after candidate supply expansion deploy
 - Нет production-enabled certified ATS/application adapter; `manual-deep-link-v1` never submits and `email-apply-v1` exists locally with dry-run default, but no real sender/source-level production enable is wired
 
 **ВАЖНО для деплоя**: Railway НЕ подключён к GitHub. После каждого push делать `railway up --service bot-api` из `/Users/tamerlan/Documents/amigo-mvp`
