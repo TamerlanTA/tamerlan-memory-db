@@ -288,7 +288,15 @@
   - production sample URLs show the highest-leverage hosted-form target is Four Seasons Workday on `*.myworkdayjobs.com`;
   - local code now includes `workday-form-v1` as a preflight-only adapter that classifies Workday HTML snapshots, stops on CAPTCHA/OTP/login/assessment/video/unknown required fields, hashes evidence, and never live-submits;
   - `/adapter_eligibility` now has a `preflight-capable` bucket for Workday URLs so managers can distinguish first automation targets from generic future adapter candidates;
-  - validation passed for `@amigo/application-adapters`, `@amigo/matching`, and `format:check`.
+  - validation passed for `@amigo/application-adapters`, `@amigo/matching`, `@amigo/bot-api`, and `format:check`;
+  - `bot-api` was deployed to Railway after token auth was provided; production `/health` returned `{"status":"ok","service":"bot-api","database":"ok"}`.
+- 2026-07-03 Workday preflight routing deployed:
+  - `application_handoff` now resolves new Workday/MyWorkdayJobs applications to `application_adapter = workday-form-v1`, `adapter_version = preflight-v1`; non-Workday applications remain `manual-deep-link-v1` by default;
+  - `worker-applications` now executes `workday_preflight`, captures Workday HTML snapshot evidence through a runtime provider, runs `workday-form-v1`, records preflight evidence, and still routes every outcome to manual action instead of submitting;
+  - snapshot capture failures route to manual action instead of causing repeated queue retries;
+  - deployed `bot-api` and `worker-applications`; production `/health` is OK and `worker-applications` logs show a fresh `Application worker started`;
+  - production queues are empty and existing historical applications remain `manual-deep-link-v1` (`10 applied`, `11 skipped`); no historical application rows were rewritten;
+  - production `/adapter_eligibility` data for 2026-07-03 now reports `Approved items: 20`, `Preflight-capable: 10`, `Future adapter candidates: 10`, `Email-capable: 0`, `Manual-only: 0`.
 
 ## What is complete (Phase 6 Batch 0-4 local — as of 2026-06-30)
 - Phase 6 Batch 0 audit completed against the local repo and [[phase-6-execution-plan]]:

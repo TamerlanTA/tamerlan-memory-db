@@ -156,19 +156,24 @@ Next:
     - it stops on CAPTCHA/OTP/login/account creation/assessment/video/unknown required fields;
     - it hashes preflight evidence and never live-submits;
     - `/adapter_eligibility` now reports Workday approved items as `preflight-capable`.
-28. Next safe automation step: add a browser preflight worker for Workday/Four Seasons:
-    - open the approved apply URL in a controlled browser session;
-    - capture sanitized HTML snapshot/screenshot evidence;
-    - run `workday-form-v1` classification;
-    - store evidence and route each application to `ready_for_autofill` or manual `NeedsAction`;
-    - keep submit disabled.
-29. After browser preflight is accepted, add Workday dry-run autofill for one allowlisted Four Seasons source:
+28. Workday preflight routing is deployed in `bot-api` and `worker-applications`:
+    - new Workday applications created by `/application_handoff` use `workday-form-v1` / `preflight-v1`;
+    - worker captures HTML snapshot evidence through the runtime provider, runs adapter preflight, records evidence, and still routes to manual action;
+    - production `/adapter_eligibility` for 2026-07-03 reports `10` preflight-capable Workday approved items.
+29. Next safe automation step: run one real Workday handoff acceptance:
+    - approve a fresh Workday batch item or use the next daily approved Workday batch;
+    - run `/application_handoff`;
+    - verify `applications.application_adapter = workday-form-v1`;
+    - verify `application_evidence` has `html_snapshot` and `confirmation_text_hash` rows;
+    - verify `/manual_actions` remains understandable and one-task-at-a-time.
+30. After preflight handoff acceptance, replace the initial fetch snapshot provider with a real controlled browser/Playwright snapshot provider when Workday's client-rendered form requires it.
+31. After browser preflight is accepted, add Workday dry-run autofill for one allowlisted Four Seasons source:
     - fill only mapped/stored candidate fields;
     - upload the approved CV;
     - pause before submit;
     - capture evidence for manager review.
-30. Only after one controlled manager-reviewed Workday dry-run and one controlled live submission, consider live Workday submit behind source allowlist, per-domain daily caps, duplicate checks, and explicit runtime flag.
-31. Parallel safe automation step: source-quality/adapter targeting pass for email-capable sources:
+32. Only after one controlled manager-reviewed Workday dry-run and one controlled live submission, consider live Workday submit behind source allowlist, per-domain daily caps, duplicate checks, and explicit runtime flag.
+33. Parallel safe automation step: source-quality/adapter targeting pass for email-capable sources:
     - find real hospitality sources with `mailto:` or explicit email-apply instructions;
     - mark only those sources with `application_adapter = email-apply-v1`;
     - run one dry-run handoff and verify `confirmation_text_hash` evidence plus manual action;

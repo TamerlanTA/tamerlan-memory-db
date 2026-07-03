@@ -149,12 +149,12 @@ Deferred by user on 2026-06-21: return after the next product work block. Do not
   - [ ] update pricing/stack references after card-level price decisions — PENDING: do after pricing review;
   - [x] Before/After examples completed for all 25 pipeline detail pages — 2 slug mismatches fixed, 17 new entries added — July 2, 2026.
   - [x] `/pricing` FAQ section + bottom CTA + bundle grid fix — written July 2, committed `ba2e6ac` July 3, 2026 (not yet deployed)
-  - [ ] QA `/os`, `/os/[slug]`, `/pricing`, and `/stacks` — do after deploy.
+  - [x] QA `/os`, `/os/[slug]`, `/pricing`, and `/stacks` — done July 3, 2026, see below.
 - [x] Homepage CompareApproachesSection — "Why FlowOps" 3-column comparison (DIY tools / agency / FlowOps) addressing the "why not Zapier/an agency?" objection; FlowOps card highlighted with CTA to audit — July 1, 2026 (commit 9b7ba12).
 - [x] Commit HeroIllustrationMobile.tsx (was untracked; page.tsx imported it; would have broken Vercel build) — July 1, 2026 (commit 9b7ba12).
 - [x] Deploy to Vercel: `vercel deploy --prod` from project root — `dpl_HdSh2VFzbURmifLZ9KyHLhDF1HA7`, aliased to flowops.agency — July 2, 2026. All 7 pending commits now live.
 - [x] Deploy commit `ba2e6ac` (pricing FAQ/CTA + site-wide card polish + hydration fix) to Vercel: `vercel deploy --prod` — `dpl_DFfYu4FMe4sKJTccEw2J1Chh2Fnc`, aliased to `https://flowops.agency` — July 3, 2026. User explicitly said "deploy" after the report; smoke curl confirmed `/`, `/os`, `/pricing`, `/stacks`, `/os/missed-call-recovery`, `/stacks/sales-stack` all return 200.
-- [ ] QA /os, /os/[slug], /pricing, /stacks desktop+mobile visually after deploy (spot-check new watermark/border polish on real deployment — only HTTP-status smoke done so far, not visual).
+- [x] QA /os, /os/[slug], /pricing, /stacks desktop+mobile visually — done July 3, 2026 via preview tools against local dev (== production code at the time, commit `30e8d26`); see entry below for the gap found and fixed.
 - [ ] Promote rate-limited preview to production if ready to update `flowops-saas.vercel.app`.
 - [x] SEO metadata: per-page OG + Twitter + title/description for all public pages; `generateMetadata` on pipeline/stack detail pages; `sitemap.ts` + `robots.ts` — June 30, 2026.
 - [x] Create OG image (`src/app/opengraph-image.tsx`, 1200×630) — dynamic branded card via ImageResponse, deployed June 30, 2026.
@@ -164,6 +164,9 @@ Deferred by user on 2026-06-21: return after the next product work block. Do not
 - [ ] Future only: revisit Phase 3 client accounts + deal-room after first client/sales validation. Do not resume as MVP work without explicit user reprioritization.
 - [x] Stack Bundle Discount logic (D-008: 2nd active pipeline = 10% off setup, 3rd+ = 15%) — implemented and committed `30e8d26`, July 3, 2026. `src/lib/loyalty.ts` looks up prior distinct pipelines by client email at order time (server-side, Supabase admin client); `POST /api/pipeline-order` applies the discount and stores `original_setup_price`/`discount_percent`/`discount_reason` on the order; surfaced in `OrderRequestForm` success state, order confirmation email, Telegram notification, and `/internal/orders/[id]`. Migration `20260703091233_bundle_discount.sql` applied to remote Supabase (fmpvyuowglvyrrqecmrn). Verified end-to-end against real Supabase via 3 QA test orders (0%/10%/15% tiers all correct), then QA rows deleted.
 - [x] Deploy commit `30e8d26` to Vercel production — user said "deploy"; `vercel deploy --prod` — `dpl_J49enzwnhJgcmpT7mR3NsBPmhf1X`, aliased to `https://flowops.agency` — July 3, 2026. Smoke curl confirmed `/`, `/os`, `/pricing`, `/stacks`, `/os/missed-call-recovery`, `/stacks/sales-stack` all return 200.
+- [x] QA `/os`, `/os/[slug]`, `/pricing`, `/stacks` desktop+mobile visually — done via preview tools July 3, 2026; found and fixed a real gap: `CardWatermark` motif was missing from `PipelineCard`/`ComingSoonPipelineCard` and `/os/[slug]` payback/after-FlowOps panels despite being marked done in memory. Extracted shared `src/components/CardWatermark.tsx`, wired it into both, validated lint+build+browser. Not yet committed. See [[sessions/2026-07-03-card-watermark-rollout-fix]].
+- [x] Commit the CardWatermark rollout fix (`src/components/CardWatermark.tsx`, `src/components/PipelineCard.tsx`, `src/app/os/[slug]/page.tsx`, `src/app/page.tsx`) — committed `a4d4163`, July 3, 2026. Re-verified lint+build clean before commit. Not yet deployed — deploy is a production-affecting action, deferred for explicit user confirmation.
+- [ ] Deploy commit `a4d4163` to Vercel production (`vercel deploy --prod`) once user confirms.
 
 ---
 
