@@ -27,6 +27,7 @@
 | Telegram bot token and other secrets appeared in operational logs/chats before full sanitization/rotation | Medium | Critical | `bot-api` deployment `c3aa43ac-8526-4fe6-a856-9f1d3a867661` adds sanitized process-level error logging; rotate the Telegram bot token through BotFather, rotate the shared Railway token, review OpenAI/Supabase keys, update Railway variables, and refresh the webhook |
 | Duplicate or excessive applications damage candidate reputation | Medium | High | Idempotency keys, employer/domain limits, prior-application checks, daily caps |
 | Phase 6 drifts into unsafe universal auto-apply | Medium | High | [[phase-6-execution-plan]] is now canonical; start with manual deep-link tasks and allow auto-submit only for certified narrow adapters |
+| Workday preflight is mistaken for live-submit readiness | Medium | High | `workday-form-v1` is explicitly preflight-only; `/adapter_eligibility` uses `preflight-capable`, and live submit remains blocked until browser autofill, upload, evidence, rate limits, source allowlist, and controlled submission are certified |
 | Career sites block shared datacenter IPs | Medium | High | Slow domain-specific rates, stable sessions, optional compliant proxy budget, manual fallback |
 | Candidate personal data is exposed | Low | Critical | Private storage, RLS, least privilege, encrypted secrets, signed URLs, audit log, retention deletion |
 | Waitlist activates before operations are stable | High | High | Ten-candidate controlled pilot, launch gates, connector error thresholds, staged 10→20→30 activation |

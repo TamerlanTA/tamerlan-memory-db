@@ -16,7 +16,7 @@
 - Planning window: 2026-06-12 to 2026-07-05
 - Launch target: controlled pilot for 10 candidates
 - Post-launch target: 30 active candidates
-- Current phase: Phase 6 safe production slice accepted for manual deep-link mode. DB migrations are applied, `bot-api` and `worker-applications` are deployed, controlled handoff/manual-action UX works, and production verification on 2026-07-02 confirms `applied` manual resolutions with `manual_confirmation` evidence. Remaining Phase 6 work is pilot operations, reporting polish, source expansion, secret rotation, and certified auto-submit/email planning.
+- Current phase: Phase 6 safe production slice accepted for manual deep-link mode. DB migrations are applied, `bot-api` and `worker-applications` are deployed, controlled handoff/manual-action UX works, and production verification on 2026-07-02 confirms `applied` manual resolutions with `manual_confirmation` evidence. Source expansion reached 85 sources, `email-apply-v1` dry-run support and `/adapter_eligibility` are deployed, and the first hosted-form automation target is Workday/Four Seasons preflight certification. Remaining Phase 6 work is pilot operations, browser preflight/autofill, reporting polish, secret rotation, and controlled adapter certification.
 - Working mode: two-person execution — Tamerlan owns business decisions, access, credentials, and approvals; Codex owns technical implementation, validation, and memory synchronization.
 
 ## What is complete
@@ -276,6 +276,19 @@
   - active country coverage now includes UNKNOWN 461, AE 316, QA 233, SA 128, BH 53, KW 36; active target-role snapshots include QA F&B-like 97 / front-like 53, AE F&B-like 117 / front-like 75, BH F&B-like 14 / front-like 11;
   - candidate supply on current production catalog: Юля Иванова Иванов prepares 10 primary + 10 reserve; Жанибек Иванов prepares 10 primary + 10 reserve; Тамерлан Тог, after already-approved vacancies are excluded, prepares 1 strict primary + 10 reserve for Qatar-only waiter;
   - caveat: generic sources still have many expected 403/404/410/empty failures, and query sources can over-broaden location signals; keep using `/candidate_supply` and manager review rather than blindly treating all query-source rows as perfect matches.
+- 2026-07-03 next automation layer implementation:
+  - implemented certification-gated `email-apply-v1` dry-run support in `worker-applications`;
+  - `email-apply-v1` now builds adapter context, prepares dry-run evidence, stores `confirmation_text_hash` evidence, and routes the application to manual action instead of marking it `applied`;
+  - live email sending remains disabled; non-certified or unsupported adapters still route to manual actions;
+  - added `/adapter_eligibility` Telegram command and matching report to classify approved batch items as `email-capable`, `future adapter candidates`, or `manual-only`;
+  - source-level `application_adapter` import support already exists; production check on 2026-07-03 still has 0 active `mailto:` vacancies and all 85 sources have `application_adapter = null`;
+  - deployed `bot-api` and `worker-applications`; `bot-api` `/health` is OK, Telegram commands include `/adapter_eligibility`, `worker-applications` started fresh at `2026-07-03T10:23:14Z`, and PGMQ application/report queues are empty.
+- 2026-07-03 Workday hosted-form automation foundation:
+  - research into auto-apply products confirmed the right architecture is staged automation: broad discovery/matching, profile-backed autofill, evidence/tracking, and manual fallback for blockers;
+  - production sample URLs show the highest-leverage hosted-form target is Four Seasons Workday on `*.myworkdayjobs.com`;
+  - local code now includes `workday-form-v1` as a preflight-only adapter that classifies Workday HTML snapshots, stops on CAPTCHA/OTP/login/assessment/video/unknown required fields, hashes evidence, and never live-submits;
+  - `/adapter_eligibility` now has a `preflight-capable` bucket for Workday URLs so managers can distinguish first automation targets from generic future adapter candidates;
+  - validation passed for `@amigo/application-adapters`, `@amigo/matching`, and `format:check`.
 
 ## What is complete (Phase 6 Batch 0-4 local — as of 2026-06-30)
 - Phase 6 Batch 0 audit completed against the local repo and [[phase-6-execution-plan]]:

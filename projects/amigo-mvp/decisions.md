@@ -71,3 +71,12 @@ After manual deep-link evidence acceptance and 85-source expansion, the next aut
 - keep all non-certified ATS/form URLs routed to manual actions.
 
 Production check on 2026-07-03 found `0` active `mailto:` vacancies and all `85` career sources have `application_adapter = null`, so live email sending would not improve current volume yet. Source quality hardening continues in parallel, but the next application automation implementation should create the safe routing/certification foundation before any real sending.
+
+### D-019 — Workday is the first hosted-form automation target
+Research into auto-apply products and current AMIGO production supply confirms the next high-leverage automation target is Workday/Four Seasons, not universal auto-submit. Current approved/future-adapter batches contain many `*.myworkdayjobs.com` URLs, while email-capable sources are still absent.
+
+Implementation policy:
+- build an automation ladder: preflight snapshot -> dry-run autofill -> controlled live submit;
+- keep Workday `submit()` blocked until browser autofill, upload, evidence, rate limits, source allowlist, and one manager-reviewed live submission are certified;
+- classify Workday approved items as `preflight-capable`, not live-submit capable;
+- route CAPTCHA, OTP, login/account creation, assessments, video interviews, and unknown required fields to manual action / NeedsAction.
