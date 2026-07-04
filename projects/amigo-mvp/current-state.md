@@ -297,6 +297,13 @@
   - deployed `bot-api` and `worker-applications`; production `/health` is OK and `worker-applications` logs show a fresh `Application worker started`;
   - production queues are empty and existing historical applications remain `manual-deep-link-v1` (`10 applied`, `11 skipped`); no historical application rows were rewritten;
   - production `/adapter_eligibility` data for 2026-07-03 now reports `Approved items: 20`, `Preflight-capable: 10`, `Future adapter candidates: 10`, `Email-capable: 0`, `Manual-only: 0`.
+- 2026-07-04 Workday handoff acceptance:
+  - Tamerlan ran `/application_handoff` for Жанибек Иванов 2026-07-03; production created 20 application jobs and 20 manual tasks with 0 skipped;
+  - DB verification shows 10 `workday-form-v1` / `preflight-v1` applications and 10 `manual-deep-link-v1` applications, all in `manual_action_required`;
+  - Workday evidence exists for all 10 Workday applications: 10 `html_snapshot` rows and 10 `confirmation_text_hash` rows;
+  - application queues are empty: `application_submit = 0`, `application_manual_action = 0`;
+  - one initial Workday attempt hit a manual-action return race even though the manual action existed; code was fixed to reread existing open manual actions on conflict, redeployed to `worker-applications`, and the affected attempt was recovered to `manual_action_required`;
+  - Workday missing-snapshot preflight now records `confirmation_text_hash` evidence as well as snapshot evidence for future runs.
 
 ## What is complete (Phase 6 Batch 0-4 local — as of 2026-06-30)
 - Phase 6 Batch 0 audit completed against the local repo and [[phase-6-execution-plan]]:
